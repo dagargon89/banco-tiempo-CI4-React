@@ -1,0 +1,20 @@
+{
+    "name": "planjuarez/banco-de-tiempo-api",
+    "description": "Banco de Tiempo · API REST (CodeIgniter 4.7). Participa Juárez.",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.3",
+        "codeigniter4/framework": "^4.7",
+        "kreait/firebase-php": "^7.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "phpunit/phpunit": "^11.0",
+        "phpstan/phpstan": "^2.0"
+    },
+    "autoload": { "psr-4": { "App\\": "app/", "Config\\": "app/Config/" } },
+    "autoload-dev": { "psr-4": { "Tests\\": "tests/" } },
+    "scripts": { "test": "phpunit", "analyze": "phpstan analyse" },
+    "config": { "optimize-autoloader": true, "sort-packages": true }
+}

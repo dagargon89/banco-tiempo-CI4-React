@@ -1,0 +1,25 @@
+# Dependencias
+/apps/api/vendor/
+/apps/web/node_modules/
+/node_modules/
+
+# Entornos y secretos (NUNCA versionar — doc 04)
+.env
+.env.*
+!.env.example
+*-firebase-admin*.json
+*serviceAccount*.json
+
+# Builds
+/apps/web/dist/
+/apps/api/writable/cache/*
+/apps/api/writable/logs/*
+/apps/api/writable/session/*
+/apps/api/writable/debugbar/*
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

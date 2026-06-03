@@ -1,0 +1,25 @@
+# Infra de desarrollo local — Banco de Tiempo.
+# Solo MySQL y Redis: la API (PHP) y la SPA (Node) corren en el host con spark/vite.
+# Producción usa el VPS de Plan Juárez (ver doc 02 §7); esto NO es config de producción.
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: banco_de_tiempo
+      MYSQL_USER: bt_app
+      MYSQL_PASSWORD: bt_app_local
+      MYSQL_ROOT_PASSWORD: root_local
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - bt_mysql:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "127.0.0.1:6379:6379"
+
+volumes:
+  bt_mysql:
