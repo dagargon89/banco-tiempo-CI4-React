@@ -1,0 +1,31 @@
+# Banco de Tiempo — reglas de exclusión (raíz del monorepo).
+# Secretos y dependencias NUNCA se versionan (CLAUDE.md regla #3, doc 04).
+
+# Dependencias
+/apps/api/vendor/
+/apps/web/node_modules/
+/node_modules/
+
+# Entornos y secretos
+.env
+.env.*
+!.env.example
+!env.example
+*-firebase-admin*.json
+*firebase-adminsdk*.json
+*serviceAccount*.json
+
+# Builds y artefactos
+/apps/web/dist/
+/apps/api/writable/cache/*
+/apps/api/writable/logs/*
+/apps/api/writable/session/*
+/apps/api/writable/debugbar/*
+/apps/api/writable/uploads/*
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
