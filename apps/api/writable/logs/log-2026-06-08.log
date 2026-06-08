@@ -1,0 +1,30 @@
+ERROR - 2026-06-08 19:07:43 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 19:07:43 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 19:07:43 --> Table 'banco_de_tiempo.db_users' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SHOW COLUMNS FROM `db_users`', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SHOW COLUMNS FROM `db_users`')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SHOW COLUMNS FROM `db_users`')
+ 4 SYSTEMPATH/Database/BaseConnection.php(1787): CodeIgniter\Database\BaseConnection->query('SHOW COLUMNS FROM `db_users`')
+ 5 ROOTPATH/tests/Feature/AuthSyncTest.php(77): CodeIgniter\Database\BaseConnection->getFieldNames('users')
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\AuthSyncTest->testSchemaNoTienePasswordHash()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\AuthSyncTest))
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+15 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+16 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-08 19:08:00 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 19:08:00 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+

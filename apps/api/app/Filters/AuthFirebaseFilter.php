@@ -29,8 +29,11 @@ final class AuthFirebaseFilter implements FilterInterface
         }
         $idToken = trim(substr($header, 7));
 
+        // $arguments[0] === 'strict' activa checkRevoked para endpoints sensibles
+        $checkRevoked = ($arguments[0] ?? '') === 'strict';
+
         try {
-            $usuario = service('firebaseAuth')->verificarYResolver($idToken);
+            $usuario = service('firebaseAuth')->verificarYResolver($idToken, $checkRevoked);
         } catch (\Throwable $e) {
             log_message('error', 'Auth filter: ' . get_class($e) . ' — ' . $e->getMessage());
             return $this->deny('Token de acceso inválido o expirado.');

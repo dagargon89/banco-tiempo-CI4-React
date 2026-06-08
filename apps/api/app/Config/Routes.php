@@ -60,7 +60,7 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
     });
 
     // Administración (RBAC)
-    $routes->group('admin', ['filter' => ['auth-firebase', 'rbac:moderador']], static function (RouteCollection $routes): void {
+    $routes->group('admin', ['filter' => ['auth-firebase:strict', 'rbac:moderador']], static function (RouteCollection $routes): void {
         $routes->get('usuarios', 'Admin\Usuarios::index');
         $routes->patch('usuarios/(:num)/estado', 'Admin\Usuarios::cambiarEstado/$1');
         $routes->get('verificaciones', 'Admin\Verificaciones::index');
