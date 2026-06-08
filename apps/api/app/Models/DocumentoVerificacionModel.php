@@ -13,7 +13,7 @@ final class DocumentoVerificacionModel extends Model
     protected $returnType    = 'array';
     protected $useTimestamps = true;
 
-    protected $allowedFields = ['user_id', 'ruta_cifrada', 'tipo_documento'];
+    protected $allowedFields = ['user_id', 'ruta_cifrada', 'tipo_documento', 'content_type'];
 
     /** Documentos de un usuario específico. */
     public function porUsuario(int $userId): array

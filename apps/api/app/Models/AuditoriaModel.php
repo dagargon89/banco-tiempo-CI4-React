@@ -12,6 +12,7 @@ final class AuditoriaModel extends Model
     protected $primaryKey    = 'id';
     protected $returnType    = 'array';
     protected $useTimestamps = true;
+    protected $updatedField  = '';
 
     protected $allowedFields = ['actor_id', 'accion', 'entidad_tipo', 'entidad_id', 'metadata', 'ip'];
 

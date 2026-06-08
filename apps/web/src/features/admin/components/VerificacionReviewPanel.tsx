@@ -32,6 +32,7 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
   const [showReject, setShowReject] = useState(false);
   const [viewingDoc, setViewingDoc] = useState<number | null>(null);
   const [docUrl, setDocUrl] = useState<string | null>(null);
+  const [docContentType, setDocContentType] = useState<string>('');
   const [docError, setDocError] = useState('');
   const [loadingDoc, setLoadingDoc] = useState<number | null>(null);
 
@@ -39,8 +40,9 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
     setLoadingDoc(docId);
     setDocError('');
     try {
-      const { data } = await api.get<{ data: { url: string } }>(`/admin/verificaciones/${docId}/documento`);
+      const { data } = await api.get<{ data: { url: string; content_type: string } }>(`/admin/verificaciones/${docId}/documento`);
       setDocUrl(data.data.url);
+      setDocContentType(data.data.content_type ?? '');
       setViewingDoc(docId);
     } catch (err: any) {
       const msg = err?.response?.data?.message ?? 'Error al obtener el documento. Verifica la configuración de Firebase Storage.';
@@ -52,8 +54,11 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
 
   const handleCerrarVisor = () => {
     setDocUrl(null);
+    setDocContentType('');
     setViewingDoc(null);
   };
+
+  const isPdf = docContentType === 'application/pdf';
 
   const handleAprobar = () => {
     resolver.mutate({ userId, accion: 'aprobar' });
@@ -144,30 +149,20 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
                     </button>
                   </div>
                 </div>
-                <div className="flex justify-center rounded-md bg-black/5 p-2">
-                  <img
-                    src={docUrl}
-                    alt={`Documento ${doc.tipo_documento}`}
-                    className="max-h-[500px] rounded object-contain"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      target.style.display = 'none';
-                      const fallback = target.nextElementSibling;
-                      if (fallback) (fallback as HTMLElement).style.display = 'flex';
-                    }}
-                  />
-                  <div className="hidden flex-col items-center gap-2 py-8 text-text-3" style={{ display: 'none' }}>
-                    <FileText className="h-10 w-10" />
-                    <p className="text-sm">No se puede previsualizar este documento.</p>
-                    <a
-                      href={docUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-accent hover:underline"
-                    >
-                      Descargar documento
-                    </a>
-                  </div>
+                <div className="rounded-md bg-black/5 p-2">
+                  {isPdf ? (
+                    <iframe
+                      src={docUrl}
+                      title={`Documento ${doc.tipo_documento}`}
+                      className="h-[600px] w-full rounded border-0"
+                    />
+                  ) : (
+                    <img
+                      src={docUrl}
+                      alt={`Documento ${doc.tipo_documento}`}
+                      className="mx-auto max-h-[600px] rounded object-contain"
+                    />
+                  )}
                 </div>
               </div>
             )}

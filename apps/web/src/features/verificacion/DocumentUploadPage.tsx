@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { FileText, Upload, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { useSubirDocumento } from './hooks/useVerificacion';
-import { encryptDocument } from '@/lib/encryption';
 import { useAuthStore } from '@/stores/authStore';
 import type { TipoDocumento } from '@/lib/types';
 
@@ -47,11 +46,7 @@ export default function DocumentUploadPage() {
     setError('');
 
     try {
-      const arrayBuffer = await file.arrayBuffer();
-      const encryptionKey = crypto.randomUUID();
-      const encrypted = await encryptDocument(arrayBuffer, encryptionKey);
-      const blob = new Blob([encrypted], { type: 'application/octet-stream' });
-      await subirDocumento.mutateAsync({ archivo: blob, tipo_documento: tipoDoc, content_type: file.type, size: file.size });
+      await subirDocumento.mutateAsync({ archivo: file, tipo_documento: tipoDoc, content_type: file.type, size: file.size });
       await refreshUser();
       setStep('exito');
     } catch (err: any) {

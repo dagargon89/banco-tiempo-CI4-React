@@ -65,9 +65,14 @@ final class VerificacionService
             throw new \InvalidArgumentException('Tipo de documento inválido.');
         }
 
+        // Determinar extensión y mime para almacenamiento
+        $extMap = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'application/pdf' => 'pdf'];
+        $ext = $extMap[$contentType] ?? 'bin';
+        $uploadMime = in_array($contentType, self::ALLOWED_TYPES, true) ? $contentType : 'application/octet-stream';
+
         // Generar ruta con firebase_uid
         $randomHex = bin2hex(random_bytes(16));
-        $ruta = "privado/identidad/{$firebaseUid}/{$randomHex}.enc";
+        $ruta = "privado/identidad/{$firebaseUid}/{$randomHex}.{$ext}";
 
         // Subir a Firebase Storage vía Admin SDK (ignora security rules)
         $fileContent = file_get_contents($tmpFilePath);
@@ -77,7 +82,7 @@ final class VerificacionService
 
         /** @var FirebaseStorageService $storage */
         $storage = service('firebaseStorage');
-        $storage->upload($ruta, $fileContent, 'application/octet-stream');
+        $storage->upload($ruta, $fileContent, $uploadMime);
 
         // Registrar en BD (transacción)
         $db = \Config\Database::connect();
@@ -87,6 +92,7 @@ final class VerificacionService
             'user_id'        => $userId,
             'ruta_cifrada'   => $ruta,
             'tipo_documento' => $tipoDocumento,
+            'content_type'   => $contentType,
         ]);
         $docId = (int) $this->documentos->getInsertID();
 
@@ -151,8 +157,9 @@ final class VerificacionService
         );
 
         return [
-            'url'        => $url,
-            'expires_in' => 300,
+            'url'          => $url,
+            'content_type' => $doc['content_type'] ?? 'application/octet-stream',
+            'expires_in'   => 300,
         ];
     }
 

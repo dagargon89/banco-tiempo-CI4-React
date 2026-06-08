@@ -6,13 +6,13 @@ export function useSubirDocumento() {
 
   return useMutation({
     mutationFn: async (params: {
-      archivo: Blob;
+      archivo: File;
       tipo_documento: string;
       content_type: string;
       size: number;
     }) => {
       const formData = new FormData();
-      formData.append('archivo', params.archivo, 'documento.enc');
+      formData.append('archivo', params.archivo, params.archivo.name);
       formData.append('tipo_documento', params.tipo_documento);
       formData.append('content_type', params.content_type);
       formData.append('size', String(params.size));
