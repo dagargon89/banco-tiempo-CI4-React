@@ -26,6 +26,7 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
         $routes->get('me', 'Me::show');
         $routes->patch('me', 'Me::update');
         $routes->post('me/foto', 'Me::uploadFoto');
+        $routes->get('me/ofertas', 'Me::ofertas');
         $routes->get('usuarios/(:num)', 'Usuarios::show/$1');
 
         // Verificación de identidad (archivo cifrado sube vía API → Admin SDK)

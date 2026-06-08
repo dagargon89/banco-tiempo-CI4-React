@@ -44,5 +44,44 @@ export interface OfertaCard {
   oferente_calif: number | null;
 }
 
+export type EstadoOferta = 'borrador' | 'activa' | 'pausada' | 'eliminada';
+export type TipoCapacidad = 'individual' | 'grupal';
+
+export interface Categoria {
+  id: number;
+  nombre: string;
+  slug: string;
+  activa: number | boolean;
+}
+
+export interface OfertaImagen {
+  id: number;
+  ruta: string;
+  orden: number;
+}
+
+export interface OfertaDetalle extends OfertaCard {
+  descripcion_completa: string | null;
+  tipo_capacidad: TipoCapacidad | null;
+  capacidad_maxima: number | null;
+  disponibilidad: string | null;
+  estado: EstadoOferta;
+  user_id: number;
+  imagenes: OfertaImagen[];
+  created_at: string;
+}
+
+export interface OfertaFormData {
+  titulo: string;
+  categoria_id: number;
+  descripcion_breve: string;
+  descripcion_completa?: string;
+  modalidad: Modalidad;
+  zona?: string;
+  tipo_capacidad?: TipoCapacidad;
+  capacidad_maxima?: number;
+  disponibilidad?: string[];
+}
+
 export interface ApiList<T> { data: T[]; meta: { total: number; page: number; per_page: number }; }
 export interface ApiItem<T> { data: T; }

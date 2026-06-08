@@ -103,4 +103,13 @@ final class Me extends Controller
 
         return $this->show();
     }
+
+    /** GET /me/ofertas — Ofertas del usuario autenticado. */
+    public function ofertas(): ResponseInterface
+    {
+        $userId  = (int) $this->request->getHeaderLine('X-Auth-UserId');
+        $ofertas = model(\App\Models\OfertaModel::class)->porUsuario($userId);
+
+        return $this->ok($ofertas);
+    }
 }

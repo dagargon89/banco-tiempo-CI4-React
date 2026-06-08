@@ -70,3 +70,240 @@ ERROR - 2026-06-08 21:46:04 --> Auth filter: Kreait\Firebase\Exception\Auth\Fail
 ERROR - 2026-06-08 21:46:04 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
 - The token is invalidThe JWT string must have two dots
 
+ERROR - 2026-06-08 22:17:45 --> Table 'banco_de_tiempo.db_categorias' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT *
+FROM `db_categorias`
+WHERE `activa` = 1
+ORDER BY `nombre`', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `db_categorias`
+WHERE `activa` = 1
+ORDER BY `nombre`')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `db_categorias`
+WHERE `activa` = 1
+ORDER BY `nombre`')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `db_categorias`
+WHERE `activa` = :activa:
+ORDER BY `nombre`', [...], false)
+ 5 SYSTEMPATH/Model.php(255): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH/Models/CategoriaModel.php(22): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH/Controllers/Api/V1/Categorias.php(19): App\Models\CategoriaModel->activas()
+ 9 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Categorias->index()
+10 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Categorias))
+11 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+13 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasTest->call('GET', 'api/v1/categorias', null)
+14 ROOTPATH/tests/Feature/OfertasTest.php(41): Tests\Feature\OfertasTest->get('api/v1/categorias')
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasTest->testCategoriasDevuelve200()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasTest))
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+20 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+22 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+23 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-08 22:17:45 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasTest->call('GET', 'api/v1/ofertas', null)
+13 ROOTPATH/tests/Feature/OfertasTest.php(47): Tests\Feature\OfertasTest->get('api/v1/ofertas')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasTest->testExplorarOfertasDevuelve200ConMetaPaginacion()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+21 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+22 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-08 22:17:45 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 50)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 50)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasTest->call('GET', 'api/v1/ofertas?per_page=100', null)
+13 ROOTPATH/tests/Feature/OfertasTest.php(60): Tests\Feature\OfertasTest->get('api/v1/ofertas?per_page=100')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasTest->testExplorarOfertasPerPageMaximo50()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+21 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+22 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-08 22:17:45 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND `o`.`categoria_id` = :o.categoria_id:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasTest->call('GET', 'api/v1/ofertas?categoria_id=1', null)
+13 ROOTPATH/tests/Feature/OfertasTest.php(69): Tests\Feature\OfertasTest->get('api/v1/ofertas?categoria_id=1')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasTest->testExplorarConFiltroCategoria()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+21 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+22 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-08 22:17:45 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'virtual\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'virtual\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'virtual\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND `o`.`modalidad` = :o.modalidad:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasTest->call('GET', 'api/v1/ofertas?modalidad=virtual', null)
+13 ROOTPATH/tests/Feature/OfertasTest.php(75): Tests\Feature\OfertasTest->get('api/v1/ofertas?modalidad=virtual')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasTest->testExplorarConFiltroModalidad()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+21 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+22 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-08 22:17:45 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `db_ofertas`.*, `u`.`id` AS `oferente_id`, `u`.`nombre` AS `oferente_nombre`, `u`.`foto_perfil` AS `oferente_foto`
+FROM `db_ofertas`
+JOIN `db_users` `u` ON `u`.`id` = `db_ofertas`.`user_id`
+WHERE `db_ofertas`.`id` = 99999
+ LIMIT 1', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `db_ofertas`.*, `u`.`id` AS `oferente_id`, `u`.`nombre` AS `oferente_nombre`, `u`.`foto_perfil` AS `oferente_foto`
+FROM `db_ofertas`
+JOIN `db_users` `u` ON `u`.`id` = `db_ofertas`.`user_id`
+WHERE `db_ofertas`.`id` = 99999
+ LIMIT 1')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `db_ofertas`.*, `u`.`id` AS `oferente_id`, `u`.`nombre` AS `oferente_nombre`, `u`.`foto_perfil` AS `oferente_foto`
+FROM `db_ofertas`
+JOIN `db_users` `u` ON `u`.`id` = `db_ofertas`.`user_id`
+WHERE `db_ofertas`.`id` = 99999
+ LIMIT 1')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `db_ofertas`.*, `u`.`id` AS `oferente_id`, `u`.`nombre` AS `oferente_nombre`, `u`.`foto_perfil` AS `oferente_foto`
+FROM `db_ofertas`
+JOIN `db_users` `u` ON `u`.`id` = `db_ofertas`.`user_id`
+WHERE `db_ofertas`.`id` = :ofertas.id:
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH/Model.php(297): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 7 APPPATH/Models/OfertaModel.php(43): CodeIgniter\BaseModel->first()
+ 8 APPPATH/Services/OfertaService.php(138): App\Models\OfertaModel->conOferente(99999)
+ 9 APPPATH/Controllers/Api/V1/Ofertas.php(48): App\Services\OfertaService->obtener(99999)
+10 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->show(99999)
+11 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+12 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+13 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+14 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasTest->call('GET', 'api/v1/ofertas/99999', null)
+15 ROOTPATH/tests/Feature/OfertasTest.php(81): Tests\Feature\OfertasTest->get('api/v1/ofertas/99999')
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasTest->testOfertaNoExisteDevuelve404()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasTest))
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-08 22:18:08 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 22:18:08 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
