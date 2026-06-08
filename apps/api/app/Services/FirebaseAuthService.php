@@ -44,14 +44,28 @@ final class FirebaseAuthService
 
         $uid   = (string) $claims['uid'];
         $email = (string) ($claims['email'] ?? '');
-        $nombre = (string) ($claims['name'] ?? ($email !== '' ? explode('@', $email)[0] : 'Usuario'));
+        $name = trim((string) ($claims['name'] ?? ''));
+        $nombre = $name !== '' ? $name : ($email !== '' ? explode('@', $email)[0] : 'Usuario');
         $emailVerificado = (bool) ($claims['email_verified'] ?? false);
 
         $user = $this->users->porFirebaseUid($uid);
+
+        if ($user === null && $email !== '') {
+            // Deduplicado por correo: si ya existe con otro proveedor, vincular el UID (ADR-008)
+            $existing = $this->users->porEmail($email);
+            if ($existing !== null) {
+                $this->users->protect(false)
+                    ->update($existing['id'], ['firebase_uid' => $uid]);
+                $this->users->protect(true);
+                $user = $this->users->find($existing['id']);
+            }
+        }
+
         if ($user === null) {
             $id = $this->users->aprovisionar($uid, $nombre, $email, $emailVerificado);
             $user = $this->users->find($id);
         }
+
         if ($user === null) {
             return null;
         }

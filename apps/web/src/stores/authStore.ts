@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   type User as FirebaseUser,
 } from 'firebase/auth';
-import { auth, googleProvider, facebookProvider, microsoftProvider } from '@/lib/firebase';
+import { auth, googleProvider } from '@/lib/firebase';
 import { api } from '@/lib/api';
 import type { AuthUser } from '@/lib/types';
 
@@ -18,12 +18,9 @@ interface AuthState {
   error: string | null;
   initialized: boolean;
 
-  // Acciones
   loginEmail: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, nombre: string) => Promise<void>;
   loginGoogle: () => Promise<void>;
-  loginFacebook: () => Promise<void>;
-  loginMicrosoft: () => Promise<void>;
   logout: () => Promise<void>;
   syncWithBackend: () => Promise<void>;
   clearError: () => void;
@@ -40,11 +37,22 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   init: () => {
     const unsubscribe = onAuthStateChanged(auth, async (fbUser) => {
       if (fbUser) {
-        set({ firebaseUser: fbUser });
+        set({ firebaseUser: fbUser, loading: true });
         try {
           await get().syncWithBackend();
-        } catch {
-          set({ user: null, loading: false, initialized: true });
+        } catch (err: any) {
+          const detail = err?.response?.status
+            ? `Error ${err.response.status}: ${JSON.stringify(err.response.data)}`
+            : err?.message ?? 'Sin conexión';
+          console.error('syncWithBackend failed:', detail);
+          await signOut(auth).catch(() => {});
+          set({
+            user: null,
+            firebaseUser: null,
+            loading: false,
+            initialized: true,
+            error: `No se pudo conectar con el servidor (${detail})`,
+          });
         }
       } else {
         set({ user: null, firebaseUser: null, loading: false, initialized: true });
@@ -54,19 +62,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   syncWithBackend: async () => {
-    try {
-      const { data } = await api.post<{ data: AuthUser }>('/auth/sync');
-      set({ user: data.data, loading: false, error: null, initialized: true });
-    } catch {
-      set({ user: null, loading: false, initialized: true });
-      throw new Error('Error al sincronizar con el servidor.');
-    }
+    const { data } = await api.post<{ data: AuthUser }>('/auth/sync');
+    set({ user: data.data, loading: false, error: null, initialized: true });
   },
 
   loginEmail: async (email, password) => {
     set({ loading: true, error: null });
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      // onAuthStateChanged se encarga del sync
     } catch (e: any) {
       set({ loading: false, error: firebaseErrorMsg(e.code) });
     }
@@ -76,6 +80,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ loading: true, error: null });
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      // onAuthStateChanged se encarga del sync
     } catch (e: any) {
       set({ loading: false, error: firebaseErrorMsg(e.code) });
     }
@@ -85,24 +90,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ loading: true, error: null });
     try {
       await signInWithPopup(auth, googleProvider);
-    } catch (e: any) {
-      set({ loading: false, error: firebaseErrorMsg(e.code) });
-    }
-  },
-
-  loginFacebook: async () => {
-    set({ loading: true, error: null });
-    try {
-      await signInWithPopup(auth, facebookProvider);
-    } catch (e: any) {
-      set({ loading: false, error: firebaseErrorMsg(e.code) });
-    }
-  },
-
-  loginMicrosoft: async () => {
-    set({ loading: true, error: null });
-    try {
-      await signInWithPopup(auth, microsoftProvider);
+      // onAuthStateChanged se encarga del sync
     } catch (e: any) {
       set({ loading: false, error: firebaseErrorMsg(e.code) });
     }

@@ -31,7 +31,8 @@ final class AuthFirebaseFilter implements FilterInterface
 
         try {
             $usuario = service('firebaseAuth')->verificarYResolver($idToken);
-        } catch (\Throwable) {
+        } catch (\Throwable $e) {
+            log_message('error', 'Auth filter: ' . get_class($e) . ' — ' . $e->getMessage());
             return $this->deny('Token de acceso inválido o expirado.');
         }
 
