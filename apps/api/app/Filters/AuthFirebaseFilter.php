@@ -15,6 +15,9 @@ use CodeIgniter\HTTP\ResponseInterface;
  * (firma RS256, exp, aud=projectId, iss), resuelve el firebase_uid al
  * usuario local de MySQL (aprovisionamiento JIT) y deja en el request
  * userId, roles y verif para autorización aguas abajo. Deniega por defecto.
+ *
+ * Los datos del usuario se pasan a los controllers vía headers internos
+ * X-Auth-* para evitar dynamic properties (deprecadas en PHP 8.5).
  */
 final class AuthFirebaseFilter implements FilterInterface
 {
@@ -27,7 +30,6 @@ final class AuthFirebaseFilter implements FilterInterface
         $idToken = trim(substr($header, 7));
 
         try {
-            // FirebaseAuthService encapsula verifyIdToken + mapeo a usuario local.
             $usuario = service('firebaseAuth')->verificarYResolver($idToken);
         } catch (\Throwable) {
             return $this->deny('Token de acceso inválido o expirado.');
@@ -41,9 +43,9 @@ final class AuthFirebaseFilter implements FilterInterface
                 ->setJSON(['message' => 'Cuenta no activa.']);
         }
 
-        $request->userId = (int) $usuario['id'];
-        $request->roles  = $usuario['roles'] ?? [];
-        $request->verif  = (string) ($usuario['estado_verificacion'] ?? 'no_verificado');
+        $request->setHeader('X-Auth-UserId', (string) (int) $usuario['id']);
+        $request->setHeader('X-Auth-Roles', implode(',', $usuario['roles'] ?? []));
+        $request->setHeader('X-Auth-Verif', (string) ($usuario['estado_verificacion'] ?? 'no_verificado'));
 
         return $request;
     }

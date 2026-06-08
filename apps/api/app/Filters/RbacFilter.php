@@ -28,8 +28,9 @@ final class RbacFilter implements FilterInterface
                 ->setJSON(['message' => 'Filtro RBAC mal configurado.']);
         }
 
+        $roles = array_filter(explode(',', $request->getHeaderLine('X-Auth-Roles')));
         $granted = [];
-        foreach (($request->roles ?? []) as $role) {
+        foreach ($roles as $role) {
             $granted = array_merge($granted, self::HIERARCHY[$role] ?? []);
         }
         if (! in_array($required, $granted, true)) {

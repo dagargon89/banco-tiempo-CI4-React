@@ -21,7 +21,7 @@ final class Auth extends Controller
 
     public function sync(): ResponseInterface
     {
-        $userId = (int) $this->request->userId;
+        $userId = (int) $this->request->getHeaderLine('X-Auth-UserId');
         $users  = model(\App\Models\UserModel::class);
         $u      = $users->find($userId);
 
@@ -29,13 +29,15 @@ final class Auth extends Controller
             return $this->forbidden('Cuenta no disponible.');
         }
 
+        $roles = array_filter(explode(',', $this->request->getHeaderLine('X-Auth-Roles')));
+
         return $this->ok([
             'id'                  => (int) $u['id'],
             'nombre'              => $u['nombre'],
             'email'               => $u['email'],
             'email_verificado'    => $u['email_verified_at'] !== null,
             'estado_verificacion' => $u['estado_verificacion'],
-            'roles'               => $this->request->roles ?? [],
+            'roles'               => $roles,
         ]);
     }
 }

@@ -26,8 +26,8 @@ final class ThrottleFilter implements FilterInterface
     {
         $bucket = $arguments[0] ?? 'api';
         [$cap, $win] = self::BUCKETS[$bucket] ?? self::BUCKETS['api'];
-        $identity = $request->userId ?? $request->getIPAddress();
-        $key = 'throttle:' . $bucket . ':' . hash('sha256', (string) $identity);
+        $identity = $request->getHeaderLine('X-Auth-UserId') ?: $request->getIPAddress();
+        $key = 'throttle_' . $bucket . '_' . hash('sha256', (string) $identity);
 
         $throttler = service('throttler');
         if (! $throttler->check($key, $cap, $win)) {
