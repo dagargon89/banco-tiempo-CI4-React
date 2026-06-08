@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\UserModel;
+use Kreait\Firebase\Contract\Auth as FirebaseAuth;
+use Kreait\Firebase\Factory;
 
 /**
  * Verificación del Firebase ID token + aprovisionamiento del usuario local (ADR-008).
@@ -13,15 +15,22 @@ use App\Models\UserModel;
  * (firma RS256 con claves públicas de Google, exp, aud=projectId, iss). Con el
  * firebase_uid resuelve el usuario local; si no existe, lo crea (Just-In-Time)
  * tomando nombre/email del token. CI4 no emite ni almacena tokens de sesión.
- *
- * NOTA: la inicialización del SDK (Factory con FIREBASE_CREDENTIALS) se completa
- * en Sprint 1. Aquí queda el contrato y el mapeo a MySQL.
  */
 final class FirebaseAuthService
 {
+    private FirebaseAuth $firebaseAuth;
+
     public function __construct(
         private readonly UserModel $users = new UserModel(),
     ) {
+        $credentials = env('FIREBASE_CREDENTIALS', '');
+        if ($credentials === '' || ! file_exists($credentials)) {
+            throw new \RuntimeException('FIREBASE_CREDENTIALS no configurado o archivo inexistente.');
+        }
+
+        $this->firebaseAuth = (new Factory())
+            ->withServiceAccount($credentials)
+            ->createAuth();
     }
 
     /**
@@ -54,21 +63,27 @@ final class FirebaseAuthService
     /**
      * Verifica el ID token con el Admin SDK y devuelve sus claims.
      *
-     * @return array{uid:string, email?:string, email_verified?:bool, name?:string, firebase?:array}
+     * @return array{uid:string, email?:string, email_verified?:bool, name?:string}
      */
     public function verifyIdToken(string $idToken, bool $checkRevoked = false): array
     {
-        // Implementación con kreait/firebase-php (Sprint 1):
-        //   $auth = (new Factory)->withServiceAccount(env('FIREBASE_CREDENTIALS'))->createAuth();
-        //   $verified = $auth->verifyIdToken($idToken, $checkRevoked);
-        //   return ['uid' => $verified->claims()->get('sub'), 'email' => ..., ...];
-        // Hasta entonces, este método debe lanzar para no autorizar por accidente.
-        throw new \RuntimeException('FirebaseAuthService::verifyIdToken pendiente de implementar (Sprint 1).');
+        $verifiedToken = $checkRevoked
+            ? $this->firebaseAuth->verifyIdToken($idToken, true)
+            : $this->firebaseAuth->verifyIdToken($idToken);
+
+        $claims = $verifiedToken->claims();
+
+        return [
+            'uid'            => $claims->get('sub'),
+            'email'          => $claims->get('email'),
+            'email_verified' => $claims->get('email_verified', false),
+            'name'           => $claims->get('name', ''),
+        ];
     }
 
     /** Fuerza cierre de sesión global (p. ej. al suspender una cuenta). */
     public function revocarSesiones(string $firebaseUid): void
     {
-        // $auth->revokeRefreshTokens($firebaseUid);  // Admin SDK (Sprint 1)
+        $this->firebaseAuth->revokeRefreshTokens($firebaseUid);
     }
 }

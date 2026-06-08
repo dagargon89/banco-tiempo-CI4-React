@@ -1,0 +1,31 @@
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuthStore } from '@/stores/authStore';
+
+interface Props {
+  requiredRoles?: string[];
+}
+
+export default function ProtectedRoute({ requiredRoles }: Props) {
+  const { user, loading, initialized } = useAuthStore();
+
+  if (!initialized || loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (requiredRoles && requiredRoles.length > 0) {
+    const hasRole = requiredRoles.some((r) => user.roles.includes(r));
+    if (!hasRole) {
+      return <Navigate to="/" replace />;
+    }
+  }
+
+  return <Outlet />;
+}
