@@ -27,8 +27,7 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
         $routes->patch('me', 'Me::update');
         $routes->get('usuarios/(:num)', 'Usuarios::show/$1');
 
-        // Verificación de identidad (subida directa a Storage, ADR-007)
-        $routes->post('verificacion/upload-token', 'Verificacion::uploadToken');
+        // Verificación de identidad (archivo cifrado sube vía API → Admin SDK)
         $routes->post('verificacion/documentos', 'Verificacion::registrar');
         $routes->get('verificacion/estado', 'Verificacion::estado');
 

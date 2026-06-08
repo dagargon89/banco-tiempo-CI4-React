@@ -48,6 +48,7 @@ final class AuthFirebaseFilter implements FilterInterface
         }
 
         $request->setHeader('X-Auth-UserId', (string) (int) $usuario['id']);
+        $request->setHeader('X-Auth-FirebaseUid', (string) ($usuario['firebase_uid'] ?? ''));
         $request->setHeader('X-Auth-Roles', implode(',', $usuario['roles'] ?? []));
         $request->setHeader('X-Auth-Verif', (string) ($usuario['estado_verificacion'] ?? 'no_verificado'));
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Config;
 
 use App\Services\FirebaseAuthService;
+use App\Services\FirebaseStorageService;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -19,5 +20,13 @@ class Services extends BaseService
             return static::getSharedInstance('firebaseAuth');
         }
         return new FirebaseAuthService();
+    }
+
+    public static function firebaseStorage(bool $getShared = true): FirebaseStorageService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('firebaseStorage');
+        }
+        return new FirebaseStorageService();
     }
 }

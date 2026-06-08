@@ -10,7 +10,10 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  if (user) return <Navigate to="/" replace />;
+  if (user) {
+    const dest = user.estado_verificacion === 'verificado' ? '/' : '/perfil';
+    return <Navigate to={dest} replace />;
+  }
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

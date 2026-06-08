@@ -3,13 +3,32 @@ export type EstadoVerificacion = 'no_verificado' | 'pendiente' | 'verificado' | 
 export type Modalidad = 'presencial' | 'virtual';
 export type EstadoVinculacion = 'solicitada' | 'aceptada' | 'rechazada' | 'completada' | 'cancelada';
 
+export type TipoDocumento = 'ine' | 'pasaporte' | 'licencia' | 'otro';
+
 export interface AuthUser {
   id: number;
   nombre: string;
   email: string;
+  bio?: string;
+  foto_perfil?: string | null;
+  zona?: string | null;
   email_verificado: boolean;
   estado_verificacion: EstadoVerificacion;
+  estado_cuenta?: string;
   roles: string[];
+  created_at?: string;
+}
+
+export interface VerificacionPendiente {
+  id: number;
+  user_id: number;
+  ruta_cifrada: string;
+  tipo_documento: TipoDocumento;
+  estado: string;
+  nombre: string;
+  email: string;
+  foto_perfil: string | null;
+  created_at: string;
 }
 
 export interface OfertaCard {

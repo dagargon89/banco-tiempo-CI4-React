@@ -9,6 +9,12 @@ namespace App\Services\Policies;
  */
 final class DocumentoPolicyService extends BasePolicyService
 {
+    /** Verifica si el usuario puede iniciar verificación según su estado actual. */
+    public function puedeIniciarVerificacion(string $estadoVerificacion): bool
+    {
+        return in_array($estadoVerificacion, ['no_verificado', 'rechazado'], true);
+    }
+
     /** Solo el dueño puede subir documentos de verificación. */
     public function puedeSubir(int $userId, int $documentoUserId): bool
     {

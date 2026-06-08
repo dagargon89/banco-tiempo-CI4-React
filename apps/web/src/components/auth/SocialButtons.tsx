@@ -1,7 +1,7 @@
 import { useAuthStore } from '@/stores/authStore';
 
 export default function SocialButtons() {
-  const { loginGoogle, loginFacebook, loginMicrosoft, loading } = useAuthStore();
+  const { loginGoogle, loading } = useAuthStore();
 
   const btnClass =
     'flex w-full items-center justify-center gap-3 rounded-sm border border-border bg-surface px-4 py-2.5 text-sm font-medium text-text-1 transition-colors duration-150 hover:bg-surface-2 disabled:opacity-50';

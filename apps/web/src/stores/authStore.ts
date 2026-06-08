@@ -23,6 +23,7 @@ interface AuthState {
   loginGoogle: () => Promise<void>;
   logout: () => Promise<void>;
   syncWithBackend: () => Promise<void>;
+  refreshUser: () => Promise<void>;
   clearError: () => void;
   init: () => () => void;
 }
@@ -64,6 +65,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   syncWithBackend: async () => {
     const { data } = await api.post<{ data: AuthUser }>('/auth/sync');
     set({ user: data.data, loading: false, error: null, initialized: true });
+  },
+
+  refreshUser: async () => {
+    try {
+      const { data } = await api.get<{ data: AuthUser }>('/me');
+      set({ user: data.data });
+    } catch {
+      // silently fail — user data remains stale until next sync
+    }
   },
 
   loginEmail: async (email, password) => {

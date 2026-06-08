@@ -28,3 +28,27 @@ ERROR - 2026-06-08 19:08:00 --> Auth filter: Kreait\Firebase\Exception\Auth\Fail
 ERROR - 2026-06-08 19:08:00 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
 - The token is invalidThe JWT string must have two dots
 
+ERROR - 2026-06-08 21:10:39 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 21:10:39 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 21:20:37 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 21:20:37 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 21:28:47 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 21:28:47 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 21:29:01 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-08 21:29:01 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+

@@ -33,6 +33,7 @@ final class Me extends Controller
             'email'               => $u['email'],
             'bio'                 => $u['bio'] ?? '',
             'foto_perfil'         => $u['foto_perfil'] ?? null,
+            'zona'                => $u['zona'] ?? null,
             'email_verificado'    => $u['email_verified_at'] !== null,
             'estado_verificacion' => $u['estado_verificacion'],
             'estado_cuenta'       => $u['estado_cuenta'],
@@ -47,7 +48,7 @@ final class Me extends Controller
         $users  = model(\App\Models\UserModel::class);
 
         $data = $this->request->getJSON(true) ?? [];
-        $allowed = array_intersect_key($data, array_flip(['nombre', 'bio', 'foto_perfil']));
+        $allowed = array_intersect_key($data, array_flip(['nombre', 'bio', 'foto_perfil', 'zona']));
 
         if ($allowed === []) {
             return $this->fail('No hay campos válidos para actualizar.');

@@ -13,7 +13,10 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [localError, setLocalError] = useState('');
 
-  if (user) return <Navigate to="/" replace />;
+  if (user) {
+    const dest = user.estado_verificacion === 'verificado' ? '/' : '/perfil';
+    return <Navigate to={dest} replace />;
+  }
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

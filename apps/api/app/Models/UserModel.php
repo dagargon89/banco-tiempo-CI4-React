@@ -18,11 +18,12 @@ final class UserModel extends Model
     protected $useSoftDeletes   = true;
     protected $useTimestamps    = true;
 
-    protected $allowedFields = ['nombre', 'bio', 'foto_perfil'];
+    protected $allowedFields = ['nombre', 'bio', 'foto_perfil', 'zona'];
 
     protected $validationRules = [
         'nombre' => 'required|string|max_length[120]',
         'bio'    => 'permit_empty|string|max_length[500]',
+        'zona'   => 'permit_empty|string|max_length[120]',
     ];
 
     public function porFirebaseUid(string $uid): ?array
@@ -52,6 +53,14 @@ final class UserModel extends Model
         $id = (int) $this->getInsertID();
         $this->protect(true);
         return $id;
+    }
+
+    /** Actualiza el estado_verificacion de un usuario (campo protegido). */
+    public function actualizarEstadoVerificacion(int $userId, string $estado): bool
+    {
+        $this->protect(false)->update($userId, ['estado_verificacion' => $estado]);
+        $this->protect(true);
+        return true;
     }
 
     /** @return list<string> roles administrativos del usuario */

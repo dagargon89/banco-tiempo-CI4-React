@@ -8,6 +8,7 @@ use App\Filters\AuthFirebaseFilter;
 use App\Filters\CorsFilter;
 use App\Filters\RbacFilter;
 use App\Filters\ThrottleFilter;
+use App\Filters\VerificacionFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\SecureHeaders;
 
@@ -19,6 +20,7 @@ class Filters extends BaseConfig
         'rbac'          => RbacFilter::class,
         'throttle'      => ThrottleFilter::class,
         'cors'          => CorsFilter::class,
+        'verificacion'  => VerificacionFilter::class,
         'secureheaders' => SecureHeaders::class,
     ];
 
