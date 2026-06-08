@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
-import Navbar from '@/components/layout/Navbar';
 import FiltrosBar from './components/FiltrosBar';
 import OfertaCardComponent from './components/OfertaCardComponent';
 import Paginacion from './components/Paginacion';
 import EmptyState from '@/components/ui/EmptyState';
 import { useExplorarOfertas } from './hooks/useOfertas';
+import { useCategorias } from './hooks/useCategorias';
 
 export default function ExplorarPage() {
   const [categoriaId, setCategoriaId] = useState<number | null>(null);
@@ -12,6 +12,8 @@ export default function ExplorarPage() {
   const [zona, setZona] = useState('');
   const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
+
+  const { data: categorias } = useCategorias();
 
   const filtros = useMemo(
     () => ({
@@ -39,49 +41,46 @@ export default function ExplorarPage() {
   };
 
   return (
-    <div className="min-h-screen bg-bg">
-      <Navbar />
-      <main className="mx-auto max-w-5xl px-4 py-6">
-        <h1 className="mb-4 font-display text-xl font-bold text-text-1">Explorar ofertas</h1>
+    <>
+      <FiltrosBar
+        categoriaId={categoriaId}
+        modalidad={modalidad}
+        zona={zona}
+        q={q}
+        onChange={handleFiltroChange}
+      />
 
-        <FiltrosBar
-          categoriaId={categoriaId}
-          modalidad={modalidad}
-          zona={zona}
-          q={q}
-          onChange={handleFiltroChange}
-        />
+      {isLoading ? (
+        <div className="mt-12 flex justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+        </div>
+      ) : ofertas.length === 0 ? (
+        <div className="mt-8">
+          <EmptyState
+            title="No se encontraron ofertas"
+            subtitle="Intenta ajustar los filtros o busca algo diferente."
+          />
+        </div>
+      ) : (
+        <>
+          <p className="mt-4 text-sm text-text-3">{meta.total} resultados</p>
 
-        {isLoading ? (
-          <div className="mt-12 flex justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {ofertas.map((oferta) => (
+              <OfertaCardComponent key={oferta.id} oferta={oferta} categorias={categorias} />
+            ))}
           </div>
-        ) : ofertas.length === 0 ? (
-          <div className="mt-12">
-            <EmptyState
-              title="No se encontraron ofertas"
-              subtitle="Intenta ajustar los filtros o busca algo diferente."
+
+          <div className="mt-6">
+            <Paginacion
+              page={meta.page}
+              total={meta.total}
+              perPage={meta.per_page}
+              onChange={setPage}
             />
           </div>
-        ) : (
-          <>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {ofertas.map((oferta) => (
-                <OfertaCardComponent key={oferta.id} oferta={oferta} />
-              ))}
-            </div>
-
-            <div className="mt-6">
-              <Paginacion
-                page={meta.page}
-                total={meta.total}
-                perPage={meta.per_page}
-                onChange={setPage}
-              />
-            </div>
-          </>
-        )}
-      </main>
-    </div>
+        </>
+      )}
+    </>
   );
 }

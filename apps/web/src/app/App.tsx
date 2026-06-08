@@ -29,14 +29,14 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<RegisterPage />} />
 
-      {/* Rutas autenticadas */}
+      {/* Todas las rutas autenticadas usan AppLayout via ProtectedRoute */}
       <Route element={<ProtectedRoute />}>
         <Route path="/perfil" element={<ProfilePage />} />
         <Route path="/perfil/editar" element={<ProfileEditPage />} />
         <Route path="/verificacion" element={<DocumentUploadPage />} />
         <Route path="/ofertas/:id" element={<OfertaDetallePage />} />
 
-        {/* Rutas que requieren verificación */}
+        {/* Rutas que requieren verificacion */}
         <Route element={<VerifiedRoute />}>
           <Route path="/" element={<ExplorarPage />} />
           <Route path="/ofertas/nueva" element={<CrearOfertaPage />} />
@@ -44,8 +44,8 @@ export default function App() {
           <Route path="/mis-ofertas" element={<MisOfertasPage />} />
         </Route>
 
-        {/* Rutas admin */}
-        <Route element={<ProtectedRoute requiredRoles={['moderador', 'super_admin']} />}>
+        {/* Rutas admin (RBAC se checa en ProtectedRoute anidado sin layout propio) */}
+        <Route element={<ProtectedRoute requiredRoles={['moderador', 'super_admin']} noLayout />}>
           <Route path="/admin/verificaciones" element={<AdminVerificacionesPage />} />
           <Route path="/admin/ofertas" element={<AdminOfertasPage />} />
         </Route>

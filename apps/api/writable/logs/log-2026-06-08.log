@@ -307,3 +307,22 @@ ERROR - 2026-06-08 22:18:08 --> Auth filter: Kreait\Firebase\Exception\Auth\Fail
 ERROR - 2026-06-08 22:18:08 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
 - The token is invalidThe JWT string must have two dots
 
+ERROR - 2026-06-08 22:30:33 --> Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `auditoria` (`actor_id`, `accion`, `entidad_tipo`, `entidad_id`, `metadata`, `ip`, `created_at`, `updated_at`) VALUES (1, \'ver_documento_verificacion\', \'documentos_verificacion\', 1, \'{\\"user_id\\":\\"1\\"}\', \'127.0.0.1\', \'2026-06-08 22:30:33\', \'2026-06-08 22:30:33\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `auditoria` (`actor_id`, `accion`, `entidad_tipo`, `entidad_id`, `metadata`, `ip`, `created_at`, `updated_at`) VALUES (1, \'ver_documento_verificacion\', \'documentos_verificacion\', 1, \'{\\"user_id\\":\\"1\\"}\', \'127.0.0.1\', \'2026-06-08 22:30:33\', \'2026-06-08 22:30:33\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `auditoria` (`actor_id`, `accion`, `entidad_tipo`, `entidad_id`, `metadata`, `ip`, `created_at`, `updated_at`) VALUES (1, \'ver_documento_verificacion\', \'documentos_verificacion\', 1, \'{\\"user_id\\":\\"1\\"}\', \'127.0.0.1\', \'2026-06-08 22:30:33\', \'2026-06-08 22:30:33\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `auditoria` (`actor_id`, `accion`, `entidad_tipo`, `entidad_id`, `metadata`, `ip`, `created_at`, `updated_at`) VALUES (:actor_id:, :accion:, :entidad_tipo:, :entidad_id:, :metadata:, :ip:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH/Model.php(357): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH/Model.php(670): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH/Models/AuditoriaModel.php(27): CodeIgniter\Model->insert([...])
+ 9 APPPATH/Services/VerificacionService.php(144): App\Models\AuditoriaModel->registrar(1, 'ver_documento_verificacion', 'documentos_verificacion', 1, [...], '127.0.0.1')
+10 APPPATH/Controllers/Api/V1/Admin/Verificaciones.php(41): App\Services\VerificacionService->obtenerUrlDocumento(1, 1, [...], '127.0.0.1')
+11 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Verificaciones->documento(1)
+12 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Verificaciones))
+13 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+14 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+16 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+17 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')

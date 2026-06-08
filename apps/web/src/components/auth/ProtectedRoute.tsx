@@ -1,11 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
+import AppLayout from '@/components/layout/AppLayout';
 
 interface Props {
   requiredRoles?: string[];
+  noLayout?: boolean;
 }
 
-export default function ProtectedRoute({ requiredRoles }: Props) {
+export default function ProtectedRoute({ requiredRoles, noLayout }: Props) {
   const { user, loading, initialized } = useAuthStore();
 
   if (!initialized || loading) {
@@ -27,5 +29,7 @@ export default function ProtectedRoute({ requiredRoles }: Props) {
     }
   }
 
-  return <Outlet />;
+  if (noLayout) return <Outlet />;
+
+  return <AppLayout />;
 }

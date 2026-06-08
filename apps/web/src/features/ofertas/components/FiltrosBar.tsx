@@ -1,5 +1,5 @@
+import { Search } from 'lucide-react';
 import { useCategorias } from '../hooks/useCategorias';
-import Input from '@/components/ui/Input';
 
 interface FiltrosBarProps {
   categoriaId: number | null;
@@ -9,66 +9,56 @@ interface FiltrosBarProps {
   onChange: (filtros: { categoriaId?: number | null; modalidad?: string | null; zona?: string; q?: string }) => void;
 }
 
+const selectBase = 'h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15';
+
 export default function FiltrosBar({ categoriaId, modalidad, zona, q, onChange }: FiltrosBarProps) {
   const { data: categorias } = useCategorias();
 
   return (
-    <div className="space-y-3">
-      {/* Categorías como pills */}
-      <div className="flex flex-wrap gap-2">
-        <button
-          onClick={() => onChange({ categoriaId: null })}
-          className={`rounded-pill px-3 py-1.5 text-xs font-medium transition-colors ${
-            categoriaId === null ? 'bg-accent text-white' : 'bg-surface-2 text-text-2 hover:bg-surface-2/80'
-          }`}
-        >
-          Todas
-        </button>
+    <div className="flex flex-wrap items-center gap-3">
+      {/* Search input */}
+      <div className="relative flex-1 min-w-[200px]">
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-3" />
+        <input
+          type="text"
+          placeholder="Buscar por habilidades, palabra clave..."
+          value={q}
+          onChange={(e) => onChange({ q: e.target.value })}
+          className="h-10 w-full rounded-lg border border-border bg-surface pl-10 pr-3 text-sm text-text-1 placeholder:text-text-3 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+        />
+      </div>
+
+      {/* Category dropdown */}
+      <select
+        value={categoriaId ?? ''}
+        onChange={(e) => onChange({ categoriaId: e.target.value ? Number(e.target.value) : null })}
+        className={selectBase}
+      >
+        <option value="">Todas las categorias</option>
         {categorias?.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => onChange({ categoriaId: cat.id === categoriaId ? null : cat.id })}
-            className={`rounded-pill px-3 py-1.5 text-xs font-medium transition-colors ${
-              categoriaId === cat.id ? 'bg-accent text-white' : 'bg-surface-2 text-text-2 hover:bg-surface-2/80'
-            }`}
-          >
-            {cat.nombre}
-          </button>
+          <option key={cat.id} value={cat.id}>{cat.nombre}</option>
         ))}
-      </div>
+      </select>
 
-      {/* Filtros secundarios */}
-      <div className="flex flex-wrap items-end gap-3">
-        <div className="flex gap-2">
-          {(['presencial', 'virtual'] as const).map((m) => (
-            <button
-              key={m}
-              onClick={() => onChange({ modalidad: modalidad === m ? null : m })}
-              className={`rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors ${
-                modalidad === m ? 'border-accent bg-accent/10 text-accent' : 'border-border bg-surface text-text-2 hover:bg-surface-2'
-              }`}
-            >
-              {m.charAt(0).toUpperCase() + m.slice(1)}
-            </button>
-          ))}
-        </div>
+      {/* Modality dropdown */}
+      <select
+        value={modalidad ?? ''}
+        onChange={(e) => onChange({ modalidad: e.target.value || null })}
+        className={selectBase}
+      >
+        <option value="">Todas las modalidades</option>
+        <option value="presencial">Presencial</option>
+        <option value="virtual">Virtual</option>
+      </select>
 
-        <div className="w-40">
-          <Input
-            placeholder="Zona..."
-            value={zona}
-            onChange={(e) => onChange({ zona: e.target.value })}
-          />
-        </div>
-
-        <div className="w-52">
-          <Input
-            placeholder="Buscar..."
-            value={q}
-            onChange={(e) => onChange({ q: e.target.value })}
-          />
-        </div>
-      </div>
+      {/* Zone dropdown / input */}
+      <input
+        type="text"
+        placeholder="Todas las zonas"
+        value={zona}
+        onChange={(e) => onChange({ zona: e.target.value })}
+        className={`${selectBase} w-40`}
+      />
     </div>
   );
 }

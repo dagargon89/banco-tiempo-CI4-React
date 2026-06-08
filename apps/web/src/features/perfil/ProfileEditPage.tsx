@@ -1,6 +1,5 @@
 import { type FormEvent, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '@/components/layout/Navbar';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
@@ -30,11 +29,8 @@ export default function ProfileEditPage() {
 
   if (isLoading || !user) {
     return (
-      <div className="min-h-screen bg-bg">
-        <Navbar />
-        <div className="flex items-center justify-center py-20">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
-        </div>
+      <div className="flex items-center justify-center py-20">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
       </div>
     );
   }
@@ -46,16 +42,13 @@ export default function ProfileEditPage() {
     e.preventDefault();
 
     try {
-      // 1. Subir foto si se seleccionó una nueva
       if (fotoFile) {
         await uploadFoto.mutateAsync(fotoFile);
       }
 
-      // 2. Guardar campos de texto
       const fields: Record<string, string> = { nombre, bio, zona };
       await updateProfile.mutateAsync(fields);
 
-      // 3. Refrescar auth store y navegar
       await refreshUser();
       navigate('/perfil');
     } catch {
@@ -64,64 +57,49 @@ export default function ProfileEditPage() {
   };
 
   return (
-    <div className="min-h-screen bg-bg">
-      <Navbar />
+    <div className="mx-auto max-w-2xl">
+      <div className="rounded-xl border border-border bg-surface p-6 shadow-sm">
+        <h2 className="mb-6 text-xl font-semibold text-text-1">Editar perfil</h2>
 
-      <main className="mx-auto max-w-2xl px-4 py-8">
-        <div className="rounded-lg border border-border bg-surface p-6 shadow-sm">
-          <h2 className="mb-6 text-xl font-semibold text-text-1">Editar perfil</h2>
+        {error && (
+          <div className="mb-4 rounded-sm border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">
+            Error al actualizar el perfil. Intenta de nuevo.
+          </div>
+        )}
 
-          {error && (
-            <div className="mb-4 rounded-sm border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">
-              Error al actualizar el perfil. Intenta de nuevo.
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-text-1">Foto de perfil</label>
-              <ImageUpload
-                currentUrl={user.foto_perfil}
-                onSelect={setFotoFile}
-                uploading={uploadFoto.isPending}
-              />
-            </div>
-
-            <Input
-              label="Nombre"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              placeholder="Tu nombre completo"
-              required
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-text-1">Foto de perfil</label>
+            <ImageUpload
+              currentUrl={user.foto_perfil}
+              onSelect={setFotoFile}
+              uploading={uploadFoto.isPending}
             />
+          </div>
 
-            <Textarea
-              label="Bio"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              placeholder="Cuéntanos sobre ti..."
-              maxChars={500}
-              currentLength={bio.length}
-            />
+          <Input label="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Tu nombre completo" required />
 
-            <Input
-              label="Zona"
-              value={zona}
-              onChange={(e) => setZona(e.target.value)}
-              placeholder='Ej: "Centro", "Partido Romero"'
-            />
+          <Textarea
+            label="Bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            placeholder="Cuentanos sobre ti..."
+            maxChars={500}
+            currentLength={bio.length}
+          />
 
-            <div className="flex gap-3 pt-2">
-              <Button type="submit" disabled={saving || nombre.trim() === ''}>
-                {saving ? 'Guardando...' : 'Guardar cambios'}
-              </Button>
-              <Button type="button" variant="secondary" onClick={() => navigate('/perfil')}>
-                Cancelar
-              </Button>
-            </div>
-          </form>
-        </div>
-      </main>
+          <Input label="Zona" value={zona} onChange={(e) => setZona(e.target.value)} placeholder='Ej: "Centro", "Partido Romero"' />
+
+          <div className="flex gap-3 pt-2">
+            <Button type="submit" disabled={saving || nombre.trim() === ''}>
+              {saving ? 'Guardando...' : 'Guardar cambios'}
+            </Button>
+            <Button type="button" variant="secondary" onClick={() => navigate('/perfil')}>
+              Cancelar
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
