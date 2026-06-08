@@ -13,15 +13,7 @@ export default function SocialButtons() {
         Continuar con Google
       </button>
 
-      <button type="button" className={btnClass} onClick={loginFacebook} disabled={loading}>
-        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M18 9a9 9 0 10-10.406 8.89v-6.29H5.309V9h2.285V7.017c0-2.258 1.344-3.504 3.4-3.504.985 0 2.015.176 2.015.176v2.215h-1.135c-1.118 0-1.467.694-1.467 1.406V9h2.496l-.399 2.6h-2.097v6.29A9.002 9.002 0 0018 9z" fill="#1877F2"/><path d="M12.402 11.6L12.8 9h-2.496V7.31c0-.712.35-1.406 1.467-1.406h1.135V3.69s-1.03-.176-2.015-.176c-2.056 0-3.4 1.246-3.4 3.504V9H5.31v2.6h2.285v6.29a9.07 9.07 0 002.812 0V11.6h2.097z" fill="#fff"/></svg>
-        Continuar con Facebook
-      </button>
-
-      <button type="button" className={btnClass} onClick={loginMicrosoft} disabled={loading}>
-        <svg width="18" height="18" viewBox="0 0 21 21"><rect x="1" y="1" width="9" height="9" fill="#F25022"/><rect x="11" y="1" width="9" height="9" fill="#7FBA00"/><rect x="1" y="11" width="9" height="9" fill="#00A4EF"/><rect x="11" y="11" width="9" height="9" fill="#FFB900"/></svg>
-        Continuar con Microsoft
-      </button>
+      {/* TODO: Habilitar cuando se configuren Facebook y Microsoft en Firebase Console */}
     </div>
   );
 }
