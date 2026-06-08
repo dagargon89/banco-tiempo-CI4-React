@@ -5,13 +5,14 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
 import ImageUpload from '@/components/ui/ImageUpload';
-import { useProfile, useUpdateProfile } from './hooks/useProfile';
+import { useProfile, useUpdateProfile, useUploadFoto } from './hooks/useProfile';
 import { useAuthStore } from '@/stores/authStore';
 
 export default function ProfileEditPage() {
   const navigate = useNavigate();
   const { data: user, isLoading } = useProfile();
   const updateProfile = useUpdateProfile();
+  const uploadFoto = useUploadFoto();
   const refreshUser = useAuthStore((s) => s.refreshUser);
 
   const [nombre, setNombre] = useState('');
@@ -38,21 +39,27 @@ export default function ProfileEditPage() {
     );
   }
 
+  const saving = updateProfile.isPending || uploadFoto.isPending;
+  const error = updateProfile.error || uploadFoto.error;
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const fields: Record<string, string> = { nombre };
-    if (bio !== (user.bio ?? '')) fields.bio = bio;
-    if (zona !== (user.zona ?? '')) fields.zona = zona;
-    // foto_perfil se maneja como URL string (subido por separado via Firebase Storage)
-    // Para Sprint 2, se guarda como texto simple si el usuario ya tiene una URL
-
     try {
+      // 1. Subir foto si se seleccionó una nueva
+      if (fotoFile) {
+        await uploadFoto.mutateAsync(fotoFile);
+      }
+
+      // 2. Guardar campos de texto
+      const fields: Record<string, string> = { nombre, bio, zona };
       await updateProfile.mutateAsync(fields);
+
+      // 3. Refrescar auth store y navegar
       await refreshUser();
       navigate('/perfil');
     } catch {
-      // error is handled by mutation state
+      // error se muestra via mutation state
     }
   };
 
@@ -64,7 +71,7 @@ export default function ProfileEditPage() {
         <div className="rounded-lg border border-border bg-surface p-6 shadow-sm">
           <h2 className="mb-6 text-xl font-semibold text-text-1">Editar perfil</h2>
 
-          {updateProfile.error && (
+          {error && (
             <div className="mb-4 rounded-sm border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">
               Error al actualizar el perfil. Intenta de nuevo.
             </div>
@@ -76,12 +83,8 @@ export default function ProfileEditPage() {
               <ImageUpload
                 currentUrl={user.foto_perfil}
                 onSelect={setFotoFile}
+                uploading={uploadFoto.isPending}
               />
-              {fotoFile && (
-                <p className="mt-1 text-xs text-text-3">
-                  La foto seleccionada se subirá en una versión futura. Por ahora puedes editar los demás campos.
-                </p>
-              )}
             </div>
 
             <Input
@@ -109,8 +112,8 @@ export default function ProfileEditPage() {
             />
 
             <div className="flex gap-3 pt-2">
-              <Button type="submit" disabled={updateProfile.isPending || nombre.trim() === ''}>
-                {updateProfile.isPending ? 'Guardando...' : 'Guardar cambios'}
+              <Button type="submit" disabled={saving || nombre.trim() === ''}>
+                {saving ? 'Guardando...' : 'Guardar cambios'}
               </Button>
               <Button type="button" variant="secondary" onClick={() => navigate('/perfil')}>
                 Cancelar

@@ -60,4 +60,47 @@ final class Me extends Controller
 
         return $this->show();
     }
+
+    /** POST /me/foto — Sube foto de perfil a Firebase Storage vía Admin SDK. */
+    public function uploadFoto(): ResponseInterface
+    {
+        $userId      = (int) $this->request->getHeaderLine('X-Auth-UserId');
+        $firebaseUid = $this->request->getHeaderLine('X-Auth-FirebaseUid');
+        $users       = model(\App\Models\UserModel::class);
+
+        $archivo = $this->request->getFile('foto');
+        if (! $archivo || ! $archivo->isValid()) {
+            return $this->unprocessable(['foto' => 'Archivo de imagen requerido.']);
+        }
+
+        $mime = $archivo->getMimeType();
+        if (! in_array($mime, ['image/jpeg', 'image/png'], true)) {
+            return $this->unprocessable(['foto' => 'Solo se permiten imágenes JPEG o PNG.']);
+        }
+
+        if ($archivo->getSize() > 5 * 1024 * 1024) {
+            return $this->unprocessable(['foto' => 'La imagen debe ser menor a 5MB.']);
+        }
+
+        $ext  = $mime === 'image/png' ? 'png' : 'jpg';
+        $path = "publico/perfiles/{$firebaseUid}/avatar_{$userId}.{$ext}";
+
+        $content = file_get_contents($archivo->getTempName());
+        if ($content === false) {
+            return $this->fail('No se pudo leer el archivo.', 500);
+        }
+
+        try {
+            /** @var \App\Services\FirebaseStorageService $storage */
+            $storage = service('firebaseStorage');
+            $url = $storage->uploadAndGetUrl($path, $content, $mime);
+        } catch (\Throwable $e) {
+            log_message('error', 'Upload foto: ' . $e->getMessage());
+            return $this->fail('Error al subir la imagen.', 500);
+        }
+
+        $users->update($userId, ['foto_perfil' => $url]);
+
+        return $this->show();
+    }
 }

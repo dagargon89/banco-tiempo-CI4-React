@@ -27,6 +27,25 @@ export function useUpdateProfile() {
   });
 }
 
+export function useUploadFoto() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (file: File) => {
+      const formData = new FormData();
+      formData.append('foto', file);
+      const { data } = await api.post<{ data: AuthUser }>('/me/foto', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      return data.data;
+    },
+    onSuccess: (data) => {
+      queryClient.setQueryData(['me'], data);
+      queryClient.invalidateQueries({ queryKey: ['me'] });
+    },
+  });
+}
+
 export function useVerificacionEstado() {
   return useQuery({
     queryKey: ['verificacion-estado'],

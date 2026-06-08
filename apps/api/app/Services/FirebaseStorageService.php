@@ -59,4 +59,14 @@ final class FirebaseStorageService
             'metadata'      => ['contentType' => $contentType],
         ]);
     }
+
+    /**
+     * Sube contenido y retorna una URL firmada de larga duración (7 días).
+     * Útil para fotos de perfil y otros assets semi-públicos.
+     */
+    public function uploadAndGetUrl(string $path, string $content, string $contentType, int $expiresInSeconds = 604800): string
+    {
+        $this->upload($path, $content, $contentType);
+        return $this->getSignedUrl($path, $expiresInSeconds);
+    }
 }
