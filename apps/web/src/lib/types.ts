@@ -4,6 +4,7 @@ export type Modalidad = 'presencial' | 'virtual';
 export type EstadoVinculacion = 'solicitada' | 'aceptada' | 'rechazada' | 'completada' | 'cancelada';
 
 export type TipoDocumento = 'ine' | 'pasaporte' | 'licencia' | 'otro';
+export type Genero = 'masculino' | 'femenino' | 'otro' | 'prefiero_no_decir';
 
 export interface AuthUser {
   id: number;
@@ -12,6 +13,9 @@ export interface AuthUser {
   bio?: string;
   foto_perfil?: string | null;
   zona?: string | null;
+  fecha_nacimiento?: string | null;
+  genero?: Genero | null;
+  telefono?: string | null;
   email_verificado: boolean;
   estado_verificacion: EstadoVerificacion;
   estado_cuenta?: string;
@@ -28,6 +32,9 @@ export interface VerificacionPendiente {
   nombre: string;
   email: string;
   foto_perfil: string | null;
+  fecha_nacimiento: string | null;
+  genero: Genero | null;
+  telefono: string | null;
   created_at: string;
 }
 

@@ -18,12 +18,15 @@ final class UserModel extends Model
     protected $useSoftDeletes   = true;
     protected $useTimestamps    = true;
 
-    protected $allowedFields = ['nombre', 'bio', 'foto_perfil', 'zona'];
+    protected $allowedFields = ['nombre', 'bio', 'foto_perfil', 'zona', 'fecha_nacimiento', 'genero', 'telefono'];
 
     protected $validationRules = [
-        'nombre' => 'required|string|max_length[120]',
-        'bio'    => 'permit_empty|string|max_length[500]',
-        'zona'   => 'permit_empty|string|max_length[120]',
+        'nombre'           => 'required|string|max_length[120]',
+        'bio'              => 'permit_empty|string|max_length[500]',
+        'zona'             => 'permit_empty|string|max_length[120]',
+        'fecha_nacimiento' => 'permit_empty|valid_date[Y-m-d]',
+        'genero'           => 'permit_empty|in_list[masculino,femenino,otro,prefiero_no_decir]',
+        'telefono'         => 'permit_empty|string|max_length[20]',
     ];
 
     public function porFirebaseUid(string $uid): ?array

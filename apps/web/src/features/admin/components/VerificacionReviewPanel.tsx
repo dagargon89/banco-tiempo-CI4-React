@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FileText, CheckCircle, XCircle } from 'lucide-react';
+import { FileText, CheckCircle, XCircle, ExternalLink, X } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
@@ -8,30 +8,51 @@ import { useResolverVerificacion } from '../hooks/useAdminVerificaciones';
 import { api } from '@/lib/api';
 import type { VerificacionPendiente } from '@/lib/types';
 
+const GENERO_LABELS: Record<string, string> = {
+  masculino: 'Masculino',
+  femenino: 'Femenino',
+  otro: 'Otro',
+  prefiero_no_decir: 'Prefiere no decir',
+};
+
 interface Props {
   docs: VerificacionPendiente[];
   userId: number;
   userName: string;
   userEmail: string;
   userFoto: string | null;
+  userFechaNacimiento: string | null;
+  userGenero: string | null;
+  userTelefono: string | null;
 }
 
-export default function VerificacionReviewPanel({ docs, userId, userName, userEmail, userFoto }: Props) {
+export default function VerificacionReviewPanel({ docs, userId, userName, userEmail, userFoto, userFechaNacimiento, userGenero, userTelefono }: Props) {
   const resolver = useResolverVerificacion();
   const [motivo, setMotivo] = useState('');
   const [showReject, setShowReject] = useState(false);
   const [viewingDoc, setViewingDoc] = useState<number | null>(null);
+  const [docUrl, setDocUrl] = useState<string | null>(null);
+  const [docError, setDocError] = useState('');
+  const [loadingDoc, setLoadingDoc] = useState<number | null>(null);
 
   const handleVerDocumento = async (docId: number) => {
-    setViewingDoc(docId);
+    setLoadingDoc(docId);
+    setDocError('');
     try {
       const { data } = await api.get<{ data: { url: string } }>(`/admin/verificaciones/${docId}/documento`);
-      window.open(data.data.url, '_blank');
-    } catch {
-      // Silently fail
+      setDocUrl(data.data.url);
+      setViewingDoc(docId);
+    } catch (err: any) {
+      const msg = err?.response?.data?.message ?? 'Error al obtener el documento. Verifica la configuración de Firebase Storage.';
+      setDocError(msg);
     } finally {
-      setViewingDoc(null);
+      setLoadingDoc(null);
     }
+  };
+
+  const handleCerrarVisor = () => {
+    setDocUrl(null);
+    setViewingDoc(null);
   };
 
   const handleAprobar = () => {
@@ -57,24 +78,99 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
         <Badge variant="warning">Pendiente</Badge>
       </div>
 
+      {/* Profile data for cross-validation */}
+      <div className="mt-3 rounded-sm border border-border bg-surface-2 px-4 py-3">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-3">Datos del perfil</p>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
+          <div>
+            <span className="text-text-3">Nacimiento: </span>
+            <span className="text-text-1">
+              {userFechaNacimiento
+                ? new Date(userFechaNacimiento + 'T00:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })
+                : '—'}
+            </span>
+          </div>
+          <div>
+            <span className="text-text-3">Género: </span>
+            <span className="text-text-1">{userGenero ? (GENERO_LABELS[userGenero] ?? userGenero) : '—'}</span>
+          </div>
+          <div>
+            <span className="text-text-3">Teléfono: </span>
+            <span className="text-text-1">{userTelefono || '—'}</span>
+          </div>
+        </div>
+      </div>
+
       {/* Documents */}
       <div className="mt-4 space-y-2">
+        {docError && (
+          <div className="rounded-sm border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">{docError}</div>
+        )}
         {docs.map((doc) => (
-          <div key={doc.id} className="flex items-center justify-between rounded-sm border border-border px-3 py-2">
-            <div className="flex items-center gap-2">
-              <FileText className="h-4 w-4 text-text-3" />
-              <span className="text-sm text-text-1">{doc.tipo_documento.toUpperCase()}</span>
-              <span className="text-xs text-text-3">
-                {new Date(doc.created_at).toLocaleDateString('es-MX')}
-              </span>
+          <div key={doc.id} className="space-y-2">
+            <div className="flex items-center justify-between rounded-sm border border-border px-3 py-2">
+              <div className="flex items-center gap-2">
+                <FileText className="h-4 w-4 text-text-3" />
+                <span className="text-sm text-text-1">{doc.tipo_documento.toUpperCase()}</span>
+                <span className="text-xs text-text-3">
+                  {new Date(doc.created_at).toLocaleDateString('es-MX')}
+                </span>
+              </div>
+              <Button
+                variant="secondary"
+                onClick={() => viewingDoc === doc.id ? handleCerrarVisor() : handleVerDocumento(doc.id)}
+                disabled={loadingDoc === doc.id}
+              >
+                {loadingDoc === doc.id ? 'Cargando...' : viewingDoc === doc.id ? 'Cerrar' : 'Ver documento'}
+              </Button>
             </div>
-            <Button
-              variant="secondary"
-              onClick={() => handleVerDocumento(doc.id)}
-              disabled={viewingDoc === doc.id}
-            >
-              {viewingDoc === doc.id ? 'Abriendo...' : 'Ver documento'}
-            </Button>
+
+            {/* Inline document viewer */}
+            {viewingDoc === doc.id && docUrl && (
+              <div className="rounded-lg border border-border bg-surface-2 p-3">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-xs font-medium text-text-2">Vista previa del documento</span>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={docUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-xs text-accent hover:underline"
+                    >
+                      <ExternalLink className="h-3 w-3" /> Abrir en nueva pestaña
+                    </a>
+                    <button onClick={handleCerrarVisor} className="rounded p-1 text-text-3 hover:bg-surface hover:text-text-1">
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+                <div className="flex justify-center rounded-md bg-black/5 p-2">
+                  <img
+                    src={docUrl}
+                    alt={`Documento ${doc.tipo_documento}`}
+                    className="max-h-[500px] rounded object-contain"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      target.style.display = 'none';
+                      const fallback = target.nextElementSibling;
+                      if (fallback) (fallback as HTMLElement).style.display = 'flex';
+                    }}
+                  />
+                  <div className="hidden flex-col items-center gap-2 py-8 text-text-3" style={{ display: 'none' }}>
+                    <FileText className="h-10 w-10" />
+                    <p className="text-sm">No se puede previsualizar este documento.</p>
+                    <a
+                      href={docUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-accent hover:underline"
+                    >
+                      Descargar documento
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>

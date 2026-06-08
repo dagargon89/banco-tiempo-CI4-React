@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Calendar, User2, Pencil, LayoutGrid, Star, Clock } from 'lucide-react';
+import { MapPin, Calendar, User2, Pencil, LayoutGrid, Star, Clock, Phone } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import StatCard from '@/components/ui/StatCard';
 import EmptyState from '@/components/ui/EmptyState';
@@ -48,6 +48,16 @@ export default function ProfilePage() {
                   {fechaRegistro && (
                     <span className="flex items-center gap-1">
                       <Calendar className="h-3.5 w-3.5" /> Desde {fechaRegistro}
+                    </span>
+                  )}
+                  {user.fecha_nacimiento && (
+                    <span className="flex items-center gap-1">
+                      <Calendar className="h-3.5 w-3.5" /> {new Date(user.fecha_nacimiento + 'T00:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    </span>
+                  )}
+                  {user.telefono && (
+                    <span className="flex items-center gap-1">
+                      <Phone className="h-3.5 w-3.5" /> {user.telefono}
                     </span>
                   )}
                   <span className="flex items-center gap-1">

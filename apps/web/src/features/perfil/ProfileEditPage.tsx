@@ -17,6 +17,9 @@ export default function ProfileEditPage() {
   const [nombre, setNombre] = useState('');
   const [bio, setBio] = useState('');
   const [zona, setZona] = useState('');
+  const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [genero, setGenero] = useState('');
+  const [telefono, setTelefono] = useState('');
   const [fotoFile, setFotoFile] = useState<File | null>(null);
 
   useEffect(() => {
@@ -24,6 +27,9 @@ export default function ProfileEditPage() {
       setNombre(user.nombre);
       setBio(user.bio ?? '');
       setZona(user.zona ?? '');
+      setFechaNacimiento(user.fecha_nacimiento ?? '');
+      setGenero(user.genero ?? '');
+      setTelefono(user.telefono ?? '');
     }
   }, [user]);
 
@@ -46,7 +52,7 @@ export default function ProfileEditPage() {
         await uploadFoto.mutateAsync(fotoFile);
       }
 
-      const fields: Record<string, string> = { nombre, bio, zona };
+      const fields: Record<string, string> = { nombre, bio, zona, fecha_nacimiento: fechaNacimiento, genero, telefono };
       await updateProfile.mutateAsync(fields);
 
       await refreshUser();
@@ -89,6 +95,36 @@ export default function ProfileEditPage() {
           />
 
           <Input label="Zona" value={zona} onChange={(e) => setZona(e.target.value)} placeholder='Ej: "Centro", "Partido Romero"' />
+
+          <Input
+            label="Fecha de nacimiento"
+            type="date"
+            value={fechaNacimiento}
+            onChange={(e) => setFechaNacimiento(e.target.value)}
+          />
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-text-1">Género</label>
+            <select
+              value={genero}
+              onChange={(e) => setGenero(e.target.value)}
+              className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+            >
+              <option value="">Seleccionar...</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
+              <option value="prefiero_no_decir">Prefiero no decir</option>
+            </select>
+          </div>
+
+          <Input
+            label="Teléfono"
+            type="tel"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+            placeholder="Ej: +52 614 123 4567"
+          />
 
           <div className="flex gap-3 pt-2">
             <Button type="submit" disabled={saving || nombre.trim() === ''}>

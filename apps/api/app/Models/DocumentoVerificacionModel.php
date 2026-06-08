@@ -26,7 +26,7 @@ final class DocumentoVerificacionModel extends Model
     /** Documentos pendientes con datos del usuario (JOIN, evita N+1). */
     public function pendientesConUsuario(): array
     {
-        return $this->select('documentos_verificacion.*, users.nombre, users.email, users.foto_perfil')
+        return $this->select('documentos_verificacion.*, users.nombre, users.email, users.foto_perfil, users.fecha_nacimiento, users.genero, users.telefono')
             ->join('users', 'users.id = documentos_verificacion.user_id')
             ->where('documentos_verificacion.estado', 'pendiente')
             ->orderBy('documentos_verificacion.created_at', 'ASC')

@@ -10,7 +10,7 @@ export default function AdminVerificacionesPage() {
 
   const grouped = useMemo(() => {
     if (!pendientes) return [];
-    const map = new Map<number, { userId: number; nombre: string; email: string; foto_perfil: string | null; docs: VerificacionPendiente[] }>();
+    const map = new Map<number, { userId: number; nombre: string; email: string; foto_perfil: string | null; fecha_nacimiento: string | null; genero: string | null; telefono: string | null; docs: VerificacionPendiente[] }>();
     for (const doc of pendientes) {
       const existing = map.get(doc.user_id);
       if (existing) {
@@ -21,6 +21,9 @@ export default function AdminVerificacionesPage() {
           nombre: doc.nombre,
           email: doc.email,
           foto_perfil: doc.foto_perfil,
+          fecha_nacimiento: doc.fecha_nacimiento,
+          genero: doc.genero,
+          telefono: doc.telefono,
           docs: [doc],
         });
       }
@@ -52,6 +55,9 @@ export default function AdminVerificacionesPage() {
               userName={g.nombre}
               userEmail={g.email}
               userFoto={g.foto_perfil}
+              userFechaNacimiento={g.fecha_nacimiento}
+              userGenero={g.genero}
+              userTelefono={g.telefono}
             />
           ))}
         </div>
