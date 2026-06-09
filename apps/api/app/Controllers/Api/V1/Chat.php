@@ -6,7 +6,6 @@ namespace App\Controllers\Api\V1;
 
 use App\Models\ConversacionModel;
 use App\Models\VinculacionModel;
-use App\Models\OfertaModel;
 use App\Services\Policies\VinculacionPolicyService;
 use App\Traits\ApiResponder;
 use CodeIgniter\Controller;
@@ -19,8 +18,9 @@ final class Chat extends Controller
     /** POST /api/v1/vinculaciones/{id}/chat/token */
     public function token(int $vinculacionId): ResponseInterface
     {
-        $userId = (int) $this->request->getHeaderLine('X-Auth-UserId');
-        $roles  = array_filter(explode(',', $this->request->getHeaderLine('X-Auth-Roles')));
+        $userId      = (int) $this->request->getHeaderLine('X-Auth-UserId');
+        $firebaseUid = $this->request->getHeaderLine('X-Auth-FirebaseUid');
+        $roles       = array_filter(explode(',', $this->request->getHeaderLine('X-Auth-Roles')));
 
         $vinculacionModel = model(VinculacionModel::class);
         $vinculacion = $vinculacionModel->conDetalles($vinculacionId);
@@ -41,9 +41,13 @@ final class Chat extends Controller
             return $this->notFound('Conversación no encontrada.');
         }
 
+        $firebaseAuth = service('firebaseAuth');
+        $customToken  = $firebaseAuth->crearCustomToken($firebaseUid, $conversacion['firestore_doc_id']);
+
         return $this->ok([
-            'firestore_doc_id' => $conversacion['firestore_doc_id'],
-            'estado'           => $conversacion['estado'],
+            'firebase_custom_token' => $customToken,
+            'conversation_id'       => $conversacion['firestore_doc_id'],
+            'expires_in'            => 3600,
         ]);
     }
 }

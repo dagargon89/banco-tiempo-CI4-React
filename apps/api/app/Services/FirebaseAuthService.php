@@ -96,6 +96,14 @@ final class FirebaseAuthService
         ];
     }
 
+    /** Genera un Custom Token acotado para acceso a Firestore (chat). */
+    public function crearCustomToken(string $firebaseUid, string $conversationId): string
+    {
+        return $this->firebaseAuth->createCustomToken($firebaseUid, [
+            'conversation_id' => $conversationId,
+        ])->toString();
+    }
+
     /** Fuerza cierre de sesión global (p. ej. al suspender una cuenta). */
     public function revocarSesiones(string $firebaseUid): void
     {

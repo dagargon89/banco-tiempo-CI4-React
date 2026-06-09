@@ -11,6 +11,8 @@ import { useProfile, useVerificacionEstado } from './hooks/useProfile';
 import { useMisOfertas } from '@/features/ofertas/hooks/useOfertas';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { useListarVinculaciones } from '@/features/vinculaciones/hooks/useVinculaciones';
+import { useResenasDeUsuario } from '@/features/resenas/hooks/useResenas';
+import ResenasList from '@/features/resenas/components/ResenasList';
 import { getCategoryConfigById } from '@/lib/categoryConfig';
 
 export default function ProfilePage() {
@@ -20,8 +22,13 @@ export default function ProfilePage() {
   const { data: categorias } = useCategorias();
   const { data: completadasData } = useListarVinculaciones({ estado: 'completada', per_page: 50 });
 
+  const { data: resenasData } = useResenasDeUsuario(user?.id);
+
   const ofertasActivas = ofertas?.filter((o) => o.estado === 'activa') ?? [];
   const completadas = completadasData?.data ?? [];
+  const resenasStats = resenasData?.meta?.estadisticas;
+  const calificacionPromedio = resenasStats?.promedio ? resenasStats.promedio.toFixed(1) : '—';
+  const totalResenas = resenasStats?.total ?? 0;
 
   if (isLoading || !user) {
     return (
@@ -88,9 +95,9 @@ export default function ProfilePage() {
           {user.bio && <p className="mt-4 text-sm text-text-2">{user.bio}</p>}
 
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <StatCard label="Calificacion" value="—" accent />
+            <StatCard label="Calificacion" value={calificacionPromedio} accent />
             <StatCard label="Actividades" value={completadas.length} />
-            <StatCard label="Resenas" value={0} />
+            <StatCard label="Resenas" value={totalResenas} />
             <StatCard label="Ofertas" value={ofertasActivas.length} />
           </div>
         </div>
@@ -160,11 +167,7 @@ export default function ProfilePage() {
           </div>
           <div>
             <h3 className="mb-3 text-sm font-semibold text-text-1">Resenas recibidas</h3>
-            <EmptyState
-              icon={<Star className="h-8 w-8" />}
-              title="Sin resenas aun"
-              subtitle="Las resenas apareceran despues de completar actividades"
-            />
+            {user && <ResenasList userId={user.id} />}
           </div>
         </div>
       </div>

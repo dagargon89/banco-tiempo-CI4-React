@@ -3,13 +3,17 @@ import Avatar from '@/components/ui/Avatar';
 import EstadoBadge from './components/EstadoBadge';
 import AccionesVinculacion from './components/AccionesVinculacion';
 import PanelConfirmacion from './components/PanelConfirmacion';
+import ChatWindow from '@/features/chat/components/ChatWindow';
+import ResenaForm from '@/features/resenas/components/ResenaForm';
 import { useVinculacionDetalle } from './hooks/useVinculaciones';
+import { useResenasDeUsuario } from '@/features/resenas/hooks/useResenas';
 import { useAuthStore } from '@/stores/authStore';
 
 export default function VinculacionDetallePage() {
   const { id } = useParams<{ id: string }>();
   const user = useAuthStore((s) => s.user);
   const { data: vinculacion, isLoading } = useVinculacionDetalle(id!);
+  const { data: resenasData } = useResenasDeUsuario(user?.id);
 
   if (isLoading) {
     return (
@@ -75,6 +79,19 @@ export default function VinculacionDetallePage() {
 
         {/* Panel de confirmacion */}
         <PanelConfirmacion vinculacion={vinculacion} />
+
+        {/* Chat — visible en estado aceptada o completada */}
+        {(vinculacion.estado === 'aceptada' || vinculacion.estado === 'completada') && (
+          <ChatWindow vinculacionId={vinculacion.id} />
+        )}
+
+        {/* Resena — visible en estado completada si el usuario aun no ha resenado */}
+        {vinculacion.estado === 'completada' && user && (() => {
+          const yaReseno = (resenasData?.data ?? []).some(
+            (r) => r.oferta_titulo === vinculacion.oferta_titulo,
+          );
+          return !yaReseno ? <ResenaForm vinculacionId={vinculacion.id} /> : null;
+        })()}
 
         {/* Acciones */}
         {user && (

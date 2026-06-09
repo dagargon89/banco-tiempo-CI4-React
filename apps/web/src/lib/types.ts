@@ -109,5 +109,35 @@ export interface VinculacionCard {
   created_at: string;
 }
 
+export interface ChatTokenResponse {
+  firebase_custom_token: string;
+  conversation_id: string;
+  expires_in: number;
+}
+
+export interface ChatMessage {
+  id: string;
+  text: string;
+  sender_id: number;
+  sender_uid: string;
+  sender_name: string;
+  created_at: any; // Firestore Timestamp
+}
+
+export interface Resena {
+  id: number;
+  calificacion: number;
+  comentario: string | null;
+  created_at: string;
+  autor_nombre: string;
+  autor_foto: string | null;
+  oferta_titulo: string;
+}
+
+export interface ResenaEstadisticas {
+  promedio: number;
+  total: number;
+}
+
 export interface ApiList<T> { data: T[]; meta: { total: number; page: number; per_page: number }; }
 export interface ApiItem<T> { data: T; }

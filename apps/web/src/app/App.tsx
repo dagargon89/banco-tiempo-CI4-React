@@ -17,6 +17,7 @@ import EditarOfertaPage from '@/features/ofertas/EditarOfertaPage';
 import MisOfertasPage from '@/features/ofertas/MisOfertasPage';
 import VinculacionesPage from '@/features/vinculaciones/VinculacionesPage';
 import VinculacionDetallePage from '@/features/vinculaciones/VinculacionDetallePage';
+import MensajesPage from '@/features/chat/MensajesPage';
 
 export default function App() {
   const init = useAuthStore((s) => s.init);
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="/mis-ofertas" element={<MisOfertasPage />} />
           <Route path="/vinculaciones" element={<VinculacionesPage />} />
           <Route path="/vinculaciones/:id" element={<VinculacionDetallePage />} />
+          <Route path="/mensajes" element={<MensajesPage />} />
         </Route>
 
         {/* Rutas admin (RBAC se checa en ProtectedRoute anidado sin layout propio) */}
