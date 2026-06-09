@@ -15,6 +15,8 @@ import OfertaDetallePage from '@/features/ofertas/OfertaDetallePage';
 import CrearOfertaPage from '@/features/ofertas/CrearOfertaPage';
 import EditarOfertaPage from '@/features/ofertas/EditarOfertaPage';
 import MisOfertasPage from '@/features/ofertas/MisOfertasPage';
+import VinculacionesPage from '@/features/vinculaciones/VinculacionesPage';
+import VinculacionDetallePage from '@/features/vinculaciones/VinculacionDetallePage';
 
 export default function App() {
   const init = useAuthStore((s) => s.init);
@@ -42,6 +44,8 @@ export default function App() {
           <Route path="/ofertas/nueva" element={<CrearOfertaPage />} />
           <Route path="/ofertas/:id/editar" element={<EditarOfertaPage />} />
           <Route path="/mis-ofertas" element={<MisOfertasPage />} />
+          <Route path="/vinculaciones" element={<VinculacionesPage />} />
+          <Route path="/vinculaciones/:id" element={<VinculacionDetallePage />} />
         </Route>
 
         {/* Rutas admin (RBAC se checa en ProtectedRoute anidado sin layout propio) */}

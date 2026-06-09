@@ -90,5 +90,24 @@ export interface OfertaFormData {
   disponibilidad?: string[];
 }
 
+export interface VinculacionCard {
+  id: number;
+  estado: EstadoVinculacion;
+  buscador_id: number;
+  buscador_nombre: string;
+  buscador_foto: string | null;
+  oferente_id: number;
+  oferente_nombre: string;
+  oferente_foto: string | null;
+  oferta_id: number;
+  oferta_titulo: string;
+  confirmado_oferente: boolean;
+  confirmado_buscador: boolean;
+  cancelada_por?: number;
+  aceptada_at?: string;
+  completada_at?: string;
+  created_at: string;
+}
+
 export interface ApiList<T> { data: T[]; meta: { total: number; page: number; per_page: number }; }
 export interface ApiItem<T> { data: T; }

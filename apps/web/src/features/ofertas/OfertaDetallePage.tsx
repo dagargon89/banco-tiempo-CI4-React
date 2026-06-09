@@ -3,6 +3,7 @@ import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { useOfertaDetalle, useCambiarEstadoOferta } from './hooks/useOfertas';
+import { useMarcarInteres } from '@/features/vinculaciones/hooks/useVinculaciones';
 import { useAuthStore } from '@/stores/authStore';
 
 export default function OfertaDetallePage() {
@@ -11,6 +12,7 @@ export default function OfertaDetallePage() {
   const user = useAuthStore((s) => s.user);
   const { data: oferta, isLoading } = useOfertaDetalle(id!);
   const cambiarEstado = useCambiarEstadoOferta();
+  const marcarInteres = useMarcarInteres();
 
   const esDueno = user && oferta && user.id === oferta.user_id;
 
@@ -141,9 +143,22 @@ export default function OfertaDetallePage() {
           </div>
         )}
 
-        {!esDueno && (
+        {!esDueno && oferta.estado === 'activa' && (
           <div className="border-t border-border pt-4">
-            <Button disabled>Me interesa (proximamente)</Button>
+            <Button
+              onClick={() => marcarInteres.mutate(oferta.id)}
+              disabled={marcarInteres.isPending}
+            >
+              {marcarInteres.isPending ? 'Enviando...' : 'Me interesa'}
+            </Button>
+            {marcarInteres.isSuccess && (
+              <p className="mt-2 text-sm text-success">Interes registrado correctamente.</p>
+            )}
+            {marcarInteres.isError && (
+              <p className="mt-2 text-sm text-error">
+                {(marcarInteres.error as any)?.response?.data?.message ?? 'Error al registrar interes.'}
+              </p>
+            )}
           </div>
         )}
       </div>
