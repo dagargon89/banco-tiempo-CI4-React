@@ -3,8 +3,12 @@ import { LayoutGrid, Bell, Link2, CheckCircle, Pencil, Pause, Trash2 } from 'luc
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import EmptyState from '@/components/ui/EmptyState';
+import Avatar from '@/components/ui/Avatar';
+import EstadoBadge from '@/features/vinculaciones/components/EstadoBadge';
+import AccionesVinculacion from '@/features/vinculaciones/components/AccionesVinculacion';
 import { useMisOfertas, useCambiarEstadoOferta } from './hooks/useOfertas';
 import { useCategorias } from './hooks/useCategorias';
+import { useListarVinculaciones } from '@/features/vinculaciones/hooks/useVinculaciones';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfigById } from '@/lib/categoryConfig';
 
@@ -14,17 +18,25 @@ export default function MisOfertasPage() {
   const { data: categorias } = useCategorias();
   const cambiarEstado = useCambiarEstadoOferta();
 
+  // Solicitudes pendientes (donde soy oferente, estado solicitada)
+  const { data: solicitudesData } = useListarVinculaciones({ estado: 'solicitada', rol: 'oferente', per_page: 50 });
+  const solicitudes = solicitudesData?.data ?? [];
+
+  // Vinculaciones activas (donde soy oferente, estado aceptada)
+  const { data: activasVincData } = useListarVinculaciones({ estado: 'aceptada', rol: 'oferente', per_page: 50 });
+  const vinculacionesActivas = activasVincData?.data ?? [];
+
   const handleEstado = (id: number, estado: string) => {
     if (estado === 'eliminada' && !confirm('Esta accion no se puede deshacer. Continuar?')) return;
     cambiarEstado.mutate({ id, estado });
   };
 
-  const activas = ofertas?.filter((o) => o.estado === 'activa') ?? [];
+  const ofertasActivas = ofertas?.filter((o) => o.estado === 'activa') ?? [];
 
   const stats = [
-    { icon: LayoutGrid, label: 'Ofertas publicadas', value: activas.length, color: 'bg-accent/10 text-accent' },
-    { icon: Bell, label: 'Solicitudes nuevas', value: 0, color: 'bg-amber-50 text-amber-500' },
-    { icon: Link2, label: 'Vinculaciones activas', value: 0, color: 'bg-blue-50 text-blue-500' },
+    { icon: LayoutGrid, label: 'Ofertas publicadas', value: ofertasActivas.length, color: 'bg-accent/10 text-accent' },
+    { icon: Bell, label: 'Solicitudes nuevas', value: solicitudes.length, color: 'bg-amber-50 text-amber-500' },
+    { icon: Link2, label: 'Vinculaciones activas', value: vinculacionesActivas.length, color: 'bg-blue-50 text-blue-500' },
     { icon: CheckCircle, label: 'Actividades completadas', value: 0, color: 'bg-emerald-50 text-emerald-500' },
   ];
 
@@ -58,19 +70,74 @@ export default function MisOfertasPage() {
         ))}
       </div>
 
-      {/* Personas interesadas (placeholder - Sprint 4) */}
+      {/* Personas interesadas */}
       <div className="mt-8">
         <h2 className="flex items-center gap-2 text-lg font-semibold text-text-1">
           Personas interesadas
-          <Badge variant="neutral">0</Badge>
+          <Badge variant={solicitudes.length > 0 ? 'warning' : 'neutral'}>{solicitudes.length}</Badge>
         </h2>
         <div className="mt-3">
-          <EmptyState
-            title="Sin solicitudes pendientes"
-            subtitle="Cuando alguien muestre interes en tus ofertas, aparecera aqui."
-          />
+          {solicitudes.length === 0 ? (
+            <EmptyState
+              title="Sin solicitudes pendientes"
+              subtitle="Cuando alguien muestre interes en tus ofertas, aparecera aqui."
+            />
+          ) : (
+            <div className="space-y-3">
+              {solicitudes.map((vinc) => (
+                <div key={vinc.id} className="rounded-xl border border-border bg-surface p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <Avatar src={vinc.buscador_foto} nombre={vinc.buscador_nombre} size="md" />
+                      <div>
+                        <p className="text-sm font-semibold text-text-1">{vinc.buscador_nombre}</p>
+                        <p className="text-xs text-text-3">
+                          Interesado en <Link to={`/ofertas/${vinc.oferta_id}`} className="text-accent hover:underline">{vinc.oferta_titulo}</Link>
+                        </p>
+                        <p className="mt-0.5 text-xs text-text-3">
+                          {new Date(vinc.created_at).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' })}
+                        </p>
+                      </div>
+                    </div>
+                    <EstadoBadge estado={vinc.estado} />
+                  </div>
+                  {user && (
+                    <div className="mt-3 border-t border-border pt-3">
+                      <AccionesVinculacion vinculacion={vinc} userId={user.id} />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
+
+      {/* Vinculaciones activas */}
+      {vinculacionesActivas.length > 0 && (
+        <div className="mt-8">
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-text-1">
+            Vinculaciones activas
+            <Badge variant="success">{vinculacionesActivas.length}</Badge>
+          </h2>
+          <div className="mt-3 space-y-3">
+            {vinculacionesActivas.map((vinc) => (
+              <Link key={vinc.id} to={`/vinculaciones/${vinc.id}`} className="block rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/30">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <Avatar src={vinc.buscador_foto} nombre={vinc.buscador_nombre} size="md" />
+                    <div>
+                      <p className="text-sm font-semibold text-text-1">{vinc.buscador_nombre}</p>
+                      <p className="text-xs text-text-3">{vinc.oferta_titulo}</p>
+                    </div>
+                  </div>
+                  <EstadoBadge estado={vinc.estado} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Mis habilidades */}
       <div className="mt-8">
@@ -107,7 +174,6 @@ export default function MisOfertasPage() {
                         <Badge variant={oferta.estado === 'activa' ? 'success' : oferta.estado === 'pausada' ? 'warning' : 'neutral'}>
                           {oferta.estado === 'activa' ? 'Activa' : oferta.estado === 'pausada' ? 'Pausada' : oferta.estado}
                         </Badge>
-                        <span className="text-xs text-text-3">0 interesados</span>
                       </div>
                     </div>
                   </div>
@@ -148,17 +214,6 @@ export default function MisOfertasPage() {
             })}
           </div>
         )}
-      </div>
-
-      {/* Historial de vinculaciones (placeholder - Sprint 4) */}
-      <div className="mt-8">
-        <h2 className="text-lg font-semibold text-text-1">Historial de vinculaciones</h2>
-        <div className="mt-3">
-          <EmptyState
-            title="Sin vinculaciones"
-            subtitle="Tu historial de intercambios aparecera aqui."
-          />
-        </div>
       </div>
     </>
   );
