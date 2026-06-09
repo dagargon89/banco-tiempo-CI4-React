@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { ArrowLeftRight } from 'lucide-react';
 import EmptyState from '@/components/ui/EmptyState';
+import { VinculacionCardSkeleton } from '@/components/ui/Skeleton';
 import VinculacionCard from './components/VinculacionCard';
 import { useListarVinculaciones } from './hooks/useVinculaciones';
 import { useAuthStore } from '@/stores/authStore';
@@ -67,8 +68,10 @@ export default function VinculacionesPage() {
       </div>
 
       {isLoading ? (
-        <div className="mt-12 flex justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <VinculacionCardSkeleton key={i} />
+          ))}
         </div>
       ) : vinculaciones.length === 0 ? (
         <div className="mt-8">

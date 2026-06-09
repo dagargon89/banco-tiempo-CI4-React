@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Plus, Shield, Bell, ChevronRight, LogOut, User } from 'lucide-react';
+import { Menu, Search, Plus, Shield, Bell, ChevronRight, LogOut, User } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import { useAuthStore } from '@/stores/authStore';
 
@@ -35,7 +35,11 @@ function getBreadcrumb(pathname: string) {
   return { section: 'Explorar', page: 'Ofertas disponibles' };
 }
 
-export default function TopBar() {
+interface TopBarProps {
+  onMenuToggle?: () => void;
+}
+
+export default function TopBar({ onMenuToggle }: TopBarProps) {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const { pathname } = useLocation();
@@ -58,18 +62,29 @@ export default function TopBar() {
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   return (
-    <header className="flex h-14 items-center justify-between border-b border-border bg-surface px-6">
-      {/* Breadcrumb */}
-      <nav aria-label="Ubicación" className="flex items-center gap-1.5 text-sm">
-        <span className="text-text-3">{breadcrumb.section}</span>
-        <ChevronRight className="h-3.5 w-3.5 text-text-3" aria-hidden="true" />
-        <span className="font-medium text-text-1" aria-current="page">{breadcrumb.page}</span>
-      </nav>
+    <header className="flex h-14 items-center justify-between border-b border-border bg-surface px-4 sm:px-6">
+      {/* Left: hamburger (mobile) + breadcrumb */}
+      <div className="flex items-center gap-3">
+        {onMenuToggle && (
+          <button
+            onClick={onMenuToggle}
+            className="rounded-lg p-1.5 text-text-2 hover:bg-surface-2 lg:hidden"
+            aria-label="Abrir menu"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        )}
+        <nav aria-label="Ubicación" className="hidden items-center gap-1.5 text-sm sm:flex">
+          <span className="text-text-3">{breadcrumb.section}</span>
+          <ChevronRight className="h-3.5 w-3.5 text-text-3" aria-hidden="true" />
+          <span className="font-medium text-text-1" aria-current="page">{breadcrumb.page}</span>
+        </nav>
+      </div>
 
       {/* Right side */}
-      <div className="flex items-center gap-3">
-        {/* Role switcher */}
-        <div className="flex items-center rounded-lg border border-border bg-surface-2 p-0.5" role="tablist" aria-label="Modo de navegación">
+      <div className="flex items-center gap-2 sm:gap-3">
+        {/* Role switcher — hidden on mobile */}
+        <div className="hidden items-center rounded-lg border border-border bg-surface-2 p-0.5 sm:flex" role="tablist" aria-label="Modo de navegación">
           <Link
             to="/"
             role="tab"

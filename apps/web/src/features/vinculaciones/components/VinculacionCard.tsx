@@ -37,7 +37,28 @@ export default function VinculacionCard({ vinculacion, userId }: VinculacionCard
         </div>
       </div>
 
-      <p className="mt-2 text-xs text-text-3">
+      {/* Progress indicator */}
+      <div className="mt-3 flex items-center gap-1">
+        {(['solicitada', 'aceptada', 'completada'] as const).map((step, i) => {
+          const estados = ['solicitada', 'aceptada', 'completada'];
+          const currentIdx = estados.indexOf(vinculacion.estado);
+          const isRejected = vinculacion.estado === 'rechazada' || vinculacion.estado === 'cancelada';
+          const isActive = !isRejected && currentIdx >= i;
+          const color = isRejected
+            ? 'bg-border'
+            : isActive
+              ? 'bg-accent'
+              : 'bg-border';
+          return (
+            <div key={step} className="flex flex-1 items-center gap-1">
+              <div className={`h-1.5 w-1.5 shrink-0 rounded-full ${color}`} />
+              {i < 2 && <div className={`h-0.5 flex-1 rounded-full ${color}`} />}
+            </div>
+          );
+        })}
+      </div>
+
+      <p className="mt-1.5 text-xs text-text-3">
         {new Date(vinculacion.created_at).toLocaleDateString('es-MX', {
           day: 'numeric',
           month: 'short',

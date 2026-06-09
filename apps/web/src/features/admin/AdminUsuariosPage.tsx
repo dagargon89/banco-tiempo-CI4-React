@@ -2,10 +2,10 @@ import { useState, useMemo } from 'react';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import EmptyState from '@/components/ui/EmptyState';
+import DataTable, { type Column } from '@/components/ui/DataTable';
 import Paginacion from '@/features/ofertas/components/Paginacion';
 import { useAdminUsuarios, useCambiarEstadoUsuario } from './hooks/useAdminUsuarios';
-import type { EstadoVerificacion, EstadoCuenta } from '@/lib/types';
+import type { AdminUsuario, EstadoVerificacion, EstadoCuenta } from '@/lib/types';
 
 const verificacionBadge: Record<EstadoVerificacion, 'success' | 'warning' | 'error' | 'neutral'> = {
   verificado: 'success',
@@ -41,6 +41,37 @@ export default function AdminUsuariosPage() {
     if (!window.confirm(`¿Seguro que deseas ${label} a este usuario?`)) return;
     cambiarEstado.mutate({ id, estado_cuenta: nuevoEstado });
   };
+
+  const columns: Column<AdminUsuario>[] = [
+    { key: 'id', header: 'ID', hideOnMobile: true, render: (u) => <span className="text-text-3">{u.id}</span> },
+    { key: 'nombre', header: 'Nombre', render: (u) => <span className="font-medium text-text-1">{u.nombre}</span> },
+    { key: 'email', header: 'Email', render: (u) => <span className="max-w-[200px] truncate text-text-2">{u.email}</span> },
+    {
+      key: 'verificacion', header: 'Verificacion', mobileLabel: 'Verif.',
+      render: (u) => <Badge variant={verificacionBadge[u.estado_verificacion] ?? 'neutral'}>{u.estado_verificacion}</Badge>,
+    },
+    {
+      key: 'cuenta', header: 'Cuenta',
+      render: (u) => <Badge variant={cuentaBadge[u.estado_cuenta] ?? 'neutral'}>{u.estado_cuenta}</Badge>,
+    },
+    {
+      key: 'acciones', header: 'Acciones',
+      render: (u) => (
+        <div className="flex gap-2">
+          {u.estado_cuenta === 'activa' && (
+            <Button variant="danger" onClick={() => handleCambiarEstado(u.id, 'suspendida', 'suspender')} disabled={cambiarEstado.isPending}>
+              Suspender
+            </Button>
+          )}
+          {u.estado_cuenta === 'suspendida' && (
+            <Button variant="primary" onClick={() => handleCambiarEstado(u.id, 'activa', 'reactivar')} disabled={cambiarEstado.isPending}>
+              Reactivar
+            </Button>
+          )}
+        </div>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -81,71 +112,20 @@ export default function AdminUsuariosPage() {
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="flex justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+      <DataTable
+        columns={columns}
+        data={usuarios}
+        isLoading={isLoading}
+        skeletonRows={6}
+        emptyTitle="No hay usuarios"
+        emptySubtitle="No se encontraron usuarios con los filtros seleccionados."
+        rowKey={(u) => u.id}
+      />
+
+      {!isLoading && usuarios.length > 0 && (
+        <div className="mt-4">
+          <Paginacion page={meta.page} total={meta.total} perPage={meta.per_page} onChange={setPage} />
         </div>
-      ) : usuarios.length === 0 ? (
-        <EmptyState title="No hay usuarios" subtitle="No se encontraron usuarios con los filtros seleccionados." />
-      ) : (
-        <>
-          <div className="overflow-x-auto rounded-xl border border-border">
-            <table className="w-full text-sm">
-              <thead className="bg-surface-2 text-left text-xs text-text-2">
-                <tr>
-                  <th className="px-4 py-3">ID</th>
-                  <th className="px-4 py-3">Nombre</th>
-                  <th className="px-4 py-3">Email</th>
-                  <th className="px-4 py-3">Verificacion</th>
-                  <th className="px-4 py-3">Cuenta</th>
-                  <th className="px-4 py-3">Acciones</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border bg-surface">
-                {usuarios.map((u) => (
-                  <tr key={u.id}>
-                    <td className="px-4 py-3 text-text-3">{u.id}</td>
-                    <td className="max-w-[180px] truncate px-4 py-3 text-text-1">{u.nombre}</td>
-                    <td className="max-w-[200px] truncate px-4 py-3 text-text-2">{u.email}</td>
-                    <td className="px-4 py-3">
-                      <Badge variant={verificacionBadge[u.estado_verificacion] ?? 'neutral'}>
-                        {u.estado_verificacion}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3">
-                      <Badge variant={cuentaBadge[u.estado_cuenta] ?? 'neutral'}>
-                        {u.estado_cuenta}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3">
-                      {u.estado_cuenta === 'activa' && (
-                        <Button
-                          variant="danger"
-                          onClick={() => handleCambiarEstado(u.id, 'suspendida', 'suspender')}
-                          disabled={cambiarEstado.isPending}
-                        >
-                          Suspender
-                        </Button>
-                      )}
-                      {u.estado_cuenta === 'suspendida' && (
-                        <Button
-                          variant="primary"
-                          onClick={() => handleCambiarEstado(u.id, 'activa', 'reactivar')}
-                          disabled={cambiarEstado.isPending}
-                        >
-                          Reactivar
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-4">
-            <Paginacion page={meta.page} total={meta.total} perPage={meta.per_page} onChange={setPage} />
-          </div>
-        </>
       )}
     </>
   );
