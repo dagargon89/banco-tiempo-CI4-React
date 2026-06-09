@@ -33,7 +33,7 @@ export function useAsignarTicket() {
 
   return useMutation({
     mutationFn: async (ticketId: number) => {
-      const { data } = await api.patch(`/admin/tickets/${ticketId}/asignar`);
+      const { data } = await api.patch(`/admin/tickets/${ticketId}/asignar`, {});
       return data.data;
     },
     onSuccess: () => {

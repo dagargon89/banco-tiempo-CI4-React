@@ -54,12 +54,20 @@ final class TicketModel extends Model
         return ['items' => $items, 'total' => $total];
     }
 
-    /** Lista paginada para admin con JOIN a users. Filtros: tipo, estado, q. */
+    /** Lista paginada para admin con JOIN a users y última asignación. Filtros: tipo, estado, q. */
     public function listarAdmin(array $filtros, int $page, int $perPage): array
     {
         $builder = $this->db->table("{$this->table} t")
-            ->select('t.*, u.nombre AS creador_nombre')
-            ->join('users u', 'u.id = t.creador_id');
+            ->select('t.*, u.nombre AS creador_nombre, um.nombre AS asignado_a_nombre')
+            ->join('users u', 'u.id = t.creador_id')
+            ->join(
+                "(SELECT ta1.ticket_id, ta1.moderador_id FROM ticket_asignaciones ta1
+                  INNER JOIN (SELECT ticket_id, MAX(id) AS max_id FROM ticket_asignaciones GROUP BY ticket_id) ta2
+                  ON ta1.id = ta2.max_id) last_asig",
+                'last_asig.ticket_id = t.id',
+                'left'
+            )
+            ->join('users um', 'um.id = last_asig.moderador_id', 'left');
 
         if (!empty($filtros['tipo'])) {
             $builder->where('t.tipo', $filtros['tipo']);

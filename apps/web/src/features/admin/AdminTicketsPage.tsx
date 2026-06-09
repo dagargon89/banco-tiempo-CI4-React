@@ -14,6 +14,11 @@ const transiciones: Record<EstadoTicket, EstadoTicket[]> = {
   cerrado: [],
 };
 
+function getErrorMsg(error: unknown): string {
+  const resp = (error as any)?.response?.data;
+  return resp?.message ?? 'Error inesperado.';
+}
+
 export default function AdminTicketsPage() {
   const [estado, setEstado] = useState<string | null>(null);
   const [tipo, setTipo] = useState<string | null>(null);
@@ -21,6 +26,7 @@ export default function AdminTicketsPage() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [nuevoEstado, setNuevoEstado] = useState('');
   const [resolucion, setResolucion] = useState('');
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const filtros = useMemo(() => ({ estado, tipo, page, per_page: 20 }), [estado, tipo, page]);
 
@@ -33,6 +39,7 @@ export default function AdminTicketsPage() {
 
   const handleCambiarEstado = (id: number) => {
     if (!nuevoEstado) return;
+    setErrorMsg(null);
     cambiarEstado.mutate(
       { id, estado: nuevoEstado, resolucion: nuevoEstado === 'resuelto' ? resolucion : undefined },
       {
@@ -41,6 +48,7 @@ export default function AdminTicketsPage() {
           setNuevoEstado('');
           setResolucion('');
         },
+        onError: (err) => setErrorMsg(getErrorMsg(err)),
       },
     );
   };
@@ -48,6 +56,13 @@ export default function AdminTicketsPage() {
   return (
     <>
       <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestion de tickets</h1>
+
+      {errorMsg && (
+        <div className="mb-4 rounded-lg border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">
+          {errorMsg}
+          <button onClick={() => setErrorMsg(null)} className="ml-2 underline">Cerrar</button>
+        </div>
+      )}
 
       <div className="mb-4 flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">
@@ -123,10 +138,15 @@ export default function AdminTicketsPage() {
                             {['abierto', 'en_proceso'].includes(t.estado) && (
                               <Button
                                 variant="secondary"
-                                onClick={() => asignar.mutate(t.id)}
+                                onClick={() => {
+                                  setErrorMsg(null);
+                                  asignar.mutate(t.id, {
+                                    onError: (err) => setErrorMsg(getErrorMsg(err)),
+                                  });
+                                }}
                                 disabled={asignar.isPending}
                               >
-                                Tomar
+                                {asignar.isPending ? 'Asignando...' : 'Tomar'}
                               </Button>
                             )}
                             {estadosDisponibles.length > 0 && (

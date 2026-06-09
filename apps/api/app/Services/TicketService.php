@@ -118,10 +118,10 @@ final class TicketService
 
         // Si abierto → en_proceso
         if ($ticket['estado'] === 'abierto') {
-            $this->tickets->protect(false)->update($ticketId, [
-                'estado' => 'en_proceso',
+            $this->tickets->db->table('tickets')->where('id', $ticketId)->update([
+                'estado'     => 'en_proceso',
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
-            $this->tickets->protect(true);
         }
 
         $this->auditoria->registrar($moderadorId, 'asignar_ticket', 'tickets', $ticketId, [
@@ -156,13 +156,15 @@ final class TicketService
             throw new \InvalidArgumentException('La resolución es obligatoria para marcar como resuelto.');
         }
 
-        $updateData = ['estado' => $nuevoEstado];
+        $updateData = [
+            'estado'     => $nuevoEstado,
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
         if ($nuevoEstado === 'resuelto') {
             $updateData['resolucion'] = trim($resolucion);
         }
 
-        $this->tickets->protect(false)->update($ticketId, $updateData);
-        $this->tickets->protect(true);
+        $this->tickets->db->table('tickets')->where('id', $ticketId)->update($updateData);
 
         $this->auditoria->registrar($moderadorId, 'cambiar_estado_ticket', 'tickets', $ticketId, [
             'de' => $estadoActual,
