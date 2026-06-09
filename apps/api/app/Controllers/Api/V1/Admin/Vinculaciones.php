@@ -66,6 +66,18 @@ final class Vinculaciones extends Controller
             return $this->notFound('Vinculación no encontrada.');
         }
 
+        // SEC-02: Solo con ticket de reporte activo
+        $ticketExiste = \Config\Database::connect()->table('tickets')
+            ->where('entidad_tipo', 'mensaje')
+            ->where('entidad_id', $vinculacionId)
+            ->where('tipo', 'reporte')
+            ->whereIn('estado', ['abierto', 'en_proceso'])
+            ->countAllResults() > 0;
+
+        if (!$ticketExiste) {
+            return $this->forbidden('Se requiere un ticket de reporte activo para acceder al chat.');
+        }
+
         $conversacionModel = model(ConversacionModel::class);
         $conversacion = $conversacionModel->porVinculacion($vinculacionId);
 

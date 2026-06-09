@@ -141,5 +141,49 @@ export interface ResenaEstadisticas {
   total: number;
 }
 
+// Sprint 6: Tickets, Admin Usuarios, Métricas
+export type TipoTicket = 'reporte' | 'sugerencia';
+export type EntidadTipoTicket = 'usuario' | 'oferta' | 'mensaje' | 'resena' | 'otro';
+export type EstadoTicket = 'abierto' | 'en_proceso' | 'resuelto' | 'cerrado';
+export type EstadoCuenta = 'activa' | 'suspendida' | 'baja';
+
+export interface Ticket {
+  id: number;
+  folio: string;
+  creador_id: number;
+  creador_nombre?: string;
+  tipo: TipoTicket;
+  entidad_tipo: EntidadTipoTicket;
+  entidad_id: number | null;
+  estado: EstadoTicket;
+  descripcion: string;
+  resolucion: string | null;
+  asignado_a_nombre?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AdminUsuario {
+  id: number;
+  nombre: string;
+  email: string;
+  foto_perfil: string | null;
+  estado_verificacion: EstadoVerificacion;
+  estado_cuenta: EstadoCuenta;
+  zona: string | null;
+  created_at: string;
+}
+
+export interface Metricas {
+  usuarios: { registrados: number; verificados: number };
+  registros_por_periodo: { periodo: string; total: number }[];
+  ofertas_activas_por_categoria: { categoria: string; total: number }[];
+  vinculaciones_por_estado: Record<string, number>;
+  tasa_aceptacion_por_categoria: { categoria: string; total: number; aceptadas: number }[];
+  calificacion_promedio_plataforma: number;
+  reportes: { total_recibidos: number; horas_promedio_resolucion: number };
+  actividad_por_zona: { zona: string; ofertas: number; vinculaciones: number }[];
+}
+
 export interface ApiList<T> { data: T[]; meta: { total: number; page: number; per_page: number }; }
 export interface ApiItem<T> { data: T; }

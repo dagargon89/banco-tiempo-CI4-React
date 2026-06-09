@@ -1761,3 +1761,213 @@ in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
 17 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
 18 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
 19 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 20:19:36 --> Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 't.ofertas' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('
+            SELECT zona,
+                   SUM(ofertas) AS ofertas,
+                   SUM(vinculaciones) AS vinculaciones
+            FROM (
+                SELECT u.zona, COUNT(*) AS ofertas, 0 AS vinculaciones
+                FROM ofertas o
+                JOIN users u ON u.id = o.user_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+
+                UNION ALL
+
+                SELECT u.zona, 0 AS ofertas, COUNT(*) AS vinculaciones
+                FROM vinculaciones v
+                JOIN users u ON u.id = v.buscador_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+            ) t
+            GROUP BY zona
+            ORDER BY (ofertas + vinculaciones) DESC
+            LIMIT 20
+        ', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('
+            SELECT zona,
+                   SUM(ofertas) AS ofertas,
+                   SUM(vinculaciones) AS vinculaciones
+            FROM (
+                SELECT u.zona, COUNT(*) AS ofertas, 0 AS vinculaciones
+                FROM ofertas o
+                JOIN users u ON u.id = o.user_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+
+                UNION ALL
+
+                SELECT u.zona, 0 AS ofertas, COUNT(*) AS vinculaciones
+                FROM vinculaciones v
+                JOIN users u ON u.id = v.buscador_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+            ) t
+            GROUP BY zona
+            ORDER BY (ofertas + vinculaciones) DESC
+            LIMIT 20
+        ')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('
+            SELECT zona,
+                   SUM(ofertas) AS ofertas,
+                   SUM(vinculaciones) AS vinculaciones
+            FROM (
+                SELECT u.zona, COUNT(*) AS ofertas, 0 AS vinculaciones
+                FROM ofertas o
+                JOIN users u ON u.id = o.user_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+
+                UNION ALL
+
+                SELECT u.zona, 0 AS ofertas, COUNT(*) AS vinculaciones
+                FROM vinculaciones v
+                JOIN users u ON u.id = v.buscador_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+            ) t
+            GROUP BY zona
+            ORDER BY (ofertas + vinculaciones) DESC
+            LIMIT 20
+        ')
+ 4 APPPATH/Services/MetricasService.php(147): CodeIgniter\Database\BaseConnection->query('
+            SELECT zona,
+                   SUM(ofertas) AS ofertas,
+                   SUM(vinculaciones) AS vinculaciones
+            FROM (
+                SELECT u.zona, COUNT(*) AS ofertas, 0 AS vinculaciones
+                FROM ofertas o
+                JOIN users u ON u.id = o.user_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+
+                UNION ALL
+
+                SELECT u.zona, 0 AS ofertas, COUNT(*) AS vinculaciones
+                FROM vinculaciones v
+                JOIN users u ON u.id = v.buscador_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+            ) t
+            GROUP BY zona
+            ORDER BY (ofertas + vinculaciones) DESC
+            LIMIT 20
+        ')
+ 5 APPPATH/Services/MetricasService.php(28): App\Services\MetricasService->actividadPorZona()
+ 6 ROOTPATH/tests/Feature/MetricasServiceTest.php(23): App\Services\MetricasService->obtener()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\MetricasServiceTest->testEstructuraRespuestaContieneOchoClaves()
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\MetricasServiceTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+14 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+15 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 20:19:36 --> Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 't.ofertas' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('
+            SELECT zona,
+                   SUM(ofertas) AS ofertas,
+                   SUM(vinculaciones) AS vinculaciones
+            FROM (
+                SELECT u.zona, COUNT(*) AS ofertas, 0 AS vinculaciones
+                FROM ofertas o
+                JOIN users u ON u.id = o.user_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+
+                UNION ALL
+
+                SELECT u.zona, 0 AS ofertas, COUNT(*) AS vinculaciones
+                FROM vinculaciones v
+                JOIN users u ON u.id = v.buscador_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+            ) t
+            GROUP BY zona
+            ORDER BY (ofertas + vinculaciones) DESC
+            LIMIT 20
+        ', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('
+            SELECT zona,
+                   SUM(ofertas) AS ofertas,
+                   SUM(vinculaciones) AS vinculaciones
+            FROM (
+                SELECT u.zona, COUNT(*) AS ofertas, 0 AS vinculaciones
+                FROM ofertas o
+                JOIN users u ON u.id = o.user_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+
+                UNION ALL
+
+                SELECT u.zona, 0 AS ofertas, COUNT(*) AS vinculaciones
+                FROM vinculaciones v
+                JOIN users u ON u.id = v.buscador_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+            ) t
+            GROUP BY zona
+            ORDER BY (ofertas + vinculaciones) DESC
+            LIMIT 20
+        ')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('
+            SELECT zona,
+                   SUM(ofertas) AS ofertas,
+                   SUM(vinculaciones) AS vinculaciones
+            FROM (
+                SELECT u.zona, COUNT(*) AS ofertas, 0 AS vinculaciones
+                FROM ofertas o
+                JOIN users u ON u.id = o.user_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+
+                UNION ALL
+
+                SELECT u.zona, 0 AS ofertas, COUNT(*) AS vinculaciones
+                FROM vinculaciones v
+                JOIN users u ON u.id = v.buscador_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+            ) t
+            GROUP BY zona
+            ORDER BY (ofertas + vinculaciones) DESC
+            LIMIT 20
+        ')
+ 4 APPPATH/Services/MetricasService.php(147): CodeIgniter\Database\BaseConnection->query('
+            SELECT zona,
+                   SUM(ofertas) AS ofertas,
+                   SUM(vinculaciones) AS vinculaciones
+            FROM (
+                SELECT u.zona, COUNT(*) AS ofertas, 0 AS vinculaciones
+                FROM ofertas o
+                JOIN users u ON u.id = o.user_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+
+                UNION ALL
+
+                SELECT u.zona, 0 AS ofertas, COUNT(*) AS vinculaciones
+                FROM vinculaciones v
+                JOIN users u ON u.id = v.buscador_id
+                WHERE u.zona IS NOT NULL AND u.zona != \'\'
+                GROUP BY u.zona
+            ) t
+            GROUP BY zona
+            ORDER BY (ofertas + vinculaciones) DESC
+            LIMIT 20
+        ')
+ 5 APPPATH/Services/MetricasService.php(28): App\Services\MetricasService->actividadPorZona()
+ 6 ROOTPATH/tests/Feature/MetricasServiceTest.php(44): App\Services\MetricasService->obtener()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\MetricasServiceTest->testTiposDeDatoCorrectos()
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\MetricasServiceTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+14 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+15 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')

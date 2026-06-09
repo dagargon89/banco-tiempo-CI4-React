@@ -10,6 +10,12 @@ import ProfileEditPage from '@/features/perfil/ProfileEditPage';
 import DocumentUploadPage from '@/features/verificacion/DocumentUploadPage';
 import AdminVerificacionesPage from '@/features/admin/AdminVerificacionesPage';
 import AdminOfertasPage from '@/features/admin/AdminOfertasPage';
+import AdminUsuariosPage from '@/features/admin/AdminUsuariosPage';
+import AdminTicketsPage from '@/features/admin/AdminTicketsPage';
+import AdminMetricasPage from '@/features/admin/AdminMetricasPage';
+import AdminCategoriasPage from '@/features/admin/AdminCategoriasPage';
+import TicketCrearPage from '@/features/tickets/TicketCrearPage';
+import MisTicketsPage from '@/features/tickets/MisTicketsPage';
 import ExplorarPage from '@/features/ofertas/ExplorarPage';
 import OfertaDetallePage from '@/features/ofertas/OfertaDetallePage';
 import CrearOfertaPage from '@/features/ofertas/CrearOfertaPage';
@@ -48,12 +54,22 @@ export default function App() {
           <Route path="/vinculaciones" element={<VinculacionesPage />} />
           <Route path="/vinculaciones/:id" element={<VinculacionDetallePage />} />
           <Route path="/mensajes" element={<MensajesPage />} />
+          <Route path="/tickets/crear" element={<TicketCrearPage />} />
+          <Route path="/mis-tickets" element={<MisTicketsPage />} />
         </Route>
 
         {/* Rutas admin (RBAC se checa en ProtectedRoute anidado sin layout propio) */}
         <Route element={<ProtectedRoute requiredRoles={['moderador', 'super_admin']} noLayout />}>
           <Route path="/admin/verificaciones" element={<AdminVerificacionesPage />} />
           <Route path="/admin/ofertas" element={<AdminOfertasPage />} />
+          <Route path="/admin/usuarios" element={<AdminUsuariosPage />} />
+          <Route path="/admin/tickets" element={<AdminTicketsPage />} />
+          <Route path="/admin/metricas" element={<AdminMetricasPage />} />
+        </Route>
+
+        {/* Super admin only */}
+        <Route element={<ProtectedRoute requiredRoles={['super_admin']} noLayout />}>
+          <Route path="/admin/categorias" element={<AdminCategoriasPage />} />
         </Route>
       </Route>
     </Routes>

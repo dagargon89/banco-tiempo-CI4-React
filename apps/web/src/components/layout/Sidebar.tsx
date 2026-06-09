@@ -2,7 +2,9 @@ import { NavLink, useLocation } from 'react-router-dom';
 import {
   Compass, LayoutDashboard, ArrowLeftRight,
   MessageSquare, ShieldCheck, Package,
+  Users, Ticket, BarChart3, FolderOpen, LifeBuoy,
 } from 'lucide-react';
+import { useAuthStore } from '@/stores/authStore';
 
 type NavItem = { to: string; label: string; icon: React.ElementType; end?: boolean };
 
@@ -10,6 +12,7 @@ const buscadorNav: NavItem[] = [
   { to: '/', label: 'Explorar', icon: Compass, end: true },
   { to: '/vinculaciones', label: 'Vinculaciones', icon: ArrowLeftRight },
   { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },
+  { to: '/mis-tickets', label: 'Soporte', icon: LifeBuoy },
 ];
 
 const oferenteNav: NavItem[] = [
@@ -18,10 +21,15 @@ const oferenteNav: NavItem[] = [
   { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },
 ];
 
-const adminNav: NavItem[] = [
+const adminNavBase: NavItem[] = [
   { to: '/admin/verificaciones', label: 'Verificaciones', icon: ShieldCheck },
   { to: '/admin/ofertas', label: 'Ofertas', icon: Package },
+  { to: '/admin/usuarios', label: 'Usuarios', icon: Users },
+  { to: '/admin/tickets', label: 'Tickets', icon: Ticket },
+  { to: '/admin/metricas', label: 'Metricas', icon: BarChart3 },
 ];
+
+const superAdminItem: NavItem = { to: '/admin/categorias', label: 'Categorias', icon: FolderOpen };
 
 function getContext(pathname: string): 'buscador' | 'oferente' | 'admin' {
   if (pathname.startsWith('/admin')) return 'admin';
@@ -39,11 +47,9 @@ const contextLabels: Record<string, string> = {
   admin: 'ADMINISTRADOR',
 };
 
-const navMap: Record<string, NavItem[]> = {
-  buscador: buscadorNav,
-  oferente: oferenteNav,
-  admin: adminNav,
-};
+function getAdminNav(isSuperAdmin: boolean): NavItem[] {
+  return isSuperAdmin ? [...adminNavBase, superAdminItem] : adminNavBase;
+}
 
 const linkBase = 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40';
 const linkActive = 'bg-accent/10 text-accent';
@@ -51,8 +57,12 @@ const linkInactive = 'text-text-2 hover:bg-surface-2 hover:text-text-1';
 
 export default function Sidebar() {
   const { pathname } = useLocation();
+  const user = useAuthStore((s) => s.user);
+  const isSuperAdmin = user?.roles.includes('super_admin') ?? false;
   const context = getContext(pathname);
-  const items = navMap[context];
+  const items = context === 'admin' ? getAdminNav(isSuperAdmin)
+    : context === 'oferente' ? oferenteNav
+    : buscadorNav;
 
   return (
     <aside

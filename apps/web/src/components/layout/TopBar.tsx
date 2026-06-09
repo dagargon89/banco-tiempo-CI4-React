@@ -17,6 +17,12 @@ function getContext(pathname: string): 'buscador' | 'oferente' | 'admin' {
 function getBreadcrumb(pathname: string) {
   if (pathname.startsWith('/admin/verificaciones')) return { section: 'Administración', page: 'Verificaciones' };
   if (pathname.startsWith('/admin/ofertas')) return { section: 'Administración', page: 'Ofertas' };
+  if (pathname.startsWith('/admin/usuarios')) return { section: 'Administración', page: 'Usuarios' };
+  if (pathname.startsWith('/admin/tickets')) return { section: 'Administración', page: 'Tickets' };
+  if (pathname.startsWith('/admin/metricas')) return { section: 'Administración', page: 'Metricas' };
+  if (pathname.startsWith('/admin/categorias')) return { section: 'Administración', page: 'Categorias' };
+  if (pathname === '/tickets/crear') return { section: 'Soporte', page: 'Crear ticket' };
+  if (pathname === '/mis-tickets') return { section: 'Soporte', page: 'Mis tickets' };
   if (pathname === '/mis-ofertas') return { section: 'Oferente', page: 'Panel del oferente' };
   if (pathname === '/ofertas/nueva') return { section: 'Oferente', page: 'Publicar habilidad' };
   if (/^\/ofertas\/\d+\/editar$/.test(pathname)) return { section: 'Oferente', page: 'Editar oferta' };
