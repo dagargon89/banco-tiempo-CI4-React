@@ -81,9 +81,10 @@ final class FirebaseAuthService
      */
     public function verifyIdToken(string $idToken, bool $checkRevoked = false): array
     {
-        $verifiedToken = $checkRevoked
-            ? $this->firebaseAuth->verifyIdToken($idToken, true)
-            : $this->firebaseAuth->verifyIdToken($idToken);
+        // Leeway de 30s para cubrir desfases de reloj en WSL2 (clock drift tras suspensión)
+        $leeway = 30;
+
+        $verifiedToken = $this->firebaseAuth->verifyIdToken($idToken, $checkRevoked, $leeway);
 
         $claims = $verifiedToken->claims();
 

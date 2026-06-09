@@ -171,6 +171,11 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
       </div>
 
       {/* Actions */}
+      {resolver.isError && (
+        <div className="mt-4 rounded-sm border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">
+          {(resolver.error as any)?.response?.data?.message ?? 'Error al procesar la verificación. Intenta de nuevo.'}
+        </div>
+      )}
       {resolver.isSuccess ? (
         <div className="mt-4 rounded-sm border border-success/20 bg-success/5 px-4 py-3 text-sm text-success">
           Verificación resuelta correctamente.

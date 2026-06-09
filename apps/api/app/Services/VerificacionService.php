@@ -115,9 +115,19 @@ final class VerificacionService
             throw new \RuntimeException('Usuario no encontrado.');
         }
 
+        $motivoRechazo = null;
+        if ($user['estado_verificacion'] === 'rechazado') {
+            $docRechazado = $this->documentos
+                ->where('user_id', $userId)
+                ->where('estado', 'rechazado')
+                ->orderBy('updated_at', 'DESC')
+                ->first();
+            $motivoRechazo = $docRechazado['motivo_rechazo'] ?? null;
+        }
+
         return [
             'estado'          => $user['estado_verificacion'],
-            'motivo_rechazo'  => null,
+            'motivo_rechazo'  => $motivoRechazo,
         ];
     }
 

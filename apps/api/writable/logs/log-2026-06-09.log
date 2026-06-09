@@ -1,0 +1,57 @@
+ERROR - 2026-06-09 14:53:59 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'eyJhbGciOiJSUzI...' is not a verified ID token:
+- The token was issued in the future
+
+ERROR - 2026-06-09 14:58:48 --> Error connecting to the database: mysqli_sql_exception: Connection refused in /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(201): mysqli->real_connect('127.0.0.1', 'bt_app', Object(SensitiveParameterValue), 'banco_de_tiempo', 3306, '', 0)
+#1 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Model.php(297): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/dagargon89/banco-tiempo-CI4-React/apps/api/app/Models/UserModel.php(34): CodeIgniter\BaseModel->first()
+#7 /home/dagargon89/banco-tiempo-CI4-React/apps/api/app/Services/FirebaseAuthService.php(51): App\Models\UserModel->porFirebaseUid('Hg3zOb12q1e7xFf...')
+#8 /home/dagargon89/banco-tiempo-CI4-React/apps/api/app/Filters/AuthFirebaseFilter.php(36): App\Services\FirebaseAuthService->verificarYResolver('eyJhbGciOiJSUzI...', false)
+#9 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Filters/Filters.php(241): App\Filters\AuthFirebaseFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), NULL)
+#10 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Filters/Filters.php(221): CodeIgniter\Filters\Filters->runBefore(Array)
+#11 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/CodeIgniter.php(488): CodeIgniter\Filters\Filters->run('api/v1/auth/syn...', 'before')
+#12 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#14 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 /home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/rewrite.php(44): require_once('/home/dagargon8...')
+#17 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Connection refused in /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Model.php(297): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/dagargon89/banco-tiempo-CI4-React/apps/api/app/Models/UserModel.php(34): CodeIgniter\BaseModel->first()
+#6 /home/dagargon89/banco-tiempo-CI4-React/apps/api/app/Services/FirebaseAuthService.php(51): App\Models\UserModel->porFirebaseUid('Hg3zOb12q1e7xFf...')
+#7 /home/dagargon89/banco-tiempo-CI4-React/apps/api/app/Filters/AuthFirebaseFilter.php(36): App\Services\FirebaseAuthService->verificarYResolver('eyJhbGciOiJSUzI...', false)
+#8 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Filters/Filters.php(241): App\Filters\AuthFirebaseFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), NULL)
+#9 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Filters/Filters.php(221): CodeIgniter\Filters\Filters->runBefore(Array)
+#10 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/CodeIgniter.php(488): CodeIgniter\Filters\Filters->run('api/v1/auth/syn...', 'before')
+#11 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 /home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 /home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/codeigniter4/framework/system/rewrite.php(44): require_once('/home/dagargon8...')
+#16 {main}
+ERROR - 2026-06-09 14:58:48 --> Auth filter: CodeIgniter\Database\Exceptions\DatabaseException — Unable to connect to the database.
+Main connection [MySQLi]: Connection refused
+ERROR - 2026-06-09 14:59:22 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'eyJhbGciOiJSUzI...' is not a verified ID token:
+- The token was issued in the future
+
+ERROR - 2026-06-09 15:04:39 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'eyJhbGciOiJSUzI...' is not a verified ID token:
+- The token was issued in the future
+
+ERROR - 2026-06-09 15:38:12 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'eyJhbGciOiJSUzI...' is not a verified ID token:
+- The token was issued in the future
+
+ERROR - 2026-06-09 15:38:43 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'eyJhbGciOiJSUzI...' is not a verified ID token:
+- The token was issued in the future
+
