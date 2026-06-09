@@ -81,13 +81,14 @@ La marca es **Participa Juárez**. Usar SIEMPRE los tokens de `01-vision/08_iden
 4. `03-datos/03_modelo_de_datos.md` y `05-api/05_especificacion_api.md` — referencia de implementación (ERD/DDL y endpoints).
 5. `04-seguridad/04_plan_de_seguridad.md` — **lectura obligatoria** antes de tocar cualquier flujo sensible.
 6. `06-pruebas/06_plan_de_pruebas.md` — red de seguridad y Definición de Hecho.
-7. `07-roadmap/07_roadmap_sprints.md` — orden seguro de construcción (Sprint 0 → 7).
+7. `07-roadmap/07_roadmap_sprints.md` — orden seguro de construcción (Sprint 0 → 10).
+8. `08-ux/09_plan_mejoras_ux.md` — plan de mejoras UX/UI post-MVP (Sprints 8–10): mobile-first, skeletons, dark mode, charts, onboarding.
 
 > Los ADR registran decisiones. Si algo en un documento viejo contradice un ADR, **prevalece el ADR** (p. ej. ADR-008 superó el esquema JWT del ADR-006 §5).
 
 ## Orden de construcción (resumen del roadmap)
 
-Sprint 0 cimientos → 1 Auth+RBAC (Firebase) → 2 Verificación de identidad → 3 Ofertas+Explorar → 4 Vinculación (núcleo) → 5 Chat+Reseñas → 6 Admin+Métricas → 7 Endurecimiento. **Nunca** construir una funcionalidad sensible antes que su control de seguridad.
+Sprint 0 cimientos → 1 Auth+RBAC (Firebase) → 2 Verificación de identidad → 3 Ofertas+Explorar → 4 Vinculación (núcleo) → 5 Chat+Reseñas → 6 Admin+Métricas → 7 Endurecimiento → 8 UX Mobile+Skeletons → 9 UX Dark Mode+Charts → 10 UX Onboarding+Polish. **Nunca** construir una funcionalidad sensible antes que su control de seguridad.
 
 ## Definición de Hecho (por historia)
 
@@ -99,7 +100,7 @@ Pasa estática (PHPStan / ESLint+tsc), tiene pruebas unitarias y de feature que 
 banco-de-tiempo/
 ├── CLAUDE.md            ← este archivo
 ├── README.md
-├── 01-vision/ … 07-roadmap/   ← documentación técnica (fuente de verdad)
+├── 01-vision/ … 08-ux/       ← documentación técnica (fuente de verdad)
 ├── apps/
 │   ├── api/             ← CodeIgniter 4 (API)
 │   └── web/             ← React 19 + Vite (SPA)

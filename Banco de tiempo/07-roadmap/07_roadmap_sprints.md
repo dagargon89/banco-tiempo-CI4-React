@@ -4,8 +4,8 @@
 | Campo | Valor |
 |---|---|
 | Documento | 07 — Roadmap de Ejecución por Sprints |
-| Versión | 2.1 (CI4 + React/Vite · Firebase Auth/Storage — ADR-006/007/008) |
-| Fecha | 3 de junio de 2026 |
+| Versión | 2.2 (CI4 + React/Vite · Firebase Auth/Storage — ADR-006/007/008) |
+| Fecha | 9 de junio de 2026 |
 | Cadencia | Sprints de 2 semanas |
 | Depende de | 01–06, [ADR-006](../02-arquitectura/ADR-006-cambio-stack-ci4-react.md), [ADR-007](../02-arquitectura/ADR-007-firebase-storage-imagenes.md), [ADR-008](../02-arquitectura/ADR-008-firebase-authentication.md) |
 
@@ -26,6 +26,9 @@ flowchart LR
     S4 --> S5["Sprint 5<br/>Chat + Reseñas"]
     S5 --> S6["Sprint 6<br/>Admin + Métricas"]
     S6 --> S7["Sprint 7<br/>Endurecimiento + Lanzamiento"]
+    S7 --> S8["Sprint 8<br/>UX: Mobile + Skeletons"]
+    S8 --> S9["Sprint 9<br/>UX: Dark Mode + Charts"]
+    S9 --> S10["Sprint 10<br/>UX: Onboarding + Polish"]
 ```
 
 ---
@@ -102,6 +105,41 @@ flowchart LR
 
 **Hito:** release candidate del MVP en producción.
 
+### Sprint 8 — UX: Mobile-first y rendimiento percibido (semanas 17–18)
+- Layout responsive mobile-first: drawer sidebar, bottom tab bar, breakpoints (§3.1 del doc 09).
+- Skeleton loading system: remplazar spinners por skeletons específicos por página (§3.2).
+- Sistema de toasts con `sonner` para feedback de mutaciones (§3.3).
+- Persistencia de filtros en URL con `useSearchParams` (§3.5).
+- Chips de categoría scrolleables y radio pills de modalidad en ExplorarPage (BUS-01/02/03).
+- Componente `DataTable` responsive reutilizable para tablas admin (§6.2).
+- Progress indicator en vinculación cards (BUS-13).
+
+**Hito:** la app es usable en mobile; las cargas se perciben fluidas; filtros son compartibles por URL; tablas admin se adaptan a cualquier pantalla.
+
+### Sprint 9 — UX: Dark mode, charts y real-time (semanas 19–20)
+- Dark mode: tokens CSS oscuros + toggle manual en TopBar (§3.4).
+- Chat en tiempo real: badges de no leídos + typing indicator en Firestore (BUS-18/19).
+- Wizard multi-paso para crear oferta con progress bar y preview (OFE-05/06/07).
+- Dashboard de métricas con `recharts`: gráficas reales + selector de período (ADM-01/02).
+- Quick actions en vinculaciones y panel del oferente (BUS-14, OFE-01).
+- Sticky CTA mobile en detalle de oferta (BUS-08).
+- Split view para verificaciones admin (ADM-07/08).
+
+**Hito:** el oferente tiene dashboard actionable; gráficos admin son reales; chat con indicadores en tiempo real; dark mode disponible.
+
+### Sprint 10 — UX: Onboarding, polish y accesibilidad (semanas 21–22)
+- View Transitions API para navegación entre páginas (§3.6).
+- Onboarding flow: welcome modal + profile completion banner + confetti (§7.1).
+- Vista Kanban para tickets admin con drag-and-drop (ADM-12/13).
+- Command palette (⌘K / Ctrl+K) para navegación rápida (§10).
+- Keyboard shortcuts en admin: verificaciones, tickets (ADM-10).
+- In-app notification center + Web Push notifications (OFE-10/11).
+- Accesibilidad avanzada: focus trap, live regions, skip link, reduced motion (§8).
+
+**Hito:** experiencia pulida y profesional; onboarding guía a usuarios nuevos; admin con workflows optimizados.
+
+> **Detalle completo:** [09 — Plan de Mejoras UX/UI](../08-ux/09_plan_mejoras_ux.md).
+
 ---
 
 ## 3. Cobertura de criterios de aceptación del MVP
@@ -133,10 +171,11 @@ flowchart LR
 
 ## 5. Backlog v2 (no MVP)
 
-Verificación automatizada de identidad · push (FCM) · apps nativas · recomendaciones · mapa interactivo por zona. Cada uno entra a planeación solo tras estabilizar el MVP en producción.
+Verificación automatizada de identidad · apps nativas · recomendaciones. Cada uno entra a planeación solo tras estabilizar los Sprints 8–10 en producción.
 
 > El **login social** (Google, Facebook, Microsoft), antes en este backlog, se adelantó al MVP al adoptar Firebase Authentication (ADR-008).
+> Las **push notifications**, **mapa interactivo** y **dark mode**, antes en este backlog, se adelantaron a los Sprints 8–10 (doc 09).
 
 ---
 
-*Documento 07 de la documentación técnica de Banco de Tiempo · Plan Juárez · v2.1 · 3-jun-2026*
+*Documento 07 de la documentación técnica de Banco de Tiempo · Plan Juárez · v2.2 · 9-jun-2026*
