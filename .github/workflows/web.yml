@@ -1,0 +1,40 @@
+name: Web CI
+
+on:
+  push:
+    paths: ['apps/web/**']
+  pull_request:
+    paths: ['apps/web/**']
+
+defaults:
+  run:
+    working-directory: apps/web
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript
+        run: npx tsc --noEmit
+
+      - name: ESLint
+        run: npx eslint src/
+
+      - name: Vitest
+        run: npx vitest run
+
+      - name: npm audit
+        run: npm audit --omit=dev --audit-level=high

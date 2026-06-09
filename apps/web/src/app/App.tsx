@@ -25,6 +25,7 @@ import MisOfertasPage from '@/features/ofertas/MisOfertasPage';
 import VinculacionesPage from '@/features/vinculaciones/VinculacionesPage';
 import VinculacionDetallePage from '@/features/vinculaciones/VinculacionDetallePage';
 import MensajesPage from '@/features/chat/MensajesPage';
+import AvisoPrivacidadPage from '@/features/legal/AvisoPrivacidadPage';
 
 export default function App() {
   const init = useAuthStore((s) => s.init);
@@ -38,6 +39,7 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<RegisterPage />} />
+      <Route path="/privacidad" element={<AvisoPrivacidadPage />} />
 
       {/* Todas las rutas autenticadas usan AppLayout via ProtectedRoute */}
       <Route element={<ProtectedRoute />}>

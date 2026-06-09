@@ -1,0 +1,21 @@
+parameters:
+    level: 6
+    paths:
+        - app/
+    excludePaths:
+        - app/Config/Boot
+        - app/Config/Events.php
+        - app/Config/Routes.php
+    bootstrapFiles:
+        - vendor/codeigniter4/framework/system/Test/bootstrap.php
+    ignoreErrors:
+        -
+            identifier: missingType.iterableValue
+        -
+            identifier: return.missing
+        -
+            identifier: missingType.generics
+        -
+            identifier: identical.alwaysFalse
+        -
+            identifier: identical.alwaysTrue

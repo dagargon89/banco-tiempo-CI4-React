@@ -1,0 +1,28 @@
+# ── Credenciales y secretos ──
+*firebase-adminsdk*
+.env
+.env.*
+!.env.example
+
+# ── Dependencias ──
+vendor/
+node_modules/
+
+# ── Build ──
+dist/
+
+# ── CI4 writable ──
+writable/debugbar/
+writable/logs/
+writable/cache/
+
+# ── PHPUnit ──
+.phpunit.cache/
+
+# ── IDE ──
+.idea/
+.vscode/
+
+# ── OS ──
+.DS_Store
+Thumbs.db

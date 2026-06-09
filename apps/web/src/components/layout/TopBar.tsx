@@ -31,6 +31,7 @@ function getBreadcrumb(pathname: string) {
   if (pathname === '/perfil/editar') return { section: 'Cuenta', page: 'Editar perfil' };
   if (pathname === '/perfil') return { section: 'Cuenta', page: 'Mi perfil' };
   if (pathname === '/verificacion') return { section: 'Cuenta', page: 'Verificación' };
+  if (pathname === '/privacidad') return { section: 'Legal', page: 'Aviso de Privacidad' };
   return { section: 'Explorar', page: 'Ofertas disponibles' };
 }
 

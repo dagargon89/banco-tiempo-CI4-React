@@ -102,6 +102,16 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Footer */}
+      <div className="border-t border-border px-5 py-3">
+        <NavLink
+          to="/privacidad"
+          className="text-[11px] text-text-3 hover:text-text-2 transition-colors"
+        >
+          Aviso de Privacidad
+        </NavLink>
+      </div>
     </aside>
   );
 }

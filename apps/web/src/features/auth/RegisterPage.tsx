@@ -106,7 +106,15 @@ export default function RegisterPage() {
 
           <SocialButtons />
 
-          <p className="mt-6 text-center text-sm text-text-2">
+          <p className="mt-4 text-center text-xs text-text-3">
+            Al crear tu cuenta aceptas nuestro{' '}
+            <Link to="/privacidad" className="font-medium text-accent hover:text-accent-hover">
+              Aviso de Privacidad
+            </Link>
+            .
+          </p>
+
+          <p className="mt-3 text-center text-sm text-text-2">
             ¿Ya tienes cuenta?{' '}
             <Link to="/login" className="font-medium text-accent hover:text-accent-hover">
               Inicia sesión
