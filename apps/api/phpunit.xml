@@ -19,6 +19,7 @@
         <env name="database.tests.username" value="bt_app"/>
         <env name="database.tests.password" value="bt_app_local"/>
         <env name="database.tests.DBDriver" value="MySQLi"/>
+        <env name="database.tests.DBPrefix" value=""/>
         <env name="database.tests.port" value="3306"/>
     </php>
 </phpunit>

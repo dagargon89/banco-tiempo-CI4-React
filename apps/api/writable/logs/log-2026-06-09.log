@@ -55,3 +55,1478 @@ ERROR - 2026-06-09 15:38:12 --> Auth filter: Kreait\Firebase\Exception\Auth\Fail
 ERROR - 2026-06-09 15:38:43 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'eyJhbGciOiJSUzI...' is not a verified ID token:
 - The token was issued in the future
 
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(24): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testExplorarDevuelve200()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(30): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testExplorarDevuelveEstructuraJsonCorrecta()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1
+AND `o`.`modalidad` = \'presencial\'
+AND  `o`.`zona` LIKE \'%Centro%\' ESCAPE \'!\'
+AND   (
+`o`.`titulo` LIKE \'%guitarra%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%guitarra%\' ESCAPE \'!\'
+ )', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1
+AND `o`.`modalidad` = \'presencial\'
+AND  `o`.`zona` LIKE \'%Centro%\' ESCAPE \'!\'
+AND   (
+`o`.`titulo` LIKE \'%guitarra%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%guitarra%\' ESCAPE \'!\'
+ )')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1
+AND `o`.`modalidad` = \'presencial\'
+AND  `o`.`zona` LIKE \'%Centro%\' ESCAPE \'!\'
+AND   (
+`o`.`titulo` LIKE \'%guitarra%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%guitarra%\' ESCAPE \'!\'
+ )')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND `o`.`categoria_id` = :o.categoria_id:
+AND `o`.`modalidad` = :o.modalidad:
+AND  `o`.`zona` LIKE :o.zona: ESCAPE \'!\'
+AND   (
+`o`.`titulo` LIKE :o.titulo: ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE :o.descripcion_breve: ESCAPE \'!\'
+ )', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?categoria_id=1&modalidad=presencial&zona=Centro&q=guitarra', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(45): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?categoria_id=1&modalidad=presencial&zona=Centro&q=guitarra')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testExplorarConFiltrosDevuelve200()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND `o`.`categoria_id` = :o.categoria_id:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?categoria_id=1', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(51): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?categoria_id=1')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testExplorarConCategoriaSolaDevuelve200()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'virtual\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'virtual\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'virtual\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND `o`.`modalidad` = :o.modalidad:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?modalidad=virtual', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(57): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?modalidad=virtual')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testExplorarConModalidadSolaDevuelve200()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND  `o`.`zona` LIKE \'%Norte%\' ESCAPE \'!\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND  `o`.`zona` LIKE \'%Norte%\' ESCAPE \'!\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND  `o`.`zona` LIKE \'%Norte%\' ESCAPE \'!\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND  `o`.`zona` LIKE :o.zona: ESCAPE \'!\'', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?zona=Norte', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(63): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?zona=Norte')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testExplorarConZonaSolaDevuelve200()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND   (
+`o`.`titulo` LIKE \'%clases%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%clases%\' ESCAPE \'!\'
+ )', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND   (
+`o`.`titulo` LIKE \'%clases%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%clases%\' ESCAPE \'!\'
+ )')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND   (
+`o`.`titulo` LIKE \'%clases%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%clases%\' ESCAPE \'!\'
+ )')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND   (
+`o`.`titulo` LIKE :o.titulo: ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE :o.descripcion_breve: ESCAPE \'!\'
+ )', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?q=clases', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(69): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?q=clases')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testExplorarConBusquedaDevuelve200()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 50)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 50)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?per_page=100', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(77): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?per_page=100')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testPaginacionRespetaMaximo50()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(86): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testPaginacionPagina1PorDefecto()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND   (
+`o`.`titulo` LIKE \'%\\\' OR 1=1 --%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%\\\' OR 1=1 --%\' ESCAPE \'!\'
+ )', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND   (
+`o`.`titulo` LIKE \'%\\\' OR 1=1 --%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%\\\' OR 1=1 --%\' ESCAPE \'!\'
+ )')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND   (
+`o`.`titulo` LIKE \'%\\\' OR 1=1 --%\' ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE \'%\\\' OR 1=1 --%\' ESCAPE \'!\'
+ )')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND   (
+`o`.`titulo` LIKE :o.titulo: ESCAPE \'!\'
+OR  `o`.`descripcion_breve` LIKE :o.descripcion_breve: ESCAPE \'!\'
+ )', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?q=\' OR 1=1 --', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(97): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?q=\' OR 1=1 --')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testSqlInjectionEnQueryNoRompe()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`categoria_id` = 1')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND `o`.`categoria_id` = :o.categoria_id:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?categoria_id=1;DROP+TABLE+ofertas;', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(104): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?categoria_id=1;DROP+TABLE+ofertas;')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testSqlInjectionEnCategoriaIdNoRompe()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND  `o`.`zona` LIKE \'%\\\' UNION SELECT * FROM users --%\' ESCAPE \'!\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND  `o`.`zona` LIKE \'%\\\' UNION SELECT * FROM users --%\' ESCAPE \'!\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND  `o`.`zona` LIKE \'%\\\' UNION SELECT * FROM users --%\' ESCAPE \'!\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND  `o`.`zona` LIKE :o.zona: ESCAPE \'!\'', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?zona=\' UNION SELECT * FROM users --', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(110): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?zona=\' UNION SELECT * FROM users --')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testSqlInjectionEnZonaNoRompe()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'presencial\\\' AND \\\'1\\\'=\\\'1\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'presencial\\\' AND \\\'1\\\'=\\\'1\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = \'activa\'
+AND `o`.`modalidad` = \'presencial\\\' AND \\\'1\\\'=\\\'1\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1731): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `db_ofertas` `o`
+JOIN `db_users` `u` ON `u`.`id` = `o`.`user_id`
+WHERE `o`.`estado` = :o.estado:
+AND `o`.`modalidad` = :o.modalidad:', [...], false)
+ 5 APPPATH/Models/OfertaModel.php(75): CodeIgniter\Database\BaseBuilder->countAllResults(false)
+ 6 APPPATH/Services/OfertaService.php(154): App\Models\OfertaModel->explorar([...], 1, 12)
+ 7 APPPATH/Controllers/Api/V1/Ofertas.php(36): App\Services\OfertaService->explorar([...], 1, 12)
+ 8 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->index()
+ 9 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+10 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+11 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+12 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas?modalidad=presencial\' AND \'1\'=\'1', null)
+13 ROOTPATH/tests/Feature/OfertasExplorationTest.php(116): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas?modalidad=presencial\' AND \'1\'=\'1')
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testSqlInjectionEnModalidadNoRompe()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+21 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+23 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+24 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:05 --> Table 'banco_de_tiempo.db_ofertas' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `db_ofertas`.*, `u`.`id` AS `oferente_id`, `u`.`nombre` AS `oferente_nombre`, `u`.`foto_perfil` AS `oferente_foto`
+FROM `db_ofertas`
+JOIN `db_users` `u` ON `u`.`id` = `db_ofertas`.`user_id`
+WHERE `db_ofertas`.`id` = 999999
+ LIMIT 1', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `db_ofertas`.*, `u`.`id` AS `oferente_id`, `u`.`nombre` AS `oferente_nombre`, `u`.`foto_perfil` AS `oferente_foto`
+FROM `db_ofertas`
+JOIN `db_users` `u` ON `u`.`id` = `db_ofertas`.`user_id`
+WHERE `db_ofertas`.`id` = 999999
+ LIMIT 1')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `db_ofertas`.*, `u`.`id` AS `oferente_id`, `u`.`nombre` AS `oferente_nombre`, `u`.`foto_perfil` AS `oferente_foto`
+FROM `db_ofertas`
+JOIN `db_users` `u` ON `u`.`id` = `db_ofertas`.`user_id`
+WHERE `db_ofertas`.`id` = 999999
+ LIMIT 1')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `db_ofertas`.*, `u`.`id` AS `oferente_id`, `u`.`nombre` AS `oferente_nombre`, `u`.`foto_perfil` AS `oferente_foto`
+FROM `db_ofertas`
+JOIN `db_users` `u` ON `u`.`id` = `db_ofertas`.`user_id`
+WHERE `db_ofertas`.`id` = :ofertas.id:
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH/Model.php(297): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 7 APPPATH/Models/OfertaModel.php(43): CodeIgniter\BaseModel->first()
+ 8 APPPATH/Services/OfertaService.php(138): App\Models\OfertaModel->conOferente(999999)
+ 9 APPPATH/Controllers/Api/V1/Ofertas.php(48): App\Services\OfertaService->obtener(999999)
+10 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Ofertas->show(999999)
+11 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Ofertas))
+12 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(Object(CodeIgniter\Router\RouteCollection), Object(Config\Cache), true)
+13 SYSTEMPATH/Test/FeatureTestTrait.php(234): CodeIgniter\CodeIgniter->run(Object(CodeIgniter\Router\RouteCollection), true)
+14 SYSTEMPATH/Test/FeatureTestTrait.php(254): Tests\Feature\OfertasExplorationTest->call('GET', 'api/v1/ofertas/999999', null)
+15 ROOTPATH/tests/Feature/OfertasExplorationTest.php(124): Tests\Feature\OfertasExplorationTest->get('api/v1/ofertas/999999')
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasExplorationTest->testOfertaInexistenteDevuelve404()
+17 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+18 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+19 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasExplorationTest))
+20 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+21 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+22 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+23 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+24 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+25 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+26 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-d4cf024c\', \'Test User CRUD\', \'crud-71cc66fa@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-d4cf024c\', \'Test User CRUD\', \'crud-71cc66fa@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-d4cf024c\', \'Test User CRUD\', \'crud-71cc66fa@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-32b75d96\', \'Test User CRUD\', \'crud-3a8e7422@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-32b75d96\', \'Test User CRUD\', \'crud-3a8e7422@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-32b75d96\', \'Test User CRUD\', \'crud-3a8e7422@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-bed59d89\', \'Test User CRUD\', \'crud-7d59650e@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-bed59d89\', \'Test User CRUD\', \'crud-7d59650e@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-bed59d89\', \'Test User CRUD\', \'crud-7d59650e@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-6898d411\', \'Test User CRUD\', \'crud-0fedaa5e@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-6898d411\', \'Test User CRUD\', \'crud-0fedaa5e@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-6898d411\', \'Test User CRUD\', \'crud-0fedaa5e@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-c992e1a5\', \'Test User CRUD\', \'crud-614e577a@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-c992e1a5\', \'Test User CRUD\', \'crud-614e577a@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-c992e1a5\', \'Test User CRUD\', \'crud-614e577a@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-373f22c3\', \'Test User CRUD\', \'crud-fe9c503f@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-373f22c3\', \'Test User CRUD\', \'crud-fe9c503f@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-373f22c3\', \'Test User CRUD\', \'crud-fe9c503f@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-21da3d77\', \'Test User CRUD\', \'crud-1eacc16c@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-21da3d77\', \'Test User CRUD\', \'crud-1eacc16c@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-21da3d77\', \'Test User CRUD\', \'crud-1eacc16c@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-b3bc8ad3\', \'Test User CRUD\', \'crud-d8220d37@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-b3bc8ad3\', \'Test User CRUD\', \'crud-d8220d37@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-b3bc8ad3\', \'Test User CRUD\', \'crud-d8220d37@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'email_verificado' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-2e274281\', \'Test User CRUD\', \'crud-88113541@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-2e274281\', \'Test User CRUD\', \'crud-88113541@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (\'test-uid-crud-2e274281\', \'Test User CRUD\', \'crud-88113541@test.com\', 1, \'verificado\', \'activa\', \'2026-06-09 16:04:38\', \'2026-06-09 16:04:38\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`firebase_uid`, `nombre`, `email`, `email_verificado`, `estado_verificacion`, `estado_cuenta`, `created_at`, `updated_at`) VALUES (:firebase_uid:, :nombre:, :email:, :email_verificado:, :estado_verificacion:, :estado_cuenta:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(37): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:04:38 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (0,0)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(82): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (3,4)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (3,4)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (3,4)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Duplicate entry 'Test Cat CRUD' for key 'categorias.uq_categorias_nombre'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-f0d4973a\', 1)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-f0d4973a\', 1)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-f0d4973a\', 1)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (:nombre:, :slug:, :activa:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(61): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (5,6)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (5,6)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (5,6)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Duplicate entry 'Test Cat CRUD' for key 'categorias.uq_categorias_nombre'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-2c1efabc\', 1)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-2c1efabc\', 1)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-2c1efabc\', 1)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (:nombre:, :slug:, :activa:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(61): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (7,8)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (7,8)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (7,8)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Duplicate entry 'Test Cat CRUD' for key 'categorias.uq_categorias_nombre'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-d6128416\', 1)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-d6128416\', 1)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-d6128416\', 1)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (:nombre:, :slug:, :activa:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(61): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (9,10)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (9,10)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (9,10)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Duplicate entry 'Test Cat CRUD' for key 'categorias.uq_categorias_nombre'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-f9866833\', 1)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-f9866833\', 1)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-f9866833\', 1)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (:nombre:, :slug:, :activa:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(61): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (11,12)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (11,12)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (11,12)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Duplicate entry 'Test Cat CRUD' for key 'categorias.uq_categorias_nombre'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-134ef662\', 1)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-134ef662\', 1)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-134ef662\', 1)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (:nombre:, :slug:, :activa:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(61): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (13,14)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (13,14)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (13,14)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Duplicate entry 'Test Cat CRUD' for key 'categorias.uq_categorias_nombre'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-aa879ddd\', 1)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-aa879ddd\', 1)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-aa879ddd\', 1)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (:nombre:, :slug:, :activa:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(61): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (15,16)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (15,16)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (15,16)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Duplicate entry 'Test Cat CRUD' for key 'categorias.uq_categorias_nombre'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-54b08c9c\', 1)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-54b08c9c\', 1)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-54b08c9c\', 1)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (:nombre:, :slug:, :activa:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(61): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (17,18)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (17,18)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (17,18)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Duplicate entry 'Test Cat CRUD' for key 'categorias.uq_categorias_nombre'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-46b64691\', 1)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-46b64691\', 1)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (\'Test Cat CRUD\', \'test-crud-46b64691\', 1)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `categorias` (`nombre`, `slug`, `activa`) VALUES (:nombre:, :slug:, :activa:)', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(61): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:05:02 --> Unknown column 'user_id' in 'where clause'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('DELETE FROM `auditoria`
+WHERE `user_id` IN (19,20)', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `auditoria`
+WHERE `user_id` IN (19,20)')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `auditoria`
+WHERE `user_id` IN (19,20)')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2846): CodeIgniter\Database\BaseConnection->query('DELETE FROM `auditoria`
+WHERE `user_id` IN :user_id:', [...], false)
+ 5 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(80): CodeIgniter\Database\BaseBuilder->delete()
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\OfertasCrudIntegrationTest->tearDown()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2418): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'afterTestMethodCalled', 'afterTestMethodErrored', 'afterTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(611): PHPUnit\Framework\TestCase->invokeAfterTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:06:01 --> Field 'descripcion_completa' doesn't have a default value
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `zona`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Taller de pintura al oleo en mi taller\', 21, \'Sesiones individuales de pintura al oleo para principiantes.\', \'presencial\', \'Centro\', 23, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `zona`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Taller de pintura al oleo en mi taller\', 21, \'Sesiones individuales de pintura al oleo para principiantes.\', \'presencial\', \'Centro\', 23, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `zona`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Taller de pintura al oleo en mi taller\', 21, \'Sesiones individuales de pintura al oleo para principiantes.\', \'presencial\', \'Centro\', 23, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `zona`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (:titulo:, :categoria_id:, :descripcion_breve:, :modalidad:, :zona:, :user_id:, :estado:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH/Model.php(357): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH/Model.php(670): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH/Services/OfertaService.php(56): CodeIgniter\Model->insert([...])
+ 9 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(125): App\Services\OfertaService->crear(23, [...], '127.0.0.1')
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasCrudIntegrationTest->testCrearOfertaPresencialConZona()
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+17 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+18 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+19 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+20 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:06:01 --> Field 'descripcion_completa' doesn't have a default value
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta para probar permisos de edicion\', 24, \'Solo el duenno puede editar esta oferta publicada aqui.\', \'virtual\', 29, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta para probar permisos de edicion\', 24, \'Solo el duenno puede editar esta oferta publicada aqui.\', \'virtual\', 29, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta para probar permisos de edicion\', 24, \'Solo el duenno puede editar esta oferta publicada aqui.\', \'virtual\', 29, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (:titulo:, :categoria_id:, :descripcion_breve:, :modalidad:, :user_id:, :estado:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH/Model.php(357): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH/Model.php(670): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH/Services/OfertaService.php(56): CodeIgniter\Model->insert([...])
+ 9 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(188): App\Services\OfertaService->crear(29, [...], '127.0.0.1')
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasCrudIntegrationTest->testEditarPorNoDuennoLanzaExcepcion()
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+17 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+18 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+19 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+20 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:06:01 --> Field 'descripcion_completa' doesn't have a default value
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta que sera pausada para test de exploracion\', 25, \'Esta oferta debe desaparecer de exploracion al pausarla ahora.\', \'virtual\', 31, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta que sera pausada para test de exploracion\', 25, \'Esta oferta debe desaparecer de exploracion al pausarla ahora.\', \'virtual\', 31, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta que sera pausada para test de exploracion\', 25, \'Esta oferta debe desaparecer de exploracion al pausarla ahora.\', \'virtual\', 31, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (:titulo:, :categoria_id:, :descripcion_breve:, :modalidad:, :user_id:, :estado:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH/Model.php(357): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH/Model.php(670): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH/Services/OfertaService.php(56): CodeIgniter\Model->insert([...])
+ 9 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(210): App\Services\OfertaService->crear(31, [...], '127.0.0.1')
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasCrudIntegrationTest->testOfertaPausadaNoApareceEnExploracion()
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+17 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+18 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+19 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+20 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:06:01 --> Field 'descripcion_completa' doesn't have a default value
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta que sera eliminada para test de exploracion\', 26, \'Esta oferta no debe aparecer al eliminarla del sistema hoy.\', \'virtual\', 33, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta que sera eliminada para test de exploracion\', 26, \'Esta oferta no debe aparecer al eliminarla del sistema hoy.\', \'virtual\', 33, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta que sera eliminada para test de exploracion\', 26, \'Esta oferta no debe aparecer al eliminarla del sistema hoy.\', \'virtual\', 33, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (:titulo:, :categoria_id:, :descripcion_breve:, :modalidad:, :user_id:, :estado:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH/Model.php(357): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH/Model.php(670): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH/Services/OfertaService.php(56): CodeIgniter\Model->insert([...])
+ 9 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(230): App\Services\OfertaService->crear(33, [...], '127.0.0.1')
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasCrudIntegrationTest->testOfertaEliminadaNoApareceEnExploracion()
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+17 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+18 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+19 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+20 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:06:01 --> Field 'descripcion_completa' doesn't have a default value
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta de categoria especifica para filtro test\', 27, \'Oferta pertenece a una categoria de prueba especifica aqui.\', \'virtual\', 35, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta de categoria especifica para filtro test\', 27, \'Oferta pertenece a una categoria de prueba especifica aqui.\', \'virtual\', 35, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (\'Oferta de categoria especifica para filtro test\', 27, \'Oferta pertenece a una categoria de prueba especifica aqui.\', \'virtual\', 35, \'activa\', \'2026-06-09 16:06:01\', \'2026-06-09 16:06:01\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ofertas` (`titulo`, `categoria_id`, `descripcion_breve`, `modalidad`, `user_id`, `estado`, `created_at`, `updated_at`) VALUES (:titulo:, :categoria_id:, :descripcion_breve:, :modalidad:, :user_id:, :estado:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH/Model.php(357): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH/Model.php(670): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH/Services/OfertaService.php(56): CodeIgniter\Model->insert([...])
+ 9 ROOTPATH/tests/Feature/OfertasCrudIntegrationTest.php(252): App\Services\OfertaService->crear(35, [...], '127.0.0.1')
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\OfertasCrudIntegrationTest->testFiltrarPorCategoriaDevuelveSoloCoincidencias()
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\OfertasCrudIntegrationTest))
+14 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+15 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+16 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+17 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+18 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+19 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+20 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-09 16:07:01 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-09 16:07:01 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
