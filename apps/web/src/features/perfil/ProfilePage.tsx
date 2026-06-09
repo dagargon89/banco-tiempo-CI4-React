@@ -1,16 +1,27 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, User2, Pencil, LayoutGrid, Star, Clock, Phone } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
+import Badge from '@/components/ui/Badge';
 import StatCard from '@/components/ui/StatCard';
 import EmptyState from '@/components/ui/EmptyState';
 import Button from '@/components/ui/Button';
 import VerificacionBadge from '@/components/verificacion/VerificacionBadge';
 import VerificacionBanner from '@/components/verificacion/VerificacionBanner';
 import { useProfile, useVerificacionEstado } from './hooks/useProfile';
+import { useMisOfertas } from '@/features/ofertas/hooks/useOfertas';
+import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
+import { useListarVinculaciones } from '@/features/vinculaciones/hooks/useVinculaciones';
+import { getCategoryConfigById } from '@/lib/categoryConfig';
 
 export default function ProfilePage() {
   const { data: user, isLoading } = useProfile();
   const { data: verificacion } = useVerificacionEstado();
+  const { data: ofertas } = useMisOfertas();
+  const { data: categorias } = useCategorias();
+  const { data: completadasData } = useListarVinculaciones({ estado: 'completada', per_page: 50 });
+
+  const ofertasActivas = ofertas?.filter((o) => o.estado === 'activa') ?? [];
+  const completadas = completadasData?.data ?? [];
 
   if (isLoading || !user) {
     return (
@@ -78,9 +89,9 @@ export default function ProfilePage() {
 
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <StatCard label="Calificacion" value="—" accent />
-            <StatCard label="Actividades" value={0} />
+            <StatCard label="Actividades" value={completadas.length} />
             <StatCard label="Resenas" value={0} />
-            <StatCard label="Ofertas" value={0} />
+            <StatCard label="Ofertas" value={ofertasActivas.length} />
           </div>
         </div>
       </div>
@@ -106,11 +117,36 @@ export default function ProfilePage() {
           </div>
           <div>
             <h3 className="mb-3 text-sm font-semibold text-text-1">Habilidades que ensena</h3>
-            <EmptyState
-              icon={<Star className="h-8 w-8" />}
-              title="Sin habilidades publicadas"
-              subtitle="Crea una oferta para mostrar tus habilidades"
-            />
+            {ofertasActivas.length === 0 ? (
+              <EmptyState
+                icon={<Star className="h-8 w-8" />}
+                title="Sin habilidades publicadas"
+                subtitle="Crea una oferta para mostrar tus habilidades"
+              />
+            ) : (
+              <div className="space-y-2">
+                {ofertasActivas.map((oferta) => {
+                  const catConfig = getCategoryConfigById(oferta.categoria_id, categorias);
+                  const Icon = catConfig.icon;
+                  return (
+                    <Link
+                      key={oferta.id}
+                      to={`/ofertas/${oferta.id}`}
+                      className="flex items-center gap-3 rounded-lg border border-border bg-surface p-3 transition-colors hover:border-accent/30"
+                    >
+                      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${catConfig.accent}`}>
+                        <Icon className="h-4 w-4" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium text-text-1">{oferta.titulo}</p>
+                        <p className="text-xs text-text-3">{oferta.modalidad}</p>
+                      </div>
+                      <Badge variant="success">Activa</Badge>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
         <div className="space-y-6 lg:col-span-3">

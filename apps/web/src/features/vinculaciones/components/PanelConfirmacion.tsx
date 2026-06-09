@@ -13,11 +13,11 @@ export default function PanelConfirmacion({ vinculacion }: PanelConfirmacionProp
   const items = [
     {
       label: `Oferente (${vinculacion.oferente_nombre})`,
-      confirmed: vinculacion.confirmado_oferente,
+      confirmed: Boolean(Number(vinculacion.confirmado_oferente)),
     },
     {
       label: `Buscador (${vinculacion.buscador_nombre})`,
-      confirmed: vinculacion.confirmado_buscador,
+      confirmed: Boolean(Number(vinculacion.confirmado_buscador)),
     },
   ];
 

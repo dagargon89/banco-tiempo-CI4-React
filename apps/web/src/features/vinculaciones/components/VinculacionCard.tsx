@@ -9,7 +9,7 @@ interface VinculacionCardProps {
 }
 
 export default function VinculacionCard({ vinculacion, userId }: VinculacionCardProps) {
-  const esOferente = userId === vinculacion.oferente_id;
+  const esOferente = userId === Number(vinculacion.oferente_id);
   const contraparte = esOferente
     ? { nombre: vinculacion.buscador_nombre, foto: vinculacion.buscador_foto, rol: 'Buscador' }
     : { nombre: vinculacion.oferente_nombre, foto: vinculacion.oferente_foto, rol: 'Oferente' };

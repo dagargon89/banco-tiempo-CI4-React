@@ -18,11 +18,11 @@ export default function AccionesVinculacion({ vinculacion, userId }: AccionesVin
   const cancelar = useCancelarVinculacion();
   const confirmar = useConfirmarVinculacion();
 
-  const esOferente = userId === vinculacion.oferente_id;
-  const esBuscador = userId === vinculacion.buscador_id;
+  const esOferente = userId === Number(vinculacion.oferente_id);
+  const esBuscador = userId === Number(vinculacion.buscador_id);
   const isPending = aceptar.isPending || rechazar.isPending || cancelar.isPending || confirmar.isPending;
 
-  const yaConfirmo = esOferente ? vinculacion.confirmado_oferente : vinculacion.confirmado_buscador;
+  const yaConfirmo = Boolean(Number(esOferente ? vinculacion.confirmado_oferente : vinculacion.confirmado_buscador));
 
   return (
     <div className="flex flex-wrap gap-2">
