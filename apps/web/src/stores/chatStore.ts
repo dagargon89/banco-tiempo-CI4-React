@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { initializeApp, getApp, deleteApp } from 'firebase/app';
+import { initializeApp, getApp } from 'firebase/app';
 import { getAuth, signInWithCustomToken, signOut } from 'firebase/auth';
 import { firebaseConfig } from '@/lib/firebase';
 
@@ -13,6 +13,7 @@ interface ChatState {
 
 const CHAT_APP_NAME = 'chat';
 
+/** Obtiene o crea la instancia secundaria de Firebase para el chat. */
 function getChatApp() {
   try {
     return getApp(CHAT_APP_NAME);
@@ -20,6 +21,8 @@ function getChatApp() {
     return initializeApp(firebaseConfig, CHAT_APP_NAME);
   }
 }
+
+export { getChatApp, CHAT_APP_NAME };
 
 export const useChatStore = create<ChatState>((set) => ({
   isConnected: false,
@@ -34,16 +37,17 @@ export const useChatStore = create<ChatState>((set) => ({
       await signInWithCustomToken(chatAuth, customToken);
       set({ isConnected: true, conversationId });
     } catch (e: any) {
+      console.error('[Chat] Error al conectar:', e);
       set({ error: e.message ?? 'Error al conectar al chat', isConnected: false });
     }
   },
 
   disconnect: async () => {
     try {
-      const chatApp = getChatApp();
+      const chatApp = getApp(CHAT_APP_NAME);
       const chatAuth = getAuth(chatApp);
       await signOut(chatAuth);
-      await deleteApp(chatApp);
+      // NO borrar la app — signOut es suficiente y evita problemas con StrictMode
     } catch {
       // App might not exist
     }

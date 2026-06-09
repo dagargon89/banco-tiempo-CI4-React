@@ -9,13 +9,11 @@ import {
   serverTimestamp,
   getFirestore,
 } from 'firebase/firestore';
-import { getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/stores/authStore';
+import { getChatApp } from '@/stores/chatStore';
 import type { ChatTokenResponse, ChatMessage, ApiItem } from '@/lib/types';
-
-const CHAT_APP_NAME = 'chat';
 
 /** Obtiene el Custom Token para una vinculación. */
 export function useChatToken() {
@@ -33,6 +31,8 @@ export function useChatToken() {
 export function useChatMessages(conversationId: string | null) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(true);
+  const [listenerError, setListenerError] = useState<string | null>(null);
+  const [sendError, setSendError] = useState<string | null>(null);
   const user = useAuthStore((s) => s.user);
 
   useEffect(() => {
@@ -44,9 +44,10 @@ export function useChatMessages(conversationId: string | null) {
 
     let chatApp;
     try {
-      chatApp = getApp(CHAT_APP_NAME);
+      chatApp = getChatApp();
     } catch {
       setLoading(false);
+      setListenerError('No se pudo inicializar el chat.');
       return;
     }
 
@@ -63,9 +64,16 @@ export function useChatMessages(conversationId: string | null) {
         })) as ChatMessage[];
         setMessages(msgs);
         setLoading(false);
+        setListenerError(null);
       },
-      () => {
+      (error) => {
+        console.error('[Chat] Listener error:', error);
         setLoading(false);
+        setListenerError(
+          error.code === 'permission-denied'
+            ? 'Sin permiso para leer mensajes. Verifica que las Firestore Rules esten desplegadas.'
+            : `Error al escuchar mensajes: ${error.message}`,
+        );
       },
     );
 
@@ -74,29 +82,41 @@ export function useChatMessages(conversationId: string | null) {
 
   const sendMessage = useCallback(
     async (text: string) => {
-      if (!conversationId || !user) return;
-
-      let chatApp;
-      try {
-        chatApp = getApp(CHAT_APP_NAME);
-      } catch {
-        return;
+      if (!conversationId || !user) {
+        throw new Error('Chat no conectado.');
       }
 
+      const chatApp = getChatApp();
       const db = getFirestore(chatApp);
       const chatAuth = getAuth(chatApp);
+
+      if (!chatAuth.currentUser) {
+        throw new Error('No autenticado en el chat. Recarga la pagina.');
+      }
+
       const messagesRef = collection(db, 'conversations', conversationId, 'messages');
 
-      await addDoc(messagesRef, {
-        text: text.trim(),
-        sender_id: user.id,
-        sender_uid: chatAuth.currentUser?.uid ?? '',
-        sender_name: user.nombre,
-        created_at: serverTimestamp(),
-      });
+      try {
+        setSendError(null);
+        await addDoc(messagesRef, {
+          text: text.trim(),
+          sender_id: user.id,
+          sender_uid: chatAuth.currentUser.uid,
+          sender_name: user.nombre,
+          created_at: serverTimestamp(),
+        });
+      } catch (error: any) {
+        console.error('[Chat] Error al enviar mensaje:', error);
+        const msg =
+          error.code === 'permission-denied'
+            ? 'Sin permiso para enviar. Verifica que las Firestore Rules esten desplegadas.'
+            : `Error al enviar: ${error.message}`;
+        setSendError(msg);
+        throw new Error(msg);
+      }
     },
     [conversationId, user],
   );
 
-  return { messages, loading, sendMessage };
+  return { messages, loading, sendMessage, listenerError, sendError };
 }

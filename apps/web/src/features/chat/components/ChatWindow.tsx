@@ -15,23 +15,34 @@ export default function ChatWindow({ vinculacionId }: Props) {
   const user = useAuthStore((s) => s.user);
   const { isConnected, conversationId, error, connectToChat, disconnect } = useChatStore();
   const chatToken = useChatToken();
-  const { messages, loading: messagesLoading, sendMessage } = useChatMessages(
-    isConnected ? conversationId : null,
-  );
+  const {
+    messages,
+    loading: messagesLoading,
+    sendMessage,
+    listenerError,
+    sendError,
+  } = useChatMessages(isConnected ? conversationId : null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const connectingRef = useRef(false);
 
   // Conectar al montar
   useEffect(() => {
-    if (!isConnected && !chatToken.isPending) {
+    if (!isConnected && !chatToken.isPending && !connectingRef.current) {
+      connectingRef.current = true;
       chatToken.mutate(vinculacionId, {
         onSuccess: async (data) => {
           await connectToChat(data.firebase_custom_token, data.conversation_id);
+          connectingRef.current = false;
+        },
+        onError: () => {
+          connectingRef.current = false;
         },
       });
     }
 
     return () => {
       disconnect();
+      connectingRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vinculacionId]);
@@ -41,7 +52,7 @@ export default function ChatWindow({ vinculacionId }: Props) {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages.length]);
 
-  if (chatToken.isPending) {
+  if (chatToken.isPending || connectingRef.current) {
     return (
       <div className="flex items-center justify-center rounded-xl border border-border bg-surface p-8">
         <div className="h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent" />
@@ -72,6 +83,13 @@ export default function ChatWindow({ vinculacionId }: Props) {
         )}
       </div>
 
+      {/* Listener error */}
+      {listenerError && (
+        <div className="border-b border-error/20 bg-error/5 px-4 py-2 text-xs text-error">
+          {listenerError}
+        </div>
+      )}
+
       {/* Messages */}
       <div className="flex max-h-96 min-h-[200px] flex-col gap-2 overflow-y-auto p-4">
         {messagesLoading ? (
@@ -97,7 +115,7 @@ export default function ChatWindow({ vinculacionId }: Props) {
       </div>
 
       {/* Input */}
-      <ChatInput onSend={sendMessage} disabled={!isConnected} />
+      <ChatInput onSend={sendMessage} disabled={!isConnected} error={sendError} />
     </div>
   );
 }
