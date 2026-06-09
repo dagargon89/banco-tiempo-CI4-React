@@ -1,12 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { useAuthStore } from '@/stores/authStore';
 import type { AuthUser } from '@/lib/types';
 
 export function useProfile() {
+  const setUser = useAuthStore((s) => s.setUser);
+
   return useQuery({
     queryKey: ['me'],
     queryFn: async () => {
       const { data } = await api.get<{ data: AuthUser }>('/me');
+      // Sincronizar authStore para que VerifiedRoute y otros consumers
+      // reflejen el estado actualizado (ej. estado_verificacion tras aprobación)
+      setUser(data.data);
       return data.data;
     },
   });

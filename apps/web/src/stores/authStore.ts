@@ -22,6 +22,7 @@ interface AuthState {
   register: (email: string, password: string, nombre: string) => Promise<void>;
   loginGoogle: () => Promise<void>;
   logout: () => Promise<void>;
+  setUser: (user: AuthUser) => void;
   syncWithBackend: () => Promise<void>;
   refreshUser: () => Promise<void>;
   clearError: () => void;
@@ -61,6 +62,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     });
     return unsubscribe;
   },
+
+  setUser: (user: AuthUser) => set({ user }),
 
   syncWithBackend: async () => {
     const { data } = await api.post<{ data: AuthUser }>('/auth/sync');
