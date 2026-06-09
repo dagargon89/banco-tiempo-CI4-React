@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, Plus, Shield, Bell, ChevronRight, LogOut, User } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import { useAuthStore } from '@/stores/authStore';
 
 function getContext(pathname: string): 'buscador' | 'oferente' | 'admin' {
@@ -120,6 +121,11 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
               Admin
             </Link>
           )}
+        </div>
+
+        {/* Theme toggle */}
+        <div className="hidden sm:block">
+          <ThemeToggle />
         </div>
 
         {/* Notifications */}

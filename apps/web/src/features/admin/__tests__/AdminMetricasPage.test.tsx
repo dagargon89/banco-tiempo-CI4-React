@@ -36,10 +36,10 @@ describe('AdminMetricasPage', () => {
     vi.clearAllMocks();
   });
 
-  it('muestra spinner mientras carga', () => {
+  it('muestra skeletons mientras carga', () => {
     mockUseMetricas.mockReturnValue({ data: undefined, isLoading: true });
     renderPage();
-    expect(document.querySelector('.animate-spin')).not.toBeNull();
+    expect(document.querySelector('.animate-pulse')).not.toBeNull();
   });
 
   it('renderiza sin crash con datos', () => {

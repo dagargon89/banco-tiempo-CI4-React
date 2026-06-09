@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { LayoutGrid, Bell, Link2, CheckCircle, Pencil, Pause, Trash2 } from 'lucide-react';
+import { LayoutGrid, Bell, Link2, CheckCircle, Pencil, Pause, Trash2, Zap } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import EmptyState from '@/components/ui/EmptyState';
@@ -70,48 +70,56 @@ export default function MisOfertasPage() {
         ))}
       </div>
 
-      {/* Personas interesadas */}
-      <div className="mt-8">
-        <h2 className="flex items-center gap-2 text-lg font-semibold text-text-1">
-          Personas interesadas
-          <Badge variant={solicitudes.length > 0 ? 'warning' : 'neutral'}>{solicitudes.length}</Badge>
-        </h2>
-        <div className="mt-3">
-          {solicitudes.length === 0 ? (
+      {/* Acciones pendientes — bloque urgente */}
+      {solicitudes.length > 0 && (
+        <div className="mt-8 rounded-xl border border-accent/20 bg-accent-soft p-5">
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-text-1">
+            <Zap className="h-5 w-5 text-accent" />
+            {solicitudes.length} {solicitudes.length === 1 ? 'solicitud pendiente' : 'solicitudes pendientes'}
+          </h2>
+          <div className="mt-3 space-y-3">
+            {solicitudes.map((vinc) => (
+              <div key={vinc.id} className="rounded-xl border border-border bg-surface p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <Avatar src={vinc.buscador_foto} nombre={vinc.buscador_nombre} size="md" />
+                    <div>
+                      <p className="text-sm font-semibold text-text-1">{vinc.buscador_nombre}</p>
+                      <p className="text-xs text-text-3">
+                        Interesado en <Link to={`/ofertas/${vinc.oferta_id}`} className="text-accent hover:underline">{vinc.oferta_titulo}</Link>
+                      </p>
+                      <p className="mt-0.5 text-xs text-text-3">
+                        {new Date(vinc.created_at).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' })}
+                      </p>
+                    </div>
+                  </div>
+                  <EstadoBadge estado={vinc.estado} />
+                </div>
+                {user && (
+                  <div className="mt-3 border-t border-border pt-3">
+                    <AccionesVinculacion vinculacion={vinc} userId={user.id} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {solicitudes.length === 0 && (
+        <div className="mt-8">
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-text-1">
+            Personas interesadas
+            <Badge variant="neutral">0</Badge>
+          </h2>
+          <div className="mt-3">
             <EmptyState
               title="Sin solicitudes pendientes"
               subtitle="Cuando alguien muestre interes en tus ofertas, aparecera aqui."
             />
-          ) : (
-            <div className="space-y-3">
-              {solicitudes.map((vinc) => (
-                <div key={vinc.id} className="rounded-xl border border-border bg-surface p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <Avatar src={vinc.buscador_foto} nombre={vinc.buscador_nombre} size="md" />
-                      <div>
-                        <p className="text-sm font-semibold text-text-1">{vinc.buscador_nombre}</p>
-                        <p className="text-xs text-text-3">
-                          Interesado en <Link to={`/ofertas/${vinc.oferta_id}`} className="text-accent hover:underline">{vinc.oferta_titulo}</Link>
-                        </p>
-                        <p className="mt-0.5 text-xs text-text-3">
-                          {new Date(vinc.created_at).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' })}
-                        </p>
-                      </div>
-                    </div>
-                    <EstadoBadge estado={vinc.estado} />
-                  </div>
-                  {user && (
-                    <div className="mt-3 border-t border-border pt-3">
-                      <AccionesVinculacion vinculacion={vinc} userId={user.id} />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Vinculaciones activas */}
       {vinculacionesActivas.length > 0 && (

@@ -7,7 +7,7 @@ import CrearOfertaPage from '../CrearOfertaPage';
 vi.mock('@/stores/authStore', () => ({
   useAuthStore: vi.fn((selector) => {
     const state = {
-      user: { id: 1, nombre: 'Test', estado_verificacion: 'verificado', roles: [] },
+      user: { id: 1, nombre: 'Test', estado_verificacion: 'verificado', roles: [], foto_perfil: null },
       logout: vi.fn(),
     };
     return selector ? selector(state) : state;
@@ -27,6 +27,10 @@ vi.mock('../hooks/useOfertas', () => ({
   useCrearOferta: () => ({ mutate: vi.fn(), isPending: false }),
 }));
 
+vi.mock('../components/OfertaCardComponent', () => ({
+  default: () => <div data-testid="oferta-card-preview" />,
+}));
+
 function renderPage() {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
@@ -39,19 +43,19 @@ function renderPage() {
 }
 
 describe('CrearOfertaPage', () => {
-  it('renderiza el formulario con todos los campos', () => {
+  it('renderiza el paso 1 del wizard con campos de descripcion', () => {
     renderPage();
+    expect(screen.getByText(/Paso 1 de 3/)).toBeDefined();
     expect(screen.getByLabelText('Titulo')).toBeDefined();
     expect(screen.getByText('Categoria')).toBeDefined();
     expect(screen.getByText(/Descripcion breve/)).toBeDefined();
-    expect(screen.getByText('Modalidad')).toBeDefined();
-    expect(screen.getByText('Tipo de capacidad')).toBeDefined();
-    expect(screen.getByText('Disponibilidad')).toBeDefined();
-    expect(screen.getByText('Publicar oferta')).toBeDefined();
+    expect(screen.getByText('Siguiente')).toBeDefined();
   });
 
-  it('muestra campo zona cuando modalidad es presencial (por defecto)', () => {
+  it('muestra progress bar con 3 pasos', () => {
     renderPage();
-    expect(screen.getByLabelText('Zona')).toBeDefined();
+    expect(screen.getByText('Descripcion')).toBeDefined();
+    expect(screen.getByText('Detalles')).toBeDefined();
+    expect(screen.getByText('Publicar')).toBeDefined();
   });
 });

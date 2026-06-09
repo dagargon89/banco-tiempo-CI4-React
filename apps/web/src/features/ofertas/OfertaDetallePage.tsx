@@ -144,22 +144,37 @@ export default function OfertaDetallePage() {
         )}
 
         {!esDueno && oferta.estado === 'activa' && (
-          <div className="border-t border-border pt-4">
-            <Button
-              onClick={() => marcarInteres.mutate(oferta.id)}
-              disabled={marcarInteres.isPending}
-            >
-              {marcarInteres.isPending ? 'Enviando...' : 'Me interesa'}
-            </Button>
-            {marcarInteres.isSuccess && (
-              <p className="mt-2 text-sm text-success">Interes registrado correctamente.</p>
-            )}
-            {marcarInteres.isError && (
-              <p className="mt-2 text-sm text-error">
-                {(marcarInteres.error as any)?.response?.data?.message ?? 'Error al registrar interes.'}
-              </p>
-            )}
-          </div>
+          <>
+            {/* Desktop CTA */}
+            <div className="hidden border-t border-border pt-4 md:block">
+              <Button
+                onClick={() => marcarInteres.mutate(oferta.id)}
+                disabled={marcarInteres.isPending}
+              >
+                {marcarInteres.isPending ? 'Enviando...' : 'Me interesa'}
+              </Button>
+              {marcarInteres.isSuccess && (
+                <p className="mt-2 text-sm text-success">Interes registrado correctamente.</p>
+              )}
+              {marcarInteres.isError && (
+                <p className="mt-2 text-sm text-error">
+                  {(marcarInteres.error as any)?.response?.data?.message ?? 'Error al registrar interes.'}
+                </p>
+              )}
+            </div>
+
+            {/* Sticky CTA mobile */}
+            <div className="fixed bottom-0 left-0 right-0 z-40 flex items-center gap-3 border-t border-border bg-surface px-4 py-3 shadow-lg md:hidden">
+              <Avatar src={oferta.oferente_foto} nombre={oferta.oferente_nombre} size="sm" />
+              <span className="flex-1 truncate text-sm font-medium text-text-1">{oferta.oferente_nombre}</span>
+              <Button
+                onClick={() => marcarInteres.mutate(oferta.id)}
+                disabled={marcarInteres.isPending}
+              >
+                {marcarInteres.isPending ? 'Enviando...' : 'Me interesa'}
+              </Button>
+            </div>
+          </>
         )}
       </div>
     </div>

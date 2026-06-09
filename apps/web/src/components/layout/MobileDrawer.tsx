@@ -7,6 +7,7 @@ import {
   Users, Ticket, BarChart3, FolderOpen, LifeBuoy, UserCog,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 type NavItem = { to: string; label: string; icon: React.ElementType; end?: boolean };
 
@@ -120,10 +121,11 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
         </nav>
 
         {/* Footer */}
-        <div className="border-t border-border px-5 py-3">
+        <div className="flex items-center justify-between border-t border-border px-5 py-3">
           <NavLink to="/privacidad" className="text-[11px] text-text-3 hover:text-text-2 transition-colors">
             Aviso de Privacidad
           </NavLink>
+          <ThemeToggle />
         </div>
       </aside>
     </>
