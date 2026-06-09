@@ -126,6 +126,8 @@ export interface ChatMessage {
 
 export interface Resena {
   id: number;
+  vinculacion_id: number;
+  autor_id: number;
   calificacion: number;
   comentario: string | null;
   created_at: string;

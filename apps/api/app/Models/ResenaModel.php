@@ -42,7 +42,7 @@ final class ResenaModel extends Model
     public function porDestinoPublicas(int $destinoId, int $page = 1, int $perPage = 10): array
     {
         $builder = $this->db->table('resenas r')
-            ->select('r.id, r.calificacion, r.comentario, r.created_at, u.nombre AS autor_nombre, u.foto_perfil AS autor_foto, o.titulo AS oferta_titulo')
+            ->select('r.id, r.vinculacion_id, r.autor_id, r.calificacion, r.comentario, r.created_at, u.nombre AS autor_nombre, u.foto_perfil AS autor_foto, o.titulo AS oferta_titulo')
             ->join('users u', 'u.id = r.autor_id')
             ->join('vinculaciones v', 'v.id = r.vinculacion_id')
             ->join('ofertas o', 'o.id = v.oferta_id')

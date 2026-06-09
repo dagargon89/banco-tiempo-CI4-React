@@ -85,10 +85,10 @@ export default function VinculacionDetallePage() {
           <ChatWindow vinculacionId={vinculacion.id} />
         )}
 
-        {/* Resena — visible en estado completada si el usuario aun no ha resenado */}
+        {/* Resena — visible en estado completada si el usuario aun no ha resenado esta vinculacion */}
         {vinculacion.estado === 'completada' && user && (() => {
           const yaReseno = (resenasData?.data ?? []).some(
-            (r) => r.oferta_titulo === vinculacion.oferta_titulo,
+            (r) => r.vinculacion_id === vinculacion.id && r.autor_id === user.id,
           );
           return !yaReseno ? <ResenaForm vinculacionId={vinculacion.id} /> : null;
         })()}
