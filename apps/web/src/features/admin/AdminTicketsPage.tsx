@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
+import Input from '@/components/ui/Input';
 import EmptyState from '@/components/ui/EmptyState';
 import Paginacion from '@/features/ofertas/components/Paginacion';
 import TicketEstadoBadge from './components/TicketEstadoBadge';
@@ -22,13 +23,14 @@ function getErrorMsg(error: unknown): string {
 export default function AdminTicketsPage() {
   const [estado, setEstado] = useState<string | null>(null);
   const [tipo, setTipo] = useState<string | null>(null);
+  const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [nuevoEstado, setNuevoEstado] = useState('');
   const [resolucion, setResolucion] = useState('');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const filtros = useMemo(() => ({ estado, tipo, page, per_page: 20 }), [estado, tipo, page]);
+  const filtros = useMemo(() => ({ estado, tipo, q: q || null, page, per_page: 20 }), [estado, tipo, q, page]);
 
   const { data, isLoading } = useAdminTickets(filtros);
   const asignar = useAsignarTicket();
@@ -91,6 +93,10 @@ export default function AdminTicketsPage() {
             <option value="reporte">Reporte</option>
             <option value="sugerencia">Sugerencia</option>
           </select>
+        </div>
+
+        <div className="w-48">
+          <Input placeholder="Buscar..." value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
         </div>
       </div>
 

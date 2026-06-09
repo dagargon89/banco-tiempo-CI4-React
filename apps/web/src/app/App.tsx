@@ -14,6 +14,7 @@ import AdminUsuariosPage from '@/features/admin/AdminUsuariosPage';
 import AdminTicketsPage from '@/features/admin/AdminTicketsPage';
 import AdminMetricasPage from '@/features/admin/AdminMetricasPage';
 import AdminCategoriasPage from '@/features/admin/AdminCategoriasPage';
+import AdminModeradoresPage from '@/features/admin/AdminModeradoresPage';
 import TicketCrearPage from '@/features/tickets/TicketCrearPage';
 import MisTicketsPage from '@/features/tickets/MisTicketsPage';
 import ExplorarPage from '@/features/ofertas/ExplorarPage';
@@ -70,6 +71,7 @@ export default function App() {
         {/* Super admin only */}
         <Route element={<ProtectedRoute requiredRoles={['super_admin']} noLayout />}>
           <Route path="/admin/categorias" element={<AdminCategoriasPage />} />
+          <Route path="/admin/moderadores" element={<AdminModeradoresPage />} />
         </Route>
       </Route>
     </Routes>

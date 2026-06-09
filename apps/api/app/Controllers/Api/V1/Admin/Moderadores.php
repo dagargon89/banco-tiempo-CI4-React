@@ -14,6 +14,28 @@ final class Moderadores extends Controller
 {
     use ApiResponder;
 
+    /** GET /admin/moderadores — Lista moderadores activos con nombre. */
+    public function index(): ResponseInterface
+    {
+        $db = \Config\Database::connect();
+
+        $rolModerador = $db->table('roles')->where('nombre', 'moderador')->get()->getRowArray();
+        if ($rolModerador === null) {
+            return $this->ok([]);
+        }
+
+        $moderadores = $db->table('role_user ru')
+            ->select('u.id, u.nombre, u.email, u.foto_perfil, ru.created_at AS asignado_at')
+            ->join('users u', 'u.id = ru.user_id')
+            ->where('ru.role_id', $rolModerador['id'])
+            ->where('u.estado_cuenta', 'activa')
+            ->orderBy('u.nombre', 'ASC')
+            ->get()
+            ->getResultArray();
+
+        return $this->ok($moderadores);
+    }
+
     /** POST /admin/moderadores */
     public function create(): ResponseInterface
     {

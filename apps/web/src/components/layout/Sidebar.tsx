@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import {
   Compass, LayoutDashboard, ArrowLeftRight,
   MessageSquare, ShieldCheck, Package,
-  Users, Ticket, BarChart3, FolderOpen, LifeBuoy,
+  Users, Ticket, BarChart3, FolderOpen, LifeBuoy, UserCog,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 
@@ -29,7 +29,10 @@ const adminNavBase: NavItem[] = [
   { to: '/admin/metricas', label: 'Metricas', icon: BarChart3 },
 ];
 
-const superAdminItem: NavItem = { to: '/admin/categorias', label: 'Categorias', icon: FolderOpen };
+const superAdminItems: NavItem[] = [
+  { to: '/admin/categorias', label: 'Categorias', icon: FolderOpen },
+  { to: '/admin/moderadores', label: 'Moderadores', icon: UserCog },
+];
 
 function getContext(pathname: string): 'buscador' | 'oferente' | 'admin' {
   if (pathname.startsWith('/admin')) return 'admin';
@@ -48,7 +51,7 @@ const contextLabels: Record<string, string> = {
 };
 
 function getAdminNav(isSuperAdmin: boolean): NavItem[] {
-  return isSuperAdmin ? [...adminNavBase, superAdminItem] : adminNavBase;
+  return isSuperAdmin ? [...adminNavBase, ...superAdminItems] : adminNavBase;
 }
 
 const linkBase = 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40';

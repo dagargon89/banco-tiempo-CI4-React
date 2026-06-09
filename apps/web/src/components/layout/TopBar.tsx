@@ -21,6 +21,7 @@ function getBreadcrumb(pathname: string) {
   if (pathname.startsWith('/admin/tickets')) return { section: 'Administración', page: 'Tickets' };
   if (pathname.startsWith('/admin/metricas')) return { section: 'Administración', page: 'Metricas' };
   if (pathname.startsWith('/admin/categorias')) return { section: 'Administración', page: 'Categorias' };
+  if (pathname.startsWith('/admin/moderadores')) return { section: 'Administración', page: 'Moderadores' };
   if (pathname === '/tickets/crear') return { section: 'Soporte', page: 'Crear ticket' };
   if (pathname === '/mis-tickets') return { section: 'Soporte', page: 'Mis tickets' };
   if (pathname === '/mis-ofertas') return { section: 'Oferente', page: 'Panel del oferente' };
