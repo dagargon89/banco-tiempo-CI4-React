@@ -71,6 +71,7 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
         $routes->get('verificaciones/(:num)/documento', 'Admin\Verificaciones::documento/$1');
         $routes->patch('verificaciones/(:num)', 'Admin\Verificaciones::resolver/$1');
         $routes->get('ofertas', 'Admin\Ofertas::index');
+        $routes->get('ofertas/(:num)', 'Admin\Ofertas::show/$1');
         $routes->patch('ofertas/(:num)/despublicar', 'Admin\Ofertas::despublicar/$1');
         $routes->patch('resenas/(:num)/ocultar', 'Admin\Resenas::ocultar/$1');
         $routes->get('vinculaciones', 'Admin\Vinculaciones::index');

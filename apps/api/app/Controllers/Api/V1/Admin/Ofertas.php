@@ -41,6 +41,35 @@ final class Ofertas extends Controller
         ]);
     }
 
+    /** GET /admin/ofertas/{id} — Detalle de oferta para moderadores. */
+    public function show(int $id): ResponseInterface
+    {
+        $db     = \Config\Database::connect();
+        $oferta = $db->table('ofertas o')
+            ->select('o.*, u.id AS user_id, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto, (u.deleted_at IS NOT NULL) AS oferente_inactivo')
+            ->join('users u', 'u.id = o.user_id', 'left')
+            ->where('o.id', $id)
+            ->get()
+            ->getRowArray();
+
+        if ($oferta === null) {
+            return $this->notFound('Oferta no encontrada.');
+        }
+
+        $imagenes  = $db->table('oferta_imagenes')
+            ->where('oferta_id', $id)
+            ->orderBy('orden', 'ASC')
+            ->get()
+            ->getResultArray();
+        $vincCount = $db->table('vinculaciones')->where('oferta_id', $id)->countAllResults();
+
+        $oferta['imagenes']            = $imagenes;
+        $oferta['vinculaciones_count'] = $vincCount;
+        $oferta['oferente_inactivo']   = (int) $oferta['oferente_inactivo'] === 1;
+
+        return $this->ok($oferta);
+    }
+
     /** PATCH /admin/ofertas/{id}/despublicar — Despublicar oferta activa. */
     public function despublicar(int $id): ResponseInterface
     {
