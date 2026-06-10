@@ -20,9 +20,9 @@ export default function AppLayout() {
       {/* Mobile drawer */}
       <MobileDrawer open={drawerOpen} onClose={closeDrawer} />
 
-      <div className="flex flex-1 flex-col lg:ml-60">
+      <div className="flex min-w-0 flex-1 flex-col lg:ml-60">
         <TopBar onMenuToggle={openDrawer} />
-        <main className="flex-1 p-4 pb-20 sm:p-6 lg:pb-6">
+        <main className="min-w-0 flex-1 overflow-x-hidden p-4 pb-20 sm:p-6 lg:pb-6">
           <Outlet />
         </main>
       </div>

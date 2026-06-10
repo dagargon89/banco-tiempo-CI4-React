@@ -21,14 +21,14 @@ export default function OfertaCardComponent({ oferta, categorias }: Props) {
       className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-shadow hover:shadow-md"
     >
       {/* Colored header — compact */}
-      <div className={`flex items-center gap-2 ${catConfig.bg} px-3 py-2.5`}>
-        <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${catConfig.accent}`}>
+      <div className={`flex min-w-0 items-center gap-2 ${catConfig.bg} px-3 py-2.5`}>
+        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${catConfig.accent}`}>
           <Icon className="h-4 w-4" />
         </div>
         {catNombre && (
-          <span className="text-xs font-medium text-text-1">{catNombre}</span>
+          <span className="truncate text-xs font-medium text-text-1">{catNombre}</span>
         )}
-        <Badge variant="info" className="ml-auto">{oferta.modalidad}</Badge>
+        <Badge variant="info" className="ml-auto shrink-0">{oferta.modalidad}</Badge>
       </div>
 
       {/* Content */}
@@ -49,8 +49,8 @@ export default function OfertaCardComponent({ oferta, categorias }: Props) {
         </div>
 
         {/* Oferente */}
-        <div className="mt-auto flex items-center justify-between border-t border-border pt-2">
-          <div className="flex items-center gap-2">
+        <div className="mt-auto flex min-w-0 items-center justify-between gap-2 border-t border-border pt-2">
+          <div className="flex min-w-0 items-center gap-2">
             <Avatar src={oferta.oferente_foto} nombre={oferta.oferente_nombre} size="sm" />
             <span className="truncate text-xs text-text-2">{oferta.oferente_nombre}</span>
           </div>
