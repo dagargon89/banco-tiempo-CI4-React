@@ -245,4 +245,79 @@ final class UsuariosBajaTest extends CIUnitTestCase
 
         $response->assertStatus(409);
     }
+
+    // ── Test 4: 200 + ofertas reactivadas al reactivar ──
+
+    public function testReactivarRestauraOfertas(): void
+    {
+        $db  = \Config\Database::connect();
+        $now = date('Y-m-d H:i:s');
+
+        // Crear oferta del target en estado pausada por admin (simula post-baja)
+        $ofertaId = $this->insertOfertaActiva($this->targetUserId);
+        $db->table('ofertas')->where('id', $ofertaId)->update([
+            'estado'            => 'pausada',
+            'pausada_por_admin' => 1,
+            'updated_at'        => $now,
+        ]);
+
+        // Marcar al target como dado de baja
+        $db->table('users')->where('id', $this->targetUserId)->update([
+            'estado_cuenta'    => 'baja',
+            'deleted_at'       => $now,
+            'baja_motivo'      => 'spam',
+            'baja_por_user_id' => $this->adminUserId,
+            'updated_at'       => $now,
+        ]);
+
+        $result = $this->withUri("http://localhost/api/v1/admin/usuarios/{$this->targetUserId}/reactivar")
+            ->controller(Usuarios::class);
+
+        $this->request->setHeader('X-Auth-UserId', (string) $this->adminUserId);
+
+        $response = $result->execute('reactivar', $this->targetUserId);
+
+        $response->assertStatus(200);
+
+        $body = $this->decodeBody($response->response());
+        $this->assertArrayHasKey('data', $body);
+        $this->assertSame(1, (int) $body['data']['ofertas_reactivadas']);
+
+        // Verificar que el usuario ya no está soft-deleted
+        $user = $db->table('users')
+            ->select('deleted_at, estado_cuenta, baja_motivo, baja_por_user_id')
+            ->where('id', $this->targetUserId)
+            ->get()
+            ->getRowArray();
+        $this->assertIsArray($user);
+        $this->assertNull($user['deleted_at']);
+        $this->assertSame('activa', $user['estado_cuenta']);
+        $this->assertNull($user['baja_motivo']);
+        $this->assertNull($user['baja_por_user_id']);
+
+        // Verificar oferta reactivada
+        $oferta = $db->table('ofertas')
+            ->select('estado, pausada_por_admin')
+            ->where('id', $ofertaId)
+            ->get()
+            ->getRowArray();
+        $this->assertIsArray($oferta);
+        $this->assertSame('activa', $oferta['estado']);
+        $this->assertSame(0, (int) $oferta['pausada_por_admin']);
+    }
+
+    // ── Test 5: 409 si el usuario no está dado de baja ──
+
+    public function testReactivarUsuarioNoEnBaja(): void
+    {
+        // Target ya está activo (deleted_at = null por defecto en setUp)
+        $result = $this->withUri("http://localhost/api/v1/admin/usuarios/{$this->targetUserId}/reactivar")
+            ->controller(Usuarios::class);
+
+        $this->request->setHeader('X-Auth-UserId', (string) $this->adminUserId);
+
+        $response = $result->execute('reactivar', $this->targetUserId);
+
+        $response->assertStatus(409);
+    }
 }

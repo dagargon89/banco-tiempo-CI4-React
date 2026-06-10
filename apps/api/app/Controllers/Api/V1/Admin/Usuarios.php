@@ -188,4 +188,26 @@ final class Usuarios extends Controller
 
         return $this->ok($result);
     }
+
+    /** POST /admin/usuarios/{id}/reactivar */
+    public function reactivar(int $id): ResponseInterface
+    {
+        $actorId = (int) $this->request->getHeaderLine('X-Auth-UserId');
+        $ip      = $this->request->getIPAddress();
+
+        try {
+            $result = (new \App\Services\UsuarioReactivarService())->reactivar($id, $actorId, $ip);
+        } catch (\DomainException $e) {
+            $msg = $e->getMessage();
+            if (str_contains($msg, 'no encontrado')) {
+                return $this->notFound($msg);
+            }
+            if (str_contains($msg, 'no está dado de baja')) {
+                return $this->response->setStatusCode(409)->setJSON(['message' => $msg]);
+            }
+            return $this->response->setStatusCode(409)->setJSON(['message' => $msg]);
+        }
+
+        return $this->ok($result);
+    }
 }
