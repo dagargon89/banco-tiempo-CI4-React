@@ -21,6 +21,7 @@ export interface AuthUser {
   estado_cuenta?: string;
   roles: string[];
   created_at?: string;
+  deleted_at?: string | null;
 }
 
 export interface VerificacionPendiente {
@@ -49,6 +50,7 @@ export interface OfertaCard {
   oferente_nombre: string;
   oferente_foto: string | null;
   oferente_calif: number | null;
+  oferente_inactivo?: boolean | number;
 }
 
 export type EstadoOferta = 'borrador' | 'activa' | 'pausada' | 'eliminada';
@@ -76,6 +78,7 @@ export interface OfertaDetalle extends OfertaCard {
   user_id: number;
   imagenes: OfertaImagen[];
   created_at: string;
+  pausada_por_admin?: number; // 0 | 1 from MySQL
 }
 
 export interface OfertaFormData {
@@ -107,6 +110,8 @@ export interface VinculacionCard {
   aceptada_at?: string;
   completada_at?: string;
   created_at: string;
+  oferente_inactivo?: boolean | number;
+  buscador_inactivo?: boolean | number;
 }
 
 export interface ChatTokenResponse {
@@ -134,6 +139,8 @@ export interface Resena {
   autor_nombre: string;
   autor_foto: string | null;
   oferta_titulo: string;
+  autor_inactivo?: boolean | number;
+  destino_inactivo?: boolean | number;
 }
 
 export interface ResenaEstadisticas {
@@ -161,6 +168,7 @@ export interface Ticket {
   asignado_a_nombre?: string;
   created_at: string;
   updated_at: string;
+  creador_inactivo?: boolean | number;
 }
 
 export interface AdminUsuario {
@@ -172,6 +180,26 @@ export interface AdminUsuario {
   estado_cuenta: EstadoCuenta;
   zona: string | null;
   created_at: string;
+  deleted_at?: string | null;
+}
+
+export interface AdminUsuarioDetalle extends AdminUsuario {
+  bio: string | null;
+  fecha_nacimiento: string | null;
+  genero: string | null;
+  telefono: string | null;
+  foto_perfil: string | null;
+  counts: {
+    ofertas_activas: number;
+    ofertas_pausadas_por_admin: number;
+    vinculaciones_completadas: number;
+    resenas_recibidas: number;
+  };
+  baja: null | {
+    fecha: string;
+    motivo: string | null;
+    dado_baja_por: { id: number; nombre: string } | null;
+  };
 }
 
 export interface Metricas {
