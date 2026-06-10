@@ -1,5 +1,6 @@
 import { Flag } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
+import UserName from '@/components/ui/UserName';
 import EstrellaRating from './EstrellaRating';
 import { useReportarResena } from '../hooks/useResenas';
 import { useAuthStore } from '@/stores/authStore';
@@ -25,7 +26,9 @@ export default function ResenaCard({ resena }: Props) {
         <Avatar src={resena.autor_foto} nombre={resena.autor_nombre} size="sm" />
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-text-1">{resena.autor_nombre}</p>
+            <p className="text-sm font-semibold text-text-1">
+              <UserName nombre={resena.autor_nombre} inactivo={resena.autor_inactivo} />
+            </p>
             <span className="text-xs text-text-3">{fecha}</span>
           </div>
           <EstrellaRating value={resena.calificacion} readonly size="sm" />
@@ -35,7 +38,7 @@ export default function ResenaCard({ resena }: Props) {
           )}
         </div>
       </div>
-      {user && (
+      {user && !Boolean(resena.autor_inactivo) && (
         <div className="mt-3 flex justify-end">
           <button
             onClick={() => reportar.mutate(resena.id)}
