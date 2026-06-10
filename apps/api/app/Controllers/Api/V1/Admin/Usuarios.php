@@ -24,11 +24,15 @@ final class Usuarios extends Controller
         $perPage            = (int) ($this->request->getGet('per_page') ?? 20);
         $page               = max(1, $page);
         $perPage            = min(50, max(1, $perPage));
+        $incluirBajas       = (bool) $this->request->getGet('incluir_bajas');
 
         $userModel = model(UserModel::class);
         $builder = $userModel->db->table('users')
-            ->select('id, nombre, email, foto_perfil, estado_verificacion, estado_cuenta, zona, created_at')
-            ->where('deleted_at IS NULL');
+            ->select('id, nombre, email, foto_perfil, estado_verificacion, estado_cuenta, zona, created_at, deleted_at');
+
+        if (! $incluirBajas) {
+            $builder->where('deleted_at IS NULL');
+        }
 
         if ($estadoVerificacion !== null && $estadoVerificacion !== '') {
             $builder->where('estado_verificacion', $estadoVerificacion);

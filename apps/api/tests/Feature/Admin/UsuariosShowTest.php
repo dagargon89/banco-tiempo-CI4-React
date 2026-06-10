@@ -179,4 +179,94 @@ final class UsuariosShowTest extends CIUnitTestCase
 
         $result->assertStatus(404);
     }
+
+    // ── Test 4: index excluye bajas por defecto, las incluye con ?incluir_bajas=1 ──
+
+    public function testIndexExcluyeBajasPorDefecto(): void
+    {
+        $db  = \Config\Database::connect();
+        $now = date('Y-m-d H:i:s');
+
+        // Crear un usuario activo adicional (con un email único para localizarlo)
+        $activoEmail = "index-activo-{$this->suffix}@test.local";
+        $db->table('users')->insert([
+            'firebase_uid'        => "test-uid-index-activo-{$this->suffix}",
+            'nombre'              => 'Index Activo',
+            'email'               => $activoEmail,
+            'estado_verificacion' => 'verificado',
+            'estado_cuenta'       => 'activa',
+            'created_at'          => $now,
+            'updated_at'          => $now,
+        ]);
+        $activoId = (int) $db->insertID();
+        $this->extraUserIds[] = $activoId;
+
+        // Crear un usuario dado de baja (soft delete)
+        $bajaEmail = "index-baja-{$this->suffix}@test.local";
+        $db->table('users')->insert([
+            'firebase_uid'        => "test-uid-index-baja-{$this->suffix}",
+            'nombre'              => 'Index Baja',
+            'email'               => $bajaEmail,
+            'estado_verificacion' => 'verificado',
+            'estado_cuenta'       => 'baja',
+            'deleted_at'          => $now,
+            'baja_motivo'         => 'spam',
+            'baja_por_user_id'    => $this->adminUserId,
+            'created_at'          => $now,
+            'updated_at'          => $now,
+        ]);
+        $bajaId = (int) $db->insertID();
+        $this->extraUserIds[] = $bajaId;
+
+        // ── Caso 1: sin incluir_bajas → solo activos ──
+        // Filtramos por el suffix único para localizar solo los usuarios sembrados en este test.
+        // El query param se aplica vía Superglobals service (lo que IncomingRequest::getGet lee).
+        service('superglobals')->setGet('q', $this->suffix);
+        service('superglobals')->setGet('per_page', '50');
+        service('superglobals')->unsetGet('incluir_bajas');
+
+        $result = $this->withUri("http://localhost/api/v1/admin/usuarios?q={$this->suffix}&per_page=50")
+            ->controller(Usuarios::class)
+            ->execute('index');
+
+        $result->assertStatus(200);
+        $body = $this->decodeBody($result->response());
+        $this->assertArrayHasKey('data', $body);
+
+        $emails = array_column($body['data'], 'email');
+        $this->assertContains($activoEmail, $emails, 'El usuario activo debe estar en la respuesta por defecto.');
+        $this->assertNotContains($bajaEmail, $emails, 'El usuario dado de baja NO debe aparecer por defecto.');
+
+        // ── Caso 2: con incluir_bajas=1 → ambos ──
+        service('superglobals')->setGet('q', $this->suffix);
+        service('superglobals')->setGet('per_page', '50');
+        service('superglobals')->setGet('incluir_bajas', '1');
+
+        $result2 = $this->withUri("http://localhost/api/v1/admin/usuarios?q={$this->suffix}&per_page=50&incluir_bajas=1")
+            ->controller(Usuarios::class)
+            ->execute('index');
+
+        $result2->assertStatus(200);
+        $body2 = $this->decodeBody($result2->response());
+        $emails2 = array_column($body2['data'], 'email');
+        $this->assertContains($activoEmail, $emails2, 'El usuario activo debe estar en la respuesta con incluir_bajas=1.');
+        $this->assertContains($bajaEmail, $emails2, 'El usuario dado de baja debe aparecer con incluir_bajas=1.');
+
+        // El campo deleted_at debe estar presente en la respuesta para que el frontend renderice la badge.
+        $bajaRow = null;
+        foreach ($body2['data'] as $row) {
+            if ($row['email'] === $bajaEmail) {
+                $bajaRow = $row;
+                break;
+            }
+        }
+        $this->assertNotNull($bajaRow);
+        $this->assertArrayHasKey('deleted_at', $bajaRow);
+        $this->assertNotNull($bajaRow['deleted_at']);
+
+        // Limpiar query params para no contaminar otros tests
+        service('superglobals')->unsetGet('q');
+        service('superglobals')->unsetGet('per_page');
+        service('superglobals')->unsetGet('incluir_bajas');
+    }
 }
