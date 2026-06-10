@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { useCrearTicket } from './hooks/useTickets';
+import { toast, toastError } from '@/lib/toast';
 
 export default function TicketCrearPage() {
   const navigate = useNavigate();
@@ -22,7 +23,13 @@ export default function TicketCrearPage() {
         entidad_id: entidadId ? Number(entidadId) : undefined,
         descripcion,
       },
-      { onSuccess: () => navigate('/mis-tickets') },
+      {
+        onSuccess: () => {
+          toast.success('Ticket enviado. Te responderemos pronto.');
+          navigate('/mis-tickets');
+        },
+        onError: (err) => toastError(err, 'Error al crear ticket.'),
+      },
     );
   };
 
@@ -80,12 +87,6 @@ export default function TicketCrearPage() {
           />
           <span className="text-xs text-text-3">{descripcion.length}/2000</span>
         </div>
-
-        {crearTicket.isError && (
-          <p className="text-sm text-error">
-            {(crearTicket.error as any)?.response?.data?.message ?? 'Error al crear ticket'}
-          </p>
-        )}
 
         <Button type="submit" disabled={crearTicket.isPending || descripcion.length < 10}>
           {crearTicket.isPending ? 'Creando...' : 'Enviar ticket'}

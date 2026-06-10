@@ -3,6 +3,7 @@ import { ShieldCheck, Clock } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
 import EmptyState from '@/components/ui/EmptyState';
+import Skeleton from '@/components/ui/Skeleton';
 import VerificacionReviewPanel from './components/VerificacionReviewPanel';
 import { useVerificacionesPendientes } from './hooks/useAdminVerificaciones';
 import type { VerificacionPendiente } from '@/lib/types';
@@ -63,8 +64,21 @@ export default function AdminVerificacionesPage() {
     return (
       <>
         <h1 className="mb-6 text-2xl font-bold text-text-1">Cola de verificaciones</h1>
-        <div className="flex justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+        <div className="flex flex-col gap-4 lg:flex-row">
+          <div className="shrink-0 space-y-2 lg:w-80">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-3 rounded-lg border border-border px-3 py-3">
+                <Skeleton variant="circle" className="h-8 w-8" />
+                <div className="min-w-0 flex-1 space-y-1.5">
+                  <Skeleton className="h-3 w-24" />
+                  <Skeleton className="h-2.5 w-32" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="min-w-0 flex-1">
+            <Skeleton className="h-64 w-full" />
+          </div>
         </div>
       </>
     );

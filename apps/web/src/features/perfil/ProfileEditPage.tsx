@@ -6,6 +6,8 @@ import Textarea from '@/components/ui/Textarea';
 import ImageUpload from '@/components/ui/ImageUpload';
 import { useProfile, useUpdateProfile, useUploadFoto } from './hooks/useProfile';
 import { useAuthStore } from '@/stores/authStore';
+import { toast, toastError } from '@/lib/toast';
+import Skeleton from '@/components/ui/Skeleton';
 
 export default function ProfileEditPage() {
   const navigate = useNavigate();
@@ -35,14 +37,22 @@ export default function ProfileEditPage() {
 
   if (isLoading || !user) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+      <div className="mx-auto max-w-2xl">
+        <div className="space-y-5 rounded-xl border border-border bg-surface p-6 shadow-sm">
+          <Skeleton className="mb-2 h-6 w-40" />
+          <Skeleton variant="circle" className="h-24 w-24" />
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="space-y-1.5">
+              <Skeleton className="h-3 w-24" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 
   const saving = updateProfile.isPending || uploadFoto.isPending;
-  const error = updateProfile.error || uploadFoto.error;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -56,9 +66,10 @@ export default function ProfileEditPage() {
       await updateProfile.mutateAsync(fields);
 
       await refreshUser();
+      toast.success('Perfil actualizado');
       navigate('/perfil');
-    } catch {
-      // error se muestra via mutation state
+    } catch (err) {
+      toastError(err, 'Error al actualizar el perfil.');
     }
   };
 
@@ -66,12 +77,6 @@ export default function ProfileEditPage() {
     <div className="mx-auto max-w-2xl">
       <div className="rounded-xl border border-border bg-surface p-6 shadow-sm">
         <h2 className="mb-6 text-xl font-semibold text-text-1">Editar perfil</h2>
-
-        {error && (
-          <div className="mb-4 rounded-sm border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">
-            Error al actualizar el perfil. Intenta de nuevo.
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>

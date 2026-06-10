@@ -5,6 +5,8 @@ import Button from '@/components/ui/Button';
 import { useOfertaDetalle, useCambiarEstadoOferta } from './hooks/useOfertas';
 import { useMarcarInteres } from '@/features/vinculaciones/hooks/useVinculaciones';
 import { useAuthStore } from '@/stores/authStore';
+import { toast, toastError } from '@/lib/toast';
+import { DetalleSkeleton } from '@/components/ui/Skeleton';
 
 export default function OfertaDetallePage() {
   const { id } = useParams<{ id: string }>();
@@ -31,8 +33,24 @@ export default function OfertaDetallePage() {
     if (estado === 'eliminada' && !confirm('Esta accion no se puede deshacer. Continuar?')) return;
     cambiarEstado.mutate({ id: oferta.id, estado }, {
       onSuccess: () => {
-        if (estado === 'eliminada') navigate('/mis-ofertas');
+        if (estado === 'eliminada') {
+          toast.info('Oferta eliminada');
+          navigate('/mis-ofertas');
+        } else if (estado === 'pausada') {
+          toast.info('Oferta pausada');
+        } else if (estado === 'activa') {
+          toast.success('Oferta reanudada');
+        }
       },
+      onError: (err) => toastError(err, 'No se pudo cambiar el estado.'),
+    });
+  };
+
+  const handleMarcarInteres = () => {
+    if (!oferta) return;
+    marcarInteres.mutate(oferta.id, {
+      onSuccess: () => toast.success('Interés registrado. Pronto el oferente verá tu solicitud.'),
+      onError: (err) => toastError(err, 'Error al registrar interés.'),
     });
   };
 
@@ -45,8 +63,8 @@ export default function OfertaDetallePage() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center py-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+      <div className="mx-auto max-w-3xl">
+        <DetalleSkeleton />
       </div>
     );
   }
@@ -147,30 +165,16 @@ export default function OfertaDetallePage() {
           <>
             {/* Desktop CTA */}
             <div className="hidden border-t border-border pt-4 md:block">
-              <Button
-                onClick={() => marcarInteres.mutate(oferta.id)}
-                disabled={marcarInteres.isPending}
-              >
+              <Button onClick={handleMarcarInteres} disabled={marcarInteres.isPending}>
                 {marcarInteres.isPending ? 'Enviando...' : 'Me interesa'}
               </Button>
-              {marcarInteres.isSuccess && (
-                <p className="mt-2 text-sm text-success">Interes registrado correctamente.</p>
-              )}
-              {marcarInteres.isError && (
-                <p className="mt-2 text-sm text-error">
-                  {(marcarInteres.error as any)?.response?.data?.message ?? 'Error al registrar interes.'}
-                </p>
-              )}
             </div>
 
             {/* Sticky CTA mobile */}
             <div className="fixed bottom-0 left-0 right-0 z-40 flex items-center gap-3 border-t border-border bg-surface px-4 py-3 shadow-lg md:hidden">
               <Avatar src={oferta.oferente_foto} nombre={oferta.oferente_nombre} size="sm" />
               <span className="flex-1 truncate text-sm font-medium text-text-1">{oferta.oferente_nombre}</span>
-              <Button
-                onClick={() => marcarInteres.mutate(oferta.id)}
-                disabled={marcarInteres.isPending}
-              >
+              <Button onClick={handleMarcarInteres} disabled={marcarInteres.isPending}>
                 {marcarInteres.isPending ? 'Enviando...' : 'Me interesa'}
               </Button>
             </div>

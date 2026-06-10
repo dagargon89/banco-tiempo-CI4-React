@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Input from '@/components/ui/Input';
@@ -6,6 +6,8 @@ import DataTable, { type Column } from '@/components/ui/DataTable';
 import Paginacion from '@/features/ofertas/components/Paginacion';
 import { useAdminOfertas, useDespublicarOferta } from './hooks/useAdminOfertas';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
+import { toast, toastError } from '@/lib/toast';
+import { useUrlFilters } from '@/lib/urlFilters';
 
 interface AdminOferta {
   id: number;
@@ -22,10 +24,11 @@ const estadoBadge = (e: string) => {
 };
 
 export default function AdminOfertasPage() {
-  const [estado, setEstado] = useState<string | null>(null);
-  const [categoriaId, setCategoriaId] = useState<number | null>(null);
-  const [q, setQ] = useState('');
-  const [page, setPage] = useState(1);
+  const { searchParams, setFilter, setPage } = useUrlFilters();
+  const estado = searchParams.get('estado');
+  const categoriaId = searchParams.get('cat') ? Number(searchParams.get('cat')) : null;
+  const q = searchParams.get('q') ?? '';
+  const page = Number(searchParams.get('page') || '1');
 
   const filtros = useMemo(
     () => ({ estado, categoria_id: categoriaId, q: q || null, page, per_page: 20 }),
@@ -52,7 +55,16 @@ export default function AdminOfertasPage() {
       render: (o) => (
         <>
           {o.estado === 'activa' && (
-            <Button variant="danger" onClick={() => despublicar.mutate(o.id)} disabled={despublicar.isPending}>
+            <Button
+              variant="danger"
+              onClick={() =>
+                despublicar.mutate(o.id, {
+                  onSuccess: () => toast.warning('Oferta despublicada'),
+                  onError: (err) => toastError(err, 'Error al despublicar la oferta.'),
+                })
+              }
+              disabled={despublicar.isPending}
+            >
               Despublicar
             </Button>
           )}
@@ -70,7 +82,7 @@ export default function AdminOfertasPage() {
           <label className="text-xs font-medium text-text-2">Estado</label>
           <select
             value={estado ?? ''}
-            onChange={(e) => { setEstado(e.target.value || null); setPage(1); }}
+            onChange={(e) => setFilter('estado', e.target.value || null)}
             className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1"
           >
             <option value="">Todos</option>
@@ -85,7 +97,7 @@ export default function AdminOfertasPage() {
           <label className="text-xs font-medium text-text-2">Categoria</label>
           <select
             value={categoriaId ?? ''}
-            onChange={(e) => { setCategoriaId(e.target.value ? Number(e.target.value) : null); setPage(1); }}
+            onChange={(e) => setFilter('cat', e.target.value || null)}
             className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1"
           >
             <option value="">Todas</option>
@@ -96,7 +108,7 @@ export default function AdminOfertasPage() {
         </div>
 
         <div className="w-48">
-          <Input placeholder="Buscar..." value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
+          <Input placeholder="Buscar..." value={q} onChange={(e) => setFilter('q', e.target.value || null)} />
         </div>
       </div>
 

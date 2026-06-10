@@ -6,6 +6,8 @@ import DataTable, { type Column } from '@/components/ui/DataTable';
 import Paginacion from '@/features/ofertas/components/Paginacion';
 import TicketEstadoBadge from './components/TicketEstadoBadge';
 import { useAdminTickets, useAsignarTicket, useCambiarEstadoTicket } from './hooks/useAdminTickets';
+import { toast, toastError } from '@/lib/toast';
+import { useUrlFilters } from '@/lib/urlFilters';
 import type { Ticket, EstadoTicket } from '@/lib/types';
 
 const transiciones: Record<EstadoTicket, EstadoTicket[]> = {
@@ -15,20 +17,15 @@ const transiciones: Record<EstadoTicket, EstadoTicket[]> = {
   cerrado: [],
 };
 
-function getErrorMsg(error: unknown): string {
-  const resp = (error as any)?.response?.data;
-  return resp?.message ?? 'Error inesperado.';
-}
-
 export default function AdminTicketsPage() {
-  const [estado, setEstado] = useState<string | null>(null);
-  const [tipo, setTipo] = useState<string | null>(null);
-  const [q, setQ] = useState('');
-  const [page, setPage] = useState(1);
+  const { searchParams, setFilter, setPage } = useUrlFilters();
+  const estado = searchParams.get('estado');
+  const tipo = searchParams.get('tipo');
+  const q = searchParams.get('q') ?? '';
+  const page = Number(searchParams.get('page') || '1');
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [nuevoEstado, setNuevoEstado] = useState('');
   const [resolucion, setResolucion] = useState('');
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const filtros = useMemo(() => ({ estado, tipo, q: q || null, page, per_page: 20 }), [estado, tipo, q, page]);
 
@@ -41,16 +38,16 @@ export default function AdminTicketsPage() {
 
   const handleCambiarEstado = (id: number) => {
     if (!nuevoEstado) return;
-    setErrorMsg(null);
     cambiarEstado.mutate(
       { id, estado: nuevoEstado, resolucion: nuevoEstado === 'resuelto' ? resolucion : undefined },
       {
         onSuccess: () => {
+          toast.success(`Ticket marcado como ${nuevoEstado}`);
           setExpandedId(null);
           setNuevoEstado('');
           setResolucion('');
         },
-        onError: (err) => setErrorMsg(getErrorMsg(err)),
+        onError: (err) => toastError(err, 'Error al cambiar el estado del ticket.'),
       },
     );
   };
@@ -82,10 +79,12 @@ export default function AdminTicketsPage() {
             {['abierto', 'en_proceso'].includes(t.estado) && (
               <Button
                 variant="secondary"
-                onClick={() => {
-                  setErrorMsg(null);
-                  asignar.mutate(t.id, { onError: (err) => setErrorMsg(getErrorMsg(err)) });
-                }}
+                onClick={() =>
+                  asignar.mutate(t.id, {
+                    onSuccess: () => toast.success('Ticket asignado a ti'),
+                    onError: (err) => toastError(err, 'Error al tomar el ticket.'),
+                  })
+                }
                 disabled={asignar.isPending}
               >
                 {asignar.isPending ? '...' : 'Tomar'}
@@ -147,19 +146,12 @@ export default function AdminTicketsPage() {
     <>
       <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestion de tickets</h1>
 
-      {errorMsg && (
-        <div className="mb-4 rounded-lg border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">
-          {errorMsg}
-          <button onClick={() => setErrorMsg(null)} className="ml-2 underline">Cerrar</button>
-        </div>
-      )}
-
       <div className="mb-4 flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-medium text-text-2">Estado</label>
           <select
             value={estado ?? ''}
-            onChange={(e) => { setEstado(e.target.value || null); setPage(1); }}
+            onChange={(e) => setFilter('estado', e.target.value || null)}
             className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1"
           >
             <option value="">Todos</option>
@@ -174,7 +166,7 @@ export default function AdminTicketsPage() {
           <label className="text-xs font-medium text-text-2">Tipo</label>
           <select
             value={tipo ?? ''}
-            onChange={(e) => { setTipo(e.target.value || null); setPage(1); }}
+            onChange={(e) => setFilter('tipo', e.target.value || null)}
             className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1"
           >
             <option value="">Todos</option>
@@ -184,7 +176,7 @@ export default function AdminTicketsPage() {
         </div>
 
         <div className="w-48">
-          <Input placeholder="Buscar..." value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
+          <Input placeholder="Buscar..." value={q} onChange={(e) => setFilter('q', e.target.value || null)} />
         </div>
       </div>
 

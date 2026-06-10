@@ -1,10 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import DataTable, { type Column } from '@/components/ui/DataTable';
 import Paginacion from '@/features/ofertas/components/Paginacion';
 import { useAdminUsuarios, useCambiarEstadoUsuario } from './hooks/useAdminUsuarios';
+import { toast, toastError } from '@/lib/toast';
+import { useUrlFilters } from '@/lib/urlFilters';
 import type { AdminUsuario, EstadoVerificacion, EstadoCuenta } from '@/lib/types';
 
 const verificacionBadge: Record<EstadoVerificacion, 'success' | 'warning' | 'error' | 'neutral'> = {
@@ -21,10 +23,11 @@ const cuentaBadge: Record<EstadoCuenta, 'success' | 'error' | 'neutral'> = {
 };
 
 export default function AdminUsuariosPage() {
-  const [estadoVerificacion, setEstadoVerificacion] = useState<string | null>(null);
-  const [estadoCuenta, setEstadoCuenta] = useState<string | null>(null);
-  const [q, setQ] = useState('');
-  const [page, setPage] = useState(1);
+  const { searchParams, setFilter, setPage } = useUrlFilters();
+  const estadoVerificacion = searchParams.get('verificacion');
+  const estadoCuenta = searchParams.get('cuenta');
+  const q = searchParams.get('q') ?? '';
+  const page = Number(searchParams.get('page') || '1');
 
   const filtros = useMemo(
     () => ({ estado_verificacion: estadoVerificacion, estado_cuenta: estadoCuenta, q: q || null, page, per_page: 20 }),
@@ -39,7 +42,16 @@ export default function AdminUsuariosPage() {
 
   const handleCambiarEstado = (id: number, nuevoEstado: string, label: string) => {
     if (!window.confirm(`¿Seguro que deseas ${label} a este usuario?`)) return;
-    cambiarEstado.mutate({ id, estado_cuenta: nuevoEstado });
+    cambiarEstado.mutate(
+      { id, estado_cuenta: nuevoEstado },
+      {
+        onSuccess: () => {
+          if (nuevoEstado === 'suspendida') toast.warning('Usuario suspendido');
+          else if (nuevoEstado === 'activa') toast.success('Usuario reactivado');
+        },
+        onError: (err) => toastError(err, 'Error al cambiar el estado del usuario.'),
+      },
+    );
   };
 
   const columns: Column<AdminUsuario>[] = [
@@ -82,7 +94,7 @@ export default function AdminUsuariosPage() {
           <label className="text-xs font-medium text-text-2">Verificacion</label>
           <select
             value={estadoVerificacion ?? ''}
-            onChange={(e) => { setEstadoVerificacion(e.target.value || null); setPage(1); }}
+            onChange={(e) => setFilter('verificacion', e.target.value || null)}
             className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1"
           >
             <option value="">Todos</option>
@@ -97,7 +109,7 @@ export default function AdminUsuariosPage() {
           <label className="text-xs font-medium text-text-2">Cuenta</label>
           <select
             value={estadoCuenta ?? ''}
-            onChange={(e) => { setEstadoCuenta(e.target.value || null); setPage(1); }}
+            onChange={(e) => setFilter('cuenta', e.target.value || null)}
             className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1"
           >
             <option value="">Todos</option>
@@ -108,7 +120,7 @@ export default function AdminUsuariosPage() {
         </div>
 
         <div className="w-48">
-          <Input placeholder="Buscar..." value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
+          <Input placeholder="Buscar..." value={q} onChange={(e) => setFilter('q', e.target.value || null)} />
         </div>
       </div>
 

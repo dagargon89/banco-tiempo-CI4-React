@@ -75,3 +75,75 @@ export function StatCardSkeleton() {
     </div>
   );
 }
+
+export function ProfileHeaderSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
+      <div className="h-32 bg-surface-2" />
+      <div className="relative px-6 pb-6">
+        <div className="-mt-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex items-end gap-4">
+            <Skeleton variant="circle" className="h-24 w-24 border-4 border-surface" />
+            <div className="mb-1 space-y-2">
+              <Skeleton className="h-6 w-48" />
+              <Skeleton className="h-3 w-64" />
+            </div>
+          </div>
+          <Skeleton className="h-9 w-32" />
+        </div>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <StatCardSkeleton key={i} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function TicketCardSkeleton() {
+  return (
+    <div className="rounded-xl border border-border bg-surface p-5">
+      <div className="mb-2 flex items-center gap-3">
+        <Skeleton className="h-3 w-16" />
+        <Skeleton className="h-5 w-14 rounded-full" />
+        <Skeleton className="h-5 w-16 rounded-full" />
+      </div>
+      <Skeleton className="mb-1.5 h-4 w-full" />
+      <Skeleton className="mb-2 h-4 w-3/4" />
+      <div className="flex gap-4">
+        <Skeleton className="h-3 w-20" />
+        <Skeleton className="h-3 w-16" />
+      </div>
+    </div>
+  );
+}
+
+export function DetalleSkeleton() {
+  return (
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <Skeleton className="h-6 w-2/3" />
+        <Skeleton className="h-3 w-full" />
+        <Skeleton className="h-3 w-3/4" />
+      </div>
+      <div className="flex gap-2">
+        <Skeleton className="h-6 w-20 rounded-full" />
+        <Skeleton className="h-6 w-24 rounded-full" />
+      </div>
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-3 w-full" />
+        <Skeleton className="h-3 w-full" />
+        <Skeleton className="h-3 w-5/6" />
+      </div>
+      <div className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4">
+        <Skeleton variant="circle" className="h-12 w-12" />
+        <div className="space-y-1.5">
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-3 w-20" />
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -8,6 +8,7 @@ import ResenaForm from '@/features/resenas/components/ResenaForm';
 import { useVinculacionDetalle } from './hooks/useVinculaciones';
 import { useResenasDeUsuario } from '@/features/resenas/hooks/useResenas';
 import { useAuthStore } from '@/stores/authStore';
+import { DetalleSkeleton } from '@/components/ui/Skeleton';
 
 export default function VinculacionDetallePage() {
   const { id } = useParams<{ id: string }>();
@@ -17,8 +18,8 @@ export default function VinculacionDetallePage() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center py-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+      <div className="mx-auto max-w-3xl">
+        <DetalleSkeleton />
       </div>
     );
   }

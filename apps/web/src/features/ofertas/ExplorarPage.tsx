@@ -1,12 +1,13 @@
 import { useMemo, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, LayoutGrid } from 'lucide-react';
 import OfertaCardComponent from './components/OfertaCardComponent';
 import Paginacion from './components/Paginacion';
 import EmptyState from '@/components/ui/EmptyState';
 import { OfertaCardSkeleton } from '@/components/ui/Skeleton';
 import { useExplorarOfertas } from './hooks/useOfertas';
 import { useCategorias } from './hooks/useCategorias';
+import { getCategoryConfig } from '@/lib/categoryConfig';
 
 const modalidades = [
   { value: '', label: 'Todas' },
@@ -70,26 +71,37 @@ export default function ExplorarPage() {
       </div>
 
       {/* Category chips */}
-      <div className="mb-3 flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+      <div className="mb-3 -mx-4 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <button
           onClick={() => setFilter('cat', null)}
-          className={`shrink-0 rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
-            !categoriaId ? 'bg-accent text-white' : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
+          className={`flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+            !categoriaId
+              ? 'bg-accent text-white shadow-sm'
+              : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
           }`}
         >
+          <LayoutGrid className="h-3.5 w-3.5" />
           Todas
         </button>
-        {categorias?.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => setFilter('cat', categoriaId === cat.id ? null : String(cat.id))}
-            className={`shrink-0 rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
-              categoriaId === cat.id ? 'bg-accent text-white' : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
-            }`}
-          >
-            {cat.nombre}
-          </button>
-        ))}
+        {categorias?.map((cat) => {
+          const cfg = getCategoryConfig(cat.slug);
+          const Icon = cfg.icon;
+          const active = categoriaId === cat.id;
+          return (
+            <button
+              key={cat.id}
+              onClick={() => setFilter('cat', active ? null : String(cat.id))}
+              className={`flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                active
+                  ? 'bg-accent text-white shadow-sm'
+                  : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
+              }`}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {cat.nombre}
+            </button>
+          );
+        })}
       </div>
 
       {/* Modalidad pills + zona */}

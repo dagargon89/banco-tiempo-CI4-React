@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { ArrowLeftRight } from 'lucide-react';
 import EmptyState from '@/components/ui/EmptyState';
 import { VinculacionCardSkeleton } from '@/components/ui/Skeleton';
@@ -22,10 +23,17 @@ function estadoFromTab(tab: TabKey): string | null {
   return tab;
 }
 
+function isTab(value: string | null): value is TabKey {
+  return value === 'todas' || value === 'solicitada' || value === 'aceptada' || value === 'historial';
+}
+
 export default function VinculacionesPage() {
   const user = useAuthStore((s) => s.user);
-  const [tab, setTab] = useState<TabKey>('todas');
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const tabParam = searchParams.get('tab');
+  const tab: TabKey = isTab(tabParam) ? tabParam : 'todas';
+  const page = Number(searchParams.get('page') || '1');
 
   const filtros = useMemo(() => ({
     estado: estadoFromTab(tab),
@@ -39,9 +47,26 @@ export default function VinculacionesPage() {
   const meta = data?.meta ?? { total: 0, page: 1, per_page: 12 };
 
   const handleTabChange = (key: TabKey) => {
-    setTab(key);
-    setPage(1);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (key === 'todas') next.delete('tab');
+      else next.set('tab', key);
+      next.delete('page');
+      return next;
+    });
   };
+
+  const handlePageChange = useCallback(
+    (p: number) => {
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        if (p > 1) next.set('page', String(p));
+        else next.delete('page');
+        return next;
+      });
+    },
+    [setSearchParams],
+  );
 
   return (
     <>
@@ -95,7 +120,7 @@ export default function VinculacionesPage() {
               page={meta.page}
               total={meta.total}
               perPage={meta.per_page}
-              onChange={setPage}
+              onChange={handlePageChange}
             />
           </div>
         </>

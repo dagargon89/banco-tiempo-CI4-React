@@ -4,8 +4,10 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Avatar from '@/components/ui/Avatar';
 import EmptyState from '@/components/ui/EmptyState';
+import Skeleton, { TableRowSkeleton } from '@/components/ui/Skeleton';
 import { useAdminUsuarios } from './hooks/useAdminUsuarios';
 import { useModeradores, useCrearModerador, useEliminarModerador } from './hooks/useAdminModeradores';
+import { toast, toastError } from '@/lib/toast';
 
 export default function AdminModeradoresPage() {
   const [busqueda, setBusqueda] = useState('');
@@ -27,13 +29,19 @@ export default function AdminModeradoresPage() {
   // Filtrar usuarios que ya son moderadores
   const candidatos = usuarios.filter((u) => !modsIds.has(u.id));
 
-  const handlePromover = (userId: number) => {
-    crearModerador.mutate(userId);
+  const handlePromover = (userId: number, nombre: string) => {
+    crearModerador.mutate(userId, {
+      onSuccess: () => toast.success(`${nombre} ahora es moderador`),
+      onError: (err) => toastError(err, 'Error al promover a moderador.'),
+    });
   };
 
   const handleRevocar = (userId: number, nombre: string) => {
     if (!window.confirm(`¿Revocar rol de moderador a ${nombre}?`)) return;
-    eliminarModerador.mutate(userId);
+    eliminarModerador.mutate(userId, {
+      onSuccess: () => toast.info(`Se revocó el rol de moderador a ${nombre}`),
+      onError: (err) => toastError(err, 'Error al revocar moderador.'),
+    });
   };
 
   return (
@@ -51,20 +59,22 @@ export default function AdminModeradoresPage() {
           />
         </div>
 
-        {crearModerador.isError && (
-          <p className="mb-3 text-sm text-error">
-            {(crearModerador.error as any)?.response?.data?.message ?? 'Error al promover moderador'}
-          </p>
-        )}
-        {crearModerador.isSuccess && (
-          <p className="mb-3 text-sm text-success">Moderador asignado correctamente.</p>
-        )}
-
         <div className="max-h-80 overflow-y-auto rounded-xl border border-border bg-surface">
           {loadingUsuarios ? (
-            <div className="flex justify-center py-6">
-              <div className="h-5 w-5 animate-spin rounded-full border-4 border-accent border-t-transparent" />
-            </div>
+            <ul className="divide-y divide-border">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <li key={i} className="flex items-center justify-between px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    <Skeleton variant="circle" className="h-8 w-8" />
+                    <div className="space-y-1.5">
+                      <Skeleton className="h-3 w-32" />
+                      <Skeleton className="h-2.5 w-40" />
+                    </div>
+                  </div>
+                  <Skeleton className="h-8 w-24" />
+                </li>
+              ))}
+            </ul>
           ) : candidatos.length === 0 ? (
             <p className="px-4 py-4 text-sm text-text-3">
               {usuarios.length > 0 ? 'Todos los usuarios ya son moderadores.' : 'No se encontraron usuarios.'}
@@ -82,7 +92,7 @@ export default function AdminModeradoresPage() {
                   </div>
                   <Button
                     variant="secondary"
-                    onClick={() => handlePromover(u.id)}
+                    onClick={() => handlePromover(u.id, u.nombre)}
                     disabled={crearModerador.isPending}
                   >
                     <UserPlus className="mr-1.5 h-4 w-4" />
@@ -99,15 +109,23 @@ export default function AdminModeradoresPage() {
       <section>
         <h2 className="mb-3 text-sm font-semibold text-text-1">Moderadores actuales</h2>
 
-        {eliminarModerador.isError && (
-          <p className="mb-3 text-sm text-error">
-            {(eliminarModerador.error as any)?.response?.data?.message ?? 'Error al revocar moderador'}
-          </p>
-        )}
-
         {loadingMods ? (
-          <div className="flex justify-center py-8">
-            <div className="h-6 w-6 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+          <div className="overflow-x-auto rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead className="bg-surface-2 text-left text-xs text-text-2">
+                <tr>
+                  <th className="px-4 py-3">Usuario</th>
+                  <th className="px-4 py-3">Email</th>
+                  <th className="px-4 py-3">Asignado</th>
+                  <th className="px-4 py-3">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border bg-surface">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <TableRowSkeleton key={i} cols={4} />
+                ))}
+              </tbody>
+            </table>
           </div>
         ) : !moderadores || moderadores.length === 0 ? (
           <EmptyState title="Sin moderadores" subtitle="No hay moderadores asignados actualmente." />

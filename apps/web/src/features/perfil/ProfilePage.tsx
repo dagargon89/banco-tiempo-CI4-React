@@ -5,6 +5,7 @@ import Badge from '@/components/ui/Badge';
 import StatCard from '@/components/ui/StatCard';
 import EmptyState from '@/components/ui/EmptyState';
 import Button from '@/components/ui/Button';
+import { ProfileHeaderSkeleton } from '@/components/ui/Skeleton';
 import VerificacionBadge from '@/components/verificacion/VerificacionBadge';
 import VerificacionBanner from '@/components/verificacion/VerificacionBanner';
 import { useProfile, useVerificacionEstado } from './hooks/useProfile';
@@ -31,11 +32,7 @@ export default function ProfilePage() {
   const totalResenas = resenasStats?.total ?? 0;
 
   if (isLoading || !user) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
-      </div>
-    );
+    return <ProfileHeaderSkeleton />;
   }
 
   const fechaRegistro = user.created_at

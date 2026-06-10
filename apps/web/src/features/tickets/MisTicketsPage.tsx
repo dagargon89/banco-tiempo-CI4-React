@@ -4,6 +4,7 @@ import { LifeBuoy, Plus } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import EmptyState from '@/components/ui/EmptyState';
+import { TicketCardSkeleton } from '@/components/ui/Skeleton';
 import Paginacion from '@/features/ofertas/components/Paginacion';
 import TicketEstadoBadge from '@/features/admin/components/TicketEstadoBadge';
 import { useMisTickets } from './hooks/useTickets';
@@ -29,8 +30,10 @@ export default function MisTicketsPage() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+        <div className="space-y-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <TicketCardSkeleton key={i} />
+          ))}
         </div>
       ) : tickets.length === 0 ? (
         <EmptyState

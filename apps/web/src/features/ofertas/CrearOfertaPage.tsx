@@ -8,6 +8,7 @@ import OfertaCardComponent from './components/OfertaCardComponent';
 import { useCategorias } from './hooks/useCategorias';
 import { useCrearOferta } from './hooks/useOfertas';
 import { useAuthStore } from '@/stores/authStore';
+import { toast, toastError } from '@/lib/toast';
 import type { OfertaFormData, Modalidad, TipoCapacidad } from '@/lib/types';
 
 const steps = [
@@ -32,7 +33,6 @@ export default function CrearOfertaPage() {
   const [tipoCapacidad, setTipoCapacidad] = useState<TipoCapacidad>('individual');
   const [capacidadMaxima, setCapacidadMaxima] = useState('');
   const [disponibilidad, setDisponibilidad] = useState<string[]>([]);
-  const [error, setError] = useState('');
 
   const toggleDisponibilidad = (val: string) => {
     setDisponibilidad((prev) => prev.includes(val) ? prev.filter((d) => d !== val) : [...prev, val]);
@@ -46,7 +46,6 @@ export default function CrearOfertaPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setError('');
 
     const datos: OfertaFormData = {
       titulo,
@@ -61,11 +60,11 @@ export default function CrearOfertaPage() {
     };
 
     crearOferta.mutate(datos, {
-      onSuccess: (oferta) => navigate(`/ofertas/${oferta.id}`),
-      onError: (err: any) => {
-        const msg = err?.response?.data?.errors?.validation ?? err?.response?.data?.message ?? 'Error al crear la oferta.';
-        setError(msg);
+      onSuccess: (oferta) => {
+        toast.success('Oferta publicada');
+        navigate(`/ofertas/${oferta.id}`);
       },
+      onError: (err) => toastError(err, 'Error al crear la oferta.'),
     });
   };
 
@@ -246,8 +245,6 @@ export default function CrearOfertaPage() {
                 )}
               </dl>
             </div>
-
-            {error && <p className="text-sm text-error">{error}</p>}
           </div>
         )}
 

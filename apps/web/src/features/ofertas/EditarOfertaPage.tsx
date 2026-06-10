@@ -5,6 +5,8 @@ import Textarea from '@/components/ui/Textarea';
 import Button from '@/components/ui/Button';
 import { useCategorias } from './hooks/useCategorias';
 import { useOfertaDetalle, useActualizarOferta } from './hooks/useOfertas';
+import { toast, toastError } from '@/lib/toast';
+import Skeleton from '@/components/ui/Skeleton';
 import type { Modalidad, TipoCapacidad } from '@/lib/types';
 
 export default function EditarOfertaPage() {
@@ -23,7 +25,6 @@ export default function EditarOfertaPage() {
   const [tipoCapacidad, setTipoCapacidad] = useState<TipoCapacidad>('individual');
   const [capacidadMaxima, setCapacidadMaxima] = useState('');
   const [disponibilidad, setDisponibilidad] = useState<string[]>([]);
-  const [error, setError] = useState('');
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -52,7 +53,6 @@ export default function EditarOfertaPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setError('');
 
     actualizar.mutate(
       {
@@ -70,19 +70,27 @@ export default function EditarOfertaPage() {
         },
       },
       {
-        onSuccess: (data) => navigate(`/ofertas/${data.id}`),
-        onError: (err: any) => {
-          const msg = err?.response?.data?.errors?.validation ?? err?.response?.data?.message ?? 'Error al actualizar.';
-          setError(msg);
+        onSuccess: (data) => {
+          toast.success('Oferta actualizada');
+          navigate(`/ofertas/${data.id}`);
         },
+        onError: (err) => toastError(err, 'Error al actualizar.'),
       },
     );
   };
 
   if (isLoading) {
     return (
-      <div className="flex justify-center py-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+      <div className="mx-auto max-w-2xl">
+        <Skeleton className="mb-6 h-6 w-40" />
+        <div className="space-y-5 rounded-xl border border-border bg-surface p-6">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="space-y-1.5">
+              <Skeleton className="h-3 w-24" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -169,8 +177,6 @@ export default function EditarOfertaPage() {
             ))}
           </div>
         </fieldset>
-
-        {error && <p className="text-sm text-error">{error}</p>}
 
         <Button type="submit" fullWidth disabled={actualizar.isPending}>
           {actualizar.isPending ? 'Guardando...' : 'Guardar cambios'}

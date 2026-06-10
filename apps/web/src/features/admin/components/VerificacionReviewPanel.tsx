@@ -6,6 +6,7 @@ import Button from '@/components/ui/Button';
 import Textarea from '@/components/ui/Textarea';
 import { useResolverVerificacion } from '../hooks/useAdminVerificaciones';
 import { api } from '@/lib/api';
+import { toast, toastError } from '@/lib/toast';
 import type { VerificacionPendiente } from '@/lib/types';
 
 const GENERO_LABELS: Record<string, string> = {
@@ -33,20 +34,17 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
   const [viewingDoc, setViewingDoc] = useState<number | null>(null);
   const [docUrl, setDocUrl] = useState<string | null>(null);
   const [docContentType, setDocContentType] = useState<string>('');
-  const [docError, setDocError] = useState('');
   const [loadingDoc, setLoadingDoc] = useState<number | null>(null);
 
   const handleVerDocumento = async (docId: number) => {
     setLoadingDoc(docId);
-    setDocError('');
     try {
       const { data } = await api.get<{ data: { url: string; content_type: string } }>(`/admin/verificaciones/${docId}/documento`);
       setDocUrl(data.data.url);
       setDocContentType(data.data.content_type ?? '');
       setViewingDoc(docId);
-    } catch (err: any) {
-      const msg = err?.response?.data?.message ?? 'Error al obtener el documento. Verifica la configuración de Firebase Storage.';
-      setDocError(msg);
+    } catch (err) {
+      toastError(err, 'Error al obtener el documento. Verifica la configuración de Firebase Storage.');
     } finally {
       setLoadingDoc(null);
     }
@@ -61,12 +59,24 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
   const isPdf = docContentType === 'application/pdf';
 
   const handleAprobar = () => {
-    resolver.mutate({ userId, accion: 'aprobar' });
+    resolver.mutate(
+      { userId, accion: 'aprobar' },
+      {
+        onSuccess: () => toast.success(`Verificación aprobada para ${userName}`),
+        onError: (err) => toastError(err, 'Error al aprobar la verificación.'),
+      },
+    );
   };
 
   const handleRechazar = () => {
     if (motivo.trim() === '') return;
-    resolver.mutate({ userId, accion: 'rechazar', motivo });
+    resolver.mutate(
+      { userId, accion: 'rechazar', motivo },
+      {
+        onSuccess: () => toast.info(`Verificación rechazada para ${userName}`),
+        onError: (err) => toastError(err, 'Error al rechazar la verificación.'),
+      },
+    );
     setShowReject(false);
     setMotivo('');
   };
@@ -108,9 +118,6 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
 
       {/* Documents */}
       <div className="mt-4 space-y-2">
-        {docError && (
-          <div className="rounded-sm border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">{docError}</div>
-        )}
         {docs.map((doc) => (
           <div key={doc.id} className="space-y-2">
             <div className="flex items-center justify-between rounded-sm border border-border px-3 py-2">
@@ -171,16 +178,7 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
       </div>
 
       {/* Actions */}
-      {resolver.isError && (
-        <div className="mt-4 rounded-sm border border-error/20 bg-error/5 px-4 py-3 text-sm text-error">
-          {(resolver.error as any)?.response?.data?.message ?? 'Error al procesar la verificación. Intenta de nuevo.'}
-        </div>
-      )}
-      {resolver.isSuccess ? (
-        <div className="mt-4 rounded-sm border border-success/20 bg-success/5 px-4 py-3 text-sm text-success">
-          Verificación resuelta correctamente.
-        </div>
-      ) : (
+      {!resolver.isSuccess && (
         <div className="mt-4">
           {showReject ? (
             <div className="space-y-3">

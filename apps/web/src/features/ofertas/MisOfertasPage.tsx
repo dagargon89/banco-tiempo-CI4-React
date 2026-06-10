@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import EmptyState from '@/components/ui/EmptyState';
 import Avatar from '@/components/ui/Avatar';
+import Skeleton from '@/components/ui/Skeleton';
 import EstadoBadge from '@/features/vinculaciones/components/EstadoBadge';
 import AccionesVinculacion from '@/features/vinculaciones/components/AccionesVinculacion';
 import { useMisOfertas, useCambiarEstadoOferta } from './hooks/useOfertas';
@@ -11,6 +12,7 @@ import { useCategorias } from './hooks/useCategorias';
 import { useListarVinculaciones } from '@/features/vinculaciones/hooks/useVinculaciones';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfigById } from '@/lib/categoryConfig';
+import { toast, toastError } from '@/lib/toast';
 
 export default function MisOfertasPage() {
   const user = useAuthStore((s) => s.user);
@@ -28,7 +30,17 @@ export default function MisOfertasPage() {
 
   const handleEstado = (id: number, estado: string) => {
     if (estado === 'eliminada' && !confirm('Esta accion no se puede deshacer. Continuar?')) return;
-    cambiarEstado.mutate({ id, estado });
+    cambiarEstado.mutate(
+      { id, estado },
+      {
+        onSuccess: () => {
+          if (estado === 'eliminada') toast.info('Oferta eliminada');
+          else if (estado === 'pausada') toast.info('Oferta pausada');
+          else if (estado === 'activa') toast.success('Oferta reanudada');
+        },
+        onError: (err) => toastError(err, 'No se pudo cambiar el estado.'),
+      },
+    );
   };
 
   const ofertasActivas = ofertas?.filter((o) => o.estado === 'activa') ?? [];
@@ -152,8 +164,23 @@ export default function MisOfertasPage() {
         <h2 className="text-lg font-semibold text-text-1">Mis habilidades</h2>
 
         {isLoading ? (
-          <div className="mt-4 flex justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
+          <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="rounded-xl border border-border bg-surface p-4">
+                <div className="flex items-start gap-3">
+                  <Skeleton className="h-9 w-9 rounded-lg" />
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-5 w-16 rounded-full" />
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center gap-3 border-t border-border pt-3">
+                  <Skeleton className="h-3 w-12" />
+                  <Skeleton className="h-3 w-14" />
+                  <Skeleton className="ml-auto h-3 w-6" />
+                </div>
+              </div>
+            ))}
           </div>
         ) : !ofertas || ofertas.length === 0 ? (
           <div className="mt-3">

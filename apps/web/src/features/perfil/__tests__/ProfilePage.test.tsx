@@ -39,12 +39,12 @@ describe('ProfilePage', () => {
     vi.clearAllMocks();
   });
 
-  it('muestra spinner mientras carga', () => {
+  it('muestra skeleton mientras carga', () => {
     vi.mocked(useProfile).mockReturnValue({ data: undefined, isLoading: true } as any);
     vi.mocked(useVerificacionEstado).mockReturnValue({ data: undefined } as any);
 
     renderWithProviders(<ProfilePage />);
-    expect(document.querySelector('.animate-spin')).toBeInTheDocument();
+    expect(document.querySelector('.animate-pulse')).toBeInTheDocument();
   });
 
   it('muestra nombre del usuario cuando carga', () => {
