@@ -8,6 +8,7 @@ interface AdminUsuariosFiltros {
   q?: string | null;
   page?: number;
   per_page?: number;
+  incluir_bajas?: number;
 }
 
 export function useAdminUsuarios(filtros: AdminUsuariosFiltros) {
@@ -20,6 +21,7 @@ export function useAdminUsuarios(filtros: AdminUsuariosFiltros) {
       if (filtros.q) params.set('q', filtros.q);
       if (filtros.page) params.set('page', String(filtros.page));
       if (filtros.per_page) params.set('per_page', String(filtros.per_page));
+      if (filtros.incluir_bajas) params.set('incluir_bajas', String(filtros.incluir_bajas));
 
       const { data } = await api.get<ApiList<AdminUsuario>>(`/admin/usuarios?${params.toString()}`);
       return data;
