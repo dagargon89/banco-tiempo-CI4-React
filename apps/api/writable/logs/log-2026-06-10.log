@@ -337,3 +337,2378 @@ ORDER BY `u`.`nombre` ASC', [...], false)
 10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 16:15:59 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:15:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:15:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:15:59 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 16:16:01 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:01 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 16:16:04 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:04 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 16:16:08 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:08 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:08 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:16:08 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 16:52:42 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:42 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:42 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:42 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 16:52:44 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:44 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 16:52:46 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:46 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:46 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:46 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 16:52:51 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:51 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:51 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 16:52:51 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:25:52 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:25:52 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:31:54 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:31:54 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:35:21 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:21 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:35:22 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:22 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:22 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:22 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:35:25 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:25 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:25 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:25 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:35:30 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:30 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:35:30 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:38:15 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:38:15 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:38:15 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:38:15 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:38:18 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:38:18 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:38:18 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:38:18 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:41:31 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:41:31 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:46:39 --> Firebase revoke failed para user_id=744: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 17:46:44 --> Firebase revoke failed para user_id=762: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 17:46:44 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:46:44 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:47:13 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:13 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:47:15 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:15 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:15 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:15 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:47:18 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:18 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:18 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 17:47:18 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 17:47:40 --> Firebase revoke failed para user_id=844: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 17:49:12 --> Firebase revoke failed para user_id=852: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 17:49:16 --> Firebase revoke failed para user_id=874: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 17:49:17 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:49:17 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:56:36 --> Firebase revoke failed para user_id=1022: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 17:56:36 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:56:36 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:58:54 --> Field 'descripcion_completa' doesn't have a default value
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `ofertas` (`user_id`, `categoria_id`, `titulo`, `descripcion_breve`, `modalidad`, `zona`, `estado`, `pausada_por_admin`, `created_at`, `updated_at`) VALUES (1112, 439, \'Oferta Test fcffd813903f\', \'Descripción breve de prueba\', \'presencial\', \'Centro\', \'pausada\', 1, \'2026-06-10 17:58:54\', \'2026-06-10 17:58:54\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ofertas` (`user_id`, `categoria_id`, `titulo`, `descripcion_breve`, `modalidad`, `zona`, `estado`, `pausada_por_admin`, `created_at`, `updated_at`) VALUES (1112, 439, \'Oferta Test fcffd813903f\', \'Descripción breve de prueba\', \'presencial\', \'Centro\', \'pausada\', 1, \'2026-06-10 17:58:54\', \'2026-06-10 17:58:54\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ofertas` (`user_id`, `categoria_id`, `titulo`, `descripcion_breve`, `modalidad`, `zona`, `estado`, `pausada_por_admin`, `created_at`, `updated_at`) VALUES (1112, 439, \'Oferta Test fcffd813903f\', \'Descripción breve de prueba\', \'presencial\', \'Centro\', \'pausada\', 1, \'2026-06-10 17:58:54\', \'2026-06-10 17:58:54\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ofertas` (`user_id`, `categoria_id`, `titulo`, `descripcion_breve`, `modalidad`, `zona`, `estado`, `pausada_por_admin`, `created_at`, `updated_at`) VALUES (:user_id:, :categoria_id:, :titulo:, :descripcion_breve:, :modalidad:, :zona:, :estado:, :pausada_por_admin:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/Admin/OfertasDetalleTest.php(75): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\Admin\OfertasDetalleTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Admin\OfertasDetalleTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-10 17:58:54 --> Field 'descripcion_completa' doesn't have a default value
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('INSERT INTO `ofertas` (`user_id`, `categoria_id`, `titulo`, `descripcion_breve`, `modalidad`, `zona`, `estado`, `pausada_por_admin`, `created_at`, `updated_at`) VALUES (1114, 440, \'Oferta Test 46d7316c2eca\', \'Descripción breve de prueba\', \'presencial\', \'Centro\', \'pausada\', 1, \'2026-06-10 17:58:54\', \'2026-06-10 17:58:54\')', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ofertas` (`user_id`, `categoria_id`, `titulo`, `descripcion_breve`, `modalidad`, `zona`, `estado`, `pausada_por_admin`, `created_at`, `updated_at`) VALUES (1114, 440, \'Oferta Test 46d7316c2eca\', \'Descripción breve de prueba\', \'presencial\', \'Centro\', \'pausada\', 1, \'2026-06-10 17:58:54\', \'2026-06-10 17:58:54\')')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ofertas` (`user_id`, `categoria_id`, `titulo`, `descripcion_breve`, `modalidad`, `zona`, `estado`, `pausada_por_admin`, `created_at`, `updated_at`) VALUES (1114, 440, \'Oferta Test 46d7316c2eca\', \'Descripción breve de prueba\', \'presencial\', \'Centro\', \'pausada\', 1, \'2026-06-10 17:58:54\', \'2026-06-10 17:58:54\')')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2343): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ofertas` (`user_id`, `categoria_id`, `titulo`, `descripcion_breve`, `modalidad`, `zona`, `estado`, `pausada_por_admin`, `created_at`, `updated_at`) VALUES (:user_id:, :categoria_id:, :titulo:, :descripcion_breve:, :modalidad:, :zona:, :estado:, :pausada_por_admin:, :created_at:, :updated_at:)', [...], false)
+ 5 ROOTPATH/tests/Feature/Admin/OfertasDetalleTest.php(75): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2467): Tests\Feature\Admin\OfertasDetalleTest->setUp()
+ 7 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(2370): PHPUnit\Framework\TestCase->invokeHookMethods(Object(PHPUnit\Runner\HookMethodCollection), Object(PHPUnit\Event\DispatchingEmitter), 'beforeTestMethodCalled', 'beforeTestMethodErrored', 'beforeTestMethodFinished')
+ 8 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(511): PHPUnit\Framework\TestCase->invokeBeforeTestHookMethods([...], Object(PHPUnit\Event\DispatchingEmitter))
+ 9 VENDORPATH/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+10 VENDORPATH/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Admin\OfertasDetalleTest))
+11 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+12 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+13 VENDORPATH/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+14 VENDORPATH/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+15 VENDORPATH/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+16 VENDORPATH/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run([...])
+17 VENDORPATH/bin/phpunit(122): include('/home/dagargon89/banco-tiempo-CI4-React/apps/api/vendor/phpunit/phpunit/phpunit')
+ERROR - 2026-06-10 17:59:43 --> Firebase revoke failed para user_id=1144: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 17:59:44 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 17:59:44 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:02:28 --> Firebase revoke failed para user_id=1262: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 18:02:28 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:02:28 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:05:54 --> Firebase revoke failed para user_id=1388: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 18:05:54 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:05:54 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:08:21 --> Firebase revoke failed para user_id=1502: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 18:08:21 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:08:21 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:30:58 --> Firebase revoke failed para user_id=1616: There is no user record corresponding to this identifier. The user may have been deleted.
+ERROR - 2026-06-10 18:30:59 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value '' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:30:59 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'token_invalido_123' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+ERROR - 2026-06-10 18:42:01 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:01 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 18:42:03 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:03 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:03 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-10 18:42:06 --> Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+[Method: GET, Route: api/v1/admin/moderadores]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 2 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 4 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 5 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 310.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 4 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+CRITICAL - 2026-06-10 18:42:06 --> [Caused by] mysqli_sql_exception: Unknown column 'ru.created_at' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 300.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(300): mysqli->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = \'2\'
+AND `u`.`estado_cuenta` = \'activa\'
+ORDER BY `u`.`nombre` ASC')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT `u`.`id`, `u`.`nombre`, `u`.`email`, `u`.`foto_perfil`, `ru`.`created_at` AS `asignado_at`
+FROM `role_user` `ru`
+JOIN `users` `u` ON `u`.`id` = `ru`.`user_id`
+WHERE `ru`.`role_id` = :ru.role_id:
+AND `u`.`estado_cuenta` = :u.estado_cuenta:
+ORDER BY `u`.`nombre` ASC', [...], false)
+ 5 APPPATH/Controllers/Api/V1/Admin/Moderadores.php(33): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\V1\Admin\Moderadores->index()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\V1\Admin\Moderadores))
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
