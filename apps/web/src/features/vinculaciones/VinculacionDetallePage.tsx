@@ -28,6 +28,12 @@ export default function VinculacionDetallePage() {
     return <p className="text-center text-text-2">Vinculacion no encontrada.</p>;
   }
 
+  const otroInactivo = user
+    ? (Number(user.id) === Number(vinculacion.oferente_id)
+        ? Boolean(vinculacion.buscador_inactivo)
+        : Boolean(vinculacion.oferente_inactivo))
+    : false;
+
   return (
     <div className="mx-auto max-w-3xl">
       {/* Breadcrumb */}
@@ -83,7 +89,7 @@ export default function VinculacionDetallePage() {
 
         {/* Chat — visible en estado aceptada o completada */}
         {(vinculacion.estado === 'aceptada' || vinculacion.estado === 'completada') && (
-          <ChatWindow vinculacionId={vinculacion.id} />
+          <ChatWindow vinculacionId={vinculacion.id} otroInactivo={otroInactivo} />
         )}
 
         {/* Resena — visible en estado completada si el usuario aun no ha resenado esta vinculacion */}

@@ -4,10 +4,11 @@ import { Send } from 'lucide-react';
 interface Props {
   onSend: (text: string) => Promise<void>;
   disabled?: boolean;
+  disabledReason?: string;
   error?: string | null;
 }
 
-export default function ChatInput({ onSend, disabled, error }: Props) {
+export default function ChatInput({ onSend, disabled, disabledReason, error }: Props) {
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
@@ -30,6 +31,14 @@ export default function ChatInput({ onSend, disabled, error }: Props) {
   };
 
   const displayError = localError ?? error;
+
+  if (disabled && disabledReason) {
+    return (
+      <div className="border-t border-border bg-warning/5 px-4 py-3 text-center text-sm text-warning">
+        {disabledReason}
+      </div>
+    );
+  }
 
   return (
     <div className="border-t border-border bg-surface">

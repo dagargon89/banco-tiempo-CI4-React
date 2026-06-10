@@ -9,9 +9,10 @@ import EmptyState from '@/components/ui/EmptyState';
 
 interface Props {
   vinculacionId: number;
+  otroInactivo?: boolean;
 }
 
-export default function ChatWindow({ vinculacionId }: Props) {
+export default function ChatWindow({ vinculacionId, otroInactivo }: Props) {
   const user = useAuthStore((s) => s.user);
   const { isConnected, conversationId, error, connectToChat, disconnect } = useChatStore();
   const chatToken = useChatToken();
@@ -115,7 +116,12 @@ export default function ChatWindow({ vinculacionId }: Props) {
       </div>
 
       {/* Input */}
-      <ChatInput onSend={sendMessage} disabled={!isConnected} error={sendError} />
+      <ChatInput
+        onSend={sendMessage}
+        disabled={!isConnected || otroInactivo}
+        disabledReason={otroInactivo ? 'Esta cuenta fue dada de baja. Puedes leer el historial pero no enviar nuevos mensajes.' : undefined}
+        error={sendError}
+      />
     </div>
   );
 }
