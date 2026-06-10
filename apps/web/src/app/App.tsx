@@ -26,6 +26,7 @@ import VinculacionesPage from '@/features/vinculaciones/VinculacionesPage';
 import VinculacionDetallePage from '@/features/vinculaciones/VinculacionDetallePage';
 import MensajesPage from '@/features/chat/MensajesPage';
 import AvisoPrivacidadPage from '@/features/legal/AvisoPrivacidadPage';
+import WelcomePage from '@/features/landing/WelcomePage';
 
 export default function App() {
   const init = useAuthStore((s) => s.init);
@@ -37,6 +38,8 @@ export default function App() {
 
   return (
     <Routes>
+      {/* Landing pública */}
+      <Route path="/" element={<WelcomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<RegisterPage />} />
       <Route path="/privacidad" element={<AvisoPrivacidadPage />} />
@@ -50,7 +53,7 @@ export default function App() {
 
         {/* Rutas que requieren verificacion */}
         <Route element={<VerifiedRoute />}>
-          <Route path="/" element={<ExplorarPage />} />
+          <Route path="/inicio" element={<ExplorarPage />} />
           <Route path="/ofertas/nueva" element={<CrearOfertaPage />} />
           <Route path="/ofertas/:id/editar" element={<EditarOfertaPage />} />
           <Route path="/mis-ofertas" element={<MisOfertasPage />} />

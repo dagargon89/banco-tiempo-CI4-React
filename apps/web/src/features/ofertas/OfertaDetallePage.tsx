@@ -82,7 +82,7 @@ export default function OfertaDetallePage() {
     <div className="mx-auto max-w-3xl">
       {/* Breadcrumb */}
       <nav className="mb-4 text-sm text-text-3">
-        <Link to="/" className="hover:text-accent">Explorar</Link>
+        <Link to="/inicio" className="hover:text-accent">Explorar</Link>
         <span className="mx-2">&gt;</span>
         <span className="text-text-2">Detalle</span>
       </nav>

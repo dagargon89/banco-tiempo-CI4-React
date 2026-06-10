@@ -12,7 +12,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
 type NavItem = { to: string; label: string; icon: React.ElementType; end?: boolean };
 
 const buscadorNav: NavItem[] = [
-  { to: '/', label: 'Explorar', icon: Compass, end: true },
+  { to: '/inicio', label: 'Explorar', icon: Compass, end: true },
   { to: '/vinculaciones', label: 'Vinculaciones', icon: ArrowLeftRight },
   { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },
   { to: '/mis-tickets', label: 'Soporte', icon: LifeBuoy },

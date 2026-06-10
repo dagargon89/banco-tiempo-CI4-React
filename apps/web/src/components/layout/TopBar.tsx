@@ -87,7 +87,7 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
         {/* Role switcher — hidden on mobile */}
         <div className="hidden items-center rounded-lg border border-border bg-surface-2 p-0.5 sm:flex" role="tablist" aria-label="Modo de navegación">
           <Link
-            to="/"
+            to="/inicio"
             role="tab"
             aria-selected={context === 'buscador'}
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors duration-150 ${

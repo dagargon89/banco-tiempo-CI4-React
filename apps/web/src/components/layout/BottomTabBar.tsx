@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Compass, Package, PlusCircle, MessageSquare, User } from 'lucide-react';
 
 const tabs = [
-  { to: '/', label: 'Explorar', icon: Compass, end: true },
+  { to: '/inicio', label: 'Explorar', icon: Compass, end: true },
   { to: '/mis-ofertas', label: 'Ofertas', icon: Package },
   { to: '/ofertas/nueva', label: 'Crear', icon: PlusCircle },
   { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },

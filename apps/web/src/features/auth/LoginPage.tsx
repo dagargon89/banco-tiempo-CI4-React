@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   if (user) {
-    const dest = user.estado_verificacion === 'verificado' ? '/' : '/perfil';
+    const dest = user.estado_verificacion === 'verificado' ? '/inicio' : '/perfil';
     return <Navigate to={dest} replace />;
   }
 
