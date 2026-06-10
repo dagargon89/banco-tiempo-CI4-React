@@ -12,16 +12,16 @@ export default function Skeleton({ className = '', variant = 'rect' }: SkeletonP
 export function OfertaCardSkeleton() {
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface">
-      <Skeleton className="h-24 rounded-none" />
-      <div className="flex flex-col gap-2 p-4">
-        <div className="flex gap-1.5">
-          <Skeleton className="h-5 w-16 rounded-full" />
-          <Skeleton className="h-5 w-14 rounded-full" />
-        </div>
+      <div className="flex items-center gap-2 px-3 py-2.5">
+        <Skeleton className="h-8 w-8 rounded-lg" />
+        <Skeleton className="h-3 w-16" />
+        <Skeleton className="ml-auto h-5 w-16 rounded-full" />
+      </div>
+      <div className="flex flex-col gap-1.5 p-3">
         <Skeleton className="h-4 w-3/4" />
         <Skeleton className="h-3 w-full" />
         <Skeleton className="h-3 w-2/3" />
-        <div className="mt-auto flex items-center gap-2 border-t border-border pt-3">
+        <div className="mt-auto flex items-center gap-2 border-t border-border pt-2">
           <Skeleton variant="circle" className="h-8 w-8" />
           <Skeleton className="h-3 w-20" />
         </div>

@@ -46,7 +46,7 @@ export default function ExplorarPage() {
       zona: zona || null,
       q: q || null,
       page,
-      per_page: 12,
+      per_page: 8,
     }),
     [categoriaId, modalidad, zona, q, page],
   );
@@ -54,7 +54,7 @@ export default function ExplorarPage() {
   const { data, isLoading } = useExplorarOfertas(filtros);
 
   const ofertas = data?.data ?? [];
-  const meta = data?.meta ?? { total: 0, page: 1, per_page: 12 };
+  const meta = data?.meta ?? { total: 0, page: 1, per_page: 8 };
 
   return (
     <>
@@ -135,8 +135,8 @@ export default function ExplorarPage() {
 
       {/* Results */}
       {isLoading ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 12 }).map((_, i) => (
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          {Array.from({ length: 8 }).map((_, i) => (
             <OfertaCardSkeleton key={i} />
           ))}
         </div>
@@ -149,7 +149,7 @@ export default function ExplorarPage() {
         </div>
       ) : (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {ofertas.map((oferta) => (
               <OfertaCardComponent key={oferta.id} oferta={oferta} categorias={categorias} />
             ))}
