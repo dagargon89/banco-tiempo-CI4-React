@@ -156,4 +156,36 @@ final class Usuarios extends Controller
 
         return $this->ok($user);
     }
+
+    /** POST /admin/usuarios/{id}/baja */
+    public function darBaja(int $id): ResponseInterface
+    {
+        $actorId = (int) $this->request->getHeaderLine('X-Auth-UserId');
+        $body    = $this->request->getJSON(true) ?? [];
+        $motivo  = $body['motivo'] ?? null;
+        $ip      = $this->request->getIPAddress();
+
+        if ($motivo !== null && strlen((string) $motivo) > 500) {
+            return $this->unprocessable(['motivo' => 'Máximo 500 caracteres.']);
+        }
+
+        try {
+            $result = (new \App\Services\UsuarioBajaService())->darBaja($id, $motivo, $actorId, $ip);
+        } catch (\DomainException $e) {
+            $msg = $e->getMessage();
+            // Mapeo de mensajes a códigos HTTP
+            if (str_contains($msg, 'No puedes darte baja')) {
+                return $this->forbidden($msg);
+            }
+            if (str_contains($msg, 'no encontrado')) {
+                return $this->notFound($msg);
+            }
+            if (str_contains($msg, 'ya está dado de baja')) {
+                return $this->response->setStatusCode(409)->setJSON(['message' => $msg]);
+            }
+            return $this->forbidden($msg);
+        }
+
+        return $this->ok($result);
+    }
 }

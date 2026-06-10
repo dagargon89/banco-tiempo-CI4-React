@@ -65,6 +65,7 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
         $routes->get('usuarios', 'Admin\Usuarios::index');
         $routes->patch('usuarios/(:num)/estado', 'Admin\Usuarios::cambiarEstado/$1');
         $routes->get('usuarios/(:num)', 'Admin\Usuarios::show/$1');
+        $routes->post('usuarios/(:num)/baja', 'Admin\Usuarios::darBaja/$1');
         $routes->get('verificaciones', 'Admin\Verificaciones::index');
         $routes->get('verificaciones/(:num)/documento', 'Admin\Verificaciones::documento/$1');
         $routes->patch('verificaciones/(:num)', 'Admin\Verificaciones::resolver/$1');
