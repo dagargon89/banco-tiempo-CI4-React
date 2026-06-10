@@ -38,7 +38,7 @@ export default function ResenaCard({ resena }: Props) {
           )}
         </div>
       </div>
-      {user && !Boolean(resena.autor_inactivo) && (
+      {user && !resena.autor_inactivo && (
         <div className="mt-3 flex justify-end">
           <button
             onClick={() => reportar.mutate(resena.id)}
