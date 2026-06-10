@@ -1,21 +1,16 @@
 import { useState, useMemo } from 'react';
+import { Eye } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Input from '@/components/ui/Input';
 import DataTable, { type Column } from '@/components/ui/DataTable';
 import Paginacion from '@/features/ofertas/components/Paginacion';
 import TicketEstadoBadge from './components/TicketEstadoBadge';
-import { useAdminTickets, useAsignarTicket, useCambiarEstadoTicket } from './hooks/useAdminTickets';
+import TicketDetailDrawer from './components/TicketDetailDrawer';
+import { useAdminTickets, useAsignarTicket } from './hooks/useAdminTickets';
 import { toast, toastError } from '@/lib/toast';
 import { useUrlFilters } from '@/lib/urlFilters';
-import type { Ticket, EstadoTicket } from '@/lib/types';
-
-const transiciones: Record<EstadoTicket, EstadoTicket[]> = {
-  abierto: ['en_proceso', 'cerrado'],
-  en_proceso: ['resuelto', 'cerrado'],
-  resuelto: [],
-  cerrado: [],
-};
+import type { Ticket } from '@/lib/types';
 
 export default function AdminTicketsPage() {
   const { searchParams, setFilter, setPage } = useUrlFilters();
@@ -23,34 +18,15 @@ export default function AdminTicketsPage() {
   const tipo = searchParams.get('tipo');
   const q = searchParams.get('q') ?? '';
   const page = Number(searchParams.get('page') || '1');
-  const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [nuevoEstado, setNuevoEstado] = useState('');
-  const [resolucion, setResolucion] = useState('');
+  const [selectedTicketId, setSelectedTicketId] = useState<number | null>(null);
 
   const filtros = useMemo(() => ({ estado, tipo, q: q || null, page, per_page: 20 }), [estado, tipo, q, page]);
 
   const { data, isLoading } = useAdminTickets(filtros);
   const asignar = useAsignarTicket();
-  const cambiarEstado = useCambiarEstadoTicket();
 
   const tickets = data?.data ?? [];
   const meta = data?.meta ?? { total: 0, page: 1, per_page: 20 };
-
-  const handleCambiarEstado = (id: number) => {
-    if (!nuevoEstado) return;
-    cambiarEstado.mutate(
-      { id, estado: nuevoEstado, resolucion: nuevoEstado === 'resuelto' ? resolucion : undefined },
-      {
-        onSuccess: () => {
-          toast.success(`Ticket marcado como ${nuevoEstado}`);
-          setExpandedId(null);
-          setNuevoEstado('');
-          setResolucion('');
-        },
-        onError: (err) => toastError(err, 'Error al cambiar el estado del ticket.'),
-      },
-    );
-  };
 
   const columns: Column<Ticket>[] = [
     { key: 'folio', header: 'Folio', render: (t) => <span className="font-mono text-xs text-text-1">{t.folio}</span> },
@@ -71,76 +47,33 @@ export default function AdminTicketsPage() {
     },
     {
       key: 'acciones', header: 'Acciones',
-      render: (t) => {
-        const estadosDisponibles = transiciones[t.estado] ?? [];
-        const expanded = expandedId === t.id;
-        return (
-          <div className="flex gap-2">
-            {['abierto', 'en_proceso'].includes(t.estado) && (
-              <Button
-                variant="secondary"
-                onClick={() =>
-                  asignar.mutate(t.id, {
-                    onSuccess: () => toast.success('Ticket asignado a ti'),
-                    onError: (err) => toastError(err, 'Error al tomar el ticket.'),
-                  })
-                }
-                disabled={asignar.isPending}
-              >
-                {asignar.isPending ? '...' : 'Tomar'}
-              </Button>
-            )}
-            {estadosDisponibles.length > 0 && (
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  setExpandedId(expanded ? null : t.id);
-                  setNuevoEstado('');
-                  setResolucion('');
-                }}
-              >
-                {expanded ? 'Cancelar' : 'Estado'}
-              </Button>
-            )}
-          </div>
-        );
-      },
+      render: (t) => (
+        <div className="flex gap-1">
+          <button
+            onClick={() => setSelectedTicketId(t.id)}
+            aria-label="Ver detalle"
+            className="rounded p-1.5 text-text-3 hover:bg-surface-2 hover:text-accent"
+          >
+            <Eye className="h-4 w-4" />
+          </button>
+          {['abierto', 'en_proceso'].includes(t.estado) && (
+            <Button
+              variant="secondary"
+              onClick={() =>
+                asignar.mutate(t.id, {
+                  onSuccess: () => toast.success('Ticket asignado a ti'),
+                  onError: (err) => toastError(err, 'Error al tomar el ticket.'),
+                })
+              }
+              disabled={asignar.isPending}
+            >
+              {asignar.isPending ? '...' : 'Tomar'}
+            </Button>
+          )}
+        </div>
+      ),
     },
   ];
-
-  const renderExpandedRow = (t: Ticket) => {
-    const estadosDisponibles = transiciones[t.estado] ?? [];
-    if (expandedId !== t.id || estadosDisponibles.length === 0) return null;
-    return (
-      <div className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-3">
-        <select
-          value={nuevoEstado}
-          onChange={(e) => setNuevoEstado(e.target.value)}
-          className="h-9 rounded-lg border border-border bg-surface px-2 text-sm text-text-1"
-        >
-          <option value="">Seleccionar estado</option>
-          {estadosDisponibles.map((e) => (
-            <option key={e} value={e}>{e}</option>
-          ))}
-        </select>
-        {nuevoEstado === 'resuelto' && (
-          <textarea
-            value={resolucion}
-            onChange={(e) => setResolucion(e.target.value)}
-            placeholder="Resolucion (obligatoria)..."
-            className="h-20 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-1"
-          />
-        )}
-        <Button
-          variant="primary"
-          onClick={() => handleCambiarEstado(t.id)}
-          disabled={cambiarEstado.isPending || !nuevoEstado}
-        >
-          Confirmar
-        </Button>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -188,8 +121,6 @@ export default function AdminTicketsPage() {
         emptyTitle="No hay tickets"
         emptySubtitle="No se encontraron tickets con los filtros seleccionados."
         rowKey={(t) => t.id}
-        expandedRowId={expandedId}
-        renderExpandedRow={renderExpandedRow}
       />
 
       {!isLoading && tickets.length > 0 && (
@@ -197,6 +128,12 @@ export default function AdminTicketsPage() {
           <Paginacion page={meta.page} total={meta.total} perPage={meta.per_page} onChange={setPage} />
         </div>
       )}
+
+      <TicketDetailDrawer
+        ticketId={selectedTicketId}
+        open={selectedTicketId != null}
+        onClose={() => setSelectedTicketId(null)}
+      />
     </>
   );
 }
