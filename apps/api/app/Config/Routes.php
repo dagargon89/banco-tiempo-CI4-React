@@ -77,6 +77,7 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
         $routes->get('vinculaciones', 'Admin\Vinculaciones::index');
         $routes->get('vinculaciones/(:num)/chat', 'Admin\Vinculaciones::leerChat/$1');
         $routes->get('tickets', 'Admin\Tickets::index');
+        $routes->get('tickets/(:num)', 'Admin\Tickets::show/$1');
         $routes->patch('tickets/(:num)/asignar', 'Admin\Tickets::asignar/$1');
         $routes->patch('tickets/(:num)/estado', 'Admin\Tickets::cambiarEstado/$1');
         $routes->get('metricas', 'Admin\Metricas::index');
