@@ -74,8 +74,9 @@ export default function OfertaDetallePage() {
     return <p className="text-center text-text-2">Oferta no encontrada.</p>;
   }
 
-  const oferenteInactivo = Boolean((oferta as { oferente_inactivo?: boolean | number }).oferente_inactivo);
-  const pausadaPorAdmin = Boolean((oferta as { pausada_por_admin?: number }).pausada_por_admin);
+  const isFlag = (v: unknown): boolean => v === true || v === 1 || v === '1';
+  const oferenteInactivo = isFlag((oferta as { oferente_inactivo?: boolean | number | string }).oferente_inactivo);
+  const pausadaPorAdmin = isFlag((oferta as { pausada_por_admin?: number | string }).pausada_por_admin);
 
   return (
     <div className="mx-auto max-w-3xl">

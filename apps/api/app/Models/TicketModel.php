@@ -91,6 +91,11 @@ final class TicketModel extends Model
             ->get()
             ->getResultArray();
 
+        foreach ($items as &$item) {
+            $item['creador_inactivo'] = (int) ($item['creador_inactivo'] ?? 0);
+        }
+        unset($item);
+
         return ['items' => $items, 'total' => $total];
     }
 

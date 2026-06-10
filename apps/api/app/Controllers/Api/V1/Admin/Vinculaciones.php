@@ -45,6 +45,12 @@ final class Vinculaciones extends Controller
             ->get()
             ->getResultArray();
 
+        foreach ($items as &$item) {
+            $item['buscador_inactivo'] = (int) ($item['buscador_inactivo'] ?? 0);
+            $item['oferente_inactivo'] = (int) ($item['oferente_inactivo'] ?? 0);
+        }
+        unset($item);
+
         return $this->ok($items, [
             'total'    => $total,
             'page'     => $page,

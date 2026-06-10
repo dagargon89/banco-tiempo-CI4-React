@@ -57,6 +57,11 @@ final class ResenaModel extends Model
             ->get()
             ->getResultArray();
 
+        foreach ($items as &$item) {
+            $item['autor_inactivo'] = (int) ($item['autor_inactivo'] ?? 0);
+        }
+        unset($item);
+
         $stats = $this->estadisticas($destinoId);
 
         return ['items' => $items, 'total' => $total, 'estadisticas' => $stats];

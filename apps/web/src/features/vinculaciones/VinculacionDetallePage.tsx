@@ -29,10 +29,11 @@ export default function VinculacionDetallePage() {
     return <p className="text-center text-text-2">Vinculacion no encontrada.</p>;
   }
 
+  const isInactivo = (v: unknown): boolean => v === true || v === 1 || v === '1';
+  const oferenteInactivo = isInactivo(vinculacion.oferente_inactivo);
+  const buscadorInactivo = isInactivo(vinculacion.buscador_inactivo);
   const otroInactivo = user
-    ? (Number(user.id) === Number(vinculacion.oferente_id)
-        ? Boolean(vinculacion.buscador_inactivo)
-        : Boolean(vinculacion.oferente_inactivo))
+    ? (Number(user.id) === Number(vinculacion.oferente_id) ? buscadorInactivo : oferenteInactivo)
     : false;
 
   return (
@@ -90,7 +91,7 @@ export default function VinculacionDetallePage() {
         </div>
 
         {/* Banner inactivo */}
-        {(Boolean(vinculacion.oferente_inactivo) || Boolean(vinculacion.buscador_inactivo)) && (
+        {(oferenteInactivo || buscadorInactivo) && (
           <div className="rounded-lg border border-warning/30 bg-warning/5 p-4 text-sm text-warning">
             Uno de los participantes fue dado de baja. No es posible avanzar esta vinculación.
           </div>

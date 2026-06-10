@@ -37,10 +37,14 @@ final class OfertaModel extends Model
     /** Oferta con datos del oferente (evita N+1). */
     public function conOferente(int $id): ?array
     {
-        return $this->select('ofertas.*, u.id AS oferente_id, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto, (u.deleted_at IS NOT NULL) AS oferente_inactivo')
+        $row = $this->select('ofertas.*, u.id AS oferente_id, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto, (u.deleted_at IS NOT NULL) AS oferente_inactivo')
             ->join('users u', 'u.id = ofertas.user_id')
             ->where('ofertas.id', $id)
             ->first();
+        if ($row !== null) {
+            $row['oferente_inactivo'] = (int) ($row['oferente_inactivo'] ?? 0);
+        }
+        return $row;
     }
 
     /**
@@ -79,6 +83,11 @@ final class OfertaModel extends Model
             ->limit($perPage, ($page - 1) * $perPage)
             ->get()
             ->getResultArray();
+
+        foreach ($items as &$item) {
+            $item['oferente_inactivo'] = (int) ($item['oferente_inactivo'] ?? 0);
+        }
+        unset($item);
 
         return ['items' => $items, 'total' => $total];
     }
@@ -127,6 +136,12 @@ final class OfertaModel extends Model
             ->limit($perPage, ($page - 1) * $perPage)
             ->get()
             ->getResultArray();
+
+        foreach ($items as &$item) {
+            $item['oferente_inactivo'] = (int) ($item['oferente_inactivo'] ?? 0);
+            $item['pausada_por_admin'] = (int) ($item['pausada_por_admin'] ?? 0);
+        }
+        unset($item);
 
         return ['items' => $items, 'total' => $total];
     }

@@ -27,7 +27,7 @@ final class VinculacionModel extends Model
     /** Vinculación con datos de buscador, oferente y oferta. */
     public function conDetalles(int $id): ?array
     {
-        return $this->db->table('vinculaciones v')
+        $row = $this->db->table('vinculaciones v')
             ->select('v.*, o.titulo AS oferta_titulo, o.user_id AS oferente_id, ub.nombre AS buscador_nombre, ub.foto_perfil AS buscador_foto, (ub.deleted_at IS NOT NULL) AS buscador_inactivo, uo.nombre AS oferente_nombre, uo.foto_perfil AS oferente_foto, (uo.deleted_at IS NOT NULL) AS oferente_inactivo')
             ->join('ofertas o', 'o.id = v.oferta_id')
             ->join('users ub', 'ub.id = v.buscador_id')
@@ -35,6 +35,11 @@ final class VinculacionModel extends Model
             ->where('v.id', $id)
             ->get()
             ->getRowArray();
+        if ($row !== null) {
+            $row['buscador_inactivo'] = (int) ($row['buscador_inactivo'] ?? 0);
+            $row['oferente_inactivo'] = (int) ($row['oferente_inactivo'] ?? 0);
+        }
+        return $row;
     }
 
     /**
@@ -72,6 +77,12 @@ final class VinculacionModel extends Model
             ->limit($perPage, ($page - 1) * $perPage)
             ->get()
             ->getResultArray();
+
+        foreach ($items as &$item) {
+            $item['buscador_inactivo'] = (int) ($item['buscador_inactivo'] ?? 0);
+            $item['oferente_inactivo'] = (int) ($item['oferente_inactivo'] ?? 0);
+        }
+        unset($item);
 
         return ['items' => $items, 'total' => $total];
     }
