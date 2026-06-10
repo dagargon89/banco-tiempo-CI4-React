@@ -1,9 +1,11 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { Eye } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import DataTable, { type Column } from '@/components/ui/DataTable';
 import Paginacion from '@/features/ofertas/components/Paginacion';
+import UsuarioDetailDrawer from './components/UsuarioDetailDrawer';
 import { useAdminUsuarios, useCambiarEstadoUsuario } from './hooks/useAdminUsuarios';
 import { toast, toastError } from '@/lib/toast';
 import { useUrlFilters } from '@/lib/urlFilters';
@@ -28,10 +30,12 @@ export default function AdminUsuariosPage() {
   const estadoCuenta = searchParams.get('cuenta');
   const q = searchParams.get('q') ?? '';
   const page = Number(searchParams.get('page') || '1');
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const incluirBajas = searchParams.get('incluir_bajas') === '1';
 
   const filtros = useMemo(
-    () => ({ estado_verificacion: estadoVerificacion, estado_cuenta: estadoCuenta, q: q || null, page, per_page: 20 }),
-    [estadoVerificacion, estadoCuenta, q, page],
+    () => ({ estado_verificacion: estadoVerificacion, estado_cuenta: estadoCuenta, q: q || null, page, per_page: 20, incluir_bajas: incluirBajas ? 1 : 0 }),
+    [estadoVerificacion, estadoCuenta, q, page, incluirBajas],
   );
 
   const { data, isLoading } = useAdminUsuarios(filtros);
@@ -64,18 +68,25 @@ export default function AdminUsuariosPage() {
     },
     {
       key: 'cuenta', header: 'Cuenta',
-      render: (u) => <Badge variant={cuentaBadge[u.estado_cuenta] ?? 'neutral'}>{u.estado_cuenta}</Badge>,
+      render: (u) => (u.deleted_at ? <Badge variant="error">Baja</Badge> : <Badge variant={cuentaBadge[u.estado_cuenta] ?? 'neutral'}>{u.estado_cuenta}</Badge>),
     },
     {
       key: 'acciones', header: 'Acciones',
       render: (u) => (
-        <div className="flex gap-2">
-          {u.estado_cuenta === 'activa' && (
+        <div className="flex gap-1">
+          <button
+            onClick={() => setSelectedUserId(u.id)}
+            aria-label="Ver detalle"
+            className="rounded p-1.5 text-text-3 hover:bg-surface-2 hover:text-accent"
+          >
+            <Eye className="h-4 w-4" />
+          </button>
+          {!u.deleted_at && u.estado_cuenta === 'activa' && (
             <Button variant="danger" onClick={() => handleCambiarEstado(u.id, 'suspendida', 'suspender')} disabled={cambiarEstado.isPending}>
               Suspender
             </Button>
           )}
-          {u.estado_cuenta === 'suspendida' && (
+          {!u.deleted_at && u.estado_cuenta === 'suspendida' && (
             <Button variant="primary" onClick={() => handleCambiarEstado(u.id, 'activa', 'reactivar')} disabled={cambiarEstado.isPending}>
               Reactivar
             </Button>
@@ -119,6 +130,15 @@ export default function AdminUsuariosPage() {
           </select>
         </div>
 
+        <label className="flex items-center gap-2 text-xs text-text-2">
+          <input
+            type="checkbox"
+            checked={incluirBajas}
+            onChange={(e) => setFilter('incluir_bajas', e.target.checked ? '1' : null)}
+          />
+          Incluir cuentas dadas de baja
+        </label>
+
         <div className="w-48">
           <Input placeholder="Buscar..." value={q} onChange={(e) => setFilter('q', e.target.value || null)} />
         </div>
@@ -139,6 +159,12 @@ export default function AdminUsuariosPage() {
           <Paginacion page={meta.page} total={meta.total} perPage={meta.per_page} onChange={setPage} />
         </div>
       )}
+
+      <UsuarioDetailDrawer
+        userId={selectedUserId}
+        open={selectedUserId != null}
+        onClose={() => setSelectedUserId(null)}
+      />
     </>
   );
 }
