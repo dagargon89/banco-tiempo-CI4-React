@@ -23,6 +23,7 @@ final class OfertaModel extends Model
         'tipo_capacidad',
         'capacidad_maxima',
         'disponibilidad',
+        'pausada_por_admin',
     ];
 
     protected $validationRules = [
