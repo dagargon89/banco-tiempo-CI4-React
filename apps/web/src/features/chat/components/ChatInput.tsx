@@ -46,7 +46,7 @@ export default function ChatInput({ onSend, disabled, error }: Props) {
           }}
           placeholder="Escribe un mensaje..."
           disabled={disabled || sending}
-          className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-text-1 placeholder:text-text-3 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+          className="flex-1 rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-1 placeholder:text-text-3 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
         />
         <button
           type="submit"

@@ -156,7 +156,7 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
                     </button>
                   </div>
                 </div>
-                <div className="rounded-md bg-black/5 p-2">
+                <div className="rounded-md bg-surface-2 p-2">
                   {isPdf ? (
                     <iframe
                       src={docUrl}

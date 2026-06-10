@@ -71,7 +71,7 @@ export default function ImageUpload({
           </>
         )}
         {uploading && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-md bg-white/80">
+          <div className="absolute inset-0 flex items-center justify-center rounded-md bg-surface/80 backdrop-blur-sm">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent" />
           </div>
         )}

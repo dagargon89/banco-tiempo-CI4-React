@@ -57,8 +57,8 @@ export default function OfertaCardComponent({ oferta, categorias }: Props) {
             <span className="text-xs text-text-2">{oferta.oferente_nombre}</span>
           </div>
           {oferta.oferente_calif && (
-            <span className="flex items-center gap-0.5 text-xs text-amber-500">
-              <Star className="h-3 w-3 fill-amber-400" /> {oferta.oferente_calif}
+            <span className="flex items-center gap-0.5 text-xs text-warning">
+              <Star className="h-3 w-3 fill-current" /> {oferta.oferente_calif}
             </span>
           )}
         </div>

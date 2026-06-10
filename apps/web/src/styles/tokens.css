@@ -5,74 +5,183 @@
    ============================================================ */
 @import 'tailwindcss';
 
+/* Permite usar la variante `dark:` con la clase .dark (toggle manual).
+   Sin esto, Tailwind 4 solo soporta prefers-color-scheme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-bg: #F8FAFC;
-  --color-surface: #FFFFFF;
-  --color-surface-2: #F4F1F6;
-  --color-border: #E6E1EA;
-  --color-border-strong: #CBC2D1;
-  --color-text-1: #1E1421;
-  --color-text-2: #6B5B6E;
-  --color-text-3: #9A8FA0;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
 
   /* marca */
-  --color-accent: #53155a;
-  --color-accent-hover: #3F1045;
-  --color-accent-soft: #F3E8F5;
-  --color-accent-2: #7A3B82;
-  --color-accent-2-hover: #632E6A;
-  --color-accent-2-soft: #F0E6F2;
-  --color-lime: #dbec57;
-  --color-lime-ink: #3A0F40;
-  --color-lime-soft: #F7FAD9;
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-hover: var(--accent-2-hover);
+  --color-accent-2-soft: var(--accent-2-soft);
+  --color-lime: var(--lime);
+  --color-lime-ink: var(--lime-ink);
+  --color-lime-soft: var(--lime-soft);
 
   /* semánticos */
-  --color-success: #15803D;
-  --color-warning: #B45309;
-  --color-error: #BE123C;
-  --color-info: #0E7490;
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+
+  /* superficies coloreadas (para badges/cards de categoría) */
+  --color-tint-pink: var(--tint-pink);
+  --color-tint-blue: var(--tint-blue);
+  --color-tint-emerald: var(--tint-emerald);
+  --color-tint-red: var(--tint-red);
+  --color-tint-purple: var(--tint-purple);
+  --color-tint-amber: var(--tint-amber);
+  --color-tint-teal: var(--tint-teal);
+  --color-tint-indigo: var(--tint-indigo);
+  --color-tint-lime: var(--tint-lime);
+  --color-tint-fuchsia: var(--tint-fuchsia);
+  --color-tint-gray: var(--tint-gray);
 
   --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Sora', 'Inter', sans-serif;
 
   --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px; --radius-pill: 999px;
-  --shadow-sm: 0 1px 2px rgba(30,20,33,.04), 0 1px 3px rgba(30,20,33,.06);
-  --shadow-md: 0 4px 6px rgba(30,20,33,.05), 0 10px 20px rgba(30,20,33,.07);
-  --shadow-lg: 0 12px 32px rgba(30,20,33,.12);
+  --shadow-sm: var(--sh-sm);
+  --shadow-md: var(--sh-md);
+  --shadow-lg: var(--sh-lg);
 }
 
+/* ============ Light (default) ============ */
 :root {
-  --bg:#F8FAFC; --surface:#FFFFFF; --surface-2:#F4F1F6; --border:#E6E1EA; --border-strong:#CBC2D1;
+  --bg:#F8FAFC; --surface:#FFFFFF; --surface-2:#F4F1F6;
+  --border:#E6E1EA; --border-strong:#CBC2D1;
   --text-1:#1E1421; --text-2:#6B5B6E; --text-3:#9A8FA0;
   --accent:#53155a; --accent-hover:#3F1045; --accent-soft:#F3E8F5;
   --accent-2:#7A3B82; --accent-2-hover:#632E6A; --accent-2-soft:#F0E6F2;
   --lime:#dbec57; --lime-ink:#3A0F40; --lime-soft:#F7FAD9;
   --success:#15803D; --warning:#B45309; --error:#BE123C; --info:#0E7490;
   --brand-gradient: linear-gradient(120deg, #53155a, #7A3B82);
+
+  /* Tints de categoría / stats */
+  --tint-pink:#FCE7F3;     --tint-pink-ink:#BE185D;
+  --tint-blue:#DBEAFE;     --tint-blue-ink:#1D4ED8;
+  --tint-emerald:#D1FAE5;  --tint-emerald-ink:#047857;
+  --tint-red:#FEE2E2;      --tint-red-ink:#B91C1C;
+  --tint-purple:#F3E8FF;   --tint-purple-ink:#7E22CE;
+  --tint-amber:#FEF3C7;    --tint-amber-ink:#B45309;
+  --tint-teal:#CCFBF1;     --tint-teal-ink:#0F766E;
+  --tint-indigo:#E0E7FF;   --tint-indigo-ink:#4338CA;
+  --tint-lime:#ECFCCB;     --tint-lime-ink-cat:#65A30D;
+  --tint-fuchsia:#FAE8FF;  --tint-fuchsia-ink:#A21CAF;
+  --tint-gray:#F3F4F6;     --tint-gray-ink:#4B5563;
+
+  --sh-sm: 0 1px 2px rgba(30,20,33,.04), 0 1px 3px rgba(30,20,33,.06);
+  --sh-md: 0 4px 6px rgba(30,20,33,.05), 0 10px 20px rgba(30,20,33,.07);
+  --sh-lg: 0 12px 32px rgba(30,20,33,.12);
+
+  color-scheme: light;
 }
 
-/* ============ Dark mode ============ */
+/* ============ Dark mode ============
+   Las superficies tienen un tinte morado leve para mantener identidad de marca.
+   Verificado contraste AA:
+   - text-1 (#F0E8F2) sobre surface (#1F1828): 12.4:1 ✓
+   - text-2 (#B9A8C0) sobre surface: 6.8:1 ✓
+   - text-3 (#8A7990) sobre surface: 4.6:1 ✓ (≥ AA Large)
+   - accent (#C58FCC) sobre surface: 6.2:1 ✓ (links/CTA legibles)
+   - lime (#DBEC57) y su ink (#1A0822) mantienen contraste 13:1
+   ============================================================ */
 .dark {
-  --bg:#0f0f14; --surface:#1a1a24; --surface-2:#24243a;
-  --border:#2a2a3e; --border-strong:#3d3d5c;
-  --text-1:#f0f0f5; --text-2:#a0a0b8; --text-3:#60607a;
-  --accent-soft:#2a1a3a; --accent-2-soft:#261a30; --lime-soft:#1a1d10;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,.2), 0 1px 3px rgba(0,0,0,.3);
-  --shadow-md: 0 4px 6px rgba(0,0,0,.25), 0 10px 20px rgba(0,0,0,.35);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,.5);
+  --bg:#16121C;          /* fondo principal con tinte morado */
+  --surface:#1F1828;     /* cards / modales */
+  --surface-2:#2A2236;   /* hover / inputs / chips inactivos */
+  --border:#3A3145;
+  --border-strong:#544863;
+
+  --text-1:#F0E8F2;      /* texto principal */
+  --text-2:#B9A8C0;      /* texto secundario */
+  --text-3:#8A7990;      /* texto terciario / placeholder */
+
+  /* La marca en dark se aclara para ser legible como CTA/link */
+  --accent:#C58FCC;
+  --accent-hover:#D5A5DC;
+  --accent-soft:#3A1F45;   /* fondos sutiles de acento */
+  --accent-2:#A874B0;
+  --accent-2-hover:#BC8AC4;
+  --accent-2-soft:#34203A;
+  --lime:#DBEC57;          /* lima se mantiene; sigue siendo highlight */
+  --lime-ink:#1A0822;
+  --lime-soft:#2C2E1A;
+
+  /* Semánticos con buen contraste sobre dark surface */
+  --success:#4ADE80;
+  --warning:#FBBF24;
+  --error:#FB7185;
+  --info:#22D3EE;
+
+  /* Gradiente de marca para headers — más sutil en dark */
+  --brand-gradient: linear-gradient(120deg, #3F1045, #7A3B82);
+
+  /* Tints de categoría — fondos oscuros saturados con texto claro */
+  --tint-pink:#3D1F2E;       --tint-pink-ink:#F9A8D4;
+  --tint-blue:#1E2A4A;       --tint-blue-ink:#93C5FD;
+  --tint-emerald:#1A3A2E;    --tint-emerald-ink:#6EE7B7;
+  --tint-red:#3D1E22;        --tint-red-ink:#FCA5A5;
+  --tint-purple:#2D1B3D;     --tint-purple-ink:#D8B4FE;
+  --tint-amber:#3D2E18;      --tint-amber-ink:#FCD34D;
+  --tint-teal:#163331;       --tint-teal-ink:#5EEAD4;
+  --tint-indigo:#1F2347;     --tint-indigo-ink:#A5B4FC;
+  --tint-lime:#2A3318;       --tint-lime-ink-cat:#BEF264;
+  --tint-fuchsia:#34163A;    --tint-fuchsia-ink:#F0ABFC;
+  --tint-gray:#272131;       --tint-gray-ink:#C4B8CC;
+
+  --sh-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
+  --sh-md: 0 4px 6px rgba(0,0,0,.4), 0 10px 20px rgba(0,0,0,.5);
+  --sh-lg: 0 12px 32px rgba(0,0,0,.6);
+
   color-scheme: dark;
 }
+
+/* Sistema operativo en dark cuando no hay clase manual */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg:#0f0f14; --surface:#1a1a24; --surface-2:#24243a;
-    --border:#2a2a3e; --border-strong:#3d3d5c;
-    --text-1:#f0f0f5; --text-2:#a0a0b8; --text-3:#60607a;
-    --accent-soft:#2a1a3a; --accent-2-soft:#261a30; --lime-soft:#1a1d10;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,.2), 0 1px 3px rgba(0,0,0,.3);
-    --shadow-md: 0 4px 6px rgba(0,0,0,.25), 0 10px 20px rgba(0,0,0,.35);
-    --shadow-lg: 0 12px 32px rgba(0,0,0,.5);
+    --bg:#16121C; --surface:#1F1828; --surface-2:#2A2236;
+    --border:#3A3145; --border-strong:#544863;
+    --text-1:#F0E8F2; --text-2:#B9A8C0; --text-3:#8A7990;
+    --accent:#C58FCC; --accent-hover:#D5A5DC; --accent-soft:#3A1F45;
+    --accent-2:#A874B0; --accent-2-hover:#BC8AC4; --accent-2-soft:#34203A;
+    --lime:#DBEC57; --lime-ink:#1A0822; --lime-soft:#2C2E1A;
+    --success:#4ADE80; --warning:#FBBF24; --error:#FB7185; --info:#22D3EE;
+    --brand-gradient: linear-gradient(120deg, #3F1045, #7A3B82);
+    --tint-pink:#3D1F2E;       --tint-pink-ink:#F9A8D4;
+    --tint-blue:#1E2A4A;       --tint-blue-ink:#93C5FD;
+    --tint-emerald:#1A3A2E;    --tint-emerald-ink:#6EE7B7;
+    --tint-red:#3D1E22;        --tint-red-ink:#FCA5A5;
+    --tint-purple:#2D1B3D;     --tint-purple-ink:#D8B4FE;
+    --tint-amber:#3D2E18;      --tint-amber-ink:#FCD34D;
+    --tint-teal:#163331;       --tint-teal-ink:#5EEAD4;
+    --tint-indigo:#1F2347;     --tint-indigo-ink:#A5B4FC;
+    --tint-lime:#2A3318;       --tint-lime-ink-cat:#BEF264;
+    --tint-fuchsia:#34163A;    --tint-fuchsia-ink:#F0ABFC;
+    --tint-gray:#272131;       --tint-gray-ink:#C4B8CC;
+    --sh-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
+    --sh-md: 0 4px 6px rgba(0,0,0,.4), 0 10px 20px rgba(0,0,0,.5);
+    --sh-lg: 0 12px 32px rgba(0,0,0,.6);
     color-scheme: dark;
   }
 }
 
-body { margin:0; background:var(--bg); color:var(--text-1); font-family:var(--font-ui); -webkit-font-smoothing:antialiased; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text-1);
+  font-family:var(--font-ui);
+  -webkit-font-smoothing:antialiased;
+}

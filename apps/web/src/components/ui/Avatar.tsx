@@ -30,14 +30,14 @@ export default function Avatar({ src, nombre, size = 'md', className = '' }: Ava
       <img
         src={src}
         alt={nombre}
-        className={`${sizeClass} rounded-full object-cover ring-2 ring-white ${className}`}
+        className={`${sizeClass} rounded-full object-cover ring-2 ring-surface ${className}`}
       />
     );
   }
 
   return (
     <div
-      className={`${sizeClass} flex items-center justify-center rounded-full bg-accent font-semibold text-white ring-2 ring-white ${className}`}
+      className={`${sizeClass} flex items-center justify-center rounded-full bg-accent font-semibold text-white ring-2 ring-surface ${className}`}
     >
       {getInitials(nombre)}
     </div>

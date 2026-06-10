@@ -46,10 +46,10 @@ export default function MisOfertasPage() {
   const ofertasActivas = ofertas?.filter((o) => o.estado === 'activa') ?? [];
 
   const stats = [
-    { icon: LayoutGrid, label: 'Ofertas publicadas', value: ofertasActivas.length, color: 'bg-accent/10 text-accent' },
-    { icon: Bell, label: 'Solicitudes nuevas', value: solicitudes.length, color: 'bg-amber-50 text-amber-500' },
-    { icon: Link2, label: 'Vinculaciones activas', value: vinculacionesActivas.length, color: 'bg-blue-50 text-blue-500' },
-    { icon: CheckCircle, label: 'Actividades completadas', value: 0, color: 'bg-emerald-50 text-emerald-500' },
+    { icon: LayoutGrid, label: 'Ofertas publicadas', value: ofertasActivas.length, color: 'bg-accent-soft text-accent' },
+    { icon: Bell, label: 'Solicitudes nuevas', value: solicitudes.length, color: 'bg-[var(--tint-amber)] text-[var(--tint-amber-ink)]' },
+    { icon: Link2, label: 'Vinculaciones activas', value: vinculacionesActivas.length, color: 'bg-[var(--tint-blue)] text-[var(--tint-blue-ink)]' },
+    { icon: CheckCircle, label: 'Actividades completadas', value: 0, color: 'bg-[var(--tint-emerald)] text-[var(--tint-emerald-ink)]' },
   ];
 
   return (
@@ -222,7 +222,7 @@ export default function MisOfertasPage() {
                       <button
                         onClick={() => handleEstado(oferta.id, 'pausada')}
                         disabled={cambiarEstado.isPending}
-                        className="flex items-center gap-1 text-xs text-text-2 hover:text-amber-500"
+                        className="flex items-center gap-1 text-xs text-text-2 hover:text-warning"
                       >
                         <Pause className="h-3.5 w-3.5" /> Pausar
                       </button>
