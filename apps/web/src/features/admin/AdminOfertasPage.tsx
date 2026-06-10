@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { Eye } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Input from '@/components/ui/Input';
@@ -8,6 +9,7 @@ import { useAdminOfertas, useDespublicarOferta } from './hooks/useAdminOfertas';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { toast, toastError } from '@/lib/toast';
 import { useUrlFilters } from '@/lib/urlFilters';
+import OfertaDetailDrawer from './components/OfertaDetailDrawer';
 
 interface AdminOferta {
   id: number;
@@ -25,6 +27,7 @@ const estadoBadge = (e: string) => {
 
 export default function AdminOfertasPage() {
   const { searchParams, setFilter, setPage } = useUrlFilters();
+  const [selectedOfertaId, setSelectedOfertaId] = useState<number | null>(null);
   const estado = searchParams.get('estado');
   const categoriaId = searchParams.get('cat') ? Number(searchParams.get('cat')) : null;
   const q = searchParams.get('q') ?? '';
@@ -48,12 +51,24 @@ export default function AdminOfertasPage() {
     { key: 'oferente', header: 'Oferente', render: (o) => <span className="text-text-2">{o.oferente_nombre}</span> },
     {
       key: 'estado', header: 'Estado',
-      render: (o) => <Badge variant={estadoBadge(o.estado)}>{o.estado}</Badge>,
+      render: (o) => (
+        <div className="flex flex-wrap gap-1">
+          <Badge variant={estadoBadge(o.estado)}>{o.estado}</Badge>
+          {Boolean((o as { pausada_por_admin?: number }).pausada_por_admin) && <Badge variant="error">Por baja</Badge>}
+        </div>
+      ),
     },
     {
       key: 'acciones', header: 'Acciones',
       render: (o) => (
-        <>
+        <div className="flex gap-1">
+          <button
+            onClick={() => setSelectedOfertaId(o.id)}
+            aria-label="Ver detalle"
+            className="rounded p-1.5 text-text-3 hover:bg-surface-2 hover:text-accent"
+          >
+            <Eye className="h-4 w-4" />
+          </button>
           {o.estado === 'activa' && (
             <Button
               variant="danger"
@@ -68,7 +83,7 @@ export default function AdminOfertasPage() {
               Despublicar
             </Button>
           )}
-        </>
+        </div>
       ),
     },
   ];
@@ -127,6 +142,12 @@ export default function AdminOfertasPage() {
           <Paginacion page={meta.page} total={meta.total} perPage={meta.per_page} onChange={setPage} />
         </div>
       )}
+
+      <OfertaDetailDrawer
+        ofertaId={selectedOfertaId}
+        open={selectedOfertaId != null}
+        onClose={() => setSelectedOfertaId(null)}
+      />
     </>
   );
 }
