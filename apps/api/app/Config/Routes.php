@@ -84,6 +84,8 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
 
         $routes->group('', ['filter' => 'rbac:super_admin'], static function (RouteCollection $routes): void {
             $routes->post('categorias', 'Admin\Categorias::create');
+            $routes->patch('categorias/(:num)', 'Admin\Categorias::update/$1');
+            $routes->patch('categorias/(:num)/activa', 'Admin\Categorias::toggleActiva/$1');
             $routes->get('moderadores', 'Admin\Moderadores::index');
             $routes->post('moderadores', 'Admin\Moderadores::create');
             $routes->delete('moderadores/(:num)', 'Admin\Moderadores::delete/$1');
