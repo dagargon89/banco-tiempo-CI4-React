@@ -38,7 +38,7 @@ final class UsuarioBajaService
      *                           existe o ya está dado de baja.
      * @throws \RuntimeException Si la transacción falla.
      */
-    public function darBaja(int $userId, ?string $motivo, int $actorId): array
+    public function darBaja(int $userId, ?string $motivo, int $actorId, string $ip = ''): array
     {
         // Pre-transacción: validaciones
         if ($userId === $actorId) {
@@ -77,6 +77,7 @@ final class UsuarioBajaService
                 'deleted_at'       => $now,
                 'baja_motivo'      => $motivo,
                 'baja_por_user_id' => $actorId,
+                'updated_at'       => $now,
             ]);
 
         // 3) Auditoría append-only
@@ -89,6 +90,7 @@ final class UsuarioBajaService
                 'motivo'           => $motivo,
                 'ofertas_pausadas' => $ofertasPausadas,
             ],
+            $ip !== '' ? $ip : null,
         );
 
         $db->transComplete();
@@ -109,13 +111,22 @@ final class UsuarioBajaService
                         'Firebase revoke failed para user_id={user_id}: {msg}',
                         ['user_id' => $userId, 'msg' => $e->getMessage()],
                     );
-                    $this->auditoria->registrar(
-                        $actorId,
-                        'firebase_revoke_failed',
-                        'user',
-                        $userId,
-                        ['error' => $e->getMessage()],
-                    );
+                    try {
+                        $this->auditoria->registrar(
+                            $actorId,
+                            'firebase_revoke_failed',
+                            'user',
+                            $userId,
+                            ['error' => $e->getMessage()],
+                            $ip !== '' ? $ip : null,
+                        );
+                    } catch (\Throwable $auditError) {
+                        log_message(
+                            'critical',
+                            'Audit write also failed after Firebase revoke failure for user_id={user_id}: {msg}',
+                            ['user_id' => $userId, 'msg' => $auditError->getMessage()],
+                        );
+                    }
                 }
             }
         }
