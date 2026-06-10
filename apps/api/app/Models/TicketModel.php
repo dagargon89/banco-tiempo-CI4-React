@@ -58,7 +58,7 @@ final class TicketModel extends Model
     public function listarAdmin(array $filtros, int $page, int $perPage): array
     {
         $builder = $this->db->table("{$this->table} t")
-            ->select('t.*, u.nombre AS creador_nombre, um.nombre AS asignado_a_nombre')
+            ->select('t.*, u.nombre AS creador_nombre, (u.deleted_at IS NOT NULL) AS creador_inactivo, um.nombre AS asignado_a_nombre')
             ->join('users u', 'u.id = t.creador_id')
             ->join(
                 "(SELECT ta1.ticket_id, ta1.moderador_id FROM ticket_asignaciones ta1

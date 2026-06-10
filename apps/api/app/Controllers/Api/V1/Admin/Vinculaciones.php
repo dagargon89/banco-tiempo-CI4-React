@@ -28,7 +28,7 @@ final class Vinculaciones extends Controller
         $vinculacionModel = model(VinculacionModel::class);
 
         $builder = $vinculacionModel->db->table('vinculaciones v')
-            ->select('v.*, o.titulo AS oferta_titulo, o.user_id AS oferente_id, ub.nombre AS buscador_nombre, ub.foto_perfil AS buscador_foto, uo.nombre AS oferente_nombre, uo.foto_perfil AS oferente_foto')
+            ->select('v.*, o.titulo AS oferta_titulo, o.user_id AS oferente_id, ub.nombre AS buscador_nombre, ub.foto_perfil AS buscador_foto, (ub.deleted_at IS NOT NULL) AS buscador_inactivo, uo.nombre AS oferente_nombre, uo.foto_perfil AS oferente_foto, (uo.deleted_at IS NOT NULL) AS oferente_inactivo')
             ->join('ofertas o', 'o.id = v.oferta_id')
             ->join('users ub', 'ub.id = v.buscador_id')
             ->join('users uo', 'uo.id = o.user_id');

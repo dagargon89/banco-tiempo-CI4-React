@@ -37,7 +37,7 @@ final class OfertaModel extends Model
     /** Oferta con datos del oferente (evita N+1). */
     public function conOferente(int $id): ?array
     {
-        return $this->select('ofertas.*, u.id AS oferente_id, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto')
+        return $this->select('ofertas.*, u.id AS oferente_id, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto, (u.deleted_at IS NOT NULL) AS oferente_inactivo')
             ->join('users u', 'u.id = ofertas.user_id')
             ->where('ofertas.id', $id)
             ->first();
@@ -51,7 +51,7 @@ final class OfertaModel extends Model
     public function explorar(array $filtros, int $page, int $perPage): array
     {
         $builder = $this->db->table('ofertas o')
-            ->select('o.id, o.titulo, o.descripcion_breve, o.modalidad, o.zona, o.categoria_id, o.created_at, u.id AS oferente_id, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto')
+            ->select('o.id, o.titulo, o.descripcion_breve, o.modalidad, o.zona, o.categoria_id, o.created_at, u.id AS oferente_id, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto, (u.deleted_at IS NOT NULL) AS oferente_inactivo')
             ->join('users u', 'u.id = o.user_id')
             ->where('o.estado', 'activa');
 
@@ -102,7 +102,7 @@ final class OfertaModel extends Model
     public function listarAdmin(array $filtros, int $page, int $perPage): array
     {
         $builder = $this->db->table('ofertas o')
-            ->select('o.*, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto, c.nombre AS categoria_nombre')
+            ->select('o.*, u.nombre AS oferente_nombre, u.foto_perfil AS oferente_foto, (u.deleted_at IS NOT NULL) AS oferente_inactivo, c.nombre AS categoria_nombre')
             ->join('users u', 'u.id = o.user_id')
             ->join('categorias c', 'c.id = o.categoria_id', 'left');
 
