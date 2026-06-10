@@ -64,6 +64,7 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
     $routes->group('admin', ['filter' => ['auth-firebase:strict', 'rbac:moderador']], static function (RouteCollection $routes): void {
         $routes->get('usuarios', 'Admin\Usuarios::index');
         $routes->patch('usuarios/(:num)/estado', 'Admin\Usuarios::cambiarEstado/$1');
+        $routes->get('usuarios/(:num)', 'Admin\Usuarios::show/$1');
         $routes->get('verificaciones', 'Admin\Verificaciones::index');
         $routes->get('verificaciones/(:num)/documento', 'Admin\Verificaciones::documento/$1');
         $routes->patch('verificaciones/(:num)', 'Admin\Verificaciones::resolver/$1');

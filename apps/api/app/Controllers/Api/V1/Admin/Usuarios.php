@@ -104,4 +104,56 @@ final class Usuarios extends Controller
 
         return $this->ok(['message' => 'Estado de cuenta actualizado.', 'estado_cuenta' => $nuevoEstado]);
     }
+
+    /** GET /admin/usuarios/{id} */
+    public function show(int $id): ResponseInterface
+    {
+        $userModel = model(UserModel::class);
+        $user = $userModel->withDeleted()
+            ->select('id, nombre, email, foto_perfil, bio, zona, fecha_nacimiento, genero, telefono, estado_verificacion, estado_cuenta, created_at, deleted_at, baja_motivo, baja_por_user_id')
+            ->find($id);
+
+        if ($user === null) {
+            return $this->notFound('Usuario no encontrado.');
+        }
+
+        $db = $userModel->db;
+
+        // vinculaciones donde el usuario participa: como buscador directo
+        // o como oferente (vía ofertas.user_id del lado de la oferta vinculada).
+        $vinculacionesCompletadas = (int) $db->table('vinculaciones v')
+            ->join('ofertas o', 'o.id = v.oferta_id', 'inner')
+            ->where('v.estado', 'completada')
+            ->groupStart()
+                ->where('v.buscador_id', $id)
+                ->orWhere('o.user_id', $id)
+            ->groupEnd()
+            ->countAllResults();
+
+        $counts = [
+            'ofertas_activas'            => (int) $db->table('ofertas')->where('user_id', $id)->where('estado', 'activa')->countAllResults(),
+            'ofertas_pausadas_por_admin' => (int) $db->table('ofertas')->where('user_id', $id)->where('pausada_por_admin', 1)->countAllResults(),
+            'vinculaciones_completadas'  => $vinculacionesCompletadas,
+            'resenas_recibidas'          => (int) $db->table('resenas')->where('destino_id', $id)->countAllResults(),
+        ];
+
+        $baja = null;
+        if ($user['deleted_at'] !== null) {
+            $admin = null;
+            if ($user['baja_por_user_id'] !== null) {
+                $admin = $userModel->withDeleted()->select('id, nombre')->find((int) $user['baja_por_user_id']);
+            }
+            $baja = [
+                'fecha'         => $user['deleted_at'],
+                'motivo'        => $user['baja_motivo'],
+                'dado_baja_por' => $admin,
+            ];
+        }
+
+        unset($user['baja_motivo'], $user['baja_por_user_id']);
+        $user['baja']   = $baja;
+        $user['counts'] = $counts;
+
+        return $this->ok($user);
+    }
 }
