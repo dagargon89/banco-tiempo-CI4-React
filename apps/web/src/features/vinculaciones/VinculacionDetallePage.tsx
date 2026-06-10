@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import Avatar from '@/components/ui/Avatar';
+import UserName from '@/components/ui/UserName';
 import EstadoBadge from './components/EstadoBadge';
 import AccionesVinculacion from './components/AccionesVinculacion';
 import PanelConfirmacion from './components/PanelConfirmacion';
@@ -60,14 +61,18 @@ export default function VinculacionDetallePage() {
           <div className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4">
             <Avatar src={vinculacion.oferente_foto} nombre={vinculacion.oferente_nombre} size="md" />
             <div>
-              <p className="text-sm font-semibold text-text-1">{vinculacion.oferente_nombre}</p>
+              <p className="text-sm font-semibold text-text-1">
+                <UserName nombre={vinculacion.oferente_nombre} inactivo={vinculacion.oferente_inactivo} />
+              </p>
               <p className="text-xs text-text-3">Oferente</p>
             </div>
           </div>
           <div className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4">
             <Avatar src={vinculacion.buscador_foto} nombre={vinculacion.buscador_nombre} size="md" />
             <div>
-              <p className="text-sm font-semibold text-text-1">{vinculacion.buscador_nombre}</p>
+              <p className="text-sm font-semibold text-text-1">
+                <UserName nombre={vinculacion.buscador_nombre} inactivo={vinculacion.buscador_inactivo} />
+              </p>
               <p className="text-xs text-text-3">Buscador</p>
             </div>
           </div>
@@ -83,6 +88,13 @@ export default function VinculacionDetallePage() {
             <span>Completada: {new Date(vinculacion.completada_at).toLocaleDateString('es-MX')}</span>
           )}
         </div>
+
+        {/* Banner inactivo */}
+        {(Boolean(vinculacion.oferente_inactivo) || Boolean(vinculacion.buscador_inactivo)) && (
+          <div className="rounded-lg border border-warning/30 bg-warning/5 p-4 text-sm text-warning">
+            Uno de los participantes fue dado de baja. No es posible avanzar esta vinculación.
+          </div>
+        )}
 
         {/* Panel de confirmacion */}
         <PanelConfirmacion vinculacion={vinculacion} />

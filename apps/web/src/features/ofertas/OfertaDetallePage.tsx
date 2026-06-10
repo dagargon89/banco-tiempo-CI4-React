@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import UserName from '@/components/ui/UserName';
 import { useOfertaDetalle, useCambiarEstadoOferta } from './hooks/useOfertas';
 import { useMarcarInteres } from '@/features/vinculaciones/hooks/useVinculaciones';
 import { useAuthStore } from '@/stores/authStore';
@@ -73,6 +74,9 @@ export default function OfertaDetallePage() {
     return <p className="text-center text-text-2">Oferta no encontrada.</p>;
   }
 
+  const oferenteInactivo = Boolean((oferta as { oferente_inactivo?: boolean | number }).oferente_inactivo);
+  const pausadaPorAdmin = Boolean((oferta as { pausada_por_admin?: number }).pausada_por_admin);
+
   return (
     <div className="mx-auto max-w-3xl">
       {/* Breadcrumb */}
@@ -90,6 +94,12 @@ export default function OfertaDetallePage() {
           </div>
           <p className="mt-2 text-sm text-text-2">{oferta.descripcion_breve}</p>
         </div>
+
+        {(oferenteInactivo || pausadaPorAdmin) && (
+          <div className="rounded-lg border border-warning/30 bg-warning/5 p-4 text-sm text-warning">
+            Esta oferta está temporalmente fuera de servicio porque la cuenta del oferente fue dada de baja.
+          </div>
+        )}
 
         <div className="flex flex-wrap gap-2">
           <Badge variant="info">{oferta.modalidad}</Badge>
@@ -133,7 +143,9 @@ export default function OfertaDetallePage() {
         <div className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4">
           <Avatar src={oferta.oferente_foto} nombre={oferta.oferente_nombre} size="md" />
           <div>
-            <p className="text-sm font-semibold text-text-1">{oferta.oferente_nombre}</p>
+            <p className="text-sm font-semibold text-text-1">
+              <UserName nombre={oferta.oferente_nombre} inactivo={oferenteInactivo} />
+            </p>
             <p className="text-xs text-text-3">Oferente</p>
           </div>
         </div>
@@ -165,7 +177,7 @@ export default function OfertaDetallePage() {
           <>
             {/* Desktop CTA */}
             <div className="hidden border-t border-border pt-4 md:block">
-              <Button onClick={handleMarcarInteres} disabled={marcarInteres.isPending}>
+              <Button onClick={handleMarcarInteres} disabled={marcarInteres.isPending || oferenteInactivo}>
                 {marcarInteres.isPending ? 'Enviando...' : 'Me interesa'}
               </Button>
             </div>
@@ -173,8 +185,10 @@ export default function OfertaDetallePage() {
             {/* Sticky CTA mobile */}
             <div className="fixed bottom-0 left-0 right-0 z-40 flex items-center gap-3 border-t border-border bg-surface px-4 py-3 shadow-lg md:hidden">
               <Avatar src={oferta.oferente_foto} nombre={oferta.oferente_nombre} size="sm" />
-              <span className="flex-1 truncate text-sm font-medium text-text-1">{oferta.oferente_nombre}</span>
-              <Button onClick={handleMarcarInteres} disabled={marcarInteres.isPending}>
+              <span className="flex-1 truncate text-sm font-medium text-text-1">
+                <UserName nombre={oferta.oferente_nombre} inactivo={oferenteInactivo} />
+              </span>
+              <Button onClick={handleMarcarInteres} disabled={marcarInteres.isPending || oferenteInactivo}>
                 {marcarInteres.isPending ? 'Enviando...' : 'Me interesa'}
               </Button>
             </div>

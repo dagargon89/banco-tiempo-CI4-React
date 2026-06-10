@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Avatar from '@/components/ui/Avatar';
 import Button from '@/components/ui/Button';
+import UserName from '@/components/ui/UserName';
 import EstadoBadge from './EstadoBadge';
 import { useAceptarVinculacion, useRechazarVinculacion } from '../hooks/useVinculaciones';
 import type { VinculacionCard as VinculacionCardType } from '@/lib/types';
@@ -13,8 +14,18 @@ interface VinculacionCardProps {
 export default function VinculacionCard({ vinculacion, userId }: VinculacionCardProps) {
   const esOferente = userId === Number(vinculacion.oferente_id);
   const contraparte = esOferente
-    ? { nombre: vinculacion.buscador_nombre, foto: vinculacion.buscador_foto, rol: 'Buscador' }
-    : { nombre: vinculacion.oferente_nombre, foto: vinculacion.oferente_foto, rol: 'Oferente' };
+    ? {
+        nombre: vinculacion.buscador_nombre,
+        foto: vinculacion.buscador_foto,
+        rol: 'Buscador',
+        inactivo: vinculacion.buscador_inactivo,
+      }
+    : {
+        nombre: vinculacion.oferente_nombre,
+        foto: vinculacion.oferente_foto,
+        rol: 'Oferente',
+        inactivo: vinculacion.oferente_inactivo,
+      };
 
   const aceptar = useAceptarVinculacion();
   const rechazar = useRechazarVinculacion();
@@ -37,7 +48,9 @@ export default function VinculacionCard({ vinculacion, userId }: VinculacionCard
         <div className="mt-3 flex items-center gap-2">
           <Avatar src={contraparte.foto} nombre={contraparte.nombre} size="sm" />
           <div className="min-w-0">
-            <p className="truncate text-sm text-text-1">{contraparte.nombre}</p>
+            <p className="truncate text-sm text-text-1">
+              <UserName nombre={contraparte.nombre} inactivo={contraparte.inactivo} />
+            </p>
             <p className="text-xs text-text-3">{contraparte.rol}</p>
           </div>
         </div>
