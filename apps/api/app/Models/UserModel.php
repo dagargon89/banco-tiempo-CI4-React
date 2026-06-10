@@ -18,7 +18,7 @@ final class UserModel extends Model
     protected $useSoftDeletes   = true;
     protected $useTimestamps    = true;
 
-    protected $allowedFields = ['nombre', 'bio', 'foto_perfil', 'zona', 'fecha_nacimiento', 'genero', 'telefono', 'baja_motivo', 'baja_por_user_id'];
+    protected $allowedFields = ['nombre', 'bio', 'foto_perfil', 'zona', 'fecha_nacimiento', 'genero', 'telefono'];
 
     protected $validationRules = [
         'nombre'           => 'required|string|max_length[120]',
