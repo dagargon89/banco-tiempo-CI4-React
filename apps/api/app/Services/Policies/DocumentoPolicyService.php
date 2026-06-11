@@ -21,15 +21,15 @@ final class DocumentoPolicyService extends BasePolicyService
         return $userId === $documentoUserId;
     }
 
-    /** Solo moderadores pueden revisar documentos. */
+    /** Moderadores y verificadores pueden revisar documentos. */
     public function puedeRevisar(array $roles): bool
     {
-        return $this->esModerador($roles);
+        return $this->esModerador($roles) || $this->tieneRol($roles, 'verificador');
     }
 
-    /** Solo moderadores pueden descargar el documento (URL firmada). */
+    /** Moderadores y verificadores pueden descargar el documento (URL firmada). */
     public function puedeDescargar(array $roles): bool
     {
-        return $this->esModerador($roles);
+        return $this->esModerador($roles) || $this->tieneRol($roles, 'verificador');
     }
 }
