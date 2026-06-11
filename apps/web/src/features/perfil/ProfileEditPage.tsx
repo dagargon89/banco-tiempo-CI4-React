@@ -115,14 +115,19 @@ function TagInput({ tags, onChange, suggestions, placeholder }: { tags: string[]
 
 function Section({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
   return (
-    <section className="space-y-4 border-t border-border pt-5 first:border-t-0 first:pt-0">
-      <header>
+    <section className="border-t border-border pt-5 first:border-t-0 first:pt-0">
+      <header className="mb-4">
         <h3 className="text-sm font-semibold text-text-1">{title}</h3>
         {subtitle && <p className="text-xs text-text-3">{subtitle}</p>}
       </header>
-      {children}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
     </section>
   );
+}
+
+/** Wrapper para que un campo ocupe TODO el ancho del grid. */
+function FullRow({ children }: { children: React.ReactNode }) {
+  return <div className="sm:col-span-2 lg:col-span-3">{children}</div>;
 }
 
 function Toggle({ checked, onChange, label, hint }: { checked: boolean; onChange: (v: boolean) => void; label: string; hint?: string }) {
@@ -199,28 +204,20 @@ export default function ProfileEditPage() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <div className="rounded-xl border border-border bg-surface p-6 shadow-sm">
+    <div className="w-full">
+      <div className="rounded-xl border border-border bg-surface p-6 shadow-sm sm:p-8">
         <h2 className="mb-6 text-xl font-semibold text-text-1">Editar perfil</h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           {/* Básico */}
           <Section title="Datos básicos">
-            <div>
+            <FullRow>
               <label className="mb-1.5 block text-sm font-medium text-text-1">Foto de perfil</label>
               <ImageUpload currentUrl={user.foto_perfil} onSelect={setFotoFile} uploading={uploadFoto.isPending} />
-            </div>
+            </FullRow>
 
             <Input label="Nombre" value={form.nombre ?? ''} onChange={(e) => set('nombre', e.target.value)} required />
-
-            <Textarea
-              label="Bio"
-              value={form.bio ?? ''}
-              onChange={(e) => set('bio', e.target.value)}
-              placeholder="Cuéntanos sobre ti..."
-              maxChars={500}
-              currentLength={(form.bio ?? '').length}
-            />
+            <Input label="Pronombres" value={form.pronombres ?? ''} onChange={(e) => set('pronombres', e.target.value)} placeholder='Ej: "ella", "él", "elle"' />
 
             <Input label="Zona (general)" value={form.zona ?? ''} onChange={(e) => set('zona', e.target.value)} placeholder='Ej: "Centro", "Partido Romero"' />
             <Input label="Fecha de nacimiento" type="date" value={form.fecha_nacimiento ?? ''} onChange={(e) => set('fecha_nacimiento', e.target.value)} />
@@ -242,12 +239,21 @@ export default function ProfileEditPage() {
 
             <Input label="Teléfono" type="tel" value={form.telefono ?? ''} onChange={(e) => set('telefono', e.target.value)} placeholder="+52 614 123 4567" />
 
-            <Input label="Pronombres" value={form.pronombres ?? ''} onChange={(e) => set('pronombres', e.target.value)} placeholder='Ej: "ella", "él", "elle"' />
+            <FullRow>
+              <Textarea
+                label="Bio"
+                value={form.bio ?? ''}
+                onChange={(e) => set('bio', e.target.value)}
+                placeholder="Cuéntanos sobre ti..."
+                maxChars={500}
+                currentLength={(form.bio ?? '').length}
+              />
+            </FullRow>
           </Section>
 
           {/* Grupo A — matchmaking */}
           <Section title="Tu intercambio" subtitle="Ayuda a otras personas a encontrarte.">
-            <div>
+            <FullRow>
               <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Modalidades preferidas</label>
               <div className="flex flex-wrap gap-2">
                 {MODALIDADES.map(({ value, label }) => (
@@ -256,7 +262,7 @@ export default function ProfileEditPage() {
                   </Chip>
                 ))}
               </div>
-            </div>
+            </FullRow>
 
             <div>
               <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Habilidades que enseño</label>
@@ -282,25 +288,6 @@ export default function ProfileEditPage() {
               </div>
             </div>
 
-            <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Días disponibles</label>
-              <div className="flex gap-1.5">
-                {DIAS.map(({ value, label }) => {
-                  const active = (form.dias_disponibles ?? []).includes(value);
-                  return (
-                    <button
-                      key={value}
-                      type="button"
-                      onClick={() => set('dias_disponibles', toggleInArray(form.dias_disponibles, value))}
-                      className={`h-9 w-9 rounded-lg border text-xs font-semibold transition-colors ${active ? 'border-accent bg-accent text-white' : 'border-border bg-surface text-text-2 hover:bg-surface-2'}`}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-text-1">Frecuencia con que puedo participar</label>
               <select
@@ -315,20 +302,29 @@ export default function ProfileEditPage() {
                 <option value="semanal">Semanal</option>
               </select>
             </div>
+
+            <FullRow>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Días disponibles</label>
+              <div className="flex flex-wrap gap-1.5">
+                {DIAS.map(({ value, label }) => {
+                  const active = (form.dias_disponibles ?? []).includes(value);
+                  return (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => set('dias_disponibles', toggleInArray(form.dias_disponibles, value))}
+                      className={`h-9 w-9 rounded-lg border text-xs font-semibold transition-colors ${active ? 'border-accent bg-accent text-white' : 'border-border bg-surface text-text-2 hover:bg-surface-2'}`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </FullRow>
           </Section>
 
           {/* Grupo C+E — identidad / trayectoria */}
           <Section title="Sobre ti">
-            <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Idiomas que hablo</label>
-              <TagInput tags={form.idiomas ?? []} onChange={(t) => set('idiomas', t)} suggestions={IDIOMAS_SUGERIDOS} placeholder="Añade un idioma" />
-            </div>
-
-            <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Causas que me importan</label>
-              <TagInput tags={form.causas ?? []} onChange={(t) => set('causas', t)} suggestions={CAUSAS_SUGERIDAS} placeholder="Añade una causa" />
-            </div>
-
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-medium text-text-1">Años viviendo en Juárez</label>
               <select
@@ -344,29 +340,43 @@ export default function ProfileEditPage() {
               </select>
             </div>
 
-            <Input label="Ocupación general" value={form.ocupacion_general ?? ''} onChange={(e) => set('ocupacion_general', e.target.value)} placeholder='Ej: "estudiante", "diseñador", "jubilado"' />
-            <p className="-mt-3 text-xs text-text-3">Sin nombre de empresa ni datos específicos.</p>
+            <div>
+              <Input label="Ocupación general" value={form.ocupacion_general ?? ''} onChange={(e) => set('ocupacion_general', e.target.value)} placeholder='Ej: "estudiante", "diseñador", "jubilado"' />
+              <p className="mt-1 text-xs text-text-3">Sin nombre de empresa ni datos específicos.</p>
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Idiomas que hablo</label>
+              <TagInput tags={form.idiomas ?? []} onChange={(t) => set('idiomas', t)} suggestions={IDIOMAS_SUGERIDOS} placeholder="Añade un idioma" />
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Causas que me importan</label>
+              <TagInput tags={form.causas ?? []} onChange={(t) => set('causas', t)} suggestions={CAUSAS_SUGERIDAS} placeholder="Añade una causa" />
+            </div>
           </Section>
 
           {/* Grupo D — privacidad */}
           <Section title="Privacidad" subtitle="Tú decides qué se muestra a otras personas.">
-            <Toggle checked={!!form.mostrar_edad} onChange={(v) => set('mostrar_edad', v)} label="Mostrar mi edad en el perfil público" hint="Calculada desde tu fecha de nacimiento, sin mostrar el día exacto." />
-            <Toggle checked={!!form.mostrar_zona} onChange={(v) => set('mostrar_zona', v)} label="Mostrar mi zona (Centro, Partido Romero, etc.)" />
-            <Toggle checked={!!form.mostrar_habilidades} onChange={(v) => set('mostrar_habilidades', v)} label="Mostrar mis habilidades y lo que quiero aprender" />
-            <Toggle checked={!!form.permitir_contacto_directo} onChange={(v) => set('permitir_contacto_directo', v)} label="Permitir que me contacten sin solicitud previa" hint="Si lo apagas, solo aceptaremos contacto al confirmar una vinculación." />
+            <Toggle checked={!!form.mostrar_edad} onChange={(v) => set('mostrar_edad', v)} label="Mostrar mi edad" hint="Calculada de tu fecha de nacimiento; no se muestra el día exacto." />
+            <Toggle checked={!!form.mostrar_zona} onChange={(v) => set('mostrar_zona', v)} label="Mostrar mi zona" hint='Solo el nombre general (ej: "Centro").' />
+            <Toggle checked={!!form.mostrar_habilidades} onChange={(v) => set('mostrar_habilidades', v)} label="Mostrar habilidades" hint="Lo que enseño y lo que quiero aprender." />
+            <Toggle checked={!!form.permitir_contacto_directo} onChange={(v) => set('permitir_contacto_directo', v)} label="Permitir contacto directo" hint='Si lo apagas, solo aceptamos contacto al confirmar una vinculación.' />
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-text-1">Vía de contacto preferida</label>
-              <select
-                value={form.contacto_preferido ?? 'plataforma'}
-                onChange={(e) => set('contacto_preferido', e.target.value as ContactoPreferido)}
-                className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-              >
-                <option value="plataforma">Solo dentro de la plataforma</option>
-                <option value="email">Aceptar correo electrónico</option>
-                <option value="whatsapp">Aceptar WhatsApp</option>
-              </select>
-            </div>
+            <FullRow>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-medium text-text-1">Vía de contacto preferida</label>
+                <select
+                  value={form.contacto_preferido ?? 'plataforma'}
+                  onChange={(e) => set('contacto_preferido', e.target.value as ContactoPreferido)}
+                  className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                >
+                  <option value="plataforma">Solo dentro de la plataforma</option>
+                  <option value="email">Aceptar correo electrónico</option>
+                  <option value="whatsapp">Aceptar WhatsApp</option>
+                </select>
+              </div>
+            </FullRow>
           </Section>
 
           {/* Acciones */}
