@@ -308,24 +308,52 @@ export default function WelcomePage() {
       const cards = pasoCardsRef.current.filter(Boolean) as HTMLDivElement[];
       if (cards.length < 2) return;
 
-      Flip.fit(traveler, cards[0]);
-      gsap.set(traveler, { opacity: 1 });
+      let tl: gsap.core.Timeline | null = null;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: cards[0],
-          endTrigger: cards[cards.length - 1],
-          start: 'top center',
-          end: 'bottom center',
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
+      const build = () => {
+        if (tl) {
+          tl.scrollTrigger?.kill();
+          tl.kill();
+        }
 
-      cards.slice(1).forEach((card, idx) => {
-        const tw = Flip.fit(traveler, card, { duration: 1, ease: 'none' });
-        if (tw) tl.add(tw as gsap.core.Tween, idx === 0 ? 0 : '+=0.5');
-      });
+        Flip.fit(traveler, cards[0]);
+        gsap.set(traveler, { opacity: 1 });
+
+        tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: cards[0],
+            endTrigger: cards[cards.length - 1],
+            start: 'top center',
+            end: 'bottom center',
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        cards.slice(1).forEach((card, idx) => {
+          const tw = Flip.fit(traveler, card, { duration: 1, ease: 'none' });
+          if (tw) tl!.add(tw as gsap.core.Tween, idx === 0 ? 0 : '+=0.5');
+        });
+
+        ScrollTrigger.refresh();
+      };
+
+      build();
+
+      // Reconstruir cuando las imágenes terminen de cargar (los cards crecen)
+      const images = cards.flatMap((c) => Array.from(c.querySelectorAll('img')));
+      const pending = images.filter((img) => !img.complete);
+      if (pending.length > 0) {
+        let remaining = pending.length;
+        const onDone = () => {
+          remaining--;
+          if (remaining === 0) build();
+        };
+        pending.forEach((img) => {
+          img.addEventListener('load', onDone, { once: true });
+          img.addEventListener('error', onDone, { once: true });
+        });
+      }
     });
 
     return () => mm.revert();
@@ -622,8 +650,9 @@ export default function WelcomePage() {
               aria-hidden
               className="pointer-events-none absolute left-0 top-0 z-20 rounded-2xl opacity-0"
               style={{
-                boxShadow:
-                  '0 0 0 2px var(--accent), 0 0 0 6px var(--accent-soft), 0 18px 40px rgba(83,21,90,.25)',
+                outline: '3px solid var(--accent)',
+                outlineOffset: '4px',
+                boxShadow: '0 16px 40px -8px rgba(83,21,90,.45)',
               }}
             />
           </div>
