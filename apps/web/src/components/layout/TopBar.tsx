@@ -46,7 +46,22 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
   const { pathname } = useLocation();
   const context = getContext(pathname);
   const breadcrumb = getBreadcrumb(pathname);
-  const esAdmin = user?.roles.includes('moderador') || user?.roles.includes('super_admin');
+
+  const userRoles = user?.roles ?? [];
+  const esAdmin = userRoles.some((r) =>
+    ['moderador', 'soporte', 'verificador', 'analista', 'editor_categorias', 'super_admin'].includes(r),
+  );
+  const isVerified = user?.estado_verificacion === 'verificado';
+
+  // Landing admin según el rol (primera ruta a la que el usuario tiene acceso).
+  const adminLanding = (() => {
+    if (userRoles.includes('super_admin') || userRoles.includes('moderador')) return '/admin/verificaciones';
+    if (userRoles.includes('verificador')) return '/admin/verificaciones';
+    if (userRoles.includes('soporte')) return '/admin/tickets';
+    if (userRoles.includes('analista')) return '/admin/metricas';
+    if (userRoles.includes('editor_categorias')) return '/admin/categorias';
+    return '/admin/usuarios';
+  })();
 
   // Accessible dropdown
   const [menuOpen, setMenuOpen] = useState(false);
@@ -84,8 +99,11 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
 
       {/* Right side */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Role switcher — hidden on mobile */}
+        {/* Role switcher — hidden on mobile. Solo se muestra si el usuario está
+            verificado o es admin (los admins no requieren verificación). */}
+        {(isVerified || esAdmin) && (
         <div className="hidden items-center rounded-lg border border-border bg-surface-2 p-0.5 sm:flex" role="tablist" aria-label="Modo de navegación">
+          {isVerified && (
           <Link
             to="/inicio"
             role="tab"
@@ -97,6 +115,8 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
             <Search className="h-3.5 w-3.5" aria-hidden="true" />
             Buscador
           </Link>
+          )}
+          {isVerified && (
           <Link
             to="/mis-ofertas"
             role="tab"
@@ -108,9 +128,10 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
             <Plus className="h-3.5 w-3.5" aria-hidden="true" />
             Oferente
           </Link>
+          )}
           {esAdmin && (
             <Link
-              to="/admin/ofertas"
+              to={adminLanding}
               role="tab"
               aria-selected={context === 'admin'}
               className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors duration-150 ${
@@ -122,6 +143,7 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
             </Link>
           )}
         </div>
+        )}
 
         {/* Theme toggle */}
         <div className="hidden sm:block">

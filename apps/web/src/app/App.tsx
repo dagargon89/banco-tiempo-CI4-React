@@ -64,18 +64,28 @@ export default function App() {
           <Route path="/mis-tickets" element={<MisTicketsPage />} />
         </Route>
 
-        {/* Rutas admin (RBAC se checa en ProtectedRoute anidado sin layout propio) */}
-        <Route element={<ProtectedRoute requiredRoles={['moderador', 'super_admin']} noLayout />}>
+        {/* Rutas admin (RBAC por ruta — super_admin satisface todo) */}
+        <Route element={<ProtectedRoute requiredRoles={['moderador', 'verificador']} noLayout />}>
           <Route path="/admin/verificaciones" element={<AdminVerificacionesPage />} />
+        </Route>
+        <Route element={<ProtectedRoute requiredRoles={['moderador']} noLayout />}>
           <Route path="/admin/ofertas" element={<AdminOfertasPage />} />
+        </Route>
+        <Route element={<ProtectedRoute requiredRoles={['moderador']} noLayout />}>
           <Route path="/admin/usuarios" element={<AdminUsuariosPage />} />
+        </Route>
+        <Route element={<ProtectedRoute requiredRoles={['moderador', 'soporte']} noLayout />}>
           <Route path="/admin/tickets" element={<AdminTicketsPage />} />
+        </Route>
+        <Route element={<ProtectedRoute requiredRoles={['moderador', 'analista']} noLayout />}>
           <Route path="/admin/metricas" element={<AdminMetricasPage />} />
+        </Route>
+        <Route element={<ProtectedRoute requiredRoles={['editor_categorias']} noLayout />}>
+          <Route path="/admin/categorias" element={<AdminCategoriasPage />} />
         </Route>
 
         {/* Super admin only */}
         <Route element={<ProtectedRoute requiredRoles={['super_admin']} noLayout />}>
-          <Route path="/admin/categorias" element={<AdminCategoriasPage />} />
           <Route path="/admin/moderadores" element={<AdminModeradoresPage />} />
         </Route>
       </Route>

@@ -1,7 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { Compass, Package, PlusCircle, MessageSquare, User } from 'lucide-react';
+import { Compass, Package, PlusCircle, MessageSquare, User, BadgeCheck } from 'lucide-react';
+import { useAuthStore } from '@/stores/authStore';
 
-const tabs = [
+const verifiedTabs = [
   { to: '/inicio', label: 'Explorar', icon: Compass, end: true },
   { to: '/mis-ofertas', label: 'Ofertas', icon: Package },
   { to: '/ofertas/nueva', label: 'Crear', icon: PlusCircle },
@@ -9,10 +10,20 @@ const tabs = [
   { to: '/perfil', label: 'Perfil', icon: User },
 ];
 
+const pendingTabs = [
+  { to: '/perfil', label: 'Perfil', icon: User, end: true },
+  { to: '/verificacion', label: 'Verificar', icon: BadgeCheck },
+];
+
 export default function BottomTabBar() {
   const { pathname } = useLocation();
+  const user = useAuthStore((s) => s.user);
+  const isVerified = user?.estado_verificacion === 'verificado';
+
   // Hide on admin routes
   if (pathname.startsWith('/admin')) return null;
+
+  const tabs = isVerified ? verifiedTabs : pendingTabs;
 
   return (
     <nav

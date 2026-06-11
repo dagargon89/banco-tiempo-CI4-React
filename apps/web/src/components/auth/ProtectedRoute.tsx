@@ -23,7 +23,9 @@ export default function ProtectedRoute({ requiredRoles, noLayout }: Props) {
   }
 
   if (requiredRoles && requiredRoles.length > 0) {
-    const hasRole = requiredRoles.some((r) => user.roles.includes(r));
+    // super_admin satisface cualquier requisito (mismo criterio que el backend RbacFilter).
+    const isSuperAdmin = user.roles.includes('super_admin');
+    const hasRole = isSuperAdmin || requiredRoles.some((r) => user.roles.includes(r));
     if (!hasRole) {
       return <Navigate to="/" replace />;
     }

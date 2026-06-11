@@ -60,38 +60,66 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
         $routes->get('tickets/mios', 'Tickets::mios');
     });
 
-    // Administración (RBAC)
-    $routes->group('admin', ['filter' => ['auth-firebase:strict', 'rbac:moderador']], static function (RouteCollection $routes): void {
-        $routes->get('usuarios', 'Admin\Usuarios::index');
-        $routes->patch('usuarios/(:num)/estado', 'Admin\Usuarios::cambiarEstado/$1');
-        $routes->get('usuarios/(:num)', 'Admin\Usuarios::show/$1');
-        $routes->post('usuarios/(:num)/baja', 'Admin\Usuarios::darBaja/$1');
-        $routes->post('usuarios/(:num)/reactivar', 'Admin\Usuarios::reactivar/$1');
-        $routes->get('verificaciones', 'Admin\Verificaciones::index');
-        $routes->get('verificaciones/(:num)/documento', 'Admin\Verificaciones::documento/$1');
-        $routes->patch('verificaciones/(:num)', 'Admin\Verificaciones::resolver/$1');
-        $routes->get('ofertas', 'Admin\Ofertas::index');
-        $routes->get('ofertas/(:num)', 'Admin\Ofertas::show/$1');
-        $routes->patch('ofertas/(:num)/despublicar', 'Admin\Ofertas::despublicar/$1');
-        $routes->patch('resenas/(:num)/ocultar', 'Admin\Resenas::ocultar/$1');
-        $routes->get('vinculaciones', 'Admin\Vinculaciones::index');
-        $routes->get('vinculaciones/(:num)/chat', 'Admin\Vinculaciones::leerChat/$1');
-        $routes->get('tickets', 'Admin\Tickets::index');
-        $routes->get('tickets/(:num)', 'Admin\Tickets::show/$1');
-        $routes->patch('tickets/(:num)/asignar', 'Admin\Tickets::asignar/$1');
-        $routes->patch('tickets/(:num)/estado', 'Admin\Tickets::cambiarEstado/$1');
-        $routes->get('metricas', 'Admin\Metricas::index');
+    // Administración (RBAC). Cualquier rol admin puede entrar al grupo; cada
+    // sub-grupo ajusta los roles permitidos por área. super_admin siempre OK.
+    $routes->group(
+        'admin',
+        ['filter' => ['auth-firebase:strict', 'rbac:moderador,soporte,verificador,analista,editor_categorias']],
+        static function (RouteCollection $routes): void {
+            // ── Usuarios (listado + detalle + acciones) — solo moderador ──
+            $routes->group('', ['filter' => 'rbac:moderador'], static function (RouteCollection $routes): void {
+                $routes->get('usuarios', 'Admin\Usuarios::index');
+                $routes->get('usuarios/(:num)', 'Admin\Usuarios::show/$1');
+                $routes->patch('usuarios/(:num)/estado', 'Admin\Usuarios::cambiarEstado/$1');
+                $routes->post('usuarios/(:num)/baja', 'Admin\Usuarios::darBaja/$1');
+                $routes->post('usuarios/(:num)/reactivar', 'Admin\Usuarios::reactivar/$1');
+            });
 
-        $routes->group('', ['filter' => 'rbac:super_admin'], static function (RouteCollection $routes): void {
-            $routes->post('categorias', 'Admin\Categorias::create');
-            $routes->patch('categorias/(:num)', 'Admin\Categorias::update/$1');
-            $routes->patch('categorias/(:num)/activa', 'Admin\Categorias::toggleActiva/$1');
-            $routes->get('moderadores', 'Admin\Moderadores::index');
-            $routes->post('moderadores', 'Admin\Moderadores::create');
-            $routes->delete('moderadores/(:num)', 'Admin\Moderadores::delete/$1');
-            // Gestión general de roles (moderador y super_admin) desde el detalle del usuario
-            $routes->post('usuarios/(:num)/roles', 'Admin\Usuarios::asignarRol/$1');
-            $routes->delete('usuarios/(:num)/roles/(:segment)', 'Admin\Usuarios::revocarRol/$1/$2');
-        });
-    });
+            // ── Verificaciones — moderador o verificador ──
+            $routes->group('', ['filter' => 'rbac:moderador,verificador'], static function (RouteCollection $routes): void {
+                $routes->get('verificaciones', 'Admin\Verificaciones::index');
+                $routes->get('verificaciones/(:num)/documento', 'Admin\Verificaciones::documento/$1');
+                $routes->patch('verificaciones/(:num)', 'Admin\Verificaciones::resolver/$1');
+            });
+
+            // ── Ofertas (moderación de contenido) — moderador ──
+            $routes->group('', ['filter' => 'rbac:moderador'], static function (RouteCollection $routes): void {
+                $routes->get('ofertas', 'Admin\Ofertas::index');
+                $routes->get('ofertas/(:num)', 'Admin\Ofertas::show/$1');
+                $routes->patch('ofertas/(:num)/despublicar', 'Admin\Ofertas::despublicar/$1');
+                $routes->patch('resenas/(:num)/ocultar', 'Admin\Resenas::ocultar/$1');
+                $routes->get('vinculaciones', 'Admin\Vinculaciones::index');
+                $routes->get('vinculaciones/(:num)/chat', 'Admin\Vinculaciones::leerChat/$1');
+            });
+
+            // ── Tickets (atención a usuarios) — moderador o soporte ──
+            $routes->group('', ['filter' => 'rbac:moderador,soporte'], static function (RouteCollection $routes): void {
+                $routes->get('tickets', 'Admin\Tickets::index');
+                $routes->get('tickets/(:num)', 'Admin\Tickets::show/$1');
+                $routes->patch('tickets/(:num)/asignar', 'Admin\Tickets::asignar/$1');
+                $routes->patch('tickets/(:num)/estado', 'Admin\Tickets::cambiarEstado/$1');
+            });
+
+            // ── Métricas — moderador o analista ──
+            $routes->group('', ['filter' => 'rbac:moderador,analista'], static function (RouteCollection $routes): void {
+                $routes->get('metricas', 'Admin\Metricas::index');
+            });
+
+            // ── Categorías (mantenimiento de taxonomía) — editor_categorias ──
+            $routes->group('', ['filter' => 'rbac:editor_categorias'], static function (RouteCollection $routes): void {
+                $routes->post('categorias', 'Admin\Categorias::create');
+                $routes->patch('categorias/(:num)', 'Admin\Categorias::update/$1');
+                $routes->patch('categorias/(:num)/activa', 'Admin\Categorias::toggleActiva/$1');
+            });
+
+            // ── Gestión de roles + moderadores legacy — solo super_admin ──
+            $routes->group('', ['filter' => 'rbac:super_admin'], static function (RouteCollection $routes): void {
+                $routes->get('moderadores', 'Admin\Moderadores::index');
+                $routes->post('moderadores', 'Admin\Moderadores::create');
+                $routes->delete('moderadores/(:num)', 'Admin\Moderadores::delete/$1');
+                $routes->post('usuarios/(:num)/roles', 'Admin\Usuarios::asignarRol/$1');
+                $routes->delete('usuarios/(:num)/roles/(:segment)', 'Admin\Usuarios::revocarRol/$1/$2');
+            });
+        },
+    );
 });

@@ -5,11 +5,19 @@ import {
   Compass, LayoutDashboard, ArrowLeftRight,
   MessageSquare, ShieldCheck, Package,
   Users, Ticket, BarChart3, FolderOpen, LifeBuoy, UserCog,
+  User, BadgeCheck,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
-type NavItem = { to: string; label: string; icon: React.ElementType; end?: boolean };
+type NavItem = { to: string; label: string; icon: React.ElementType; end?: boolean; roles?: string[] };
+
+const ADMIN_ROLES = ['moderador', 'soporte', 'verificador', 'analista', 'editor_categorias', 'super_admin'];
+
+const pendienteNav: NavItem[] = [
+  { to: '/perfil', label: 'Mi perfil', icon: User, end: true },
+  { to: '/verificacion', label: 'Subir verificación', icon: BadgeCheck },
+];
 
 const buscadorNav: NavItem[] = [
   { to: '/inicio', label: 'Explorar', icon: Compass, end: true },
@@ -24,18 +32,24 @@ const oferenteNav: NavItem[] = [
   { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },
 ];
 
-const adminNavBase: NavItem[] = [
-  { to: '/admin/verificaciones', label: 'Verificaciones', icon: ShieldCheck },
-  { to: '/admin/ofertas', label: 'Ofertas', icon: Package },
-  { to: '/admin/usuarios', label: 'Usuarios', icon: Users },
-  { to: '/admin/tickets', label: 'Tickets', icon: Ticket },
-  { to: '/admin/metricas', label: 'Metricas', icon: BarChart3 },
+const adminNavAll: NavItem[] = [
+  { to: '/admin/verificaciones', label: 'Verificaciones', icon: ShieldCheck, roles: ['moderador', 'verificador'] },
+  { to: '/admin/ofertas',        label: 'Ofertas',        icon: Package,     roles: ['moderador'] },
+  { to: '/admin/usuarios',       label: 'Usuarios',       icon: Users,       roles: ['moderador'] },
+  { to: '/admin/tickets',        label: 'Tickets',        icon: Ticket,      roles: ['moderador', 'soporte'] },
+  { to: '/admin/metricas',       label: 'Metricas',       icon: BarChart3,   roles: ['moderador', 'analista'] },
+  { to: '/admin/categorias',     label: 'Categorias',     icon: FolderOpen,  roles: ['editor_categorias'] },
+  { to: '/admin/moderadores',    label: 'Moderadores',    icon: UserCog,     roles: ['super_admin'] },
 ];
 
-const superAdminItems: NavItem[] = [
-  { to: '/admin/categorias', label: 'Categorias', icon: FolderOpen },
-  { to: '/admin/moderadores', label: 'Moderadores', icon: UserCog },
-];
+function filterByRoles(items: NavItem[], userRoles: string[]): NavItem[] {
+  const isSuperAdmin = userRoles.includes('super_admin');
+  return items.filter((item) => {
+    if (!item.roles || item.roles.length === 0) return true;
+    if (isSuperAdmin) return true;
+    return item.roles.some((r) => userRoles.includes(r));
+  });
+}
 
 const linkBase = 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150';
 const linkActive = 'bg-accent/10 text-accent';
@@ -49,8 +63,9 @@ interface MobileDrawerProps {
 export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
   const { pathname } = useLocation();
   const user = useAuthStore((s) => s.user);
-  const isSuperAdmin = user?.roles.includes('super_admin') ?? false;
-  const isAdmin = user?.roles.includes('moderador') || isSuperAdmin;
+  const userRoles = user?.roles ?? [];
+  const isAdmin = userRoles.some((r) => ADMIN_ROLES.includes(r));
+  const isVerified = user?.estado_verificacion === 'verificado';
 
   // Close on route change
   useEffect(() => { onClose(); }, [pathname, onClose]);
@@ -62,11 +77,16 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  const sections = [
-    { label: 'BUSCADOR', items: buscadorNav },
-    { label: 'OFERENTE', items: oferenteNav },
-    ...(isAdmin ? [{ label: 'ADMINISTRADOR', items: isSuperAdmin ? [...adminNavBase, ...superAdminItems] : adminNavBase }] : []),
-  ];
+  const sections = isVerified
+    ? [
+        { label: 'BUSCADOR', items: buscadorNav },
+        { label: 'OFERENTE', items: oferenteNav },
+        ...(isAdmin ? [{ label: 'ADMINISTRADOR', items: filterByRoles(adminNavAll, userRoles) }] : []),
+      ]
+    : [
+        { label: 'VERIFICACIÓN PENDIENTE', items: pendienteNav },
+        ...(isAdmin ? [{ label: 'ADMINISTRADOR', items: filterByRoles(adminNavAll, userRoles) }] : []),
+      ];
 
   return (
     <>

@@ -3,10 +3,16 @@ import {
   Compass, LayoutDashboard, ArrowLeftRight,
   MessageSquare, ShieldCheck, Package,
   Users, Ticket, BarChart3, FolderOpen, LifeBuoy, UserCog,
+  User, BadgeCheck,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 
-type NavItem = { to: string; label: string; icon: React.ElementType; end?: boolean };
+type NavItem = { to: string; label: string; icon: React.ElementType; end?: boolean; roles?: string[] };
+
+const pendienteNav: NavItem[] = [
+  { to: '/perfil', label: 'Mi perfil', icon: User, end: true },
+  { to: '/verificacion', label: 'Subir verificación', icon: BadgeCheck },
+];
 
 const buscadorNav: NavItem[] = [
   { to: '/inicio', label: 'Explorar', icon: Compass, end: true },
@@ -21,21 +27,34 @@ const oferenteNav: NavItem[] = [
   { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },
 ];
 
-const adminNavBase: NavItem[] = [
-  { to: '/admin/verificaciones', label: 'Verificaciones', icon: ShieldCheck },
-  { to: '/admin/ofertas', label: 'Ofertas', icon: Package },
-  { to: '/admin/usuarios', label: 'Usuarios', icon: Users },
-  { to: '/admin/tickets', label: 'Tickets', icon: Ticket },
-  { to: '/admin/metricas', label: 'Metricas', icon: BarChart3 },
+/**
+ * Cada item declara qué roles lo pueden ver. super_admin satisface cualquiera
+ * (manejado en `filterByRoles`). Refleja la matriz de permisos del backend.
+ */
+const adminNavAll: NavItem[] = [
+  { to: '/admin/verificaciones', label: 'Verificaciones', icon: ShieldCheck, roles: ['moderador', 'verificador'] },
+  { to: '/admin/ofertas',        label: 'Ofertas',        icon: Package,     roles: ['moderador'] },
+  { to: '/admin/usuarios',       label: 'Usuarios',       icon: Users,       roles: ['moderador'] },
+  { to: '/admin/tickets',        label: 'Tickets',        icon: Ticket,      roles: ['moderador', 'soporte'] },
+  { to: '/admin/metricas',       label: 'Metricas',       icon: BarChart3,   roles: ['moderador', 'analista'] },
+  { to: '/admin/categorias',     label: 'Categorias',     icon: FolderOpen,  roles: ['editor_categorias'] },
+  { to: '/admin/moderadores',    label: 'Moderadores',    icon: UserCog,     roles: ['super_admin'] },
 ];
 
-const superAdminItems: NavItem[] = [
-  { to: '/admin/categorias', label: 'Categorias', icon: FolderOpen },
-  { to: '/admin/moderadores', label: 'Moderadores', icon: UserCog },
-];
+function filterByRoles(items: NavItem[], userRoles: string[]): NavItem[] {
+  const isSuperAdmin = userRoles.includes('super_admin');
+  return items.filter((item) => {
+    if (!item.roles || item.roles.length === 0) return true;
+    if (isSuperAdmin) return true;
+    return item.roles.some((r) => userRoles.includes(r));
+  });
+}
 
-function getContext(pathname: string): 'buscador' | 'oferente' | 'admin' {
+type Context = 'buscador' | 'oferente' | 'admin' | 'pendiente';
+
+function getContext(pathname: string, isVerified: boolean): Context {
   if (pathname.startsWith('/admin')) return 'admin';
+  if (!isVerified) return 'pendiente';
   if (
     pathname.startsWith('/mis-ofertas') ||
     pathname === '/ofertas/nueva' ||
@@ -44,15 +63,12 @@ function getContext(pathname: string): 'buscador' | 'oferente' | 'admin' {
   return 'buscador';
 }
 
-const contextLabels: Record<string, string> = {
+const contextLabels: Record<Context, string> = {
   buscador: 'BUSCADOR',
   oferente: 'OFERENTE',
   admin: 'ADMINISTRADOR',
+  pendiente: 'VERIFICACIÓN PENDIENTE',
 };
-
-function getAdminNav(isSuperAdmin: boolean): NavItem[] {
-  return isSuperAdmin ? [...adminNavBase, ...superAdminItems] : adminNavBase;
-}
 
 const linkBase = 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40';
 const linkActive = 'bg-accent/10 text-accent';
@@ -61,9 +77,11 @@ const linkInactive = 'text-text-2 hover:bg-surface-2 hover:text-text-1';
 export default function Sidebar() {
   const { pathname } = useLocation();
   const user = useAuthStore((s) => s.user);
-  const isSuperAdmin = user?.roles.includes('super_admin') ?? false;
-  const context = getContext(pathname);
-  const items = context === 'admin' ? getAdminNav(isSuperAdmin)
+  const userRoles = user?.roles ?? [];
+  const isVerified = user?.estado_verificacion === 'verificado';
+  const context = getContext(pathname, isVerified);
+  const items = context === 'admin' ? filterByRoles(adminNavAll, userRoles)
+    : context === 'pendiente' ? pendienteNav
     : context === 'oferente' ? oferenteNav
     : buscadorNav;
 
