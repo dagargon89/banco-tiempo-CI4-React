@@ -6,11 +6,14 @@ import {
   Sparkle as Drama, Camera, LayoutGrid,
 } from 'lucide-react';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfig } from '@/lib/categoryConfig';
 import type { Categoria } from '@/lib/types';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+
+gsap.registerPlugin(SplitText);
 
 // Cards demo del hero (estáticas, sirven para mostrar de qué va el sistema)
 const demoCards = [
@@ -179,6 +182,39 @@ export default function WelcomePage() {
   const { user, initialized, loading } = useAuthStore();
   const { data: categorias, isLoading: catsLoading } = useCategorias();
 
+  const heroTitleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const h1 = heroTitleRef.current;
+    if (!h1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      h1.style.opacity = '1';
+      return;
+    }
+
+    let split: SplitText | null = null;
+    let cancelled = false;
+
+    document.fonts.ready.then(() => {
+      if (cancelled || !heroTitleRef.current) return;
+      heroTitleRef.current.style.opacity = '1';
+      split = SplitText.create(heroTitleRef.current, { type: 'words', wordsClass: 'word' });
+      gsap.from(split.words, {
+        y: -100,
+        opacity: 0,
+        rotation: 'random(-80, 80)',
+        stagger: 0.1,
+        duration: 1,
+        ease: 'back',
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      if (split) split.revert();
+    };
+  }, []);
+
   // Si ya está autenticado, mandarlo al home autenticado
   if (!loading && initialized && user) {
     return <Navigate to="/inicio" replace />;
@@ -225,7 +261,11 @@ export default function WelcomePage() {
               Plan Juárez · Voluntariado de habilidades
             </div>
 
-            <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-text-1 sm:text-5xl lg:text-6xl">
+            <h1
+              ref={heroTitleRef}
+              className="mt-5 font-display text-4xl font-bold leading-tight text-text-1 sm:text-5xl lg:text-6xl"
+              style={{ opacity: 0 }}
+            >
               Intercambia lo que sabes,
               <br />
               <span className="text-accent">aprende</span> lo que quieres
