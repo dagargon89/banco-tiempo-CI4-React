@@ -24,13 +24,27 @@ final class RbacFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        $raw = $arguments[0] ?? null;
-        if ($raw === null) {
+        // CodeIgniter parsea `rbac:moderador,verificador` como múltiples
+        // argumentos (split por coma). Tomamos todos como roles válidos.
+        // También aceptamos un solo argumento con comas para compatibilidad
+        // hacia atrás (`rbac:'moderador,verificador'`).
+        $required = [];
+        if (is_array($arguments)) {
+            foreach ($arguments as $arg) {
+                foreach (explode(',', (string) $arg) as $r) {
+                    $r = trim($r);
+                    if ($r !== '') {
+                        $required[] = $r;
+                    }
+                }
+            }
+        }
+
+        if ($required === []) {
             return service('response')->setStatusCode(500)
                 ->setJSON(['message' => 'Filtro RBAC mal configurado.']);
         }
 
-        $required = array_filter(array_map('trim', explode(',', (string) $raw)));
         $userRoles = array_filter(array_map('trim', explode(',', $request->getHeaderLine('X-Auth-Roles'))));
 
         // super_admin satisface cualquier requisito.

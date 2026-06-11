@@ -2371,3 +2371,12 @@ ORDER BY `u`.`nombre` ASC', [...], false)
 10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 12 SYSTEMPATH/rewrite.php(44): require_once('/home/dagargon89/banco-tiempo-CI4-React/apps/api/public/index.php')
+ERROR - 2026-06-11 21:39:26 --> Auth filter: Kreait\Firebase\Exception\Auth\FailedToVerifyToken — The value 'test' is not a verified ID token:
+- The token is invalidThe JWT string must have two dots
+
+DEBUG - 2026-06-11 21:49:22 --> RBAC check — required=[moderador] userRoles=[verificador] raw='moderador'
+WARNING - 2026-06-11 21:49:22 --> RBAC denied — required=[moderador] userRoles=[verificador]
+DEBUG - 2026-06-11 21:49:24 --> RBAC check — required=[moderador] userRoles=[verificador] raw='moderador'
+WARNING - 2026-06-11 21:49:24 --> RBAC denied — required=[moderador] userRoles=[verificador]
+DEBUG - 2026-06-11 21:49:27 --> RBAC check — required=[moderador] userRoles=[verificador] raw='moderador'
+WARNING - 2026-06-11 21:49:27 --> RBAC denied — required=[moderador] userRoles=[verificador]

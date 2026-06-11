@@ -60,11 +60,13 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
         $routes->get('tickets/mios', 'Tickets::mios');
     });
 
-    // Administración (RBAC). Cualquier rol admin puede entrar al grupo; cada
-    // sub-grupo ajusta los roles permitidos por área. super_admin siempre OK.
+    // Administración. Solo se aplica auth-firebase en el grupo padre; cada
+    // sub-grupo aplica su propio rbac. Evitamos doble rbac (padre+hijo) que
+    // en CI4 puede comportarse de forma inesperada con argumentos. super_admin
+    // siempre satisface cualquier requisito (override total en RbacFilter).
     $routes->group(
         'admin',
-        ['filter' => ['auth-firebase:strict', 'rbac:moderador,soporte,verificador,analista,editor_categorias']],
+        ['filter' => ['auth-firebase:strict']],
         static function (RouteCollection $routes): void {
             // ── Usuarios (listado + detalle + acciones) — solo moderador ──
             $routes->group('', ['filter' => 'rbac:moderador'], static function (RouteCollection $routes): void {
