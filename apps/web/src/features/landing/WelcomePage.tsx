@@ -8,6 +8,7 @@ import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfig } from '@/lib/categoryConfig';
 import type { Categoria } from '@/lib/types';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 // Cards demo del hero (estáticas, sirven para mostrar de qué va el sistema)
 const demoCards = [
@@ -143,6 +144,7 @@ export default function WelcomePage() {
             </span>
           </Link>
           <nav className="flex items-center gap-2 sm:gap-3">
+            <ThemeToggle hideSystem />
             <Link
               to="/login"
               className="rounded-lg px-3 py-2 text-sm font-medium text-text-2 transition-colors hover:bg-surface-2 hover:text-text-1"
@@ -164,7 +166,7 @@ export default function WelcomePage() {
         <section className="grid items-center gap-10 lg:grid-cols-2">
           {/* Left side */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-lime-ink">
+            <div className="inline-flex items-center gap-2 rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-lime-ink dark:text-lime">
               <Sparkles className="h-3.5 w-3.5" />
               Plan Juárez · Voluntariado de habilidades
             </div>

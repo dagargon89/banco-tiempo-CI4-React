@@ -1,14 +1,15 @@
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useThemeStore } from '@/stores/themeStore';
 
-const options = [
+const allOptions = [
   { value: 'light' as const, icon: Sun, label: 'Claro' },
   { value: 'dark' as const, icon: Moon, label: 'Oscuro' },
   { value: 'system' as const, icon: Monitor, label: 'Sistema' },
 ];
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ hideSystem = false }: { hideSystem?: boolean }) {
   const { theme, setTheme } = useThemeStore();
+  const options = hideSystem ? allOptions.filter((o) => o.value !== 'system') : allOptions;
 
   return (
     <div className="flex items-center rounded-lg border border-border bg-surface-2 p-0.5" role="radiogroup" aria-label="Tema">
