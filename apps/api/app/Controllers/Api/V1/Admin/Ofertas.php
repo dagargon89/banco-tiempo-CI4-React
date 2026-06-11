@@ -66,6 +66,7 @@ final class Ofertas extends Controller
         $oferta['imagenes']            = $imagenes;
         $oferta['vinculaciones_count'] = $vincCount;
         $oferta['oferente_inactivo']   = (int) $oferta['oferente_inactivo'] === 1;
+        $oferta['pausada_por_admin']   = (int) ($oferta['pausada_por_admin'] ?? 0);
 
         return $this->ok($oferta);
     }

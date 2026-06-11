@@ -26,7 +26,7 @@ export default function OfertaDetailDrawer({ ofertaId, open, onClose }: Props) {
           <div className="flex flex-wrap gap-1.5">
             <Badge variant={oferta.estado === 'activa' ? 'success' : oferta.estado === 'pausada' ? 'warning' : 'neutral'}>{oferta.estado}</Badge>
             <Badge variant="info">{oferta.modalidad}</Badge>
-            {Boolean(oferta.pausada_por_admin) && (
+            {Number(oferta.pausada_por_admin) === 1 && oferta.oferente_inactivo && (
               <Badge variant="error">Pausada por baja del oferente</Badge>
             )}
           </div>
