@@ -1,9 +1,11 @@
+import { useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import {
   Sparkles, Search, MessageCircle, Award, MapPin, Star,
   Palette, Scissors, Music, Activity, Languages, Cpu, ChefHat,
   Sparkle as Drama, Camera, LayoutGrid,
 } from 'lucide-react';
+import gsap from 'gsap';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfig } from '@/lib/categoryConfig';
@@ -94,27 +96,79 @@ function FakeAvatar({ name }: { name: string }) {
 function DemoOfertaCard({ card }: { card: typeof demoCards[number] }) {
   const cfg = getCategoryConfig(card.catSlug);
   const Icon = fallbackCatIcons[card.catSlug] ?? cfg.icon;
+
+  const cardRef = useRef<HTMLDivElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const cardEl = cardRef.current;
+    const outerEl = outerRef.current;
+    const innerEl = innerRef.current;
+    if (!cardEl || !outerEl || !innerEl) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const outerRX = gsap.quickTo(outerEl, 'rotationX', { ease: 'power3', duration: 0.5 });
+    const outerRY = gsap.quickTo(outerEl, 'rotationY', { ease: 'power3', duration: 0.5 });
+    const innerX = gsap.quickTo(innerEl, 'x', { ease: 'power3', duration: 0.5 });
+    const innerY = gsap.quickTo(innerEl, 'y', { ease: 'power3', duration: 0.5 });
+
+    const handleMove = (e: PointerEvent) => {
+      const rect = cardEl.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      outerRX(gsap.utils.interpolate(15, -15, py));
+      outerRY(gsap.utils.interpolate(-15, 15, px));
+      innerX(gsap.utils.interpolate(-30, 30, px));
+      innerY(gsap.utils.interpolate(-30, 30, py));
+    };
+
+    const handleLeave = () => {
+      outerRX(0);
+      outerRY(0);
+      innerX(0);
+      innerY(0);
+    };
+
+    cardEl.addEventListener('pointermove', handleMove);
+    cardEl.addEventListener('pointerleave', handleLeave);
+
+    return () => {
+      cardEl.removeEventListener('pointermove', handleMove);
+      cardEl.removeEventListener('pointerleave', handleLeave);
+      gsap.killTweensOf([outerEl, innerEl]);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
-      <div className={`flex items-center justify-center ${cfg.bg} py-14`}>
-        <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${cfg.accent}`}>
-          <Icon className="h-7 w-7" />
-        </div>
-      </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="flex flex-wrap gap-1.5">
-          <span className={`inline-flex items-center rounded-pill border border-border px-2 py-0.5 text-[10px] font-medium ${cfg.accent}`}>
-            {card.categoria}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-pill border border-info/20 bg-info/10 px-2 py-0.5 text-[10px] font-medium text-info">
-            <MapPin className="h-2.5 w-2.5" />
-            {card.modalidad}
-          </span>
-        </div>
-        <h3 className="text-sm font-semibold text-text-1">{card.titulo}</h3>
-        <div className="mt-auto flex items-center gap-2 border-t border-border pt-3">
-          <FakeAvatar name={card.nombre} />
-          <span className="text-xs text-text-2">{card.nombre}</span>
+    <div ref={cardRef} style={{ perspective: '650px' }}>
+      <div
+        ref={outerRef}
+        className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm"
+        style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
+      >
+        <div ref={innerRef} style={{ willChange: 'transform' }}>
+          <div className={`flex items-center justify-center ${cfg.bg} py-14`}>
+            <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${cfg.accent}`}>
+              <Icon className="h-7 w-7" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 p-4">
+            <div className="flex flex-wrap gap-1.5">
+              <span className={`inline-flex items-center rounded-pill border border-border px-2 py-0.5 text-[10px] font-medium ${cfg.accent}`}>
+                {card.categoria}
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-pill border border-info/20 bg-info/10 px-2 py-0.5 text-[10px] font-medium text-info">
+                <MapPin className="h-2.5 w-2.5" />
+                {card.modalidad}
+              </span>
+            </div>
+            <h3 className="text-sm font-semibold text-text-1">{card.titulo}</h3>
+            <div className="mt-3 flex items-center gap-2 border-t border-border pt-3">
+              <FakeAvatar name={card.nombre} />
+              <span className="text-xs text-text-2">{card.nombre}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
