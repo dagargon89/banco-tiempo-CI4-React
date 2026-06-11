@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import {
-  Sparkles, Search, MessageCircle, Award, MapPin, Star,
+  Sparkles, Search, MessageCircle, Award, MapPin, Star, Clock, Heart, Check,
   Palette, Scissors, Music, Activity, Languages, Cpu, ChefHat,
   Sparkle as Drama, Camera,
 } from 'lucide-react';
@@ -65,19 +65,50 @@ const pasos = [
   {
     icon: Search,
     titulo: 'Descubre',
-    desc: 'Explora habilidades que tu comunidad ofrece: arte, cocina, idiomas, tecnología y más. Filtra por zona y modalidad.',
+    desc: 'Explora habilidades que tu comunidad ofrece: arte, cocina, idiomas, tecnología y más.',
+    bullets: ['Búsqueda por categoría', 'Filtro por zona', 'Presencial o virtual'],
+    image: 'https://picsum.photos/seed/paso-descubre/640/360',
+    tiempo: '5 min',
   },
   {
     icon: MessageCircle,
     titulo: 'Conecta',
-    desc: 'Marca «Me interesa» y, al ser aceptado, se abre un chat directo con quien enseña. Sin costo, sin intermediarios.',
+    desc: 'Marca «Me interesa» y, al ser aceptado, se abre un chat directo con quien enseña.',
+    bullets: ['Chat seguro 1 a 1', 'Sin pago, sin app extra', 'Notificaciones por correo'],
+    image: 'https://picsum.photos/seed/paso-conecta/640/360',
+    tiempo: '1 día',
   },
   {
     icon: Award,
     titulo: 'Aprende y reseña',
-    desc: 'Vive la actividad, gana insignias y deja una reseña mutua que fortalece la confianza de toda la red.',
+    desc: 'Vive la actividad, gana insignias y deja una reseña mutua que fortalece la red.',
+    bullets: ['Insignias por participar', 'Reseña recíproca', 'Tu reputación crece'],
+    image: 'https://picsum.photos/seed/paso-resena/640/360',
+    tiempo: '60–90 min',
   },
 ] as const;
+
+// Polaroids decorativas: fotos muestra rotadas en los huecos del zigzag
+const polaroids = [
+  {
+    src: 'https://picsum.photos/seed/polaroid-vecinos/280/320',
+    alt: 'Vecinos compartiendo',
+    pos: 'md:top-[18%] md:left-[44%]',
+    rot: '-rotate-6',
+  },
+  {
+    src: 'https://picsum.photos/seed/polaroid-taller/280/320',
+    alt: 'Taller comunitario',
+    pos: 'md:top-[60%] md:right-[38%]',
+    rot: 'rotate-[5deg]',
+  },
+  {
+    src: 'https://picsum.photos/seed/polaroid-cafe/280/320',
+    alt: 'Café en barrio',
+    pos: 'md:top-[78%] md:left-[36%]',
+    rot: '-rotate-3',
+  },
+];
 
 // Iconos fallback por slug si la categoría no tiene config (orden de la imagen demo)
 const fallbackCatIcons: Record<string, typeof Palette> = {
@@ -484,13 +515,60 @@ export default function WelcomePage() {
             </h2>
           </div>
 
-          <div className="relative mt-10 flex flex-col gap-4 md:block md:h-[160vh] md:gap-0">
+          <div className="relative mt-10 flex flex-col gap-4 md:block md:h-[180vh] md:gap-0">
+            {/* Polaroids decorativas — solo md+ */}
+            {polaroids.map((p, idx) => (
+              <div
+                key={idx}
+                aria-hidden
+                className={`pointer-events-none absolute hidden md:block ${p.pos} ${p.rot}`}
+              >
+                <div className="rounded-md bg-surface p-2 shadow-lg ring-1 ring-border">
+                  <div className="h-44 w-40 overflow-hidden rounded-sm bg-surface-2">
+                    <img
+                      src={p.src}
+                      alt={p.alt}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <p className="mt-2 px-1 pb-1 text-center font-display text-xs italic text-text-3">
+                    {p.alt}
+                  </p>
+                </div>
+              </div>
+            ))}
+
+            {/* Chips flotantes con micro-datos — solo md+ */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute hidden items-center gap-2 rounded-pill border border-border bg-surface/90 px-3 py-1.5 text-xs font-semibold text-text-2 shadow-md backdrop-blur md:left-[44%] md:top-[8%] md:flex"
+            >
+              <Clock className="h-3.5 w-3.5 text-accent" />
+              60 min promedio
+            </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute hidden items-center gap-2 rounded-pill border border-border bg-surface/90 px-3 py-1.5 text-xs font-semibold text-text-2 shadow-md backdrop-blur md:right-[34%] md:top-[36%] md:flex"
+            >
+              <Heart className="h-3.5 w-3.5 text-error" />
+              Sin pago, solo tiempo
+            </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute hidden items-center gap-2 rounded-pill border border-border bg-surface/90 px-3 py-1.5 text-xs font-semibold text-text-2 shadow-md backdrop-blur md:left-[42%] md:top-[58%] md:flex"
+            >
+              <MapPin className="h-3.5 w-3.5 text-info" />
+              Hecho en Juárez
+            </div>
+
+            {/* Cards de pasos */}
             {pasos.map((paso, i) => {
               const Icon = paso.icon;
               const positions = [
-                'md:absolute md:top-[2%] md:right-[8%]',
-                'md:absolute md:top-[42%] md:left-[8%]',
-                'md:absolute md:bottom-[4%] md:right-[14%]',
+                'md:absolute md:top-[2%] md:right-[6%]',
+                'md:absolute md:top-[38%] md:left-[6%]',
+                'md:absolute md:bottom-[3%] md:right-[10%]',
               ];
               return (
                 <div
@@ -498,26 +576,51 @@ export default function WelcomePage() {
                   ref={(el) => {
                     pasoCardsRef.current[i] = el;
                   }}
-                  className={`relative rounded-xl border border-border bg-surface p-6 md:w-[320px] ${positions[i]}`}
+                  className={`relative z-10 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-md md:w-[380px] ${positions[i]}`}
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <span className="font-display text-3xl font-bold text-border-strong">
-                      0{i + 1}
+                  <div className="relative aspect-[16/9] overflow-hidden bg-surface-2">
+                    <img
+                      src={paso.image}
+                      alt={paso.titulo}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                    <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-pill bg-surface/90 px-2.5 py-1 text-[11px] font-semibold text-text-1 shadow-sm backdrop-blur">
+                      <Clock className="h-3 w-3 text-accent" />
+                      {paso.tiempo}
                     </span>
                   </div>
-                  <h3 className="mt-4 text-base font-bold text-text-1">{paso.titulo}</h3>
-                  <p className="mt-2 text-sm text-text-2">{paso.desc}</p>
+
+                  <div className="p-5">
+                    <div className="flex items-start justify-between">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <span className="font-display text-3xl font-bold text-border-strong">
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <h3 className="mt-4 text-lg font-bold text-text-1">{paso.titulo}</h3>
+                    <p className="mt-1.5 text-sm text-text-2">{paso.desc}</p>
+
+                    <ul className="mt-4 space-y-1.5 border-t border-border pt-3">
+                      {paso.bullets.map((b) => (
+                        <li key={b} className="flex items-start gap-2 text-xs text-text-2">
+                          <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-success" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               );
             })}
+
             {/* Traveler (Flip target) */}
             <div
               ref={travelerRef}
               aria-hidden
-              className="pointer-events-none absolute left-0 top-0 rounded-xl opacity-0"
+              className="pointer-events-none absolute left-0 top-0 z-20 rounded-2xl opacity-0"
               style={{
                 boxShadow:
                   '0 0 0 2px var(--accent), 0 0 0 6px var(--accent-soft), 0 18px 40px rgba(83,21,90,.25)',
