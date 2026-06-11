@@ -8,13 +8,14 @@ import {
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Flip } from 'gsap/Flip';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfig } from '@/lib/categoryConfig';
 import type { Categoria } from '@/lib/types';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
-gsap.registerPlugin(SplitText, ScrollTrigger);
+gsap.registerPlugin(SplitText, ScrollTrigger, Flip);
 
 // Mapeo de imágenes por slug (cámbialas si quieres otras).
 // Usa picsum.photos para que sean estables y consistentes sin claves.
@@ -262,6 +263,42 @@ export default function WelcomePage() {
   const { data: categorias, isLoading: catsLoading } = useCategorias();
 
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
+  const pasoCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const travelerRef = useRef<HTMLDivElement>(null);
+
+  // Flip + ScrollTrigger: viajero por las tarjetas de "Cómo funciona"
+  useEffect(() => {
+    const traveler = travelerRef.current;
+    if (!traveler) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+      const cards = pasoCardsRef.current.filter(Boolean) as HTMLDivElement[];
+      if (cards.length < 2) return;
+
+      Flip.fit(traveler, cards[0]);
+      gsap.set(traveler, { opacity: 1 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: cards[0],
+          endTrigger: cards[cards.length - 1],
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      cards.slice(1).forEach((card, idx) => {
+        const tw = Flip.fit(traveler, card, { duration: 1, ease: 'none' });
+        if (tw) tl.add(tw as gsap.core.Tween, idx === 0 ? 0 : '+=0.5');
+      });
+    });
+
+    return () => mm.revert();
+  }, []);
 
   useEffect(() => {
     const h1 = heroTitleRef.current;
@@ -447,13 +484,21 @@ export default function WelcomePage() {
             </h2>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="relative mt-10 flex flex-col gap-4 md:block md:h-[160vh] md:gap-0">
             {pasos.map((paso, i) => {
               const Icon = paso.icon;
+              const positions = [
+                'md:absolute md:top-[2%] md:right-[8%]',
+                'md:absolute md:top-[42%] md:left-[8%]',
+                'md:absolute md:bottom-[4%] md:right-[14%]',
+              ];
               return (
                 <div
                   key={paso.titulo}
-                  className="relative rounded-xl border border-border bg-surface p-6"
+                  ref={(el) => {
+                    pasoCardsRef.current[i] = el;
+                  }}
+                  className={`relative rounded-xl border border-border bg-surface p-6 md:w-[320px] ${positions[i]}`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
@@ -468,6 +513,16 @@ export default function WelcomePage() {
                 </div>
               );
             })}
+            {/* Traveler (Flip target) */}
+            <div
+              ref={travelerRef}
+              aria-hidden
+              className="pointer-events-none absolute left-0 top-0 rounded-xl opacity-0"
+              style={{
+                boxShadow:
+                  '0 0 0 2px var(--accent), 0 0 0 6px var(--accent-soft), 0 18px 40px rgba(83,21,90,.25)',
+              }}
+            />
           </div>
         </section>
 
