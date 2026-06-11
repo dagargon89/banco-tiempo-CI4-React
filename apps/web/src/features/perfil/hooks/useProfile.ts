@@ -22,7 +22,7 @@ export function useUpdateProfile() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (fields: Partial<Pick<AuthUser, 'nombre' | 'bio' | 'zona' | 'foto_perfil'>>) => {
+    mutationFn: async (fields: Partial<AuthUser>) => {
       const { data } = await api.patch<{ data: AuthUser }>('/me', fields);
       return data.data;
     },

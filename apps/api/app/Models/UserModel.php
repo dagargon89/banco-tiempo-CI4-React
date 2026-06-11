@@ -18,15 +18,34 @@ final class UserModel extends Model
     protected $useSoftDeletes   = true;
     protected $useTimestamps    = true;
 
-    protected $allowedFields = ['nombre', 'bio', 'foto_perfil', 'zona', 'fecha_nacimiento', 'genero', 'telefono'];
+    protected $allowedFields = [
+        'nombre', 'bio', 'foto_perfil', 'zona', 'fecha_nacimiento', 'genero', 'telefono',
+        // Grupo A — matchmaking
+        'modalidades_preferidas', 'habilidades_enseno', 'quiere_aprender',
+        // Grupo B — disponibilidad
+        'franjas_horarias', 'dias_disponibles', 'frecuencia',
+        // Grupo C+E — identidad / trayectoria
+        'pronombres', 'idiomas', 'causas', 'anios_en_juarez', 'ocupacion_general',
+        // Grupo D — privacidad
+        'mostrar_edad', 'mostrar_zona', 'mostrar_habilidades', 'permitir_contacto_directo', 'contacto_preferido',
+    ];
 
     protected $validationRules = [
-        'nombre'           => 'required|string|max_length[120]',
-        'bio'              => 'permit_empty|string|max_length[500]',
-        'zona'             => 'permit_empty|string|max_length[120]',
-        'fecha_nacimiento' => 'permit_empty|valid_date[Y-m-d]',
-        'genero'           => 'permit_empty|in_list[masculino,femenino,otro,prefiero_no_decir]',
-        'telefono'         => 'permit_empty|string|max_length[20]',
+        'nombre'                    => 'required|string|max_length[120]',
+        'bio'                       => 'permit_empty|string|max_length[500]',
+        'zona'                      => 'permit_empty|string|max_length[120]',
+        'fecha_nacimiento'          => 'permit_empty|valid_date[Y-m-d]',
+        'genero'                    => 'permit_empty|in_list[masculino,femenino,otro,prefiero_no_decir]',
+        'telefono'                  => 'permit_empty|string|max_length[20]',
+        'frecuencia'                => 'permit_empty|in_list[puntual,mensual,quincenal,semanal]',
+        'pronombres'                => 'permit_empty|string|max_length[60]',
+        'anios_en_juarez'           => 'permit_empty|in_list[menos_1,1_5,5_10,mas_10]',
+        'ocupacion_general'         => 'permit_empty|string|max_length[120]',
+        'mostrar_edad'              => 'permit_empty|in_list[0,1]',
+        'mostrar_zona'              => 'permit_empty|in_list[0,1]',
+        'mostrar_habilidades'       => 'permit_empty|in_list[0,1]',
+        'permitir_contacto_directo' => 'permit_empty|in_list[0,1]',
+        'contacto_preferido'        => 'permit_empty|in_list[plataforma,email,whatsapp]',
     ];
 
     public function porFirebaseUid(string $uid): ?array

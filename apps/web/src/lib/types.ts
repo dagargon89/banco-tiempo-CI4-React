@@ -6,6 +6,13 @@ export type EstadoVinculacion = 'solicitada' | 'aceptada' | 'rechazada' | 'compl
 export type TipoDocumento = 'ine' | 'pasaporte' | 'licencia' | 'otro';
 export type Genero = 'masculino' | 'femenino' | 'otro' | 'prefiero_no_decir';
 
+export type ModalidadPreferida = 'presencial' | 'virtual' | 'hibrido';
+export type FranjaHoraria = 'manana' | 'tarde' | 'noche' | 'fin_semana';
+export type DiaSemana = 'L' | 'M' | 'X' | 'J' | 'V' | 'S' | 'D';
+export type Frecuencia = 'puntual' | 'mensual' | 'quincenal' | 'semanal';
+export type AniosEnJuarez = 'menos_1' | '1_5' | '5_10' | 'mas_10';
+export type ContactoPreferido = 'plataforma' | 'email' | 'whatsapp';
+
 export interface AuthUser {
   id: number;
   nombre: string;
@@ -16,6 +23,31 @@ export interface AuthUser {
   fecha_nacimiento?: string | null;
   genero?: Genero | null;
   telefono?: string | null;
+
+  // Grupo A — matchmaking
+  modalidades_preferidas?: ModalidadPreferida[] | null;
+  habilidades_enseno?: string[] | null;
+  quiere_aprender?: string[] | null;
+
+  // Grupo B — disponibilidad
+  franjas_horarias?: FranjaHoraria[] | null;
+  dias_disponibles?: DiaSemana[] | null;
+  frecuencia?: Frecuencia | null;
+
+  // Grupo C+E — identidad / trayectoria
+  pronombres?: string | null;
+  idiomas?: string[] | null;
+  causas?: string[] | null;
+  anios_en_juarez?: AniosEnJuarez | null;
+  ocupacion_general?: string | null;
+
+  // Grupo D — privacidad
+  mostrar_edad?: boolean;
+  mostrar_zona?: boolean;
+  mostrar_habilidades?: boolean;
+  permitir_contacto_directo?: boolean;
+  contacto_preferido?: ContactoPreferido;
+
   email_verificado: boolean;
   estado_verificacion: EstadoVerificacion;
   estado_cuenta?: string;
