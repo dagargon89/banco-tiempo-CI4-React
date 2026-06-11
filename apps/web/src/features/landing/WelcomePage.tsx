@@ -1,6 +1,6 @@
 import { Link, Navigate } from 'react-router-dom';
 import {
-  Sparkles, Search, MessageCircle, Award, Heart, MapPin, Star,
+  Sparkles, Search, MessageCircle, Award, MapPin, Star,
   Palette, Scissors, Music, Activity, Languages, Cpu, ChefHat,
   Sparkle as Drama, Camera, LayoutGrid,
 } from 'lucide-react';
@@ -96,9 +96,9 @@ function DemoOfertaCard({ card }: { card: typeof demoCards[number] }) {
   const Icon = fallbackCatIcons[card.catSlug] ?? cfg.icon;
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
-      <div className={`flex items-center justify-center ${cfg.bg} py-6`}>
-        <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${cfg.accent}`}>
-          <Icon className="h-6 w-6" />
+      <div className={`flex items-center justify-center ${cfg.bg} py-14`}>
+        <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${cfg.accent}`}>
+          <Icon className="h-7 w-7" />
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
@@ -219,25 +219,19 @@ export default function WelcomePage() {
             </div>
           </div>
 
-          {/* Right side — 4 cards grid */}
-          <div className="grid grid-cols-2 gap-4">
-            <DemoOfertaCard card={demoCards[0]} />
-            <DemoOfertaCard card={demoCards[1]} />
-            <DemoOfertaCard card={demoCards[2]} />
-
-            {/* Stat card with brand color */}
-            <div
-              className="flex flex-col justify-between rounded-xl p-5 text-white shadow-sm"
-              style={{ background: 'var(--brand-gradient)' }}
-            >
-              <Heart className="h-7 w-7" />
-              <div>
-                <p className="text-2xl font-bold leading-tight">+1,800</p>
-                <p className="mt-1 text-sm font-semibold">vinculaciones logradas</p>
-                <p className="mt-2 text-xs opacity-90">
-                  entre vecinos de todas las colonias de Juárez.
-                </p>
-              </div>
+          {/* Right side — stacked cards */}
+          <div className="relative mx-auto h-[560px] w-full max-w-md sm:h-[620px] lg:h-[640px] lg:max-w-none">
+            {/* Arriba — Cocina */}
+            <div className="absolute right-0 top-0 w-[58%] rotate-[2deg] drop-shadow-xl">
+              <DemoOfertaCard card={demoCards[0]} />
+            </div>
+            {/* Centro al frente — Tecnología */}
+            <div className="absolute left-0 top-[22%] z-10 w-[58%] -rotate-[3deg] drop-shadow-xl">
+              <DemoOfertaCard card={demoCards[1]} />
+            </div>
+            {/* Abajo — Idiomas */}
+            <div className="absolute bottom-0 right-0 w-[58%] rotate-[3deg] drop-shadow-xl">
+              <DemoOfertaCard card={demoCards[2]} />
             </div>
           </div>
         </section>
