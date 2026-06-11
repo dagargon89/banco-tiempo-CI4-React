@@ -6,7 +6,55 @@ import Button from '@/components/ui/Button';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import { useUsuarioDetalle } from '../hooks/useUsuarioDetalle';
 import { useDarBajaUsuario, useReactivarUsuario } from '../hooks/useUsuarioBaja';
+import { useAsignarRol, useRevocarRol, type Rol } from '../hooks/useRoles';
+import { useAuthStore } from '@/stores/authStore';
 import { toast, toastError } from '@/lib/toast';
+
+const ROLES_DISPONIBLES: { value: Rol; label: string; descripcion: string }[] = [
+  {
+    value: 'super_admin',
+    label: 'Super admin',
+    descripcion: 'Control total. Gestiona usuarios, roles, categorías y configuración del sistema. Solo para personas de máxima confianza.',
+  },
+  {
+    value: 'moderador',
+    label: 'Moderador',
+    descripcion: 'Acceso operativo amplio: modera ofertas, verifica identidades y atiende tickets. No toca configuración del sistema.',
+  },
+  {
+    value: 'soporte',
+    label: 'Soporte',
+    descripcion: 'Atención a usuarios vía tickets (lee, responde, escala). No verifica identidades ni modera ofertas.',
+  },
+  {
+    value: 'verificador',
+    label: 'Verificador',
+    descripcion: 'Aprueba o rechaza documentos de identidad. No interviene en tickets ni en moderación de ofertas.',
+  },
+  {
+    value: 'analista',
+    label: 'Analista',
+    descripcion: 'Acceso solo lectura: métricas, reportes y listados. No realiza acciones de moderación.',
+  },
+  {
+    value: 'editor_categorias',
+    label: 'Editor de categorías',
+    descripcion: 'Gestiona el catálogo de categorías (crear, editar, activar/desactivar). No administra usuarios ni contenido.',
+  },
+];
+
+const ROL_BADGE_VARIANT: Record<Rol, 'warning' | 'info' | 'success' | 'neutral'> = {
+  super_admin: 'warning',
+  moderador: 'info',
+  soporte: 'success',
+  verificador: 'success',
+  analista: 'neutral',
+  editor_categorias: 'neutral',
+};
+
+function rolLabel(r: Rol): string {
+  return ROLES_DISPONIBLES.find((x) => x.value === r)?.label ?? r;
+}
 
 interface Props {
   userId: number | null;
@@ -18,9 +66,37 @@ export default function UsuarioDetailDrawer({ userId, open, onClose }: Props) {
   const { data: user, isLoading } = useUsuarioDetalle(userId);
   const darBaja = useDarBajaUsuario();
   const reactivar = useReactivarUsuario();
+  const asignarRol = useAsignarRol();
+  const revocarRol = useRevocarRol();
+  const currentUser = useAuthStore((s) => s.user);
   const [showBajaConfirm, setShowBajaConfirm] = useState(false);
 
   const enBaja = user?.deleted_at != null;
+  const esSuperAdmin = currentUser?.roles.includes('super_admin') ?? false;
+  const userRoles = (user?.roles ?? []) as Rol[];
+
+  const handleAsignarRol = (rol: Rol) => {
+    if (!user) return;
+    asignarRol.mutate(
+      { id: user.id, rol },
+      {
+        onSuccess: () => toast.success(`Rol "${rol}" asignado.`),
+        onError: (err) => toastError(err, 'Error al asignar rol.'),
+      },
+    );
+  };
+
+  const handleRevocarRol = (rol: Rol) => {
+    if (!user) return;
+    if (!window.confirm(`¿Revocar el rol "${rol}" a ${user.nombre}?`)) return;
+    revocarRol.mutate(
+      { id: user.id, rol },
+      {
+        onSuccess: () => toast.success(`Rol "${rol}" revocado.`),
+        onError: (err) => toastError(err, 'Error al revocar rol.'),
+      },
+    );
+  };
 
   const handleBaja = ({ motivo }: { motivo?: string }) => {
     if (!user) return;
@@ -127,6 +203,69 @@ export default function UsuarioDetailDrawer({ userId, open, onClose }: Props) {
                   <p className="text-base font-semibold text-text-1">{user.counts.ofertas_pausadas_por_admin}</p>
                 </div>
               </div>
+            </div>
+
+            {/* Roles administrativos */}
+            <div>
+              <h4 className="mb-2 text-sm font-semibold text-text-1">Roles administrativos</h4>
+              {userRoles.length === 0 ? (
+                <p className="mb-3 text-xs italic text-text-3">Sin roles administrativos.</p>
+              ) : (
+                <div className="mb-3 flex flex-wrap gap-1.5">
+                  {userRoles.map((r) => (
+                    <Badge key={r} variant={ROL_BADGE_VARIANT[r] ?? 'neutral'}>
+                      {rolLabel(r)}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+
+              {esSuperAdmin && !enBaja && user.estado_cuenta === 'activa' && (
+                <div className="rounded-lg border border-border bg-surface-2 p-3">
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-text-3">Gestionar roles</p>
+                  <ul className="divide-y divide-border">
+                    {ROLES_DISPONIBLES.map(({ value, label, descripcion }) => {
+                      const tiene = userRoles.includes(value);
+                      const esYoMismoSuper = value === 'super_admin' && currentUser?.id === user.id;
+                      const busy = asignarRol.isPending || revocarRol.isPending;
+                      return (
+                        <li key={value} className="flex items-start justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
+                          <div className="min-w-0 flex-1">
+                            <p className="flex items-center gap-1.5 text-sm font-medium text-text-1">
+                              {label}
+                              {tiene && <Badge variant={ROL_BADGE_VARIANT[value] ?? 'neutral'}>Asignado</Badge>}
+                            </p>
+                            <p className="mt-0.5 text-xs leading-snug text-text-3">{descripcion}</p>
+                          </div>
+                          {tiene ? (
+                            <Button
+                              variant="danger"
+                              disabled={busy || esYoMismoSuper}
+                              onClick={() => handleRevocarRol(value)}
+                            >
+                              Quitar
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="secondary"
+                              disabled={busy}
+                              onClick={() => handleAsignarRol(value)}
+                            >
+                              Asignar
+                            </Button>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  {currentUser?.id === user.id && userRoles.includes('super_admin') && (
+                    <p className="mt-2 text-[11px] italic text-text-3">No puedes revocar tu propio rol super_admin.</p>
+                  )}
+                </div>
+              )}
+              {!esSuperAdmin && (
+                <p className="text-xs italic text-text-3">Solo super_admin puede modificar roles.</p>
+              )}
             </div>
           </div>
         )}

@@ -154,11 +154,124 @@ final class Usuarios extends Controller
             ];
         }
 
+        // Roles administrativos del usuario
+        $roles = $db->table('role_user ru')
+            ->select('r.nombre')
+            ->join('roles r', 'r.id = ru.role_id')
+            ->where('ru.user_id', $id)
+            ->get()
+            ->getResultArray();
+
         unset($user['baja_motivo'], $user['baja_por_user_id']);
         $user['baja']   = $baja;
         $user['counts'] = $counts;
+        $user['roles']  = array_column($roles, 'nombre');
 
         return $this->ok($user);
+    }
+
+    /** Roles que un super_admin puede asignar/revocar a otros usuarios. */
+    private const ASSIGNABLE_ROLES = [
+        'moderador', 'super_admin', 'soporte', 'verificador', 'analista', 'editor_categorias',
+    ];
+
+    /** POST /admin/usuarios/{id}/roles  body: {"rol":"moderador"|"super_admin"} */
+    public function asignarRol(int $id): ResponseInterface
+    {
+        $actorId = (int) $this->request->getHeaderLine('X-Auth-UserId');
+        $ip      = $this->request->getIPAddress();
+        $body    = $this->request->getJSON(true) ?? [];
+        $rol     = (string) ($body['rol'] ?? '');
+
+        if (! in_array($rol, self::ASSIGNABLE_ROLES, true)) {
+            return $this->unprocessable(['rol' => 'Rol inválido. Debe ser: ' . implode(' o ', self::ASSIGNABLE_ROLES) . '.']);
+        }
+
+        $userModel = model(UserModel::class);
+        $user      = $userModel->withDeleted()->find($id);
+        if ($user === null) {
+            return $this->notFound('Usuario no encontrado.');
+        }
+        if ($user['deleted_at'] !== null) {
+            return $this->conflict('No se puede asignar rol a un usuario dado de baja.');
+        }
+        if ($user['estado_cuenta'] !== 'activa') {
+            return $this->conflict('El usuario debe tener cuenta activa para recibir rol.');
+        }
+
+        $db        = \Config\Database::connect();
+        $rolRow    = $db->table('roles')->where('nombre', $rol)->get()->getRowArray();
+        if ($rolRow === null) {
+            return $this->fail("Rol '{$rol}' no configurado en el sistema.", 500);
+        }
+
+        $yaExiste = $db->table('role_user')
+            ->where('user_id', $id)->where('role_id', $rolRow['id'])
+            ->countAllResults() > 0;
+        if ($yaExiste) {
+            return $this->conflict('El usuario ya tiene este rol.');
+        }
+
+        $db->table('role_user')->insert(['user_id' => $id, 'role_id' => $rolRow['id']]);
+
+        model(AuditoriaModel::class)->registrar(
+            $actorId, 'admin_asignar_rol', 'users', $id, ['rol' => $rol], $ip,
+        );
+
+        return $this->created(['message' => "Rol '{$rol}' asignado.", 'rol' => $rol]);
+    }
+
+    /** DELETE /admin/usuarios/{id}/roles/{rol} */
+    public function revocarRol(int $id, string $rol): ResponseInterface
+    {
+        $actorId = (int) $this->request->getHeaderLine('X-Auth-UserId');
+        $ip      = $this->request->getIPAddress();
+
+        if (! in_array($rol, self::ASSIGNABLE_ROLES, true)) {
+            return $this->unprocessable(['rol' => 'Rol inválido.']);
+        }
+
+        // Salvaguarda: nadie debe poder quedarse sin super_admin.
+        if ($rol === 'super_admin' && $actorId === $id) {
+            return $this->forbidden('No puedes revocar tu propio rol super_admin.');
+        }
+
+        $db = \Config\Database::connect();
+        $rolRow = $db->table('roles')->where('nombre', $rol)->get()->getRowArray();
+        if ($rolRow === null) {
+            return $this->fail("Rol '{$rol}' no configurado en el sistema.", 500);
+        }
+
+        // Si es super_admin, asegurar que quede al menos un super_admin activo.
+        if ($rol === 'super_admin') {
+            $superAdminsRestantes = $db->table('role_user ru')
+                ->join('users u', 'u.id = ru.user_id')
+                ->where('ru.role_id', $rolRow['id'])
+                ->where('u.estado_cuenta', 'activa')
+                ->where('u.deleted_at IS NULL')
+                ->where('ru.user_id !=', $id)
+                ->countAllResults();
+            if ($superAdminsRestantes < 1) {
+                return $this->conflict('No se puede revocar el último super_admin activo.');
+            }
+        }
+
+        $tieneRol = $db->table('role_user')
+            ->where('user_id', $id)->where('role_id', $rolRow['id'])
+            ->countAllResults() > 0;
+        if (! $tieneRol) {
+            return $this->notFound('El usuario no tiene ese rol.');
+        }
+
+        $db->table('role_user')
+            ->where('user_id', $id)->where('role_id', $rolRow['id'])
+            ->delete();
+
+        model(AuditoriaModel::class)->registrar(
+            $actorId, 'admin_revocar_rol', 'users', $id, ['rol' => $rol], $ip,
+        );
+
+        return $this->ok(['message' => "Rol '{$rol}' revocado.", 'rol' => $rol]);
     }
 
     /** POST /admin/usuarios/{id}/baja */

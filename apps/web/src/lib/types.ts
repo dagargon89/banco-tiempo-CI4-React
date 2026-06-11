@@ -221,6 +221,7 @@ export interface AdminUsuarioDetalle extends AdminUsuario {
   genero: string | null;
   telefono: string | null;
   foto_perfil: string | null;
+  roles: string[];
   counts: {
     ofertas_activas: number;
     ofertas_pausadas_por_admin: number;

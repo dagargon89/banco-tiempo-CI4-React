@@ -89,6 +89,9 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1', 'filter' => '
             $routes->get('moderadores', 'Admin\Moderadores::index');
             $routes->post('moderadores', 'Admin\Moderadores::create');
             $routes->delete('moderadores/(:num)', 'Admin\Moderadores::delete/$1');
+            // Gestión general de roles (moderador y super_admin) desde el detalle del usuario
+            $routes->post('usuarios/(:num)/roles', 'Admin\Usuarios::asignarRol/$1');
+            $routes->delete('usuarios/(:num)/roles/(:segment)', 'Admin\Usuarios::revocarRol/$1/$2');
         });
     });
 });
