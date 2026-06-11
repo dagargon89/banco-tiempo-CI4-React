@@ -74,9 +74,7 @@ export default function Sidebar() {
     >
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent" aria-hidden="true">
-          <span className="text-sm font-bold text-white">BT</span>
-        </div>
+        <img src="/logo.png" alt="Participa Juárez" className="h-9 w-auto shrink-0" />
         <div className="min-w-0">
           <p className="truncate text-sm font-bold text-text-1">Banco de Tiempo</p>
           <p className="text-[10px] leading-tight text-text-3">Plan Juárez</p>

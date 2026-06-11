@@ -85,9 +85,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent">
-              <span className="text-sm font-bold text-white">BT</span>
-            </div>
+            <img src="/logo.png" alt="Participa Juárez" className="h-9 w-auto shrink-0" />
             <div>
               <p className="text-sm font-bold text-text-1">Banco de Tiempo</p>
               <p className="text-[10px] text-text-3">Plan Juarez</p>
