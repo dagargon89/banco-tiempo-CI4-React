@@ -3,17 +3,37 @@ import { Link, Navigate } from 'react-router-dom';
 import {
   Sparkles, Search, MessageCircle, Award, MapPin, Star,
   Palette, Scissors, Music, Activity, Languages, Cpu, ChefHat,
-  Sparkle as Drama, Camera, LayoutGrid,
+  Sparkle as Drama, Camera,
 } from 'lucide-react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfig } from '@/lib/categoryConfig';
 import type { Categoria } from '@/lib/types';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(SplitText, ScrollTrigger);
+
+// Mapeo de imágenes por slug (cámbialas si quieres otras).
+// Usa picsum.photos para que sean estables y consistentes sin claves.
+const CATEGORY_IMAGES: Record<string, string> = {
+  arte: 'https://picsum.photos/seed/arte/720/960',
+  manualidades: 'https://picsum.photos/seed/manualidades/720/960',
+  musica: 'https://picsum.photos/seed/musica/720/960',
+  deportes: 'https://picsum.photos/seed/deportes/720/960',
+  idiomas: 'https://picsum.photos/seed/idiomas/720/960',
+  tecnologia: 'https://picsum.photos/seed/tecnologia/720/960',
+  cocina: 'https://picsum.photos/seed/cocina/720/960',
+  danza: 'https://picsum.photos/seed/danza/720/960',
+  fotografia: 'https://picsum.photos/seed/fotografia/720/960',
+  otras: 'https://picsum.photos/seed/otras/720/960',
+};
+
+function imageForCategory(slug: string) {
+  return CATEGORY_IMAGES[slug] ?? `https://picsum.photos/seed/${slug}/720/960`;
+}
 
 // Cards demo del hero (estáticas, sirven para mostrar de qué va el sistema)
 const demoCards = [
@@ -71,17 +91,76 @@ const fallbackCatIcons: Record<string, typeof Palette> = {
   fotografia: Camera,
 };
 
-function CategoryTile({ cat }: { cat: Categoria }) {
+function CategoryCard({ cat }: { cat: Categoria }) {
   const cfg = getCategoryConfig(cat.slug);
   const Icon = fallbackCatIcons[cat.slug] ?? cfg.icon;
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-4 transition-shadow hover:shadow-md">
-      <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${cfg.accent}`}>
-        <Icon className="h-5 w-5" />
+    <article className="cat-card flex w-[78vw] max-w-[22rem] flex-shrink-0 snap-center flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-md sm:w-[20rem] md:w-[22rem]">
+      <div className="relative aspect-[3/4] overflow-hidden bg-surface-2">
+        <img
+          src={imageForCategory(cat.slug)}
+          alt={cat.nombre}
+          loading="lazy"
+          className="h-full w-full object-cover"
+        />
       </div>
-      <div>
-        <p className="text-sm font-semibold text-text-1">{cat.nombre}</p>
-        <p className="text-xs text-text-3">Categoría</p>
+      <div className="flex items-center gap-3 p-5">
+        <div className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl ${cfg.accent}`}>
+          <Icon className="h-6 w-6" />
+        </div>
+        <div className="min-w-0">
+          <p className="truncate text-base font-semibold text-text-1">{cat.nombre}</p>
+          <p className="text-xs text-text-3">Categoría</p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function HorizontalCategories({ categorias }: { categorias: Categoria[] }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const strip = stripRef.current;
+    if (!wrapper || !strip) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+      const getLength = () => Math.max(0, strip.scrollWidth - wrapper.clientWidth);
+
+      gsap.to(strip, {
+        x: () => `-${getLength()}px`,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: wrapper,
+          pin: true,
+          scrub: 0.5,
+          start: 'center center',
+          end: () => `+=${getLength()}`,
+          invalidateOnRefresh: true,
+        },
+      });
+    });
+
+    return () => mm.revert();
+  }, [categorias.length]);
+
+  return (
+    <div
+      ref={wrapperRef}
+      className="cat-gallery-wrapper relative -mx-4 overflow-x-auto md:mx-0 md:h-[80vh] md:overflow-hidden"
+    >
+      <div
+        ref={stripRef}
+        className="cat-gallery-strip flex flex-nowrap items-center gap-6 px-4 pb-2 md:h-full md:pb-0 md:[will-change:transform]"
+        style={{ scrollSnapType: 'x mandatory' }}
+      >
+        {categorias.map((cat) => (
+          <CategoryCard key={cat.id} cat={cat} />
+        ))}
       </div>
     </div>
   );
@@ -339,27 +418,20 @@ export default function WelcomePage() {
             Áreas de conocimiento que vecinos comparten cada semana.
           </p>
 
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <div className="mt-8">
             {catsLoading ? (
-              Array.from({ length: 10 }).map((_, i) => (
-                <div key={i} className="h-24 animate-pulse rounded-xl border border-border bg-surface-2" />
-              ))
-            ) : (
-              <>
-                {categorias?.filter((c) => c.activa).map((cat) => (
-                  <CategoryTile key={cat.id} cat={cat} />
+              <div className="flex gap-6 overflow-hidden">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="aspect-[3/4] w-[78vw] max-w-[22rem] flex-shrink-0 animate-pulse rounded-2xl border border-border bg-surface-2 sm:w-[20rem] md:w-[22rem]"
+                  />
                 ))}
-                {/* Tile genérica para "Otras" */}
-                <div className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-2 text-text-3">
-                    <LayoutGrid className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-text-1">Y muchas más</p>
-                    <p className="text-xs text-text-3">Regístrate para ver todas</p>
-                  </div>
-                </div>
-              </>
+              </div>
+            ) : (
+              <HorizontalCategories
+                categorias={(categorias ?? []).filter((c) => c.activa)}
+              />
             )}
           </div>
         </section>
