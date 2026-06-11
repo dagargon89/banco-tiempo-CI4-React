@@ -1,5 +1,6 @@
 import { type FormEvent, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
@@ -24,6 +25,13 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-bg px-4">
       <div className="w-full max-w-md">
+        <Link
+          to="/"
+          className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-text-2 transition-colors hover:text-text-1"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Volver al inicio
+        </Link>
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="font-display text-3xl font-bold text-accent">Banco de Tiempo</h1>

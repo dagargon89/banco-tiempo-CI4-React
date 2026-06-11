@@ -19,7 +19,7 @@ export default function ProtectedRoute({ requiredRoles, noLayout }: Props) {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   if (requiredRoles && requiredRoles.length > 0) {
