@@ -16,8 +16,8 @@ function applyTheme(theme: Theme) {
 }
 
 function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'system';
-  return (localStorage.getItem('theme') as Theme) ?? 'system';
+  if (typeof window === 'undefined') return 'light';
+  return (localStorage.getItem('theme') as Theme) ?? 'light';
 }
 
 export const useThemeStore = create<ThemeState>((set) => {
