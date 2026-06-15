@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Search, Plus, Shield, Bell, ChevronRight, LogOut, User } from 'lucide-react';
+import { Menu, Search, Plus, Shield, Bell, ChevronRight, LogOut, User, MessageCircle } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import { useAuthStore } from '@/stores/authStore';
+import ConversationsPopover from '@/features/chat/components/ConversationsPopover';
 
 function getContext(pathname: string): 'buscador' | 'oferente' | 'admin' {
   if (pathname.startsWith('/admin')) return 'admin';
@@ -66,16 +67,20 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
   // Accessible dropdown
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [mensajesOpen, setMensajesOpen] = useState(false);
+  const mensajesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenuOpen(false);
+      const target = e.target as Node;
+      if (menuRef.current && !menuRef.current.contains(target)) setMenuOpen(false);
+      if (mensajesRef.current && !mensajesRef.current.contains(target)) setMensajesOpen(false);
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  useEffect(() => { setMenuOpen(false); setMensajesOpen(false); }, [pathname]);
 
   return (
     <header className="flex h-14 items-center justify-between border-b border-border bg-surface px-4 sm:px-6">
@@ -148,6 +153,20 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
         {/* Theme toggle */}
         <div className="hidden sm:block">
           <ThemeToggle />
+        </div>
+
+        {/* Mensajes */}
+        <div className="relative" ref={mensajesRef}>
+          <button
+            onClick={() => setMensajesOpen((v) => !v)}
+            className="relative rounded-lg p-2 text-text-3 transition-colors duration-150 hover:bg-surface-2 hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+            aria-label="Mensajes"
+            aria-expanded={mensajesOpen}
+            aria-haspopup="true"
+          >
+            <MessageCircle className="h-4 w-4" />
+          </button>
+          <ConversationsPopover open={mensajesOpen} onClose={() => setMensajesOpen(false)} />
         </div>
 
         {/* Notifications */}
