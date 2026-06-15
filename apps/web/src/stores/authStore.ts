@@ -10,6 +10,7 @@ import {
 import { auth, googleProvider } from '@/lib/firebase';
 import { api } from '@/lib/api';
 import type { AuthUser } from '@/lib/types';
+import { useBubbleStore } from '@/stores/bubbleStore';
 
 interface AuthState {
   user: AuthUser | null;
@@ -111,6 +112,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   logout: async () => {
     await signOut(auth);
+    useBubbleStore.getState().cerrar();
     set({ user: null, firebaseUser: null });
   },
 
