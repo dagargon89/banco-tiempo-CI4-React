@@ -43,6 +43,9 @@ export const useChatStore = create<ChatState>((set) => ({
   },
 
   disconnect: async () => {
+    // Limpiar el store inmediatamente (síncrono) antes del await signOut,
+    // para que una reconexión posterior no sea sobreescrita por este set.
+    set({ isConnected: false, conversationId: null, error: null });
     try {
       const chatApp = getApp(CHAT_APP_NAME);
       const chatAuth = getAuth(chatApp);
@@ -51,6 +54,5 @@ export const useChatStore = create<ChatState>((set) => ({
     } catch {
       // App might not exist
     }
-    set({ isConnected: false, conversationId: null, error: null });
   },
 }));
