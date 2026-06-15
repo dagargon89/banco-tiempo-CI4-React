@@ -3,12 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <title>Banco de Tiempo · Participa Juárez</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/assets/index-sch5y-th.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BEgho8P6.css">
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var theme = stored || 'light';
+          var root = document.documentElement;
+          if (theme === 'light') root.classList.add('light');
+          else if (theme === 'dark') root.classList.add('dark');
+        } catch (e) {
+          document.documentElement.classList.add('light');
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-BG3i2hYK.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BaLY6SVH.css">
   </head>
   <body>
     <div id="root"></div>
