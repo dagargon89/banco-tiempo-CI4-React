@@ -1,6 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
+import { ExternalLink } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import UserName from '@/components/ui/UserName';
+import { useBubbleStore } from '@/stores/bubbleStore';
 import EstadoBadge from './components/EstadoBadge';
 import AccionesVinculacion from './components/AccionesVinculacion';
 import PanelConfirmacion from './components/PanelConfirmacion';
@@ -101,8 +103,29 @@ export default function VinculacionDetallePage() {
         <PanelConfirmacion vinculacion={vinculacion} />
 
         {/* Chat — visible en estado aceptada o completada */}
-        {(vinculacion.estado === 'aceptada' || vinculacion.estado === 'completada') && (
-          <ChatWindow vinculacionId={vinculacion.id} otroInactivo={otroInactivo} />
+        {(vinculacion.estado === 'aceptada' || vinculacion.estado === 'completada') && user && (
+          <div className="space-y-2">
+            <div className="flex justify-end">
+              <button
+                onClick={() => {
+                  const contraparte = Number(user.id) === Number(vinculacion.oferente_id)
+                    ? { id: vinculacion.buscador_id, nombre: vinculacion.buscador_nombre, foto: vinculacion.buscador_foto }
+                    : { id: vinculacion.oferente_id, nombre: vinculacion.oferente_nombre, foto: vinculacion.oferente_foto };
+                  useBubbleStore.getState().abrir({
+                    vinculacionId: vinculacion.id,
+                    contraparte,
+                    ofertaTitulo: vinculacion.oferta_titulo,
+                    otroInactivo,
+                  });
+                }}
+                className="flex items-center gap-1.5 rounded-md border border-border bg-surface-2 px-2.5 py-1 text-xs text-text-2 transition-colors hover:bg-surface hover:text-text-1"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+                Abrir en burbuja
+              </button>
+            </div>
+            <ChatWindow vinculacionId={vinculacion.id} otroInactivo={otroInactivo} />
+          </div>
         )}
 
         {/* Resena — visible en estado completada si el usuario aun no ha resenado esta vinculacion */}
