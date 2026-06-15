@@ -10,9 +10,10 @@ import EmptyState from '@/components/ui/EmptyState';
 interface Props {
   vinculacionId: number;
   otroInactivo?: boolean;
+  variant?: 'embedded' | 'bubble';
 }
 
-export default function ChatWindow({ vinculacionId, otroInactivo }: Props) {
+export default function ChatWindow({ vinculacionId, otroInactivo, variant = 'embedded' }: Props) {
   const user = useAuthStore((s) => s.user);
   const { isConnected, conversationId, error, connectToChat, disconnect } = useChatStore();
   const chatToken = useChatToken();
@@ -71,18 +72,26 @@ export default function ChatWindow({ vinculacionId, otroInactivo }: Props) {
   }
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface">
+    <div
+      className={
+        variant === 'bubble'
+          ? 'flex h-full flex-col overflow-hidden bg-surface'
+          : 'flex flex-col overflow-hidden rounded-xl border border-border bg-surface'
+      }
+    >
       {/* Header */}
-      <div className="flex items-center gap-2 border-b border-border bg-surface-2 px-4 py-3">
-        <MessageCircle className="h-4 w-4 text-accent" />
-        <h3 className="text-sm font-semibold text-text-1">Chat</h3>
-        {isConnected && (
-          <span className="ml-auto flex items-center gap-1.5 text-xs text-success">
-            <span className="h-2 w-2 rounded-full bg-success" />
-            Conectado
-          </span>
-        )}
-      </div>
+      {variant !== 'bubble' && (
+        <div className="flex items-center gap-2 border-b border-border bg-surface-2 px-4 py-3">
+          <MessageCircle className="h-4 w-4 text-accent" />
+          <h3 className="text-sm font-semibold text-text-1">Chat</h3>
+          {isConnected && (
+            <span className="ml-auto flex items-center gap-1.5 text-xs text-success">
+              <span className="h-2 w-2 rounded-full bg-success" />
+              Conectado
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Listener error */}
       {listenerError && (
@@ -92,7 +101,13 @@ export default function ChatWindow({ vinculacionId, otroInactivo }: Props) {
       )}
 
       {/* Messages */}
-      <div className="flex max-h-96 min-h-[200px] flex-col gap-2 overflow-y-auto p-4">
+      <div
+        className={
+          variant === 'bubble'
+            ? 'flex flex-1 flex-col gap-2 overflow-y-auto p-4'
+            : 'flex max-h-96 min-h-[200px] flex-col gap-2 overflow-y-auto p-4'
+        }
+      >
         {messagesLoading ? (
           <div className="flex flex-1 items-center justify-center">
             <div className="h-5 w-5 animate-spin rounded-full border-2 border-accent border-t-transparent" />

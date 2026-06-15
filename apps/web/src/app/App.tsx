@@ -27,6 +27,7 @@ import VinculacionDetallePage from '@/features/vinculaciones/VinculacionDetalleP
 import MensajesPage from '@/features/chat/MensajesPage';
 import AvisoPrivacidadPage from '@/features/legal/AvisoPrivacidadPage';
 import WelcomePage from '@/features/landing/WelcomePage';
+import ChatBubble from '@/features/chat/components/ChatBubble';
 
 export default function App() {
   const init = useAuthStore((s) => s.init);
@@ -37,6 +38,7 @@ export default function App() {
   }, [init]);
 
   return (
+    <>
     <Routes>
       {/* Landing pública */}
       <Route path="/" element={<WelcomePage />} />
@@ -90,5 +92,7 @@ export default function App() {
         </Route>
       </Route>
     </Routes>
+    <ChatBubble />
+    </>
   );
 }

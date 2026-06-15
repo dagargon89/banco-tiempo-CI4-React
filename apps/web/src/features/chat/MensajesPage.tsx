@@ -5,10 +5,12 @@ import EstadoBadge from '@/features/vinculaciones/components/EstadoBadge';
 import EmptyState from '@/components/ui/EmptyState';
 import { useListarVinculaciones } from '@/features/vinculaciones/hooks/useVinculaciones';
 import { useAuthStore } from '@/stores/authStore';
+import { useBubbleStore } from '@/stores/bubbleStore';
 import type { VinculacionCard } from '@/lib/types';
 
 export default function MensajesPage() {
   const user = useAuthStore((s) => s.user);
+  const abrirBurbuja = useBubbleStore((s) => s.abrir);
 
   const { data: aceptadas, isLoading: loadingA } = useListarVinculaciones({
     estado: 'aceptada',
@@ -33,6 +35,8 @@ export default function MensajesPage() {
     );
   }
 
+  const isInactivo = (v: unknown): boolean => v === true || v === 1 || v === '1';
+
   return (
     <div className="mx-auto max-w-3xl">
       <h1 className="mb-6 font-display text-xl font-bold text-text-1">Mensajes</h1>
@@ -46,26 +50,40 @@ export default function MensajesPage() {
       ) : (
         <div className="space-y-3">
           {vinculaciones.map((v) => {
-            const contraparte =
-              user?.id === v.buscador_id
-                ? { nombre: v.oferente_nombre, foto: v.oferente_foto }
-                : { nombre: v.buscador_nombre, foto: v.buscador_foto };
+            const esBuscador = user?.id === v.buscador_id;
+            const contraparte = esBuscador
+              ? { id: v.oferente_id, nombre: v.oferente_nombre, foto: v.oferente_foto }
+              : { id: v.buscador_id, nombre: v.buscador_nombre, foto: v.buscador_foto };
+            const otroInactivo = esBuscador
+              ? isInactivo(v.oferente_inactivo)
+              : isInactivo(v.buscador_inactivo);
 
             return (
-              <Link
+              <div
                 key={v.id}
-                to={`/vinculaciones/${v.id}`}
-                className="flex items-center gap-4 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/30"
+                className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/30"
               >
-                <Avatar src={contraparte.foto} nombre={contraparte.nombre} size="md" />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-text-1">
-                    {contraparte.nombre}
-                  </p>
-                  <p className="truncate text-xs text-text-3">{v.oferta_titulo}</p>
-                </div>
+                <Link to={`/vinculaciones/${v.id}`} className="flex min-w-0 flex-1 items-center gap-4">
+                  <Avatar src={contraparte.foto} nombre={contraparte.nombre} size="md" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-semibold text-text-1">{contraparte.nombre}</p>
+                    <p className="truncate text-xs text-text-3">{v.oferta_titulo}</p>
+                  </div>
+                </Link>
                 <EstadoBadge estado={v.estado} />
-              </Link>
+                <button
+                  onClick={() => abrirBurbuja({
+                    vinculacionId: v.id,
+                    contraparte,
+                    ofertaTitulo: v.oferta_titulo,
+                    otroInactivo,
+                  })}
+                  aria-label={`Chatear con ${contraparte.nombre}`}
+                  className="rounded-md p-2 text-text-3 transition-colors hover:bg-surface-2 hover:text-accent"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                </button>
+              </div>
             );
           })}
         </div>
