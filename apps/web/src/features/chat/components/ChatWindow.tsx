@@ -27,22 +27,28 @@ export default function ChatWindow({ vinculacionId, otroInactivo, variant = 'emb
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const connectingRef = useRef(false);
 
-  // Conectar al montar
+  // Conectar al montar o al cambiar de vinculación.
+  // Usamos un flag `cancelled` (no el closure de isConnected) para que el cleanup
+  // pueda invalidar la conexión en vuelo sin depender de estado capturado stale.
   useEffect(() => {
-    if (!isConnected && !chatToken.isPending && !connectingRef.current) {
-      connectingRef.current = true;
-      chatToken.mutate(vinculacionId, {
-        onSuccess: async (data) => {
-          await connectToChat(data.firebase_custom_token, data.conversation_id);
+    let cancelled = false;
+    connectingRef.current = true;
+    chatToken.mutate(vinculacionId, {
+      onSuccess: async (data) => {
+        if (cancelled) {
           connectingRef.current = false;
-        },
-        onError: () => {
-          connectingRef.current = false;
-        },
-      });
-    }
+          return;
+        }
+        await connectToChat(data.firebase_custom_token, data.conversation_id);
+        if (!cancelled) connectingRef.current = false;
+      },
+      onError: () => {
+        connectingRef.current = false;
+      },
+    });
 
     return () => {
+      cancelled = true;
       disconnect();
       connectingRef.current = false;
     };
