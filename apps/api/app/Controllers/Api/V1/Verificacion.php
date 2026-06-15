@@ -61,6 +61,9 @@ final class Verificacion extends Controller
             return $this->conflict($e->getMessage());
         } catch (\InvalidArgumentException $e) {
             return $this->unprocessable(['validation' => $e->getMessage()]);
+        } catch (\Throwable $e) {
+            log_message('error', 'Verificacion::registrar — ' . get_class($e) . ': ' . $e->getMessage());
+            return $this->fail('Error al procesar el documento. Inténtalo de nuevo.', 500);
         }
     }
 
