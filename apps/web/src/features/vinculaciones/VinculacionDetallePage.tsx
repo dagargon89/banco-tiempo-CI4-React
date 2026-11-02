@@ -1,9 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-import { ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import UserName from '@/components/ui/UserName';
+import PageHeader from '@/components/ui/PageHeader';
 import { useBubbleStore } from '@/stores/bubbleStore';
-import EstadoBadge from './components/EstadoBadge';
 import AccionesVinculacion from './components/AccionesVinculacion';
 import PanelConfirmacion from './components/PanelConfirmacion';
 import ChatWindow from '@/features/chat/components/ChatWindow';
@@ -12,136 +12,149 @@ import { useVinculacionDetalle } from './hooks/useVinculaciones';
 import { useResenasDeUsuario } from '@/features/resenas/hooks/useResenas';
 import { useAuthStore } from '@/stores/authStore';
 import { DetalleSkeleton } from '@/components/ui/Skeleton';
+import { contraparte, etiquetaEstado, papelEn } from '@/lib/intercambio';
+
+const PASOS = ['Pedido', 'En curso', 'Terminado'] as const;
+
+function pasoActual(estado: string): number {
+  if (estado === 'solicitada') return 0;
+  if (estado === 'aceptada') return 1;
+  return 2;
+}
 
 export default function VinculacionDetallePage() {
   const { id } = useParams<{ id: string }>();
   const user = useAuthStore((s) => s.user);
-  const { data: vinculacion, isLoading } = useVinculacionDetalle(id!);
+  const { data: v, isLoading } = useVinculacionDetalle(id!);
   const { data: resenasData } = useResenasDeUsuario(user?.id);
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-5xl">
         <DetalleSkeleton />
       </div>
     );
   }
 
-  if (!vinculacion) {
-    return <p className="text-center text-text-2">Vinculación no encontrada.</p>;
+  if (!v || !user) {
+    return <p className="text-center text-text-2">No encontramos este intercambio.</p>;
   }
 
-  const isInactivo = (v: unknown): boolean => v === true || v === 1 || v === '1';
-  const oferenteInactivo = isInactivo(vinculacion.oferente_inactivo);
-  const buscadorInactivo = isInactivo(vinculacion.buscador_inactivo);
-  const otroInactivo = user
-    ? (Number(user.id) === Number(vinculacion.oferente_id) ? buscadorInactivo : oferenteInactivo)
-    : false;
+  const papel = papelEn(v, user.id);
+  const otro = contraparte(v, papel);
+  const isFlag = (x: unknown): boolean => x === true || x === 1 || x === '1';
+  const otroInactivo = isFlag(otro.inactivo);
+  const cerrado = v.estado === 'rechazada' || v.estado === 'cancelada';
+  const paso = pasoActual(v.estado);
+  const conChat = v.estado === 'aceptada' || v.estado === 'completada';
+  const yaReseno = (resenasData?.data ?? []).some((r) => r.vinculacion_id === v.id && r.autor_id === user.id);
+  const volver = papel === 'ensenando' ? { to: '/ensenando', label: 'Enseñando' } : { to: '/aprendiendo', label: 'Aprendiendo' };
+
+  const abrirBurbuja = () => {
+    const c = papel === 'ensenando'
+      ? { id: v.buscador_id, nombre: v.buscador_nombre, foto: v.buscador_foto }
+      : { id: v.oferente_id, nombre: v.oferente_nombre, foto: v.oferente_foto };
+    useBubbleStore.getState().abrir({ vinculacionId: v.id, contraparte: c, ofertaTitulo: v.oferta_titulo, otroInactivo });
+  };
 
   return (
-    <div className="mx-auto max-w-3xl">
-      {/* Breadcrumb */}
-      <nav className="mb-4 text-sm text-text-3">
-        <Link to="/vinculaciones" className="hover:text-accent">Vinculaciones</Link>
-        <span className="mx-2">&gt;</span>
-        <span className="text-text-2">Detalle</span>
-      </nav>
+    <div className="mx-auto max-w-5xl">
+      <PageHeader
+        eyebrow={
+          <Link to={volver.to} className="inline-flex items-center gap-1.5 text-sm text-text-2 hover:text-text-1">
+            <ArrowLeft className="h-4 w-4" aria-hidden /> {volver.label}
+          </Link>
+        }
+        title={v.oferta_titulo}
+        subtitle={
+          <>
+            {papel === 'ensenando' ? 'Enseñas a ' : 'Aprendes con '}
+            <span className="text-text-1"><UserName nombre={otro.nombre} inactivo={otro.inactivo} /></span>.{' '}
+            <Link to={`/ofertas/${v.oferta_id}`} className="text-accent hover:underline">Ver la oferta</Link>
+          </>
+        }
+      />
 
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h1 className="font-display text-xl font-bold text-text-1">{vinculacion.oferta_titulo}</h1>
-            <Link to={`/ofertas/${vinculacion.oferta_id}`} className="text-sm text-accent hover:underline">
-              Ver oferta
-            </Link>
-          </div>
-          <EstadoBadge estado={vinculacion.estado} />
+      {/* Avance: es una secuencia real, por eso va numerado */}
+      {cerrado ? (
+        <p className="mb-8 rounded-2xl border border-border bg-surface-2 px-5 py-4 text-text-2">
+          {etiquetaEstado(v.estado, papel)}. Este intercambio ya no sigue.
+        </p>
+      ) : (
+        <ol className="mb-8 grid grid-cols-3 gap-2" aria-label="Avance del intercambio">
+          {PASOS.map((nombre, i) => {
+            const hecho = i < paso || (i === 2 && v.estado === 'completada');
+            const actual = i === paso && v.estado !== 'completada';
+            return (
+              <li key={nombre} aria-current={actual ? 'step' : undefined}>
+                <div className={`h-1.5 rounded-full ${hecho || actual ? 'bg-accent' : 'bg-border'}`} />
+                <p className={`mt-2 text-sm ${actual ? 'font-medium text-text-1' : 'text-text-2'}`}>
+                  {i + 1}. {nombre}
+                </p>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+
+      {otroInactivo && (
+        <div className="mb-6 rounded-2xl border border-warning/30 bg-warning/5 p-4 text-sm text-warning">
+          La cuenta de {otro.nombre.split(' ')[0]} fue dada de baja. Este intercambio no puede avanzar.
         </div>
+      )}
 
-        {/* Participantes */}
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4">
-            <Avatar src={vinculacion.oferente_foto} nombre={vinculacion.oferente_nombre} size="md" />
-            <div>
-              <p className="text-sm font-semibold text-text-1">
-                <UserName nombre={vinculacion.oferente_nombre} inactivo={vinculacion.oferente_inactivo} />
-              </p>
-              <p className="text-xs text-text-3">Oferente</p>
+      <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="min-w-0 space-y-6">
+          {conChat ? (
+            <section>
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <h2 className="font-display text-xl font-medium text-text-1">Mensajes</h2>
+                <button
+                  onClick={abrirBurbuja}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-text-2 hover:text-text-1"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" aria-hidden /> Abrir en ventana flotante
+                </button>
+              </div>
+              <ChatWindow vinculacionId={v.id} otroInactivo={otroInactivo} />
+            </section>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-border-strong p-6 text-text-2">
+              {v.estado === 'solicitada'
+                ? papel === 'ensenando'
+                  ? `${otro.nombre.split(' ')[0]} quiere aprender esto contigo. Si aceptas, se abre un chat para que se pongan de acuerdo.`
+                  : `Le avisamos a ${otro.nombre.split(' ')[0]}. Cuando acepte, aquí se abre el chat.`
+                : 'El chat se cerró porque el intercambio no siguió.'}
             </div>
-          </div>
-          <div className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4">
-            <Avatar src={vinculacion.buscador_foto} nombre={vinculacion.buscador_nombre} size="md" />
-            <div>
-              <p className="text-sm font-semibold text-text-1">
-                <UserName nombre={vinculacion.buscador_nombre} inactivo={vinculacion.buscador_inactivo} />
-              </p>
-              <p className="text-xs text-text-3">Buscador</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Fechas */}
-        <div className="flex flex-wrap gap-4 text-xs text-text-3">
-          <span>Creada: {new Date(vinculacion.created_at).toLocaleDateString('es-MX')}</span>
-          {vinculacion.aceptada_at && (
-            <span>Aceptada: {new Date(vinculacion.aceptada_at).toLocaleDateString('es-MX')}</span>
           )}
-          {vinculacion.completada_at && (
-            <span>Completada: {new Date(vinculacion.completada_at).toLocaleDateString('es-MX')}</span>
-          )}
+
+          {v.estado === 'completada' && !yaReseno && <ResenaForm vinculacionId={v.id} />}
         </div>
 
-        {/* Banner inactivo */}
-        {(oferenteInactivo || buscadorInactivo) && (
-          <div className="rounded-lg border border-warning/30 bg-warning/5 p-4 text-sm text-warning">
-            Uno de los participantes fue dado de baja. No es posible avanzar esta vinculación.
-          </div>
-        )}
-
-        {/* Panel de confirmacion */}
-        <PanelConfirmacion vinculacion={vinculacion} />
-
-        {/* Chat — visible en estado aceptada o completada */}
-        {(vinculacion.estado === 'aceptada' || vinculacion.estado === 'completada') && user && (
-          <div className="space-y-2">
-            <div className="flex justify-end">
-              <button
-                onClick={() => {
-                  const contraparte = Number(user.id) === Number(vinculacion.oferente_id)
-                    ? { id: vinculacion.buscador_id, nombre: vinculacion.buscador_nombre, foto: vinculacion.buscador_foto }
-                    : { id: vinculacion.oferente_id, nombre: vinculacion.oferente_nombre, foto: vinculacion.oferente_foto };
-                  useBubbleStore.getState().abrir({
-                    vinculacionId: vinculacion.id,
-                    contraparte,
-                    ofertaTitulo: vinculacion.oferta_titulo,
-                    otroInactivo,
-                  });
-                }}
-                className="flex items-center gap-1.5 rounded-md border border-border bg-surface-2 px-2.5 py-1 text-xs text-text-2 transition-colors hover:bg-surface hover:text-text-1"
-              >
-                <ExternalLink className="h-3.5 w-3.5" />
-                Abrir en burbuja
-              </button>
+        <aside className="space-y-4 md:sticky md:top-20 md:self-start">
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <div className="flex items-center gap-3">
+              <Avatar src={otro.foto} nombre={otro.nombre} size="lg" />
+              <div className="min-w-0">
+                <p className="text-sm text-text-2">{papel === 'ensenando' ? 'Aprende contigo' : 'Te enseña'}</p>
+                <p className="truncate font-medium text-text-1"><UserName nombre={otro.nombre} inactivo={otro.inactivo} /></p>
+              </div>
             </div>
-            <ChatWindow vinculacionId={vinculacion.id} otroInactivo={otroInactivo} />
+            <dl className="mt-4 space-y-1 border-t border-border pt-4 text-sm">
+              <div className="flex justify-between gap-2"><dt className="text-text-2">Pedido</dt><dd className="text-text-1">{new Date(v.created_at).toLocaleDateString('es-MX')}</dd></div>
+              {v.aceptada_at && <div className="flex justify-between gap-2"><dt className="text-text-2">Aceptado</dt><dd className="text-text-1">{new Date(v.aceptada_at).toLocaleDateString('es-MX')}</dd></div>}
+              {v.completada_at && <div className="flex justify-between gap-2"><dt className="text-text-2">Terminado</dt><dd className="text-text-1">{new Date(v.completada_at).toLocaleDateString('es-MX')}</dd></div>}
+            </dl>
           </div>
-        )}
 
-        {/* Resena — visible en estado completada si el usuario aun no ha resenado esta vinculacion */}
-        {vinculacion.estado === 'completada' && user && (() => {
-          const yaReseno = (resenasData?.data ?? []).some(
-            (r) => r.vinculacion_id === vinculacion.id && r.autor_id === user.id,
-          );
-          return !yaReseno ? <ResenaForm vinculacionId={vinculacion.id} /> : null;
-        })()}
+          <PanelConfirmacion vinculacion={v} papel={papel} />
 
-        {/* Acciones */}
-        {user && (
-          <div className="border-t border-border pt-4">
-            <AccionesVinculacion vinculacion={vinculacion} userId={user.id} />
-          </div>
-        )}
+          {!cerrado && v.estado !== 'completada' && (
+            <div className="rounded-2xl border border-border bg-surface p-4">
+              <AccionesVinculacion vinculacion={v} userId={user.id} />
+            </div>
+          )}
+        </aside>
       </div>
     </div>
   );

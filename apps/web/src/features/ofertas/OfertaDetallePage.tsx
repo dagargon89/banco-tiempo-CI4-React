@@ -53,7 +53,7 @@ export default function OfertaDetallePage() {
       onSuccess: () => {
         if (estado === 'eliminada') {
           toast.info('Oferta eliminada');
-          navigate('/mis-ofertas');
+          navigate('/ensenando');
         } else if (estado === 'pausada') {
           toast.info('Oferta pausada');
         } else if (estado === 'activa') {
@@ -67,7 +67,7 @@ export default function OfertaDetallePage() {
   const handleMarcarInteres = () => {
     if (!oferta) return;
     marcarInteres.mutate(oferta.id, {
-      onSuccess: () => toast.success('Interés registrado. Pronto el oferente verá tu solicitud.'),
+      onSuccess: () => toast.success('Listo. Le avisamos y verás su respuesta en Aprendiendo.'),
       onError: (err) => toastError(err, 'Error al registrar interés.'),
     });
   };
@@ -135,7 +135,7 @@ export default function OfertaDetallePage() {
               </span>
               {cat?.nombre ?? 'Oferta'}
             </p>
-            <h1 className="mt-3 font-display text-3xl font-bold leading-tight text-text-1 sm:text-4xl">{oferta.titulo}</h1>
+            <h1 className="mt-3 font-display text-[34px] font-medium leading-[1.05] tracking-[-0.02em] text-text-1 sm:text-[44px]">{oferta.titulo}</h1>
             <p className="mt-3 max-w-prose text-lg text-text-2">{oferta.descripcion_breve}</p>
             {esDueno && (
               <div className="mt-4">

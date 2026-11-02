@@ -9,8 +9,9 @@ interface VinculacionFiltros {
   per_page?: number;
 }
 
-export function useListarVinculaciones(filtros: VinculacionFiltros) {
+export function useListarVinculaciones(filtros: VinculacionFiltros, opciones: { enabled?: boolean } = {}) {
   return useQuery({
+    enabled: opciones.enabled ?? true,
     queryKey: ['vinculaciones', filtros],
     queryFn: async () => {
       const params = new URLSearchParams();

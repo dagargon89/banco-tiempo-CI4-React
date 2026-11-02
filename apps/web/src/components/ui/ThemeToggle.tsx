@@ -12,7 +12,7 @@ export default function ThemeToggle({ hideSystem = false }: { hideSystem?: boole
   const options = hideSystem ? allOptions.filter((o) => o.value !== 'system') : allOptions;
 
   return (
-    <div className="flex items-center rounded-lg border border-border bg-surface-2 p-0.5" role="radiogroup" aria-label="Tema">
+    <div className="flex items-center rounded-full border border-border bg-surface-2 p-0.5" role="radiogroup" aria-label="Tema">
       {options.map(({ value, icon: Icon, label }) => (
         <button
           key={value}
@@ -20,7 +20,7 @@ export default function ThemeToggle({ hideSystem = false }: { hideSystem?: boole
           aria-checked={theme === value}
           aria-label={label}
           onClick={() => setTheme(value)}
-          className={`rounded-md p-1.5 transition-colors ${
+          className={`rounded-full p-1.5 transition-colors ${
             theme === value ? 'bg-surface text-text-1 shadow-sm' : 'text-text-3 hover:text-text-2'
           }`}
         >

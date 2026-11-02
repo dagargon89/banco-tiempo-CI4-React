@@ -7,6 +7,7 @@ import Skeleton from '@/components/ui/Skeleton';
 import VerificacionReviewPanel from './components/VerificacionReviewPanel';
 import { useVerificacionesPendientes } from './hooks/useAdminVerificaciones';
 import type { VerificacionPendiente } from '@/lib/types';
+import PageHeader from '@/components/ui/PageHeader';
 
 interface GroupedUser {
   userId: number;
@@ -63,7 +64,7 @@ export default function AdminVerificacionesPage() {
   if (isLoading) {
     return (
       <>
-        <h1 className="mb-6 text-2xl font-bold text-text-1">Cola de verificaciones</h1>
+        <PageHeader title="Verificaciones" subtitle="Documentos de identidad esperando revisión." />
         <div className="flex flex-col gap-4 lg:flex-row">
           <div className="shrink-0 space-y-2 lg:w-80">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -87,7 +88,7 @@ export default function AdminVerificacionesPage() {
   if (grouped.length === 0) {
     return (
       <>
-        <h1 className="mb-6 text-2xl font-bold text-text-1">Cola de verificaciones</h1>
+        <PageHeader title="Verificaciones" subtitle="Documentos de identidad esperando revisión." />
         <EmptyState
           icon={<ShieldCheck className="h-10 w-10" />}
           title="No hay verificaciones pendientes"
@@ -100,8 +101,8 @@ export default function AdminVerificacionesPage() {
   return (
     <>
       {/* Header with counter */}
-      <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text-1">Cola de verificaciones</h1>
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-3 pt-2">
+        <h1 className="font-display text-[34px] font-medium tracking-[-0.02em] text-text-1 sm:text-[44px]">Verificaciones</h1>
         <div className="flex items-center gap-3 text-sm">
           <Badge variant="warning">{grouped.length} pendientes</Badge>
           {urgentCount > 0 && (

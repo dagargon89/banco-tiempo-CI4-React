@@ -9,6 +9,7 @@ import { useOfertaDetalle, useActualizarOferta } from './hooks/useOfertas';
 import { toast, toastError } from '@/lib/toast';
 import Skeleton from '@/components/ui/Skeleton';
 import type { Modalidad, TipoCapacidad } from '@/lib/types';
+import PageHeader from '@/components/ui/PageHeader';
 
 export default function EditarOfertaPage() {
   const { id } = useParams<{ id: string }>();
@@ -104,7 +105,7 @@ export default function EditarOfertaPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Editar oferta</h1>
+      <PageHeader title="Editar oferta" />
 
       <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-surface p-6">
         <Input label="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={140} required />

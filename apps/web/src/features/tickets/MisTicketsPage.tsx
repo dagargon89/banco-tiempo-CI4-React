@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { LifeBuoy, Plus } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
 import EmptyState from '@/components/ui/EmptyState';
 import { TicketCardSkeleton } from '@/components/ui/Skeleton';
 import Paginacion from '@/features/ofertas/components/Paginacion';
@@ -10,6 +8,8 @@ import TicketEstadoBadge from '@/features/admin/components/TicketEstadoBadge';
 import { useMisTickets } from './hooks/useTickets';
 import type { Ticket } from '@/lib/types';
 import { etiqueta, TIPO_TICKET } from '@/lib/etiquetas';
+import PageHeader from '@/components/ui/PageHeader';
+import PillLink from '@/components/ui/PillLink';
 
 export default function MisTicketsPage() {
   const [page, setPage] = useState(1);
@@ -20,15 +20,15 @@ export default function MisTicketsPage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="font-display text-xl font-bold text-text-1">Mis tickets de soporte</h1>
-        <Link to="/tickets/crear">
-          <Button>
-            <Plus className="mr-1.5 h-4 w-4" />
-            Crear ticket
-          </Button>
-        </Link>
-      </div>
+      <PageHeader
+        title="Soporte"
+        subtitle="Reporta un problema o sugiere una mejora. Aquí ves la respuesta del equipo."
+        actions={
+          <PillLink to="/tickets/crear">
+            <Plus className="h-4 w-4" aria-hidden /> Nuevo ticket
+          </PillLink>
+        }
+      />
 
       {isLoading ? (
         <div className="space-y-3">

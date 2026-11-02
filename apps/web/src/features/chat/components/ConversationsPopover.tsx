@@ -48,7 +48,7 @@ export default function ConversationsPopover({ open, onClose }: Props) {
             <EmptyState
               icon={<MessageCircle className="h-8 w-8" />}
               title="Sin conversaciones"
-              subtitle="Las conversaciones aparecen cuando una vinculación es aceptada"
+              subtitle="Cuando alguien acepte un intercambio contigo, la conversación aparece aquí."
             />
           </div>
         ) : (

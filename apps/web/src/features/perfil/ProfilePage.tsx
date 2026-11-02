@@ -164,7 +164,7 @@ export default function ProfilePage() {
               <Avatar src={user.foto_perfil} nombre={user.nombre} size="xl" />
               <div className="mb-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="font-display text-2xl font-bold text-text-1">{user.nombre}</h1>
+                  <h1 className="font-display text-3xl font-medium tracking-[-0.02em] text-text-1">{user.nombre}</h1>
                   {user.pronombres && (
                     <span className="rounded-pill bg-surface-2 px-2 py-0.5 text-[11px] font-medium text-text-2">
                       {user.pronombres}

@@ -7,6 +7,7 @@ import {
 import { StatCardSkeleton } from '@/components/ui/Skeleton';
 import { useMetricas } from './hooks/useAdminMetricas';
 import { etiqueta, ESTADO_VINCULACION } from '@/lib/etiquetas';
+import PageHeader from '@/components/ui/PageHeader';
 
 function StatCard({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string | number }) {
   return (
@@ -41,7 +42,7 @@ export default function AdminMetricasPage() {
   if (isLoading || !metricas) {
     return (
       <>
-        <h1 className="mb-6 font-display text-xl font-bold text-text-1">Métricas</h1>
+        <PageHeader title="Métricas" subtitle="Cómo se usa el Banco de Tiempo." />
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />)}
         </div>
@@ -78,7 +79,7 @@ export default function AdminMetricasPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Métricas</h1>
+      <PageHeader title="Métricas" subtitle="Cómo se usa el Banco de Tiempo." />
 
       {/* Top stats */}
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">

@@ -11,6 +11,7 @@ import { toast, toastError } from '@/lib/toast';
 import { useUrlFilters } from '@/lib/urlFilters';
 import OfertaDetailDrawer from './components/OfertaDetailDrawer';
 import { etiqueta, ESTADO_OFERTA } from '@/lib/etiquetas';
+import PageHeader from '@/components/ui/PageHeader';
 
 interface AdminOferta {
   id: number;
@@ -91,7 +92,7 @@ export default function AdminOfertasPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Moderación de ofertas</h1>
+      <PageHeader title="Ofertas" subtitle="Revisa, pausa o retira ofertas publicadas." />
 
       <div className="mb-4 flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">

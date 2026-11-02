@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { useCrearTicket } from './hooks/useTickets';
 import { toast, toastError } from '@/lib/toast';
+import PageHeader from '@/components/ui/PageHeader';
 
 export default function TicketCrearPage() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function TicketCrearPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Crear ticket de soporte</h1>
+      <PageHeader title="Nuevo ticket" subtitle="Cuéntanos qué pasó o qué mejorarías." />
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="flex flex-col gap-1.5">

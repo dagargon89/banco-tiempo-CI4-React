@@ -12,6 +12,7 @@ import { toast, toastError } from '@/lib/toast';
 import { useUrlFilters } from '@/lib/urlFilters';
 import type { Ticket } from '@/lib/types';
 import { etiqueta, TIPO_TICKET } from '@/lib/etiquetas';
+import PageHeader from '@/components/ui/PageHeader';
 
 export default function AdminTicketsPage() {
   const { searchParams, setFilter, setPage } = useUrlFilters();
@@ -78,7 +79,7 @@ export default function AdminTicketsPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestión de tickets</h1>
+      <PageHeader title="Tickets" subtitle="Reportes y sugerencias de la comunidad." />
 
       <div className="mb-4 flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">

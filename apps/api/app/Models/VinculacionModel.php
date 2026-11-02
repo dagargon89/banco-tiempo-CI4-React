@@ -67,7 +67,13 @@ final class VinculacionModel extends Model
         }
 
         if ($estado !== null && $estado !== '') {
-            $builder->where('v.estado', $estado);
+            // Acepta uno o varios estados separados por coma ("completada,cancelada").
+            $validos = ['solicitada', 'aceptada', 'rechazada', 'completada', 'cancelada'];
+            $estados = array_values(array_intersect(array_map('trim', explode(',', $estado)), $validos));
+            if ($estados === []) {
+                return ['items' => [], 'total' => 0];
+            }
+            $builder->whereIn('v.estado', $estados);
         }
 
         $total = $builder->countAllResults(false);

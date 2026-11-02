@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import VerifiedRoute from '@/components/auth/VerifiedRoute';
@@ -21,8 +21,8 @@ import ExplorarPage from '@/features/ofertas/ExplorarPage';
 import OfertaDetallePage from '@/features/ofertas/OfertaDetallePage';
 import CrearOfertaPage from '@/features/ofertas/CrearOfertaPage';
 import EditarOfertaPage from '@/features/ofertas/EditarOfertaPage';
-import MisOfertasPage from '@/features/ofertas/MisOfertasPage';
-import VinculacionesPage from '@/features/vinculaciones/VinculacionesPage';
+import EnsenandoPage from '@/features/ofertas/EnsenandoPage';
+import AprendiendoPage from '@/features/vinculaciones/AprendiendoPage';
 import VinculacionDetallePage from '@/features/vinculaciones/VinculacionDetallePage';
 import MensajesPage from '@/features/chat/MensajesPage';
 import AvisoPrivacidadPage from '@/features/legal/AvisoPrivacidadPage';
@@ -58,8 +58,11 @@ export default function App() {
           <Route path="/inicio" element={<ExplorarPage />} />
           <Route path="/ofertas/nueva" element={<CrearOfertaPage />} />
           <Route path="/ofertas/:id/editar" element={<EditarOfertaPage />} />
-          <Route path="/mis-ofertas" element={<MisOfertasPage />} />
-          <Route path="/vinculaciones" element={<VinculacionesPage />} />
+          <Route path="/aprendiendo" element={<AprendiendoPage />} />
+          <Route path="/ensenando" element={<EnsenandoPage />} />
+          {/* Rutas anteriores: se redirigen para no romper enlaces guardados. */}
+          <Route path="/mis-ofertas" element={<Navigate to="/ensenando" replace />} />
+          <Route path="/vinculaciones" element={<Navigate to="/aprendiendo" replace />} />
           <Route path="/vinculaciones/:id" element={<VinculacionDetallePage />} />
           <Route path="/mensajes" element={<MensajesPage />} />
           <Route path="/tickets/crear" element={<TicketCrearPage />} />

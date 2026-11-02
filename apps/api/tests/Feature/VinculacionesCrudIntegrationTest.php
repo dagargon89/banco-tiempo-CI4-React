@@ -122,6 +122,31 @@ final class VinculacionesCrudIntegrationTest extends CIUnitTestCase
         $this->assertSame($this->buscadorId, (int) $vinc['buscador_id']);
     }
 
+    // ── Listado: varios estados separados por coma y filtro por papel ──
+
+    public function testListarAceptaVariosEstadosYFiltraPorPapel(): void
+    {
+        $service = new VinculacionService();
+        $vinc = $service->marcarInteres($this->ofertaId, $this->buscadorId, '127.0.0.1');
+        $vincId = (int) $vinc['id'];
+        $this->createdVincIds[] = $vincId;
+        $service->rechazar($vincId, $this->oferenteId, '127.0.0.1');
+
+        $historial = $service->listar($this->buscadorId, [], 'completada,rechazada,cancelada', 'buscador', 1, 50);
+        $ids = array_map(static fn ($v) => (int) $v['id'], $historial['items']);
+        $this->assertContains($vincId, $ids, 'El historial debe incluir la vinculación rechazada.');
+
+        $activas = $service->listar($this->buscadorId, [], 'aceptada', 'buscador', 1, 50);
+        $this->assertNotContains($vincId, array_map(static fn ($v) => (int) $v['id'], $activas['items']));
+
+        // Como oferente, el buscador no ve la vinculación que él pidió.
+        $comoOferente = $service->listar($this->buscadorId, [], null, 'oferente', 1, 50);
+        $this->assertNotContains($vincId, array_map(static fn ($v) => (int) $v['id'], $comoOferente['items']));
+
+        // Un estado inventado no devuelve nada en lugar de ignorar el filtro.
+        $this->assertSame(0, $service->listar($this->buscadorId, [], 'inventado', null, 1, 50)['total']);
+    }
+
     // ── 2. Segundo interés en misma oferta → ConflictException ──
 
     public function testSegundoInteresMismaOfertaLanzaConflict(): void

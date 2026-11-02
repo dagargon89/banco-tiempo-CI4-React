@@ -1,50 +1,46 @@
-import { NavLink, useLocation } from 'react-router-dom';
-import { Compass, Package, PlusCircle, MessageSquare, User, BadgeCheck } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
+import { cuenta, estaActivo, pendiente, principal } from './navConfig';
+import { useNavCounts } from './useNavCounts';
 
-const verifiedTabs = [
-  { to: '/inicio', label: 'Explorar', icon: Compass, end: true },
-  { to: '/mis-ofertas', label: 'Ofertas', icon: Package },
-  { to: '/ofertas/nueva', label: 'Crear', icon: PlusCircle },
-  { to: '/mensajes', label: 'Mensajes', icon: MessageSquare },
-  { to: '/perfil', label: 'Perfil', icon: User },
-];
-
-const pendingTabs = [
-  { to: '/perfil', label: 'Perfil', icon: User, end: true },
-  { to: '/verificacion', label: 'Verificar', icon: BadgeCheck },
-];
-
+/** Barra inferior en móvil: las mismas secciones del menú, sin modos. */
 export default function BottomTabBar() {
   const { pathname } = useLocation();
-  const user = useAuthStore((s) => s.user);
-  const isVerified = user?.estado_verificacion === 'verificado';
+  const verificado = useAuthStore((s) => s.user?.estado_verificacion === 'verificado');
+  const counts = useNavCounts();
 
-  // Hide on admin routes
   if (pathname.startsWith('/admin')) return null;
 
-  const tabs = isVerified ? verifiedTabs : pendingTabs;
+  const tabs = verificado ? [...principal, cuenta[0]] : pendiente;
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-30 flex border-t border-border bg-surface lg:hidden"
-      aria-label="Navegacion principal"
+      className="fixed inset-x-0 bottom-0 z-30 flex border-t border-border bg-bg/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden"
+      aria-label="Secciones"
     >
-      {tabs.map(({ to, label, icon: Icon, end }) => (
-        <NavLink
-          key={to}
-          to={to}
-          end={end}
-          className={({ isActive }) =>
-            `flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium transition-colors ${
-              isActive ? 'text-accent' : 'text-text-3'
-            }`
-          }
-        >
-          <Icon className="h-5 w-5" aria-hidden="true" />
-          {label}
-        </NavLink>
-      ))}
+      {tabs.map((item) => {
+        const activo = estaActivo(item, pathname);
+        const Icon = item.icon;
+        const n = counts[item.to] ?? 0;
+        return (
+          <Link
+            key={item.to}
+            to={item.to}
+            aria-current={activo ? 'page' : undefined}
+            className={`relative flex flex-1 flex-col items-center gap-1 py-2 text-[11px] transition-colors ${activo ? 'text-text-1' : 'text-text-2'}`}
+          >
+            <span className={`flex h-7 w-12 items-center justify-center rounded-full ${activo ? 'bg-surface shadow-sm ring-1 ring-border' : ''}`}>
+              <Icon className={`h-5 w-5 ${activo ? 'text-accent' : ''}`} aria-hidden />
+            </span>
+            {item.label === 'Mi perfil' ? 'Perfil' : item.label}
+            {n > 0 && (
+              <span className="absolute right-[calc(50%-1.6rem)] top-1 min-w-5 rounded-full bg-accent px-1.5 text-center text-[10px] font-semibold leading-5 text-on-accent">
+                {n}
+              </span>
+            )}
+          </Link>
+        );
+      })}
     </nav>
   );
 }

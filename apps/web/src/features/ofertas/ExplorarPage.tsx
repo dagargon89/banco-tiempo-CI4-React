@@ -8,6 +8,7 @@ import { OfertaCardSkeleton } from '@/components/ui/Skeleton';
 import { useExplorarOfertas } from './hooks/useOfertas';
 import { useCategorias } from './hooks/useCategorias';
 import { getCategoryConfig } from '@/lib/categoryConfig';
+import { useAuthStore } from '@/stores/authStore';
 
 const modalidades = [
   { value: '', label: 'Todas' },
@@ -56,63 +57,63 @@ export default function ExplorarPage() {
   const ofertas = data?.data ?? [];
   const meta = data?.meta ?? { total: 0, page: 1, per_page: 8 };
 
-  return (
-    <>
-      {/* Hero search */}
-      <div className="relative mb-4">
-        <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-3" />
-        <input
-          type="text"
-          placeholder="¿Qué quieres aprender?"
-          value={q}
-          onChange={(e) => setFilter('q', e.target.value || null)}
-          className="h-12 w-full rounded-xl border border-border bg-surface pl-12 pr-4 text-sm text-text-1 placeholder:text-text-3 shadow-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
-        />
-      </div>
+  const nombre = useAuthStore((st) => st.user?.nombre?.split(' ')[0]);
+  const chip = (activo: boolean) =>
+    `flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm transition-colors ${
+      activo ? 'bg-text-1 text-bg' : 'border border-border bg-surface text-text-1 hover:border-border-strong'
+    }`;
 
-      {/* Category chips */}
-      <div className="mb-3 -mx-4 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <button
-          onClick={() => setFilter('cat', null)}
-          className={`flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
-            !categoriaId
-              ? 'bg-accent text-on-accent shadow-sm'
-              : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
-          }`}
-        >
-          <LayoutGrid className="h-3.5 w-3.5" />
+  return (
+    <div className="mx-auto max-w-6xl">
+      {/* Encabezado: la misma pregunta y el mismo buscador de la landing */}
+      <header className="pb-8 pt-4 sm:pt-8">
+        {nombre && <p className="text-text-2">Hola, {nombre}</p>}
+        <h1 className="mt-1 font-display text-[34px] font-medium leading-[1.05] tracking-[-0.02em] text-text-1 sm:text-5xl">
+          ¿Qué quieres aprender hoy?
+        </h1>
+        <div className="mt-6 flex max-w-2xl items-center gap-2 rounded-full border border-border-strong bg-surface p-1.5 pl-5 shadow-sm focus-within:border-accent focus-within:ring-4 focus-within:ring-accent/15">
+          <Search className="h-5 w-5 shrink-0 text-text-3" aria-hidden />
+          <label htmlFor="explorar-q" className="sr-only">Buscar ofertas</label>
+          <input
+            id="explorar-q"
+            type="search"
+            placeholder="Guitarra, inglés, cocina…"
+            value={q}
+            onChange={(e) => setFilter('q', e.target.value || null)}
+            className="h-11 min-w-0 flex-1 bg-transparent text-base text-text-1 placeholder:text-text-2 focus:outline-none"
+          />
+        </div>
+      </header>
+
+      {/* Categorías */}
+      <div className="-mx-4 mb-4 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Categorías">
+        <button onClick={() => setFilter('cat', null)} aria-pressed={!categoriaId} className={chip(!categoriaId)}>
+          <LayoutGrid className="h-4 w-4" aria-hidden />
           Todas
         </button>
         {categorias?.map((cat) => {
           const cfg = getCategoryConfig(cat.slug);
           const Icon = cfg.icon;
-          const active = categoriaId === cat.id;
+          const active = categoriaId === Number(cat.id);
           return (
-            <button
-              key={cat.id}
-              onClick={() => setFilter('cat', active ? null : String(cat.id))}
-              className={`flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
-                active
-                  ? 'bg-accent text-on-accent shadow-sm'
-                  : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
-              }`}
-            >
-              <Icon className={`h-3.5 w-3.5 ${active ? '' : cfg.ink}`} aria-hidden />
+            <button key={cat.id} onClick={() => setFilter('cat', active ? null : String(cat.id))} aria-pressed={active} className={chip(active)}>
+              <Icon className={`h-4 w-4 ${active ? '' : cfg.ink}`} aria-hidden />
               {cat.nombre}
             </button>
           );
         })}
       </div>
 
-      {/* Modalidad pills + zona */}
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="flex rounded-lg border border-border bg-surface-2 p-0.5">
+      {/* Modalidad, zona y conteo */}
+      <div className="mb-8 flex flex-wrap items-center gap-3">
+        <div className="flex rounded-full border border-border bg-surface p-1" role="group" aria-label="Modalidad">
           {modalidades.map(({ value, label }) => (
             <button
               key={value}
               onClick={() => setFilter('mod', value || null)}
-              className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                (modalidad ?? '') === value ? 'bg-surface text-text-1 shadow-sm' : 'text-text-3 hover:text-text-2'
+              aria-pressed={(modalidad ?? '') === value}
+              className={`rounded-full px-4 py-1.5 text-sm transition-colors ${
+                (modalidad ?? '') === value ? 'bg-surface-2 font-medium text-text-1' : 'text-text-2 hover:text-text-1'
               }`}
             >
               {label}
@@ -120,16 +121,18 @@ export default function ExplorarPage() {
           ))}
         </div>
 
+        <label htmlFor="explorar-zona" className="sr-only">Zona</label>
         <input
+          id="explorar-zona"
           type="text"
-          placeholder="Zona"
+          placeholder="Zona o colonia"
           value={zona}
           onChange={(e) => setFilter('zona', e.target.value || null)}
-          className="h-9 w-36 rounded-lg border border-border bg-surface px-3 text-xs text-text-1 placeholder:text-text-3 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+          className="h-10 w-44 rounded-full border border-border bg-surface px-4 text-sm text-text-1 placeholder:text-text-2 focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/15"
         />
 
-        {meta.total > 0 && !isLoading && (
-          <span className="text-xs text-text-2">{meta.total === 1 ? '1 oferta' : `${meta.total} ofertas`}</span>
+        {!isLoading && (
+          <span className="ml-auto text-sm text-text-2">{meta.total === 1 ? '1 oferta' : `${meta.total} ofertas`}</span>
         )}
       </div>
 
@@ -141,12 +144,11 @@ export default function ExplorarPage() {
           ))}
         </div>
       ) : ofertas.length === 0 ? (
-        <div className="mt-8">
-          <EmptyState
-            title="No se encontraron ofertas"
-            subtitle="Intenta ajustar los filtros o busca algo diferente."
-          />
-        </div>
+        <EmptyState
+          title="No se encontraron ofertas"
+          subtitle="Prueba con otra palabra o quita algún filtro. Si tú sabes hacerlo, puedes ofrecerlo."
+          action={{ label: 'Ofrecer algo', to: '/ofertas/nueva' }}
+        />
       ) : (
         <>
           <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
@@ -165,6 +167,6 @@ export default function ExplorarPage() {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }

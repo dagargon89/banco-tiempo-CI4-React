@@ -364,7 +364,7 @@ export default function ProfileEditPage() {
             <Toggle checked={!!form.mostrar_edad} onChange={(v) => set('mostrar_edad', v)} label="Mostrar mi edad" hint="Calculada de tu fecha de nacimiento; no se muestra el día exacto." />
             <Toggle checked={!!form.mostrar_zona} onChange={(v) => set('mostrar_zona', v)} label="Mostrar mi zona" hint='Solo el nombre general (ej: "Centro").' />
             <Toggle checked={!!form.mostrar_habilidades} onChange={(v) => set('mostrar_habilidades', v)} label="Mostrar habilidades" hint="Lo que enseño y lo que quiero aprender." />
-            <Toggle checked={!!form.permitir_contacto_directo} onChange={(v) => set('permitir_contacto_directo', v)} label="Permitir contacto directo" hint='Si lo apagas, solo aceptamos contacto al confirmar una vinculación.' />
+            <Toggle checked={!!form.permitir_contacto_directo} onChange={(v) => set('permitir_contacto_directo', v)} label="Permitir contacto directo" hint='Si lo apagas, solo podrán escribirte dentro de un intercambio aceptado.' />
 
             <FullRow>
               <div className="flex flex-col gap-1.5">

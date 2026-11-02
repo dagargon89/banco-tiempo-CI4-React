@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import PageHeader from '@/components/ui/PageHeader';
 
 export default function AvisoPrivacidadPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="mb-2 font-display text-2xl font-bold text-text-1">Aviso de Privacidad</h1>
+      <PageHeader title="Aviso de privacidad" />
       <p className="mb-8 rounded-md border border-warning/30 bg-warning/5 px-4 py-2 text-sm text-warning">
         Borrador técnico — requiere revisión legal antes de su publicación definitiva.
       </p>

@@ -27,28 +27,28 @@ export default function AccionesVinculacion({ vinculacion, userId }: AccionesVin
 
   const handleAceptar = () =>
     aceptar.mutate(vinculacion.id, {
-      onSuccess: () => toast.success('Vinculación aceptada. Ya pueden chatear.'),
-      onError: (err) => toastError(err, 'Error al aceptar la vinculación.'),
+      onSuccess: () => toast.success('Aceptado. Ya pueden hablar por mensaje.'),
+      onError: (err) => toastError(err, 'No se pudo aceptar.'),
     });
 
   const handleRechazar = () =>
     rechazar.mutate(vinculacion.id, {
-      onSuccess: () => toast.info('Vinculación rechazada'),
-      onError: (err) => toastError(err, 'Error al rechazar la vinculación.'),
+      onSuccess: () => toast.info('Solicitud rechazada'),
+      onError: (err) => toastError(err, 'No se pudo rechazar.'),
     });
 
   const handleCancelar = () => {
-    if (!confirm('¿Cancelar esta vinculación?')) return;
+    if (!confirm('¿Cancelar este intercambio? La otra persona verá que lo cancelaste.')) return;
     cancelar.mutate(vinculacion.id, {
-      onSuccess: () => toast.info('Vinculación cancelada'),
-      onError: (err) => toastError(err, 'Error al cancelar.'),
+      onSuccess: () => toast.info('Intercambio cancelado'),
+      onError: (err) => toastError(err, 'No se pudo cancelar.'),
     });
   };
 
   const handleConfirmar = () =>
     confirmar.mutate(vinculacion.id, {
-      onSuccess: () => toast.success('Prestación confirmada'),
-      onError: (err) => toastError(err, 'Error al confirmar la prestación.'),
+      onSuccess: () => toast.success('Confirmaste que se dio el intercambio'),
+      onError: (err) => toastError(err, 'No se pudo confirmar.'),
     });
 
   return (
@@ -59,26 +59,26 @@ export default function AccionesVinculacion({ vinculacion, userId }: AccionesVin
           <Button variant="primary" onClick={handleAceptar} disabled={isPending}>
             Aceptar
           </Button>
-          <Button variant="danger" onClick={handleRechazar} disabled={isPending}>
+          <Button variant="danger-subtle" onClick={handleRechazar} disabled={isPending}>
             Rechazar
           </Button>
         </>
       )}
 
-      {/* Ambos: cancelar en solicitada o aceptada */}
-      {(esBuscador || esOferente) &&
-        (vinculacion.estado === 'solicitada' || vinculacion.estado === 'aceptada') && (
-          <Button variant="secondary" onClick={handleCancelar} disabled={isPending}>
-            Cancelar
-          </Button>
-        )}
-
       {/* Ambos: confirmar en aceptada */}
       {(esBuscador || esOferente) && vinculacion.estado === 'aceptada' && !yaConfirmo && (
         <Button onClick={handleConfirmar} disabled={isPending}>
-          Confirmar prestación
+          Confirmar que se dio
         </Button>
       )}
+      {/* Ambos: cancelar en solicitada o aceptada */}
+      {(esBuscador || esOferente) &&
+        (vinculacion.estado === 'solicitada' || vinculacion.estado === 'aceptada') && (
+          <Button variant="danger-subtle" onClick={handleCancelar} disabled={isPending}>
+            Cancelar intercambio
+          </Button>
+        )}
+
     </div>
   );
 }

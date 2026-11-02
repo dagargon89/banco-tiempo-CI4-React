@@ -9,6 +9,7 @@ import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { useCrearCategoria, useUpdateCategoria, useToggleCategoria } from './hooks/useAdminCategorias';
 import { toast, toastError } from '@/lib/toast';
 import type { Categoria } from '@/lib/types';
+import PageHeader from '@/components/ui/PageHeader';
 
 export default function AdminCategoriasPage() {
   const { data: categorias, isLoading } = useCategorias();
@@ -132,7 +133,7 @@ export default function AdminCategoriasPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Categorías</h1>
+      <PageHeader title="Categorías" subtitle="Las áreas en que se agrupan las ofertas." />
 
       <section className="mb-8">
         <h2 className="mb-3 text-sm font-semibold text-text-1">Crear categoría</h2>

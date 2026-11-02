@@ -11,6 +11,7 @@ import { useCrearOferta } from './hooks/useOfertas';
 import { useAuthStore } from '@/stores/authStore';
 import { toast, toastError } from '@/lib/toast';
 import type { OfertaFormData, Modalidad, TipoCapacidad } from '@/lib/types';
+import PageHeader from '@/components/ui/PageHeader';
 
 const DISPONIBILIDAD_LABEL: Record<string, string> = { mananas: 'Mañanas', tardes: 'Tardes', fines_semana: 'Fines de semana' };
 
@@ -92,7 +93,7 @@ export default function CrearOfertaPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="mb-2 font-display text-xl font-bold text-text-1">Nueva oferta</h1>
+      <PageHeader title="Nueva oferta" subtitle="Cuenta qué sabes hacer y cuánto tiempo toma." />
 
       {/* Progress bar */}
       <div className="mb-6">

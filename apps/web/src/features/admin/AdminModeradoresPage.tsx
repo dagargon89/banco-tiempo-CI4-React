@@ -8,6 +8,7 @@ import Skeleton, { TableRowSkeleton } from '@/components/ui/Skeleton';
 import { useAdminUsuarios } from './hooks/useAdminUsuarios';
 import { useModeradores, useCrearModerador, useEliminarModerador } from './hooks/useAdminModeradores';
 import { toast, toastError } from '@/lib/toast';
+import PageHeader from '@/components/ui/PageHeader';
 
 export default function AdminModeradoresPage() {
   const [busqueda, setBusqueda] = useState('');
@@ -46,7 +47,7 @@ export default function AdminModeradoresPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestionar moderadores</h1>
+      <PageHeader title="Moderadores" subtitle="Quién puede administrar y con qué permisos." />
 
       {/* Promover moderador */}
       <section className="mb-8">
