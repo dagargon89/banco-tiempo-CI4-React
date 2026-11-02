@@ -73,7 +73,7 @@ final class AuthSyncTest extends CIUnitTestCase
 
     public function testSchemaNoTienePasswordHash(): void
     {
-        $db = \Config\Database::connect('default');
+        $db = \Config\Database::connect();
         $fields = $db->getFieldNames('users');
         $this->assertNotContains('password_hash', $fields, 'La tabla users NO debe tener password_hash (ADR-008).');
         $this->assertNotContains('password', $fields, 'La tabla users NO debe tener password.');
@@ -81,7 +81,7 @@ final class AuthSyncTest extends CIUnitTestCase
 
     public function testSchemaNoTieneRefreshTokens(): void
     {
-        $db = \Config\Database::connect('default');
+        $db = \Config\Database::connect();
         $tables = $db->listTables();
         $this->assertNotContains('refresh_tokens', $tables, 'No debe existir tabla refresh_tokens (ADR-008).');
     }
