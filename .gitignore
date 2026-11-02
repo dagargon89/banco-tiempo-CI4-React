@@ -11,10 +11,9 @@ node_modules/
 # ── Build ──
 dist/
 
-# ── CI4 writable ──
-writable/debugbar/
-writable/logs/
-writable/cache/
+# ── CI4 writable (se versiona solo el esqueleto de carpetas) ──
+apps/api/writable/*/*
+!apps/api/writable/*/.gitkeep
 
 # ── PHPUnit ──
 .phpunit.cache/
@@ -26,3 +25,10 @@ writable/cache/
 # ── OS ──
 .DS_Store
 Thumbs.db
+
+# ── Firebase Emulator Suite (datos locales y logs) ──
+.firebase-emulator-data/
+firebase-export-*/
+firebase-debug*.log
+firestore-debug.log
+ui-debug.log

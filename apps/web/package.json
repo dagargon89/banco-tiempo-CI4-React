@@ -6,6 +6,7 @@
   "description": "Banco de Tiempo · SPA (React 19 + Vite + TS). Participa Juárez.",
   "scripts": {
     "dev": "vite",
+    "emulators": "firebase emulators:start --project demo-banco-de-tiempo --config ../../firebase.json --import ../../.firebase-emulator-data --export-on-exit",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint src/",

@@ -20,9 +20,19 @@ final class FirebaseAuthService
 {
     private FirebaseAuth $firebaseAuth;
 
+    private bool $emulator = false;
+
     public function __construct(
         private readonly UserModel $users = new UserModel(),
     ) {
+        // Desarrollo local con Firebase Emulator Suite: sin cuenta de servicio.
+        if (FirebaseEmulator::authHost() !== null) {
+            $this->emulator     = true;
+            $this->firebaseAuth = FirebaseEmulator::factory()->createAuth();
+
+            return;
+        }
+
         $credentials = env('FIREBASE_CREDENTIALS', '');
         if ($credentials === '' || ! file_exists($credentials)) {
             throw new \RuntimeException('FIREBASE_CREDENTIALS no configurado o archivo inexistente.');
@@ -99,6 +109,10 @@ final class FirebaseAuthService
     /** Genera un Custom Token acotado para acceso a Firestore (chat). */
     public function crearCustomToken(string $firebaseUid, string $conversationId): string
     {
+        if ($this->emulator) {
+            return FirebaseEmulator::customToken($firebaseUid, ['conversation_id' => $conversationId]);
+        }
+
         return $this->firebaseAuth->createCustomToken($firebaseUid, [
             'conversation_id' => $conversationId,
         ])->toString();

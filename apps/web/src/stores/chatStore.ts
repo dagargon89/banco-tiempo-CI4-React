@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { initializeApp, getApp } from 'firebase/app';
 import { getAuth, signInWithCustomToken, signOut } from 'firebase/auth';
-import { firebaseConfig } from '@/lib/firebase';
+import { firebaseConfig, conectarEmuladores } from '@/lib/firebase';
 
 interface ChatState {
   isConnected: boolean;
@@ -18,7 +18,9 @@ function getChatApp() {
   try {
     return getApp(CHAT_APP_NAME);
   } catch {
-    return initializeApp(firebaseConfig, CHAT_APP_NAME);
+    const chatApp = initializeApp(firebaseConfig, CHAT_APP_NAME);
+    conectarEmuladores(chatApp);
+    return chatApp;
   }
 }
 

@@ -66,6 +66,30 @@ npm run typecheck && npm run lint
 docker compose up -d         # MySQL 8 + Redis
 ```
 
+### Desarrollo local sin proyecto Firebase (Emulator Suite)
+
+Hasta preparar producción no hace falta cuenta de servicio ni proyecto real: Auth, Firestore y Storage corren en local con **Firebase Emulator Suite** (requiere Java 11+ y `npm i -g firebase-tools`).
+
+```bash
+# 1. Emuladores (desde apps/web). Guardan datos en .firebase-emulator-data/ al salir con Ctrl+C
+npm run emulators            # Auth 9099 · Firestore 8085 · Storage 9199 · UI http://127.0.0.1:4000
+
+# 2. API: en apps/api/.env
+#    FIREBASE_PROJECT_ID = demo-banco-de-tiempo
+#    FIREBASE_AUTH_EMULATOR_HOST = 127.0.0.1:9099
+#    FIREBASE_STORAGE_EMULATOR_HOST = 127.0.0.1:9199
+#    (FIREBASE_CREDENTIALS vacío)
+
+# 3. SPA: en apps/web/.env.development.local
+#    VITE_USE_FIREBASE_EMULATORS=true
+```
+
+- **Super-admin local:** registra la cuenta en la SPA (o en la UI del emulador), copia su UID de http://127.0.0.1:4000/auth, ponlo en `SEED_ADMIN_FIREBASE_UID`/`SEED_ADMIN_EMAIL` **antes** de que esa cuenta inicie sesión en la API, y corre `php spark db:seed InitialSeeder`.
+- **No uses correos `@test.local`** para cuentas de desarrollo: `composer test` corre `cleanup:test-data`, que borra esos usuarios.
+- **Seguridad:** en modo emulador la API acepta tokens **sin firma**. `FirebaseEmulator` se niega a activarse si `CI_ENVIRONMENT = production`, y la SPA solo conecta a los emuladores en `npm run dev`, nunca en un build. Jamás definir `FIREBASE_*_EMULATOR_HOST` fuera de desarrollo.
+- **Limitaciones:** las URLs firmadas no existen en el emulador; la API devuelve una URL con token de descarga. El login con Google/Facebook/Microsoft usa la pantalla simulada del emulador.
+- **Windows:** si al salir falla la exportación con `EPERM`, los datos quedan en `apps/web/firebase-export-*/`; cópialos a `.firebase-emulator-data/`.
+
 ## Identidad visual (obligatoria)
 
 La marca es **Participa Juárez**. Usar SIEMPRE los tokens de `01-vision/08_identidad_visual_design_system.md`:

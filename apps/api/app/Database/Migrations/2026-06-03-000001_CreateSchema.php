@@ -22,6 +22,11 @@ final class CreateSchema extends Migration
             id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT, nombre VARCHAR(40) NOT NULL,
             PRIMARY KEY (id), UNIQUE KEY uq_roles_nombre (nombre))$cs");
 
+        // Roles base con id fijo (1 = super_admin, 2 = moderador). Deben existir
+        // antes de AddAdminRoles; si no, esa migración ocupa los ids 1-4 y el
+        // seeder ya no puede crearlos en una base nueva.
+        $this->db->query("INSERT IGNORE INTO roles (id, nombre) VALUES (1, 'super_admin'), (2, 'moderador')");
+
         $this->db->query("CREATE TABLE users (
             id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
             firebase_uid VARCHAR(128) NOT NULL,

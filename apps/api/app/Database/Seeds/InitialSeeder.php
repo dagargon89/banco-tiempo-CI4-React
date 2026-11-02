@@ -42,6 +42,11 @@ final class InitialSeeder extends Seeder
             'email' => $email, 'estado_verificacion' => 'verificado', 'estado_cuenta' => 'activa',
             'email_verified_at' => $now, 'created_at' => $now, 'updated_at' => $now,
         ]);
-        $this->db->table('role_user')->insert(['user_id' => $this->db->insertID(), 'role_id' => 1]);
+        $userId = $this->db->insertID();
+        $rol    = $this->db->table('roles')->where('nombre', 'super_admin')->get()->getRowArray();
+        if ($rol === null) {
+            throw new \RuntimeException('No existe el rol super_admin. Corre las migraciones antes del seeder.');
+        }
+        $this->db->table('role_user')->insert(['user_id' => $userId, 'role_id' => (int) $rol['id']]);
     }
 }
