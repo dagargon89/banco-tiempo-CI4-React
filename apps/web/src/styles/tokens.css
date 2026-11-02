@@ -87,6 +87,10 @@
   --cat-danza:#F3E0EE;        --cat-danza-ink:#831F66;
   --cat-otras:#ECE7EE;        --cat-otras-ink:#54475A;
 
+  /* Partículas de la landing: familia de la marca, más viva que la UI. */
+  --particle-1:#7A3B82; --particle-2:#C2459A; --particle-3:#4C5FB0; --particle-4:#8A9A12;
+  --particle-dust:#CDBFD2;
+
   --sh-sm: 0 1px 2px rgba(42,11,47,.05), 0 1px 3px rgba(42,11,47,.06);
   --sh-md: 0 4px 6px rgba(42,11,47,.05), 0 10px 20px rgba(42,11,47,.07);
   --sh-lg: 0 12px 32px rgba(42,11,47,.14);
@@ -120,6 +124,9 @@
   --cat-danza:#3A1834;        --cat-danza-ink:#F0AEDD;
   --cat-otras:#2B2430;        --cat-otras-ink:#CDBFD3;
 
+  --particle-1:#E7C9EB; --particle-2:#F0AEDD; --particle-3:#B5C3EE; --particle-4:#DBEC57;
+  --particle-dust:#4A3D52;
+
   --sh-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
   --sh-md: 0 4px 6px rgba(0,0,0,.4), 0 10px 20px rgba(0,0,0,.5);
   --sh-lg: 0 12px 32px rgba(0,0,0,.6);
@@ -149,6 +156,8 @@
     --cat-manualidades:#25213F; --cat-manualidades-ink:#C2BAF0;
     --cat-danza:#3A1834;        --cat-danza-ink:#F0AEDD;
     --cat-otras:#2B2430;        --cat-otras-ink:#CDBFD3;
+    --particle-1:#E7C9EB; --particle-2:#F0AEDD; --particle-3:#B5C3EE; --particle-4:#DBEC57;
+    --particle-dust:#4A3D52;
     --sh-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
     --sh-md: 0 4px 6px rgba(0,0,0,.4), 0 10px 20px rgba(0,0,0,.5);
     --sh-lg: 0 12px 32px rgba(0,0,0,.6);
