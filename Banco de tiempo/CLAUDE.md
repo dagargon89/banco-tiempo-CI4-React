@@ -52,7 +52,7 @@ cp env.example .env          # luego rellenar secretos (JWT no; Firebase sí)
 php spark migrate --all      # crea el esquema (doc 03)
 php spark db:seed InitialSeeder
 php spark serve              # API en http://localhost:8080
-composer test                # PHPUnit
+composer test                # PHPUnit (usa banco_de_tiempo_test y la migra sola)
 vendor/bin/phpstan analyse   # estática
 
 # Frontend (apps/web)
@@ -65,6 +65,18 @@ npm run typecheck && npm run lint
 # Infra local
 docker compose up -d         # MySQL 8 + Redis
 ```
+
+### Base de pruebas
+
+PHPUnit usa su propia base, `banco_de_tiempo_test`, y nunca la de desarrollo. El bootstrap de las pruebas aplica las migraciones pendientes antes de cada corrida y se niega a usar una base cuyo nombre no termine en `_test`.
+
+Docker crea esa base al levantar un volumen nuevo, con `docker/mysql/init/01-test-db.sql`. Si tu volumen de MySQL ya existía, créala una vez a mano:
+
+```bash
+docker compose exec -T mysql mysql -uroot -proot_local < docker/mysql/init/01-test-db.sql
+```
+
+Si quedó basura de pruebas viejas en la base de desarrollo, `php spark cleanup:test-data --dry-run` la lista y sin `--dry-run` la borra.
 
 ### Desarrollo local sin proyecto Firebase (Emulator Suite)
 
@@ -85,7 +97,6 @@ npm run emulators            # Auth 9099 · Firestore 8085 · Storage 9199 · UI
 ```
 
 - **Super-admin local:** registra la cuenta en la SPA (o en la UI del emulador), copia su UID de http://127.0.0.1:4000/auth, ponlo en `SEED_ADMIN_FIREBASE_UID`/`SEED_ADMIN_EMAIL` **antes** de que esa cuenta inicie sesión en la API, y corre `php spark db:seed InitialSeeder`.
-- **No uses correos `@test.local`** para cuentas de desarrollo: `composer test` corre `cleanup:test-data`, que borra esos usuarios.
 - **Seguridad:** en modo emulador la API acepta tokens **sin firma**. `FirebaseEmulator` se niega a activarse si `CI_ENVIRONMENT = production`, y la SPA solo conecta a los emuladores en `npm run dev`, nunca en un build. Jamás definir `FIREBASE_*_EMULATOR_HOST` fuera de desarrollo.
 - **Limitaciones:** las URLs firmadas no existen en el emulador; la API devuelve una URL con token de descarga. El login con Google/Facebook/Microsoft usa la pantalla simulada del emulador.
 - **Windows:** si al salir falla la exportación con `EPERM`, los datos quedan en `apps/web/firebase-export-*/`; cópialos a `.firebase-emulator-data/`.
