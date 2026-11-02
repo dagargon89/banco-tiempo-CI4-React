@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
 import Button from '@/components/ui/Button';
+import DuracionFields from './components/DuracionFields';
 import { useCategorias } from './hooks/useCategorias';
 import { useOfertaDetalle, useActualizarOferta } from './hooks/useOfertas';
 import { toast, toastError } from '@/lib/toast';
@@ -25,6 +26,8 @@ export default function EditarOfertaPage() {
   const [tipoCapacidad, setTipoCapacidad] = useState<TipoCapacidad>('individual');
   const [capacidadMaxima, setCapacidadMaxima] = useState('');
   const [disponibilidad, setDisponibilidad] = useState<string[]>([]);
+  const [duracion, setDuracion] = useState('');
+  const [sesiones, setSesiones] = useState('');
   const [loaded, setLoaded] = useState(false);
 
   // Precargar el formulario una sola vez, durante el render.
@@ -37,6 +40,8 @@ export default function EditarOfertaPage() {
     setZona(oferta.zona ?? '');
     setTipoCapacidad(oferta.tipo_capacidad ?? 'individual');
     setCapacidadMaxima(oferta.capacidad_maxima ? String(oferta.capacidad_maxima) : '');
+    setDuracion(oferta.duracion_sesion_min ? String(oferta.duracion_sesion_min) : '');
+    setSesiones(oferta.num_sesiones ? String(oferta.num_sesiones) : '');
     try {
       const disp = typeof oferta.disponibilidad === 'string' ? JSON.parse(oferta.disponibilidad) : oferta.disponibilidad;
       setDisponibilidad(Array.isArray(disp) ? disp : []);
@@ -65,6 +70,9 @@ export default function EditarOfertaPage() {
           zona: modalidad === 'presencial' ? zona : undefined,
           tipo_capacidad: tipoCapacidad,
           capacidad_maxima: tipoCapacidad === 'grupal' && capacidadMaxima ? Number(capacidadMaxima) : undefined,
+          // null borra el valor guardado si el oferente vació el campo.
+          duracion_sesion_min: duracion ? Number(duracion) : null,
+          num_sesiones: sesiones ? Number(sesiones) : null,
           disponibilidad: disponibilidad.length > 0 ? disponibilidad : undefined,
         },
       },
@@ -145,6 +153,13 @@ export default function EditarOfertaPage() {
           </div>
         </fieldset>
 
+        <DuracionFields
+          duracion={duracion}
+          sesiones={sesiones}
+          onDuracionChange={setDuracion}
+          onSesionesChange={setSesiones}
+        />
+
         {modalidad === 'presencial' && (
           <Input label="Zona" value={zona} onChange={(e) => setZona(e.target.value)} placeholder="Ej: Centro, Norte..." required />
         )}
@@ -162,7 +177,7 @@ export default function EditarOfertaPage() {
         </fieldset>
 
         {tipoCapacidad === 'grupal' && (
-          <Input label="Capacidad maxima" type="number" min={2} value={capacidadMaxima} onChange={(e) => setCapacidadMaxima(e.target.value)} />
+          <Input label="Capacidad máxima" type="number" min={2} value={capacidadMaxima} onChange={(e) => setCapacidadMaxima(e.target.value)} />
         )}
 
         <fieldset>
@@ -171,7 +186,7 @@ export default function EditarOfertaPage() {
             {['mananas', 'tardes', 'fines_semana'].map((d) => (
               <label key={d} className="flex items-center gap-2 text-sm text-text-2">
                 <input type="checkbox" checked={disponibilidad.includes(d)} onChange={() => toggleDisponibilidad(d)} />
-                {d === 'mananas' ? 'Mananas' : d === 'tardes' ? 'Tardes' : 'Fines de semana'}
+                {d === 'mananas' ? 'Mañanas' : d === 'tardes' ? 'Tardes' : 'Fines de semana'}
               </label>
             ))}
           </div>

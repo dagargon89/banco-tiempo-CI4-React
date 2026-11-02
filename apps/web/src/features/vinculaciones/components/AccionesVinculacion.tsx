@@ -75,7 +75,7 @@ export default function AccionesVinculacion({ vinculacion, userId }: AccionesVin
 
       {/* Ambos: confirmar en aceptada */}
       {(esBuscador || esOferente) && vinculacion.estado === 'aceptada' && !yaConfirmo && (
-        <Button variant="lime" onClick={handleConfirmar} disabled={isPending}>
+        <Button onClick={handleConfirmar} disabled={isPending}>
           Confirmar prestación
         </Button>
       )}

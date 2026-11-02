@@ -63,7 +63,7 @@ export default function ExplorarPage() {
         <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-3" />
         <input
           type="text"
-          placeholder="Busca habilidades, personas o zonas..."
+          placeholder="¿Qué quieres aprender?"
           value={q}
           onChange={(e) => setFilter('q', e.target.value || null)}
           className="h-12 w-full rounded-xl border border-border bg-surface pl-12 pr-4 text-sm text-text-1 placeholder:text-text-3 shadow-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
@@ -97,7 +97,7 @@ export default function ExplorarPage() {
                   : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
               }`}
             >
-              <Icon className="h-3.5 w-3.5" />
+              <Icon className={`h-3.5 w-3.5 ${active ? '' : cfg.ink}`} aria-hidden />
               {cat.nombre}
             </button>
           );
@@ -129,13 +129,13 @@ export default function ExplorarPage() {
         />
 
         {meta.total > 0 && !isLoading && (
-          <span className="text-xs text-text-3">{meta.total} resultados</span>
+          <span className="text-xs text-text-2">{meta.total === 1 ? '1 oferta' : `${meta.total} ofertas`}</span>
         )}
       </div>
 
       {/* Results */}
       {isLoading ? (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
           {Array.from({ length: 8 }).map((_, i) => (
             <OfertaCardSkeleton key={i} />
           ))}
@@ -149,7 +149,7 @@ export default function ExplorarPage() {
         </div>
       ) : (
         <>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
             {ofertas.map((oferta) => (
               <OfertaCardComponent key={oferta.id} oferta={oferta} categorias={categorias} />
             ))}

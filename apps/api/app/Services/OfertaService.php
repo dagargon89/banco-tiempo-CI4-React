@@ -49,6 +49,11 @@ final class OfertaService
         $this->validarPresencialZona($datos);
         $this->encodificarDisponibilidad($datos);
 
+        // El insert desactiva la protección para fijar user_id y estado:
+        // solo pasan los campos que el usuario puede escribir.
+        $datos = array_intersect_key($datos, array_flip($this->ofertas->camposEditables()));
+        $this->normalizarDuracion($datos);
+
         $datos['user_id'] = $userId;
         $datos['estado']  = 'activa';
 
@@ -88,6 +93,7 @@ final class OfertaService
         }
 
         $this->encodificarDisponibilidad($datos);
+        $this->normalizarDuracion($datos);
 
         if (! $this->ofertas->update($ofertaId, $datos)) {
             throw new \InvalidArgumentException(implode(' ', $this->ofertas->errors()));
@@ -213,6 +219,16 @@ final class OfertaService
     {
         if (isset($datos['disponibilidad']) && is_array($datos['disponibilidad'])) {
             $datos['disponibilidad'] = json_encode($datos['disponibilidad']);
+        }
+    }
+
+    /** Un campo de duración vacío se guarda como NULL, no como cadena vacía. */
+    private function normalizarDuracion(array &$datos): void
+    {
+        foreach (['duracion_sesion_min', 'num_sesiones'] as $campo) {
+            if (array_key_exists($campo, $datos) && ($datos[$campo] === '' || $datos[$campo] === null)) {
+                $datos[$campo] = null;
+            }
         }
     }
 }

@@ -78,6 +78,10 @@ export interface OfertaCard {
   modalidad: Modalidad;
   zona: string | null;
   categoria_id: number;
+  /** Minutos que dura cada sesión (opcional). */
+  duracion_sesion_min?: number | null;
+  /** Número de sesiones (opcional). */
+  num_sesiones?: number | null;
   oferente_id: number;
   oferente_nombre: string;
   oferente_foto: string | null;
@@ -122,6 +126,8 @@ export interface OfertaFormData {
   zona?: string;
   tipo_capacidad?: TipoCapacidad;
   capacidad_maxima?: number;
+  duracion_sesion_min?: number | null;
+  num_sesiones?: number | null;
   disponibilidad?: string[];
 }
 

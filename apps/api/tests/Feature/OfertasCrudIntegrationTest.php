@@ -118,6 +118,80 @@ final class OfertasCrudIntegrationTest extends CIUnitTestCase
         $this->assertSame($this->testUserId, (int) $oferta['user_id']);
     }
 
+    // ── Duración: minutos por sesión y número de sesiones ──
+
+    private function datosBase(array $extra = []): array
+    {
+        return array_merge([
+            'titulo'            => 'Clases de guitarra con duración',
+            'categoria_id'      => $this->testCategoriaId,
+            'descripcion_breve'    => 'Aprende acordes basicos en cuatro sesiones de una hora.',
+            'descripcion_completa' => 'Detalle completo de las clases.',
+            'modalidad'            => 'virtual',
+        ], $extra);
+    }
+
+    public function testCrearOfertaGuardaDuracionYSesiones(): void
+    {
+        $service = new OfertaService();
+        $oferta  = $service->crear($this->testUserId, $this->datosBase([
+            'duracion_sesion_min' => 60,
+            'num_sesiones'        => 4,
+        ]), '127.0.0.1');
+        $this->createdOfertaIds[] = (int) $oferta['id'];
+
+        $this->assertSame(60, (int) $oferta['duracion_sesion_min']);
+        $this->assertSame(4, (int) $oferta['num_sesiones']);
+
+        $explorar = model(\App\Models\OfertaModel::class)->explorar(['q' => 'guitarra con duración'], 1, 50);
+        $item     = array_values(array_filter($explorar['items'], fn ($i) => (int) $i['id'] === (int) $oferta['id']))[0] ?? null;
+        $this->assertNotNull($item, 'La oferta debe aparecer en exploración.');
+        $this->assertSame(4, (int) $item['num_sesiones']);
+    }
+
+    public function testDuracionYDescripcionCompletaSonOpcionales(): void
+    {
+        $service = new OfertaService();
+        $datos   = $this->datosBase(['duracion_sesion_min' => '']);
+        unset($datos['descripcion_completa']);
+        $oferta = $service->crear($this->testUserId, $datos, '127.0.0.1');
+        $this->createdOfertaIds[] = (int) $oferta['id'];
+
+        $this->assertNull($oferta['duracion_sesion_min']);
+        $this->assertNull($oferta['num_sesiones']);
+    }
+
+    public function testDuracionFueraDeRangoSeRechaza(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new OfertaService())->crear($this->testUserId, $this->datosBase(['duracion_sesion_min' => 5]), '127.0.0.1');
+    }
+
+    public function testEditarActualizaSesiones(): void
+    {
+        $service = new OfertaService();
+        $oferta  = $service->crear($this->testUserId, $this->datosBase(['num_sesiones' => 2]), '127.0.0.1');
+        $this->createdOfertaIds[] = (int) $oferta['id'];
+
+        $editada = $service->actualizar((int) $oferta['id'], $this->testUserId, [], ['num_sesiones' => 6], '127.0.0.1');
+        $this->assertSame(6, (int) $editada['num_sesiones']);
+    }
+
+    public function testCrearIgnoraCamposQueElUsuarioNoPuedeEscribir(): void
+    {
+        $service = new OfertaService();
+        $oferta  = $service->crear($this->testUserId, $this->datosBase([
+            'pausada_por_admin' => 1,
+            'estado'            => 'borrador',
+            'user_id'           => $this->testOtroUserId,
+        ]), '127.0.0.1');
+        $this->createdOfertaIds[] = (int) $oferta['id'];
+
+        $this->assertSame('activa', $oferta['estado']);
+        $this->assertSame($this->testUserId, (int) $oferta['user_id']);
+        $this->assertSame(0, (int) ($oferta['pausada_por_admin'] ?? 0));
+    }
+
     public function testCrearOfertaPresencialConZona(): void
     {
         $service = new OfertaService();

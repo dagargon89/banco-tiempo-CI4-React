@@ -1,38 +1,56 @@
 import {
-  Palette, Code, UtensilsCrossed, Dumbbell, Music, Globe,
-  Camera, Scissors, Flower2, Drama,
+  Palette, Code, UtensilsCrossed, Dumbbell, Music, Languages,
+  Camera, Scissors, Footprints, Shapes, Sprout,
 } from 'lucide-react';
 import type { ElementType } from 'react';
 
 interface CatConfig {
-  bg: string;       // gradient para card header (usa tokens light/dark)
+  /** Fondo plano de la categoría (sin degradado). */
+  bg: string;
   icon: ElementType;
-  accent: string;   // chip de icono (fondo + texto)
+  /** Chip de ícono: fondo y tinta de la categoría. */
+  accent: string;
+  /** Solo la tinta, para íconos o texto sobre superficie neutra. */
+  ink: string;
 }
 
 /**
- * Configuración por categoría. Usa CSS variables tokenizadas (light/dark) en
- * lugar de paletas hardcodeadas de Tailwind. Cada tinte tiene su versión dark
- * definida en `tokens.css` bajo `.dark` y `prefers-color-scheme: dark`.
+ * Cada categoría usa su par --cat-x / --cat-x-ink de `tokens.css`: una familia
+ * de tonos profundos y apagados, armonizada con el morado de la marca y con
+ * versión para modo oscuro. Contraste de la tinta sobre su fondo ≥ 6:1.
  */
+function cat(slug: string, icon: ElementType): CatConfig {
+  return {
+    bg: `bg-[var(--cat-${slug})]`,
+    icon,
+    accent: `bg-[var(--cat-${slug})] text-[var(--cat-${slug}-ink)]`,
+    ink: `text-[var(--cat-${slug}-ink)]`,
+  };
+}
+
+// Las clases se escriben completas arriba vía plantilla; Tailwind las detecta
+// porque los valores literales aparecen aquí:
+// bg-[var(--cat-arte)] text-[var(--cat-arte-ink)] bg-[var(--cat-tecnologia)] text-[var(--cat-tecnologia-ink)]
+// bg-[var(--cat-cocina)] text-[var(--cat-cocina-ink)] bg-[var(--cat-deportes)] text-[var(--cat-deportes-ink)]
+// bg-[var(--cat-musica)] text-[var(--cat-musica-ink)] bg-[var(--cat-idiomas)] text-[var(--cat-idiomas-ink)]
+// bg-[var(--cat-fotografia)] text-[var(--cat-fotografia-ink)] bg-[var(--cat-manualidades)] text-[var(--cat-manualidades-ink)]
+// bg-[var(--cat-danza)] text-[var(--cat-danza-ink)] bg-[var(--cat-otras)] text-[var(--cat-otras-ink)]
+
 const config: Record<string, CatConfig> = {
-  arte:          { bg: '[background:linear-gradient(135deg,var(--tint-pink),var(--surface))]',     icon: Palette,         accent: 'bg-[var(--tint-pink)] text-[var(--tint-pink-ink)]' },
-  tecnologia:    { bg: '[background:linear-gradient(135deg,var(--tint-blue),var(--surface))]',     icon: Code,            accent: 'bg-[var(--tint-blue)] text-[var(--tint-blue-ink)]' },
-  cocina:        { bg: '[background:linear-gradient(135deg,var(--tint-emerald),var(--surface))]',  icon: UtensilsCrossed, accent: 'bg-[var(--tint-emerald)] text-[var(--tint-emerald-ink)]' },
-  deportes:      { bg: '[background:linear-gradient(135deg,var(--tint-red),var(--surface))]',      icon: Dumbbell,        accent: 'bg-[var(--tint-red)] text-[var(--tint-red-ink)]' },
-  musica:        { bg: '[background:linear-gradient(135deg,var(--tint-purple),var(--surface))]',   icon: Music,           accent: 'bg-[var(--tint-purple)] text-[var(--tint-purple-ink)]' },
-  idiomas:       { bg: '[background:linear-gradient(135deg,var(--tint-amber),var(--surface))]',    icon: Globe,           accent: 'bg-[var(--tint-amber)] text-[var(--tint-amber-ink)]' },
-  fotografia:    { bg: '[background:linear-gradient(135deg,var(--tint-teal),var(--surface))]',     icon: Camera,          accent: 'bg-[var(--tint-teal)] text-[var(--tint-teal-ink)]' },
-  manualidades:  { bg: '[background:linear-gradient(135deg,var(--tint-indigo),var(--surface))]',   icon: Scissors,        accent: 'bg-[var(--tint-indigo)] text-[var(--tint-indigo-ink)]' },
-  jardineria:    { bg: '[background:linear-gradient(135deg,var(--tint-lime),var(--surface))]',     icon: Flower2,         accent: 'bg-[var(--tint-lime)] text-[var(--tint-lime-ink-cat)]' },
-  danza:         { bg: '[background:linear-gradient(135deg,var(--tint-fuchsia),var(--surface))]',  icon: Drama,           accent: 'bg-[var(--tint-fuchsia)] text-[var(--tint-fuchsia-ink)]' },
+  arte:         cat('arte', Palette),
+  tecnologia:   cat('tecnologia', Code),
+  cocina:       cat('cocina', UtensilsCrossed),
+  deportes:     cat('deportes', Dumbbell),
+  musica:       cat('musica', Music),
+  idiomas:      cat('idiomas', Languages),
+  fotografia:   cat('fotografia', Camera),
+  manualidades: cat('manualidades', Scissors),
+  danza:        cat('danza', Footprints),
+  jardineria:   cat('cocina', Sprout),
+  otras:        cat('otras', Shapes),
 };
 
-const fallback: CatConfig = {
-  bg: '[background:linear-gradient(135deg,var(--tint-gray),var(--surface))]',
-  icon: Palette,
-  accent: 'bg-[var(--tint-gray)] text-[var(--tint-gray-ink)]',
-};
+const fallback: CatConfig = cat('otras', Shapes);
 
 export function getCategoryConfig(slug?: string | null): CatConfig {
   if (!slug) return fallback;
@@ -41,6 +59,6 @@ export function getCategoryConfig(slug?: string | null): CatConfig {
 
 export function getCategoryConfigById(id: number | string, categorias?: { id: number; slug: string }[]): CatConfig {
   if (!categorias) return fallback;
-  const cat = categorias.find((c) => c.id === Number(id));
-  return getCategoryConfig(cat?.slug);
+  const c = categorias.find((x) => Number(x.id) === Number(id));
+  return getCategoryConfig(c?.slug);
 }

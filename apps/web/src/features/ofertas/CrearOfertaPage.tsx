@@ -5,11 +5,14 @@ import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
 import Button from '@/components/ui/Button';
 import OfertaCardComponent from './components/OfertaCardComponent';
+import DuracionFields from './components/DuracionFields';
 import { useCategorias } from './hooks/useCategorias';
 import { useCrearOferta } from './hooks/useOfertas';
 import { useAuthStore } from '@/stores/authStore';
 import { toast, toastError } from '@/lib/toast';
 import type { OfertaFormData, Modalidad, TipoCapacidad } from '@/lib/types';
+
+const DISPONIBILIDAD_LABEL: Record<string, string> = { mananas: 'Mañanas', tardes: 'Tardes', fines_semana: 'Fines de semana' };
 
 const steps = [
   { label: 'Descripción', title: '¿Qué ofreces?' },
@@ -33,6 +36,8 @@ export default function CrearOfertaPage() {
   const [tipoCapacidad, setTipoCapacidad] = useState<TipoCapacidad>('individual');
   const [capacidadMaxima, setCapacidadMaxima] = useState('');
   const [disponibilidad, setDisponibilidad] = useState<string[]>([]);
+  const [duracion, setDuracion] = useState('');
+  const [sesiones, setSesiones] = useState('');
 
   const toggleDisponibilidad = (val: string) => {
     setDisponibilidad((prev) => prev.includes(val) ? prev.filter((d) => d !== val) : [...prev, val]);
@@ -56,6 +61,8 @@ export default function CrearOfertaPage() {
       zona: modalidad === 'presencial' ? zona : undefined,
       tipo_capacidad: tipoCapacidad,
       capacidad_maxima: tipoCapacidad === 'grupal' && capacidadMaxima ? Number(capacidadMaxima) : undefined,
+      duracion_sesion_min: duracion ? Number(duracion) : undefined,
+      num_sesiones: sesiones ? Number(sesiones) : undefined,
       disponibilidad: disponibilidad.length > 0 ? disponibilidad : undefined,
     };
 
@@ -75,6 +82,8 @@ export default function CrearOfertaPage() {
     modalidad,
     zona: zona || null,
     categoria_id: categoriaId,
+    duracion_sesion_min: duracion ? Number(duracion) : null,
+    num_sesiones: sesiones ? Number(sesiones) : null,
     oferente_id: user?.id ?? 0,
     oferente_nombre: user?.nombre ?? '',
     oferente_foto: user?.foto_perfil ?? null,
@@ -166,6 +175,13 @@ export default function CrearOfertaPage() {
               </div>
             </fieldset>
 
+            <DuracionFields
+              duracion={duracion}
+              sesiones={sesiones}
+              onDuracionChange={setDuracion}
+              onSesionesChange={setSesiones}
+            />
+
             {modalidad === 'presencial' && (
               <Input label="Zona" value={zona} onChange={(e) => setZona(e.target.value)} placeholder="Ej: Centro, Norte..." required />
             )}
@@ -190,7 +206,7 @@ export default function CrearOfertaPage() {
 
             {tipoCapacidad === 'grupal' && (
               <Input
-                label="Capacidad maxima"
+                label="Capacidad máxima"
                 type="number"
                 min={2}
                 value={capacidadMaxima}
@@ -202,7 +218,7 @@ export default function CrearOfertaPage() {
               <legend className="mb-2 text-sm font-medium text-text-1">Disponibilidad</legend>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { key: 'mananas', label: 'Mananas' },
+                  { key: 'mananas', label: 'Mañanas' },
                   { key: 'tardes', label: 'Tardes' },
                   { key: 'fines_semana', label: 'Fines de semana' },
                 ].map(({ key, label }) => (
@@ -228,7 +244,7 @@ export default function CrearOfertaPage() {
         {step === 2 && (
           <div className="space-y-5">
             <p className="text-sm text-text-2">Así se verá tu oferta en la página de exploración:</p>
-            <div className="mx-auto max-w-xs">
+            <div className="mx-auto max-w-sm">
               <OfertaCardComponent oferta={previewCard} categorias={categorias} />
             </div>
 
@@ -236,12 +252,12 @@ export default function CrearOfertaPage() {
               <h3 className="mb-2 text-sm font-semibold text-text-1">Resumen</h3>
               <dl className="space-y-1 text-sm">
                 <div className="flex justify-between"><dt className="text-text-3">Título</dt><dd className="text-text-1">{titulo}</dd></div>
-                <div className="flex justify-between"><dt className="text-text-3">Categoría</dt><dd className="text-text-1">{categorias?.find((c) => c.id === categoriaId)?.nombre ?? '-'}</dd></div>
+                <div className="flex justify-between"><dt className="text-text-3">Categoría</dt><dd className="text-text-1">{categorias?.find((c) => Number(c.id) === categoriaId)?.nombre ?? '-'}</dd></div>
                 <div className="flex justify-between"><dt className="text-text-3">Modalidad</dt><dd className="text-text-1 capitalize">{modalidad}</dd></div>
                 {zona && <div className="flex justify-between"><dt className="text-text-3">Zona</dt><dd className="text-text-1">{zona}</dd></div>}
-                <div className="flex justify-between"><dt className="text-text-3">Capacidad</dt><dd className="text-text-1 capitalize">{tipoCapacidad}{tipoCapacidad === 'grupal' && capacidadMaxima ? ` (max ${capacidadMaxima})` : ''}</dd></div>
+                <div className="flex justify-between"><dt className="text-text-3">Capacidad</dt><dd className="text-text-1 capitalize">{tipoCapacidad}{tipoCapacidad === 'grupal' && capacidadMaxima ? ` (máx. ${capacidadMaxima})` : ''}</dd></div>
                 {disponibilidad.length > 0 && (
-                  <div className="flex justify-between"><dt className="text-text-3">Disponibilidad</dt><dd className="text-text-1">{disponibilidad.join(', ')}</dd></div>
+                  <div className="flex justify-between"><dt className="text-text-3">Disponibilidad</dt><dd className="text-text-1">{disponibilidad.map((d) => DISPONIBILIDAD_LABEL[d] ?? d).join(', ')}</dd></div>
                 )}
               </dl>
             </div>

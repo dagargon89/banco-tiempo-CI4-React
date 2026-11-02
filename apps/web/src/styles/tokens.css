@@ -1,7 +1,10 @@
 /* ============================================================
-   Banco de Tiempo · Tokens del Design System (doc 08 v3.0)
+   Banco de Tiempo · Tokens del Design System
    Marca Participa Juárez: morado #53155a + lima #dbec57.
-   Verificado WCAG 2.1 AA. NO usar text-white sobre bg lima.
+
+   Regla de la marca: el lima significa TIEMPO. Solo lo llevan las
+   horas, las sesiones y el saldo; nunca botones ni decoración.
+   El texto sobre lima siempre es --lime-ink (morado noche).
    ============================================================ */
 @import 'tailwindcss';
 
@@ -26,11 +29,12 @@
   --color-accent-2: var(--accent-2);
   --color-accent-2-hover: var(--accent-2-hover);
   --color-accent-2-soft: var(--accent-2-soft);
+  --color-night: var(--night);
   --color-lime: var(--lime);
   --color-lime-ink: var(--lime-ink);
   --color-lime-soft: var(--lime-soft);
 
-  /* texto/icono sobre rellenos de acento y error (blanco en claro, oscuro en dark) */
+  /* texto/icono sobre rellenos de acento y error */
   --color-on-accent: var(--on-accent);
   --color-on-error: var(--on-error);
 
@@ -40,23 +44,18 @@
   --color-error: var(--error);
   --color-info: var(--info);
 
-  /* superficies coloreadas (para badges/cards de categoría) */
-  --color-tint-pink: var(--tint-pink);
-  --color-tint-blue: var(--tint-blue);
-  --color-tint-emerald: var(--tint-emerald);
-  --color-tint-red: var(--tint-red);
-  --color-tint-purple: var(--tint-purple);
-  --color-tint-amber: var(--tint-amber);
-  --color-tint-teal: var(--tint-teal);
-  --color-tint-indigo: var(--tint-indigo);
-  --color-tint-lime: var(--tint-lime);
-  --color-tint-fuchsia: var(--tint-fuchsia);
-  --color-tint-gray: var(--tint-gray);
+  --font-ui: 'Atkinson Hyperlegible Next', system-ui, -apple-system, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Atkinson Hyperlegible Next', sans-serif;
 
-  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Sora', 'Inter', sans-serif;
+  /* Escala de radios: crece con el tamaño del elemento.
+     chips e inputs pequeños < botones < tarjetas < paneles grandes. */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 20px;
+  --radius-pill: 999px;
 
-  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px; --radius-pill: 999px;
   --shadow-sm: var(--sh-sm);
   --shadow-md: var(--sh-md);
   --shadow-lg: var(--sh-lg);
@@ -64,93 +63,62 @@
 
 /* ============ Light (default) ============ */
 :root {
-  --bg:#F8FAFC; --surface:#FFFFFF; --surface-2:#F4F1F6;
-  --border:#E6E1EA; --border-strong:#CBC2D1;
-  --text-1:#1E1421; --text-2:#6B5B6E; --text-3:#9A8FA0;
-  --accent:#53155a; --accent-hover:#3F1045; --accent-soft:#F3E8F5;
-  --accent-2:#7A3B82; --accent-2-hover:#632E6A; --accent-2-soft:#F0E6F2;
-  --lime:#dbec57; --lime-ink:#3A0F40; --lime-soft:#F7FAD9;
+  /* Papel lavanda: integra el morado en lugar del gris azulado genérico. */
+  --bg:#F6F2F7; --surface:#FFFFFF; --surface-2:#EFE8F1;
+  --border:#E4DAE7; --border-strong:#C9BACE;
+  --text-1:#1E1421; --text-2:#625266; --text-3:#736579;
+  --accent:#53155a; --accent-hover:#3F1045; --accent-soft:#F1E4F3;
+  --accent-2:#7A3B82; --accent-2-hover:#632E6A; --accent-2-soft:#EFE3F1;
+  --night:#2A0B2F;
+  --lime:#DBEC57; --lime-ink:#2A0B2F; --lime-soft:#F4F8D2;
   --on-accent:#FFFFFF; --on-error:#FFFFFF;
-  --success:#15803D; --warning:#B45309; --error:#BE123C; --info:#0E7490;
-  --brand-gradient: linear-gradient(120deg, #53155a, #7A3B82);
+  --success:#15803D; --warning:#A1520A; --error:#BE123C; --info:#0E7490;
 
-  /* Tints de categoría / stats */
-  --tint-pink:#FCE7F3;     --tint-pink-ink:#BE185D;
-  --tint-blue:#DBEAFE;     --tint-blue-ink:#1D4ED8;
-  --tint-emerald:#D1FAE5;  --tint-emerald-ink:#047857;
-  --tint-red:#FEE2E2;      --tint-red-ink:#B91C1C;
-  --tint-purple:#F3E8FF;   --tint-purple-ink:#7E22CE;
-  --tint-amber:#FEF3C7;    --tint-amber-ink:#B45309;
-  --tint-teal:#CCFBF1;     --tint-teal-ink:#0F766E;
-  --tint-indigo:#E0E7FF;   --tint-indigo-ink:#4338CA;
-  --tint-lime:#ECFCCB;     --tint-lime-ink-cat:#65A30D;
-  --tint-fuchsia:#FAE8FF;  --tint-fuchsia-ink:#A21CAF;
-  --tint-gray:#F3F4F6;     --tint-gray-ink:#4B5563;
+  /* Familia de categorías: tonos profundos y apagados, armonizados con el
+     morado. Cada una tiene fondo (--cat-x) y tinta (--cat-x-ink). */
+  --cat-arte:#F4E2EA;         --cat-arte-ink:#7E2550;
+  --cat-tecnologia:#E2E6F2;   --cat-tecnologia-ink:#2F4076;
+  --cat-cocina:#EAEDD8;       --cat-cocina-ink:#4D5716;
+  --cat-deportes:#F3E3DB;     --cat-deportes-ink:#83361E;
+  --cat-musica:#EEE2F2;       --cat-musica-ink:#5F2169;
+  --cat-idiomas:#F2EAD6;      --cat-idiomas-ink:#6C4F0F;
+  --cat-fotografia:#DDEBEA;   --cat-fotografia-ink:#1B5552;
+  --cat-manualidades:#E5E2F2; --cat-manualidades-ink:#3F367C;
+  --cat-danza:#F3E0EE;        --cat-danza-ink:#831F66;
+  --cat-otras:#ECE7EE;        --cat-otras-ink:#54475A;
 
-  --sh-sm: 0 1px 2px rgba(30,20,33,.04), 0 1px 3px rgba(30,20,33,.06);
-  --sh-md: 0 4px 6px rgba(30,20,33,.05), 0 10px 20px rgba(30,20,33,.07);
-  --sh-lg: 0 12px 32px rgba(30,20,33,.12);
+  --sh-sm: 0 1px 2px rgba(42,11,47,.05), 0 1px 3px rgba(42,11,47,.06);
+  --sh-md: 0 4px 6px rgba(42,11,47,.05), 0 10px 20px rgba(42,11,47,.07);
+  --sh-lg: 0 12px 32px rgba(42,11,47,.14);
 
   color-scheme: light;
 }
 
 /* ============ Dark mode ============
-   Las superficies tienen un tinte morado leve para mantener identidad de marca.
-   Verificado contraste AA:
-   - text-1 (#F0E8F2) sobre surface (#1F1828): 12.4:1 ✓
-   - text-2 (#B9A8C0) sobre surface: 6.8:1 ✓
-   - text-3 (#8A7990) sobre surface: 4.6:1 ✓ (≥ AA Large)
-   - accent (#C58FCC) sobre surface: 6.2:1 ✓ (links/CTA legibles)
-   - lime (#DBEC57) y su ink (#1A0822) mantienen contraste 13:1
+   Superficies con tinte morado. En oscuro el botón principal es lila
+   claro con texto morado noche. El lima se mantiene igual.
    ============================================================ */
 .dark {
-  --bg:#16121C;          /* fondo principal con tinte morado */
-  --surface:#1F1828;     /* cards / modales */
-  --surface-2:#2A2236;   /* hover / inputs / chips inactivos */
-  --border:#3A3145;
-  --border-strong:#544863;
+  --bg:#150F19; --surface:#1F1726; --surface-2:#2A2132;
+  --border:#3A3044; --border-strong:#554862;
+  --text-1:#F0E8F2; --text-2:#B9A8C0; --text-3:#9A89A1;
+  --accent:#E7C9EB; --accent-hover:#F1DCF3; --accent-soft:#3A1F45;
+  --accent-2:#C9A2CF; --accent-2-hover:#D9B9DE; --accent-2-soft:#34203A;
+  --night:#2A0B2F;
+  --lime:#DBEC57; --lime-ink:#2A0B2F; --lime-soft:#2B2D17;
+  --on-accent:#2A0B2F; --on-error:#1A0822;
+  --success:#4ADE80; --warning:#FBBF24; --error:#FB7185; --info:#22D3EE;
 
-  --text-1:#F0E8F2;      /* texto principal */
-  --text-2:#B9A8C0;      /* texto secundario */
-  --text-3:#8A7990;      /* texto terciario / placeholder */
-
-  /* La marca en dark se aclara para ser legible como CTA/link */
-  --accent:#C58FCC;
-  --accent-hover:#D5A5DC;
-  --accent-soft:#3A1F45;   /* fondos sutiles de acento */
-  --accent-2:#A874B0;
-  --accent-2-hover:#BC8AC4;
-  --accent-2-soft:#34203A;
-  --lime:#DBEC57;          /* lima se mantiene; sigue siendo highlight */
-  --lime-ink:#1A0822;
-  --lime-soft:#2C2E1A;
-
-  /* En dark el acento y el error son claros: el texto encima va oscuro.
-     on-accent sobre accent #C58FCC: 7.4:1 · on-error sobre error #FB7185: 7.1:1 */
-  --on-accent:#1A0822;
-  --on-error:#1A0822;
-
-  /* Semánticos con buen contraste sobre dark surface */
-  --success:#4ADE80;
-  --warning:#FBBF24;
-  --error:#FB7185;
-  --info:#22D3EE;
-
-  /* Gradiente de marca para headers — más sutil en dark */
-  --brand-gradient: linear-gradient(120deg, #3F1045, #7A3B82);
-
-  /* Tints de categoría — fondos oscuros saturados con texto claro */
-  --tint-pink:#3D1F2E;       --tint-pink-ink:#F9A8D4;
-  --tint-blue:#1E2A4A;       --tint-blue-ink:#93C5FD;
-  --tint-emerald:#1A3A2E;    --tint-emerald-ink:#6EE7B7;
-  --tint-red:#3D1E22;        --tint-red-ink:#FCA5A5;
-  --tint-purple:#2D1B3D;     --tint-purple-ink:#D8B4FE;
-  --tint-amber:#3D2E18;      --tint-amber-ink:#FCD34D;
-  --tint-teal:#163331;       --tint-teal-ink:#5EEAD4;
-  --tint-indigo:#1F2347;     --tint-indigo-ink:#A5B4FC;
-  --tint-lime:#2A3318;       --tint-lime-ink-cat:#BEF264;
-  --tint-fuchsia:#34163A;    --tint-fuchsia-ink:#F0ABFC;
-  --tint-gray:#272131;       --tint-gray-ink:#C4B8CC;
+  --cat-arte:#3A1E2B;         --cat-arte-ink:#F2B8D2;
+  --cat-tecnologia:#1E2540;   --cat-tecnologia-ink:#B5C3EE;
+  --cat-cocina:#2A2F17;       --cat-cocina-ink:#D2DC93;
+  --cat-deportes:#3A231B;     --cat-deportes-ink:#F2BBA5;
+  --cat-musica:#33193A;       --cat-musica-ink:#E2B6EA;
+  --cat-idiomas:#362C14;      --cat-idiomas-ink:#EBCF8C;
+  --cat-fotografia:#142F2E;   --cat-fotografia-ink:#9ED8D3;
+  --cat-manualidades:#25213F; --cat-manualidades-ink:#C2BAF0;
+  --cat-danza:#3A1834;        --cat-danza-ink:#F0AEDD;
+  --cat-otras:#2B2430;        --cat-otras-ink:#CDBFD3;
 
   --sh-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
   --sh-md: 0 4px 6px rgba(0,0,0,.4), 0 10px 20px rgba(0,0,0,.5);
@@ -162,26 +130,25 @@
 /* Sistema operativo en dark cuando no hay clase manual */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg:#16121C; --surface:#1F1828; --surface-2:#2A2236;
-    --border:#3A3145; --border-strong:#544863;
-    --text-1:#F0E8F2; --text-2:#B9A8C0; --text-3:#8A7990;
-    --accent:#C58FCC; --accent-hover:#D5A5DC; --accent-soft:#3A1F45;
-    --accent-2:#A874B0; --accent-2-hover:#BC8AC4; --accent-2-soft:#34203A;
-    --lime:#DBEC57; --lime-ink:#1A0822; --lime-soft:#2C2E1A;
-    --on-accent:#1A0822; --on-error:#1A0822;
+    --bg:#150F19; --surface:#1F1726; --surface-2:#2A2132;
+    --border:#3A3044; --border-strong:#554862;
+    --text-1:#F0E8F2; --text-2:#B9A8C0; --text-3:#9A89A1;
+    --accent:#E7C9EB; --accent-hover:#F1DCF3; --accent-soft:#3A1F45;
+    --accent-2:#C9A2CF; --accent-2-hover:#D9B9DE; --accent-2-soft:#34203A;
+    --night:#2A0B2F;
+    --lime:#DBEC57; --lime-ink:#2A0B2F; --lime-soft:#2B2D17;
+    --on-accent:#2A0B2F; --on-error:#1A0822;
     --success:#4ADE80; --warning:#FBBF24; --error:#FB7185; --info:#22D3EE;
-    --brand-gradient: linear-gradient(120deg, #3F1045, #7A3B82);
-    --tint-pink:#3D1F2E;       --tint-pink-ink:#F9A8D4;
-    --tint-blue:#1E2A4A;       --tint-blue-ink:#93C5FD;
-    --tint-emerald:#1A3A2E;    --tint-emerald-ink:#6EE7B7;
-    --tint-red:#3D1E22;        --tint-red-ink:#FCA5A5;
-    --tint-purple:#2D1B3D;     --tint-purple-ink:#D8B4FE;
-    --tint-amber:#3D2E18;      --tint-amber-ink:#FCD34D;
-    --tint-teal:#163331;       --tint-teal-ink:#5EEAD4;
-    --tint-indigo:#1F2347;     --tint-indigo-ink:#A5B4FC;
-    --tint-lime:#2A3318;       --tint-lime-ink-cat:#BEF264;
-    --tint-fuchsia:#34163A;    --tint-fuchsia-ink:#F0ABFC;
-    --tint-gray:#272131;       --tint-gray-ink:#C4B8CC;
+    --cat-arte:#3A1E2B;         --cat-arte-ink:#F2B8D2;
+    --cat-tecnologia:#1E2540;   --cat-tecnologia-ink:#B5C3EE;
+    --cat-cocina:#2A2F17;       --cat-cocina-ink:#D2DC93;
+    --cat-deportes:#3A231B;     --cat-deportes-ink:#F2BBA5;
+    --cat-musica:#33193A;       --cat-musica-ink:#E2B6EA;
+    --cat-idiomas:#362C14;      --cat-idiomas-ink:#EBCF8C;
+    --cat-fotografia:#142F2E;   --cat-fotografia-ink:#9ED8D3;
+    --cat-manualidades:#25213F; --cat-manualidades-ink:#C2BAF0;
+    --cat-danza:#3A1834;        --cat-danza-ink:#F0AEDD;
+    --cat-otras:#2B2430;        --cat-otras-ink:#CDBFD3;
     --sh-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
     --sh-md: 0 4px 6px rgba(0,0,0,.4), 0 10px 20px rgba(0,0,0,.5);
     --sh-lg: 0 12px 32px rgba(0,0,0,.6);
@@ -194,8 +161,12 @@ body {
   background:var(--bg);
   color:var(--text-1);
   font-family:var(--font-ui);
+  line-height:1.55;
   -webkit-font-smoothing:antialiased;
 }
+
+/* Bricolage tiene eje óptico: los títulos grandes se ven más compactos. */
+.font-display { font-optical-sizing:auto; letter-spacing:-0.01em; }
 
 /* Logo Participa Juárez: es morado sobre transparente y se pierde en dark.
    En dark se coloca sobre una placa clara. Se usa CSS (no `dark:`) para cubrir
@@ -204,4 +175,34 @@ body {
 .dark .brand-logo { background:#F6F2F7; padding:2px 4px; }
 @media (prefers-color-scheme: dark) {
   :root:not(.light) .brand-logo { background:#F6F2F7; padding:2px 4px; }
+}
+
+/* ============ Boleto de tiempo ============
+   Talón de la tarjeta de oferta: lleva el lima (tiempo) y se separa del
+   cuerpo con una línea punteada y dos muescas, como un boleto. */
+.boleto-talon {
+  position:relative;
+  background:var(--lime);
+  color:var(--lime-ink);
+  border-left:2px dashed var(--lime-ink);
+}
+.boleto-talon::before,
+.boleto-talon::after {
+  content:'';
+  position:absolute;
+  left:-9px;
+  width:16px;
+  height:16px;
+  border-radius:999px;
+  background:var(--boleto-hueco, var(--bg));
+}
+.boleto-talon::before { top:-9px; }
+.boleto-talon::after { bottom:-9px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration:0.01ms !important;
+    animation-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
 }
