@@ -2,9 +2,9 @@ name: API CI
 
 on:
   push:
-    paths: ['apps/api/**']
+    paths: ['apps/api/**', '.github/workflows/api.yml']
   pull_request:
-    paths: ['apps/api/**']
+    paths: ['apps/api/**', '.github/workflows/api.yml']
 
 defaults:
   run:
@@ -53,6 +53,17 @@ jobs:
 
       - name: PHPStan
         run: vendor/bin/phpstan analyse
+
+      - name: Migraciones
+        env:
+          CI_ENVIRONMENT: development
+          database.default.hostname: 127.0.0.1
+          database.default.database: banco_de_tiempo
+          database.default.username: bt_app
+          database.default.password: bt_app_ci
+          database.default.DBDriver: MySQLi
+          database.default.port: 3306
+        run: php spark migrate --all
 
       - name: PHPUnit
         env:

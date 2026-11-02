@@ -1,4 +1,4 @@
-import { type FormEvent, useState, useEffect } from 'react';
+import { type FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
@@ -165,9 +165,12 @@ export default function ProfileEditPage() {
   const [form, setForm] = useState<Partial<AuthUser>>({});
   const [fotoFile, setFotoFile] = useState<File | null>(null);
 
-  useEffect(() => {
-    if (user) setForm(user);
-  }, [user]);
+  // Sincronizar el formulario cuando llega (o cambia) el perfil, durante el render.
+  const [formSource, setFormSource] = useState<typeof user>(undefined);
+  if (user && user !== formSource) {
+    setFormSource(user);
+    setForm(user);
+  }
 
   if (isLoading || !user) {
     return (

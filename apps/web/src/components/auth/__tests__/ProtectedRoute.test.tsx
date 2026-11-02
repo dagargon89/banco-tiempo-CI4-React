@@ -11,9 +11,9 @@ function renderWithRouter(initialRoute: string) {
     <QueryClientProvider client={qc}>
       <MemoryRouter initialEntries={[initialRoute]}>
         <Routes>
-          <Route path="/login" element={<div>Login Page</div>} />
+          <Route path="/" element={<div>Bienvenida</div>} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<div>Dashboard</div>} />
+            <Route path="/panel" element={<div>Dashboard</div>} />
           </Route>
         </Routes>
       </MemoryRouter>
@@ -32,9 +32,9 @@ describe('ProtectedRoute', () => {
     });
   });
 
-  it('redirige a /login si no hay usuario', () => {
-    renderWithRouter('/');
-    expect(screen.getByText('Login Page')).toBeInTheDocument();
+  it('redirige a la bienvenida si no hay usuario', () => {
+    renderWithRouter('/panel');
+    expect(screen.getByText('Bienvenida')).toBeInTheDocument();
   });
 
   it('muestra el contenido si hay usuario', () => {
@@ -50,13 +50,13 @@ describe('ProtectedRoute', () => {
       loading: false,
       initialized: true,
     });
-    renderWithRouter('/');
+    renderWithRouter('/panel');
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
   });
 
   it('muestra spinner mientras carga', () => {
     useAuthStore.setState({ loading: true, initialized: false });
-    const { container } = renderWithRouter('/');
+    const { container } = renderWithRouter('/panel');
     expect(container.querySelector('.animate-spin')).toBeInTheDocument();
   });
 });

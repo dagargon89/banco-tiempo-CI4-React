@@ -83,7 +83,13 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); setMensajesOpen(false); }, [pathname]);
+  // Cerrar menús al navegar (ajuste de estado durante el render, sin efecto).
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+    setMensajesOpen(false);
+  }
 
   return (
     <header className="flex h-14 items-center justify-between border-b border-border bg-surface px-4 sm:px-6">

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MessageCircle } from 'lucide-react';
 import { useChatToken, useChatMessages } from '../hooks/useChat';
 import { useChatStore } from '@/stores/chatStore';
@@ -25,32 +25,31 @@ export default function ChatWindow({ vinculacionId, otroInactivo, variant = 'emb
     sendError,
   } = useChatMessages(isConnected ? conversationId : null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const connectingRef = useRef(false);
+  // Vinculación cuyo intento de conexión ya terminó (con éxito o error).
+  const [settledFor, setSettledFor] = useState<number | null>(null);
 
   // Conectar al montar o al cambiar de vinculación.
   // Usamos un flag `cancelled` (no el closure de isConnected) para que el cleanup
   // pueda invalidar la conexión en vuelo sin depender de estado capturado stale.
   useEffect(() => {
     let cancelled = false;
-    connectingRef.current = true;
     chatToken.mutate(vinculacionId, {
       onSuccess: async (data) => {
-        if (cancelled) {
-          connectingRef.current = false;
-          return;
+        if (cancelled) return;
+        try {
+          await connectToChat(data.firebase_custom_token, data.conversation_id);
+        } finally {
+          if (!cancelled) setSettledFor(vinculacionId);
         }
-        await connectToChat(data.firebase_custom_token, data.conversation_id);
-        if (!cancelled) connectingRef.current = false;
       },
       onError: () => {
-        connectingRef.current = false;
+        if (!cancelled) setSettledFor(vinculacionId);
       },
     });
 
     return () => {
       cancelled = true;
       disconnect();
-      connectingRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vinculacionId]);
@@ -60,7 +59,7 @@ export default function ChatWindow({ vinculacionId, otroInactivo, variant = 'emb
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages.length]);
 
-  if (chatToken.isPending || connectingRef.current) {
+  if (chatToken.isPending || settledFor !== vinculacionId) {
     return (
       <div className="flex items-center justify-center rounded-xl border border-border bg-surface p-8">
         <div className="h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent" />

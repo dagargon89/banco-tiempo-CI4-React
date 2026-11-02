@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
@@ -27,25 +27,24 @@ export default function EditarOfertaPage() {
   const [disponibilidad, setDisponibilidad] = useState<string[]>([]);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    if (oferta && !loaded) {
-      setTitulo(oferta.titulo);
-      setCategoriaId(oferta.categoria_id);
-      setDescripcionBreve(oferta.descripcion_breve);
-      setDescripcionCompleta(oferta.descripcion_completa ?? '');
-      setModalidad(oferta.modalidad);
-      setZona(oferta.zona ?? '');
-      setTipoCapacidad(oferta.tipo_capacidad ?? 'individual');
-      setCapacidadMaxima(oferta.capacidad_maxima ? String(oferta.capacidad_maxima) : '');
-      try {
-        const disp = typeof oferta.disponibilidad === 'string' ? JSON.parse(oferta.disponibilidad) : oferta.disponibilidad;
-        setDisponibilidad(Array.isArray(disp) ? disp : []);
-      } catch {
-        setDisponibilidad([]);
-      }
-      setLoaded(true);
+  // Precargar el formulario una sola vez, durante el render.
+  if (oferta && !loaded) {
+    setTitulo(oferta.titulo);
+    setCategoriaId(oferta.categoria_id);
+    setDescripcionBreve(oferta.descripcion_breve);
+    setDescripcionCompleta(oferta.descripcion_completa ?? '');
+    setModalidad(oferta.modalidad);
+    setZona(oferta.zona ?? '');
+    setTipoCapacidad(oferta.tipo_capacidad ?? 'individual');
+    setCapacidadMaxima(oferta.capacidad_maxima ? String(oferta.capacidad_maxima) : '');
+    try {
+      const disp = typeof oferta.disponibilidad === 'string' ? JSON.parse(oferta.disponibilidad) : oferta.disponibilidad;
+      setDisponibilidad(Array.isArray(disp) ? disp : []);
+    } catch {
+      setDisponibilidad([]);
     }
-  }, [oferta, loaded]);
+    setLoaded(true);
+  }
 
   const toggleDisponibilidad = (val: string) => {
     setDisponibilidad((prev) => prev.includes(val) ? prev.filter((d) => d !== val) : [...prev, val]);
