@@ -47,7 +47,7 @@ export default function AdminOfertasPage() {
 
   const columns: Column<AdminOferta>[] = [
     { key: 'id', header: 'ID', hideOnMobile: true, render: (o) => <span className="text-text-3">{o.id}</span> },
-    { key: 'titulo', header: 'Titulo', render: (o) => <span className="font-medium text-text-1">{o.titulo}</span> },
+    { key: 'titulo', header: 'Título', render: (o) => <span className="font-medium text-text-1">{o.titulo}</span> },
     { key: 'oferente', header: 'Oferente', render: (o) => <span className="text-text-2">{o.oferente_nombre}</span> },
     {
       key: 'estado', header: 'Estado',
@@ -90,7 +90,7 @@ export default function AdminOfertasPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Moderacion de ofertas</h1>
+      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Moderación de ofertas</h1>
 
       <div className="mb-4 flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">
@@ -109,7 +109,7 @@ export default function AdminOfertasPage() {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-text-2">Categoria</label>
+          <label className="text-xs font-medium text-text-2">Categoría</label>
           <select
             value={categoriaId ?? ''}
             onChange={(e) => setFilter('cat', e.target.value || null)}

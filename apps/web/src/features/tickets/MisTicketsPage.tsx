@@ -58,7 +58,7 @@ export default function MisTicketsPage() {
                 </div>
                 {t.resolucion && (
                   <div className="mt-3 rounded-lg bg-success/5 p-3">
-                    <p className="text-xs font-medium text-success">Resolucion:</p>
+                    <p className="text-xs font-medium text-success">Resolución:</p>
                     <p className="text-sm text-text-2">{t.resolucion}</p>
                   </div>
                 )}

@@ -30,6 +30,10 @@
   --color-lime-ink: var(--lime-ink);
   --color-lime-soft: var(--lime-soft);
 
+  /* texto/icono sobre rellenos de acento y error (blanco en claro, oscuro en dark) */
+  --color-on-accent: var(--on-accent);
+  --color-on-error: var(--on-error);
+
   /* semánticos */
   --color-success: var(--success);
   --color-warning: var(--warning);
@@ -66,6 +70,7 @@
   --accent:#53155a; --accent-hover:#3F1045; --accent-soft:#F3E8F5;
   --accent-2:#7A3B82; --accent-2-hover:#632E6A; --accent-2-soft:#F0E6F2;
   --lime:#dbec57; --lime-ink:#3A0F40; --lime-soft:#F7FAD9;
+  --on-accent:#FFFFFF; --on-error:#FFFFFF;
   --success:#15803D; --warning:#B45309; --error:#BE123C; --info:#0E7490;
   --brand-gradient: linear-gradient(120deg, #53155a, #7A3B82);
 
@@ -120,6 +125,11 @@
   --lime-ink:#1A0822;
   --lime-soft:#2C2E1A;
 
+  /* En dark el acento y el error son claros: el texto encima va oscuro.
+     on-accent sobre accent #C58FCC: 7.4:1 · on-error sobre error #FB7185: 7.1:1 */
+  --on-accent:#1A0822;
+  --on-error:#1A0822;
+
   /* Semánticos con buen contraste sobre dark surface */
   --success:#4ADE80;
   --warning:#FBBF24;
@@ -158,6 +168,7 @@
     --accent:#C58FCC; --accent-hover:#D5A5DC; --accent-soft:#3A1F45;
     --accent-2:#A874B0; --accent-2-hover:#BC8AC4; --accent-2-soft:#34203A;
     --lime:#DBEC57; --lime-ink:#1A0822; --lime-soft:#2C2E1A;
+    --on-accent:#1A0822; --on-error:#1A0822;
     --success:#4ADE80; --warning:#FBBF24; --error:#FB7185; --info:#22D3EE;
     --brand-gradient: linear-gradient(120deg, #3F1045, #7A3B82);
     --tint-pink:#3D1F2E;       --tint-pink-ink:#F9A8D4;
@@ -184,4 +195,13 @@ body {
   color:var(--text-1);
   font-family:var(--font-ui);
   -webkit-font-smoothing:antialiased;
+}
+
+/* Logo Participa Juárez: es morado sobre transparente y se pierde en dark.
+   En dark se coloca sobre una placa clara. Se usa CSS (no `dark:`) para cubrir
+   también el tema "sistema", que no añade la clase .dark. */
+.brand-logo { border-radius: 6px; }
+.dark .brand-logo { background:#F6F2F7; padding:2px 4px; }
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .brand-logo { background:#F6F2F7; padding:2px 4px; }
 }

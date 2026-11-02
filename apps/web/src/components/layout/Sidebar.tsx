@@ -36,8 +36,8 @@ const adminNavAll: NavItem[] = [
   { to: '/admin/ofertas',        label: 'Ofertas',        icon: Package,     roles: ['moderador'] },
   { to: '/admin/usuarios',       label: 'Usuarios',       icon: Users,       roles: ['moderador'] },
   { to: '/admin/tickets',        label: 'Tickets',        icon: Ticket,      roles: ['moderador', 'soporte'] },
-  { to: '/admin/metricas',       label: 'Metricas',       icon: BarChart3,   roles: ['moderador', 'analista'] },
-  { to: '/admin/categorias',     label: 'Categorias',     icon: FolderOpen,  roles: ['editor_categorias'] },
+  { to: '/admin/metricas',       label: 'Métricas',       icon: BarChart3,   roles: ['moderador', 'analista'] },
+  { to: '/admin/categorias',     label: 'Categorías',     icon: FolderOpen,  roles: ['editor_categorias'] },
   { to: '/admin/moderadores',    label: 'Moderadores',    icon: UserCog,     roles: ['super_admin'] },
 ];
 
@@ -92,7 +92,7 @@ export default function Sidebar() {
     >
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5">
-        <img src="/logo.png" alt="Participa Juárez" className="h-9 w-auto shrink-0" />
+        <img src="/logo.png" alt="Participa Juárez" className="brand-logo h-9 w-auto shrink-0" />
         <div className="min-w-0">
           <p className="truncate text-sm font-bold text-text-1">Banco de Tiempo</p>
           <p className="text-[10px] leading-tight text-text-3">Plan Juárez</p>

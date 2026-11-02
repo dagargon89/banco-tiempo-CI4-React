@@ -51,7 +51,7 @@ function Chip<T extends string>({ value, active, onClick, children }: { value: T
       onClick={() => onClick(value)}
       className={`rounded-pill border px-3 py-1 text-xs font-medium transition-colors ${
         active
-          ? 'border-accent bg-accent text-white'
+          ? 'border-accent bg-accent text-on-accent'
           : 'border-border bg-surface text-text-2 hover:bg-surface-2'
       }`}
     >
@@ -313,7 +313,7 @@ export default function ProfileEditPage() {
                       key={value}
                       type="button"
                       onClick={() => set('dias_disponibles', toggleInArray(form.dias_disponibles, value))}
-                      className={`h-9 w-9 rounded-lg border text-xs font-semibold transition-colors ${active ? 'border-accent bg-accent text-white' : 'border-border bg-surface text-text-2 hover:bg-surface-2'}`}
+                      className={`h-9 w-9 rounded-lg border text-xs font-semibold transition-colors ${active ? 'border-accent bg-accent text-on-accent' : 'border-border bg-surface text-text-2 hover:bg-surface-2'}`}
                     >
                       {label}
                     </button>

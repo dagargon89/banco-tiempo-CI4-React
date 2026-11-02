@@ -93,7 +93,7 @@ function DayPills({ dias }: { dias: DiaSemana[] | null | undefined }) {
         <span
           key={d}
           className={`flex h-7 w-9 items-center justify-center rounded-lg text-[11px] font-semibold ${
-            active.has(d) ? 'bg-accent text-white' : 'bg-surface-2 text-text-3'
+            active.has(d) ? 'bg-accent text-on-accent' : 'bg-surface-2 text-text-3'
           }`}
         >
           {DIA_FULL[d]}
@@ -215,9 +215,9 @@ export default function ProfilePage() {
           {user.bio && <p className="mt-4 text-sm text-text-2">{user.bio}</p>}
 
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <StatCard label="Calificacion" value={calificacionPromedio} accent />
+            <StatCard label="Calificación" value={calificacionPromedio} accent />
             <StatCard label="Actividades" value={completadas.length} />
-            <StatCard label="Resenas" value={totalResenas} />
+            <StatCard label="Reseñas" value={totalResenas} />
             <StatCard label="Ofertas" value={ofertasActivas.length} />
           </div>
         </div>
@@ -305,7 +305,7 @@ export default function ProfilePage() {
             <h3 className="mb-3 text-sm font-semibold text-text-1">Insignias</h3>
             <EmptyState
               icon={<LayoutGrid className="h-8 w-8" />}
-              title="Sin insignias aun"
+              title="Sin insignias aún"
               subtitle="Participa en la comunidad para ganar insignias"
             />
           </div>
@@ -349,11 +349,11 @@ export default function ProfilePage() {
             <EmptyState
               icon={<Clock className="h-8 w-8" />}
               title="Sin actividad reciente"
-              subtitle="Tu historial aparecera aqui cuando participes"
+              subtitle="Tu historial aparecerá aquí cuando participes"
             />
           </div>
           <div>
-            <h3 className="mb-3 text-sm font-semibold text-text-1">Resenas recibidas</h3>
+            <h3 className="mb-3 text-sm font-semibold text-text-1">Reseñas recibidas</h3>
             {user && <ResenasList userId={user.id} />}
           </div>
         </div>

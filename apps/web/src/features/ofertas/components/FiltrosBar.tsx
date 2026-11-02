@@ -34,7 +34,7 @@ export default function FiltrosBar({ categoriaId, modalidad, zona, q, onChange }
         onChange={(e) => onChange({ categoriaId: e.target.value ? Number(e.target.value) : null })}
         className={selectBase}
       >
-        <option value="">Todas las categorias</option>
+        <option value="">Todas las categorías</option>
         {categorias?.map((cat) => (
           <option key={cat.id} value={cat.id}>{cat.nombre}</option>
         ))}

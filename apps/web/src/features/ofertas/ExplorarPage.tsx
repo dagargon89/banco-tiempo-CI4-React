@@ -76,7 +76,7 @@ export default function ExplorarPage() {
           onClick={() => setFilter('cat', null)}
           className={`flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
             !categoriaId
-              ? 'bg-accent text-white shadow-sm'
+              ? 'bg-accent text-on-accent shadow-sm'
               : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
           }`}
         >
@@ -93,7 +93,7 @@ export default function ExplorarPage() {
               onClick={() => setFilter('cat', active ? null : String(cat.id))}
               className={`flex shrink-0 snap-start items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
                 active
-                  ? 'bg-accent text-white shadow-sm'
+                  ? 'bg-accent text-on-accent shadow-sm'
                   : 'border border-border bg-surface text-text-2 hover:bg-surface-2'
               }`}
             >

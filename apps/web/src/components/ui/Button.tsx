@@ -12,10 +12,10 @@ const base =
   'inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2.5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/20 disabled:opacity-50 disabled:cursor-not-allowed';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-accent text-white hover:bg-accent-hover',
+  primary: 'bg-accent text-on-accent hover:bg-accent-hover',
   secondary: 'bg-surface border border-border text-text-1 hover:bg-surface-2',
   subtle: 'bg-transparent text-text-2 hover:bg-surface-2',
-  danger: 'bg-error text-white hover:opacity-90',
+  danger: 'bg-error text-on-error hover:opacity-90',
   lime: 'bg-lime text-lime-ink hover:opacity-90',
 };
 

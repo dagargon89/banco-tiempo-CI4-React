@@ -77,7 +77,7 @@ export default function AdminTicketsPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestion de tickets</h1>
+      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestión de tickets</h1>
 
       <div className="mb-4 flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">

@@ -45,7 +45,7 @@ export default function MensajesPage() {
         <EmptyState
           icon={<MessageCircle className="h-10 w-10" />}
           title="Sin conversaciones"
-          subtitle="Las conversaciones aparecen cuando una vinculacion es aceptada"
+          subtitle="Las conversaciones aparecen cuando una vinculación es aceptada"
         />
       ) : (
         <div className="space-y-3">

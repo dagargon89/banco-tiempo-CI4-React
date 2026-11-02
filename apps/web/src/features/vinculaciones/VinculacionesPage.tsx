@@ -102,7 +102,7 @@ export default function VinculacionesPage() {
         <div className="mt-8">
           <EmptyState
             title="No hay vinculaciones"
-            subtitle="Explora ofertas y marca interes para comenzar."
+            subtitle="Explora ofertas y marca interés para comenzar."
           />
         </div>
       ) : (

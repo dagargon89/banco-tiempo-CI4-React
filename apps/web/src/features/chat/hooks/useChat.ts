@@ -91,7 +91,7 @@ export function useChatMessages(conversationId: string | null) {
       const chatAuth = getAuth(chatApp);
 
       if (!chatAuth.currentUser) {
-        throw new Error('No autenticado en el chat. Recarga la pagina.');
+        throw new Error('No autenticado en el chat. Recarga la página.');
       }
 
       const messagesRef = collection(db, 'conversations', conversationId, 'messages');

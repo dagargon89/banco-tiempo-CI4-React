@@ -100,17 +100,17 @@ export default function EditarOfertaPage() {
       <h1 className="mb-6 font-display text-xl font-bold text-text-1">Editar oferta</h1>
 
       <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-surface p-6">
-        <Input label="Titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={140} required />
+        <Input label="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={140} required />
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-text-1">Categoria</label>
+          <label className="text-sm font-medium text-text-1">Categoría</label>
           <select
             value={categoriaId}
             onChange={(e) => setCategoriaId(Number(e.target.value))}
             className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
             required
           >
-            <option value={0} disabled>Selecciona una categoria</option>
+            <option value={0} disabled>Selecciona una categoría</option>
             {categorias?.map((cat) => (
               <option key={cat.id} value={cat.id}>{cat.nombre}</option>
             ))}
@@ -118,7 +118,7 @@ export default function EditarOfertaPage() {
         </div>
 
         <Textarea
-          label="Descripcion breve (20-200 caracteres)"
+          label="Descripción breve (20-200 caracteres)"
           value={descripcionBreve}
           onChange={(e) => setDescripcionBreve(e.target.value)}
           maxChars={200}
@@ -127,7 +127,7 @@ export default function EditarOfertaPage() {
         />
 
         <Textarea
-          label="Descripcion completa (opcional)"
+          label="Descripción completa (opcional)"
           value={descripcionCompleta}
           onChange={(e) => setDescripcionCompleta(e.target.value)}
           maxChars={5000}

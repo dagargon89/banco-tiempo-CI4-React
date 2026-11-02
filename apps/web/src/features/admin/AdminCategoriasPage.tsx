@@ -132,14 +132,14 @@ export default function AdminCategoriasPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Categorias</h1>
+      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Categorías</h1>
 
       <section className="mb-8">
-        <h2 className="mb-3 text-sm font-semibold text-text-1">Crear categoria</h2>
+        <h2 className="mb-3 text-sm font-semibold text-text-1">Crear categoría</h2>
         <form onSubmit={handleCrear} className="flex items-end gap-3">
           <div className="w-64">
             <Input
-              placeholder="Nombre de la categoria"
+              placeholder="Nombre de la categoría"
               value={nuevoNombre}
               onChange={(e) => setNuevoNombre(e.target.value)}
               maxLength={80}
@@ -152,7 +152,7 @@ export default function AdminCategoriasPage() {
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold text-text-1">Categorias existentes</h2>
+        <h2 className="mb-3 text-sm font-semibold text-text-1">Categorías existentes</h2>
         {isLoading ? (
           <Skeleton className="h-32 w-full" />
         ) : (

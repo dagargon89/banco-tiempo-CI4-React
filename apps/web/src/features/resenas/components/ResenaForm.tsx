@@ -27,20 +27,20 @@ export default function ResenaForm({ vinculacionId }: Props) {
   if (crear.isSuccess) {
     return (
       <div className="rounded-xl border border-success/30 bg-success/5 p-4 text-center">
-        <p className="text-sm font-medium text-success">Resena enviada correctamente</p>
+        <p className="text-sm font-medium text-success">Reseña enviada correctamente</p>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-border bg-surface p-4">
-      <h3 className="text-sm font-semibold text-text-1">Deja tu resena</h3>
+      <h3 className="text-sm font-semibold text-text-1">Deja tu reseña</h3>
 
       <div>
-        <p className="mb-2 text-xs text-text-2">Calificacion</p>
+        <p className="mb-2 text-xs text-text-2">Calificación</p>
         <EstrellaRating value={calificacion} onChange={setCalificacion} />
         {calificacion < 1 && crear.isError && (
-          <p className="mt-1 text-xs text-error">Selecciona una calificacion</p>
+          <p className="mt-1 text-xs text-error">Selecciona una calificación</p>
         )}
       </div>
 
@@ -56,12 +56,12 @@ export default function ResenaForm({ vinculacionId }: Props) {
 
       {crear.isError && (
         <p className="text-xs text-error">
-          {(crear.error as any)?.response?.data?.message ?? 'Error al enviar la resena.'}
+          {(crear.error as any)?.response?.data?.message ?? 'Error al enviar la reseña.'}
         </p>
       )}
 
       <Button type="submit" disabled={calificacion < 1 || crear.isPending}>
-        {crear.isPending ? 'Enviando...' : 'Enviar resena'}
+        {crear.isPending ? 'Enviando...' : 'Enviar reseña'}
       </Button>
     </form>
   );

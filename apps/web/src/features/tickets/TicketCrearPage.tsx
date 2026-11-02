@@ -60,7 +60,7 @@ export default function TicketCrearPage() {
             <option value="usuario">Usuario</option>
             <option value="oferta">Oferta</option>
             <option value="mensaje">Mensaje</option>
-            <option value="resena">Resena</option>
+            <option value="resena">Reseña</option>
             <option value="otro">Otro</option>
           </select>
         </div>
@@ -76,7 +76,7 @@ export default function TicketCrearPage() {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-text-2">Descripcion</label>
+          <label className="text-sm font-medium text-text-2">Descripción</label>
           <textarea
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}

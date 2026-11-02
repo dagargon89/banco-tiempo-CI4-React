@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import {
-  Sparkles, Search, MessageCircle, Award, MapPin, Star, Clock, Heart, Check,
+  Sparkles, Search, MessageCircle, Award, MapPin, Clock, Heart, Check,
   Palette, Scissors, Music, Activity, Languages, Cpu, ChefHat,
   Sparkle as Drama, Camera,
 } from 'lucide-react';
@@ -10,31 +10,13 @@ import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flip } from 'gsap/Flip';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
+import { useExplorarOfertas } from '@/features/ofertas/hooks/useOfertas';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfig } from '@/lib/categoryConfig';
 import type { Categoria } from '@/lib/types';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
 gsap.registerPlugin(SplitText, ScrollTrigger, Flip);
-
-// Mapeo de imágenes por slug (cámbialas si quieres otras).
-// Usa picsum.photos para que sean estables y consistentes sin claves.
-const CATEGORY_IMAGES: Record<string, string> = {
-  arte: 'https://picsum.photos/seed/arte/720/960',
-  manualidades: 'https://picsum.photos/seed/manualidades/720/960',
-  musica: 'https://picsum.photos/seed/musica/720/960',
-  deportes: 'https://picsum.photos/seed/deportes/720/960',
-  idiomas: 'https://picsum.photos/seed/idiomas/720/960',
-  tecnologia: 'https://picsum.photos/seed/tecnologia/720/960',
-  cocina: 'https://picsum.photos/seed/cocina/720/960',
-  danza: 'https://picsum.photos/seed/danza/720/960',
-  fotografia: 'https://picsum.photos/seed/fotografia/720/960',
-  otras: 'https://picsum.photos/seed/otras/720/960',
-};
-
-function imageForCategory(slug: string) {
-  return CATEGORY_IMAGES[slug] ?? `https://picsum.photos/seed/${slug}/720/960`;
-}
 
 // Cards demo del hero (estáticas, sirven para mostrar de qué va el sistema)
 const demoCards = [
@@ -67,7 +49,6 @@ const pasos = [
     titulo: 'Descubre',
     desc: 'Explora habilidades que tu comunidad ofrece: arte, cocina, idiomas, tecnología y más.',
     bullets: ['Búsqueda por categoría', 'Filtro por zona', 'Presencial o virtual'],
-    image: 'https://picsum.photos/seed/paso-descubre/640/360',
     tiempo: '5 min',
   },
   {
@@ -75,7 +56,6 @@ const pasos = [
     titulo: 'Conecta',
     desc: 'Marca «Me interesa» y, al ser aceptado, se abre un chat directo con quien enseña.',
     bullets: ['Chat seguro 1 a 1', 'Sin pago, sin app extra', 'Notificaciones por correo'],
-    image: 'https://picsum.photos/seed/paso-conecta/640/360',
     tiempo: '1 día',
   },
   {
@@ -83,32 +63,9 @@ const pasos = [
     titulo: 'Aprende y reseña',
     desc: 'Vive la actividad, gana insignias y deja una reseña mutua que fortalece la red.',
     bullets: ['Insignias por participar', 'Reseña recíproca', 'Tu reputación crece'],
-    image: 'https://picsum.photos/seed/paso-resena/640/360',
     tiempo: '60–90 min',
   },
 ] as const;
-
-// Polaroids decorativas: fotos muestra rotadas en los huecos del zigzag
-const polaroids = [
-  {
-    src: 'https://picsum.photos/seed/polaroid-vecinos/280/320',
-    alt: 'Vecinos compartiendo',
-    pos: 'md:top-[18%] md:left-[44%]',
-    rot: '-rotate-6',
-  },
-  {
-    src: 'https://picsum.photos/seed/polaroid-taller/280/320',
-    alt: 'Taller comunitario',
-    pos: 'md:top-[60%] md:right-[38%]',
-    rot: 'rotate-[5deg]',
-  },
-  {
-    src: 'https://picsum.photos/seed/polaroid-cafe/280/320',
-    alt: 'Café en barrio',
-    pos: 'md:top-[78%] md:left-[36%]',
-    rot: '-rotate-3',
-  },
-];
 
 // Iconos fallback por slug si la categoría no tiene config (orden de la imagen demo)
 const fallbackCatIcons: Record<string, typeof Palette> = {
@@ -128,22 +85,13 @@ function CategoryCard({ cat }: { cat: Categoria }) {
   const Icon = fallbackCatIcons[cat.slug] ?? cfg.icon;
   return (
     <article className="cat-card flex w-[78vw] max-w-[22rem] flex-shrink-0 snap-center flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-md sm:w-[20rem] md:w-[22rem]">
-      <div className="relative aspect-[3/4] overflow-hidden bg-surface-2">
-        <img
-          src={imageForCategory(cat.slug)}
-          alt={cat.nombre}
-          loading="lazy"
-          className="h-full w-full object-cover"
-        />
+      <div className={`flex aspect-[4/3] items-center justify-center ${cfg.bg}`} aria-hidden>
+        <div className={`flex h-20 w-20 items-center justify-center rounded-2xl ${cfg.accent}`}>
+          <Icon className="h-10 w-10" />
+        </div>
       </div>
-      <div className="flex items-center gap-3 p-5">
-        <div className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl ${cfg.accent}`}>
-          <Icon className="h-6 w-6" />
-        </div>
-        <div className="min-w-0">
-          <p className="truncate text-base font-semibold text-text-1">{cat.nombre}</p>
-          <p className="text-xs text-text-3">Categoría</p>
-        </div>
+      <div className="p-5">
+        <p className="truncate text-base font-semibold text-text-1">{cat.nombre}</p>
       </div>
     </article>
   );
@@ -201,7 +149,7 @@ function HorizontalCategories({ categorias }: { categorias: Categoria[] }) {
 function FakeAvatar({ name }: { name: string }) {
   const initials = name.split(' ').slice(0, 2).map((w) => w[0]).join('').toUpperCase();
   return (
-    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent text-[10px] font-semibold text-white ring-2 ring-surface">
+    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent text-[10px] font-semibold text-on-accent ring-2 ring-surface">
       {initials}
     </div>
   );
@@ -292,6 +240,11 @@ function DemoOfertaCard({ card }: { card: typeof demoCards[number] }) {
 export default function WelcomePage() {
   const { user, initialized, loading } = useAuthStore();
   const { data: categorias, isLoading: catsLoading } = useCategorias();
+  // Cifras reales del catálogo público. Sin dato real, no se muestra nada.
+  const { data: ofertasPublicas } = useExplorarOfertas({ per_page: 1 });
+  const totalOfertas = ofertasPublicas?.meta.total ?? 0;
+  const totalCategorias = (categorias ?? []).filter((c) => c.activa).length;
+  const formato = new Intl.NumberFormat('es-MX');
 
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
   const pasoCardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -401,7 +354,7 @@ export default function WelcomePage() {
       <header className="sticky top-0 z-30 border-b border-border bg-surface/80 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Participa Juárez" className="h-9 w-auto" />
+            <img src="/logo.png" alt="Participa Juárez" className="brand-logo h-9 w-auto" />
             <span className="font-display text-base font-bold text-text-1">
               Banco de Tiempo
             </span>
@@ -416,7 +369,7 @@ export default function WelcomePage() {
             </Link>
             <Link
               to="/registro"
-              className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover sm:px-4"
+              className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-hover sm:px-4"
             >
               Crear cuenta
             </Link>
@@ -453,7 +406,7 @@ export default function WelcomePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/registro"
-                className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-accent-hover"
+                className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-on-accent shadow-sm transition-colors hover:bg-accent-hover"
               >
                 <Search className="h-4 w-4" />
                 Quiero aprender algo
@@ -467,23 +420,20 @@ export default function WelcomePage() {
               </Link>
             </div>
 
-            <div className="mt-10 grid grid-cols-3 gap-4 sm:max-w-md">
-              <div>
-                <p className="font-display text-2xl font-bold text-text-1 sm:text-3xl">1,284</p>
-                <p className="text-xs text-text-3">vecinos activos</p>
+            {totalOfertas > 0 && (
+              <div className="mt-10 flex gap-10">
+                <div>
+                  <p className="font-display text-2xl font-bold text-text-1 sm:text-3xl">{formato.format(totalOfertas)}</p>
+                  <p className="text-xs text-text-3">{totalOfertas === 1 ? 'habilidad publicada' : 'habilidades publicadas'}</p>
+                </div>
+                {totalCategorias > 0 && (
+                  <div>
+                    <p className="font-display text-2xl font-bold text-text-1 sm:text-3xl">{formato.format(totalCategorias)}</p>
+                    <p className="text-xs text-text-3">{totalCategorias === 1 ? 'categoría' : 'categorías'}</p>
+                  </div>
+                )}
               </div>
-              <div>
-                <p className="font-display text-2xl font-bold text-text-1 sm:text-3xl">312</p>
-                <p className="text-xs text-text-3">habilidades</p>
-              </div>
-              <div>
-                <p className="flex items-baseline gap-1 font-display text-2xl font-bold text-text-1 sm:text-3xl">
-                  4.7
-                  <Star className="h-4 w-4 fill-warning text-warning" />
-                </p>
-                <p className="text-xs text-text-3">calificación</p>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Right side — stacked cards */}
@@ -518,7 +468,7 @@ export default function WelcomePage() {
                 {Array.from({ length: 5 }).map((_, i) => (
                   <div
                     key={i}
-                    className="aspect-[3/4] w-[78vw] max-w-[22rem] flex-shrink-0 animate-pulse rounded-2xl border border-border bg-surface-2 sm:w-[20rem] md:w-[22rem]"
+                    className="aspect-[4/3] w-[78vw] max-w-[22rem] flex-shrink-0 animate-pulse rounded-2xl border border-border bg-surface-2 sm:w-[20rem] md:w-[22rem]"
                   />
                 ))}
               </div>
@@ -541,30 +491,7 @@ export default function WelcomePage() {
             </h2>
           </div>
 
-          <div className="relative mt-10 flex flex-col gap-4 md:block md:h-[180vh] md:gap-0">
-            {/* Polaroids decorativas — solo md+ */}
-            {polaroids.map((p, idx) => (
-              <div
-                key={idx}
-                aria-hidden
-                className={`pointer-events-none absolute hidden md:block ${p.pos} ${p.rot}`}
-              >
-                <div className="rounded-md bg-surface p-2 shadow-lg ring-1 ring-border">
-                  <div className="h-44 w-40 overflow-hidden rounded-sm bg-surface-2">
-                    <img
-                      src={p.src}
-                      alt={p.alt}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <p className="mt-2 px-1 pb-1 text-center font-display text-xs italic text-text-3">
-                    {p.alt}
-                  </p>
-                </div>
-              </div>
-            ))}
-
+          <div className="relative mt-10 flex flex-col gap-4 md:block md:h-[120vh] md:gap-0">
             {/* Chips flotantes con micro-datos — solo md+ */}
             <div
               aria-hidden
@@ -604,27 +531,20 @@ export default function WelcomePage() {
                   }}
                   className={`relative z-10 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-md md:w-[380px] ${positions[i]}`}
                 >
-                  <div className="relative aspect-[16/9] overflow-hidden bg-surface-2">
-                    <img
-                      src={paso.image}
-                      alt={paso.titulo}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                    <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-pill bg-surface/90 px-2.5 py-1 text-[11px] font-semibold text-text-1 shadow-sm backdrop-blur">
-                      <Clock className="h-3 w-3 text-accent" />
-                      {paso.tiempo}
-                    </span>
-                  </div>
-
                   <div className="p-5">
                     <div className="flex items-start justify-between">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
                         <Icon className="h-5 w-5" />
                       </div>
-                      <span className="font-display text-3xl font-bold text-border-strong">
-                        0{i + 1}
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="inline-flex items-center gap-1 rounded-pill bg-surface-2 px-2.5 py-1 text-[11px] font-semibold text-text-2">
+                          <Clock className="h-3 w-3 text-accent" />
+                          {paso.tiempo}
+                        </span>
+                        <span className="font-display text-3xl font-bold text-border-strong">
+                          0{i + 1}
+                        </span>
+                      </div>
                     </div>
                     <h3 className="mt-4 text-lg font-bold text-text-1">{paso.titulo}</h3>
                     <p className="mt-1.5 text-sm text-text-2">{paso.desc}</p>

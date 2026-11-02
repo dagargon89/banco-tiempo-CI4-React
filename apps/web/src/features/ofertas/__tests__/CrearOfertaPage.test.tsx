@@ -46,15 +46,15 @@ describe('CrearOfertaPage', () => {
   it('renderiza el paso 1 del wizard con campos de descripcion', () => {
     renderPage();
     expect(screen.getByText(/Paso 1 de 3/)).toBeDefined();
-    expect(screen.getByLabelText('Titulo')).toBeDefined();
-    expect(screen.getByText('Categoria')).toBeDefined();
-    expect(screen.getByText(/Descripcion breve/)).toBeDefined();
+    expect(screen.getByLabelText('Título')).toBeDefined();
+    expect(screen.getByText('Categoría')).toBeDefined();
+    expect(screen.getByText(/Descripción breve/)).toBeDefined();
     expect(screen.getByText('Siguiente')).toBeDefined();
   });
 
   it('muestra progress bar con 3 pasos', () => {
     renderPage();
-    expect(screen.getByText('Descripcion')).toBeDefined();
+    expect(screen.getByText('Descripción')).toBeDefined();
     expect(screen.getByText('Detalles')).toBeDefined();
     expect(screen.getByText('Publicar')).toBeDefined();
   });

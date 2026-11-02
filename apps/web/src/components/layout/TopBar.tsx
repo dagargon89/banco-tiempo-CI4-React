@@ -21,8 +21,8 @@ function getBreadcrumb(pathname: string) {
   if (pathname.startsWith('/admin/ofertas')) return { section: 'Administración', page: 'Ofertas' };
   if (pathname.startsWith('/admin/usuarios')) return { section: 'Administración', page: 'Usuarios' };
   if (pathname.startsWith('/admin/tickets')) return { section: 'Administración', page: 'Tickets' };
-  if (pathname.startsWith('/admin/metricas')) return { section: 'Administración', page: 'Metricas' };
-  if (pathname.startsWith('/admin/categorias')) return { section: 'Administración', page: 'Categorias' };
+  if (pathname.startsWith('/admin/metricas')) return { section: 'Administración', page: 'Métricas' };
+  if (pathname.startsWith('/admin/categorias')) return { section: 'Administración', page: 'Categorías' };
   if (pathname.startsWith('/admin/moderadores')) return { section: 'Administración', page: 'Moderadores' };
   if (pathname === '/tickets/crear') return { section: 'Soporte', page: 'Crear ticket' };
   if (pathname === '/mis-tickets') return { section: 'Soporte', page: 'Mis tickets' };
@@ -30,6 +30,9 @@ function getBreadcrumb(pathname: string) {
   if (pathname === '/ofertas/nueva') return { section: 'Oferente', page: 'Publicar habilidad' };
   if (/^\/ofertas\/\d+\/editar$/.test(pathname)) return { section: 'Oferente', page: 'Editar oferta' };
   if (/^\/ofertas\/\d+$/.test(pathname)) return { section: 'Explorar', page: 'Detalle de oferta' };
+  if (/^\/vinculaciones\/\d+$/.test(pathname)) return { section: 'Vinculaciones', page: 'Detalle de vinculación' };
+  if (pathname === '/vinculaciones') return { section: 'Mi actividad', page: 'Vinculaciones' };
+  if (pathname === '/mensajes') return { section: 'Mi actividad', page: 'Mensajes' };
   if (pathname === '/perfil/editar') return { section: 'Cuenta', page: 'Editar perfil' };
   if (pathname === '/perfil') return { section: 'Cuenta', page: 'Mi perfil' };
   if (pathname === '/verificacion') return { section: 'Cuenta', page: 'Verificación' };
@@ -127,7 +130,7 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
             role="tab"
             aria-selected={context === 'oferente'}
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors duration-150 ${
-              context === 'oferente' ? 'bg-accent text-white shadow-sm' : 'text-text-3 hover:text-text-2'
+              context === 'oferente' ? 'bg-accent text-on-accent shadow-sm' : 'text-text-3 hover:text-text-2'
             }`}
           >
             <Plus className="h-3.5 w-3.5" aria-hidden="true" />

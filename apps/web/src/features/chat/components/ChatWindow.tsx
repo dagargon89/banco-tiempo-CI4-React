@@ -122,7 +122,7 @@ export default function ChatWindow({ vinculacionId, otroInactivo, variant = 'emb
           <EmptyState
             icon={<MessageCircle className="h-8 w-8" />}
             title="Sin mensajes"
-            subtitle="Envia el primer mensaje para iniciar la conversacion"
+            subtitle="Envía el primer mensaje para iniciar la conversación"
           />
         ) : (
           messages.map((msg) => (

@@ -31,7 +31,7 @@ export default function OfertaDetallePage() {
 
   const handleCambiarEstado = (estado: string) => {
     if (!oferta) return;
-    if (estado === 'eliminada' && !confirm('Esta accion no se puede deshacer. Continuar?')) return;
+    if (estado === 'eliminada' && !confirm('Esta acción no se puede deshacer. ¿Continuar?')) return;
     cambiarEstado.mutate({ id: oferta.id, estado }, {
       onSuccess: () => {
         if (estado === 'eliminada') {
@@ -114,7 +114,7 @@ export default function OfertaDetallePage() {
 
         {oferta.descripcion_completa && (
           <div>
-            <h2 className="mb-2 text-sm font-semibold text-text-1">Descripcion</h2>
+            <h2 className="mb-2 text-sm font-semibold text-text-1">Descripción</h2>
             <p className="whitespace-pre-line text-sm text-text-2">{oferta.descripcion_completa}</p>
           </div>
         )}

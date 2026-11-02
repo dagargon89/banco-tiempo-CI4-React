@@ -60,7 +60,7 @@ export default function ChatInput({ onSend, disabled, disabledReason, error }: P
         <button
           type="submit"
           disabled={!text.trim() || disabled || sending}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-white transition-colors hover:bg-accent-hover disabled:opacity-50"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-on-accent transition-colors hover:bg-accent-hover disabled:opacity-50"
         >
           <Send className="h-4 w-4" />
         </button>

@@ -63,7 +63,7 @@ export default function AdminUsuariosPage() {
     { key: 'nombre', header: 'Nombre', render: (u) => <span className="font-medium text-text-1">{u.nombre}</span> },
     { key: 'email', header: 'Email', render: (u) => <span className="max-w-[200px] truncate text-text-2">{u.email}</span> },
     {
-      key: 'verificacion', header: 'Verificacion', mobileLabel: 'Verif.',
+      key: 'verificacion', header: 'Verificación', mobileLabel: 'Verif.',
       render: (u) => <Badge variant={verificacionBadge[u.estado_verificacion] ?? 'neutral'}>{u.estado_verificacion}</Badge>,
     },
     {
@@ -98,11 +98,11 @@ export default function AdminUsuariosPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestion de usuarios</h1>
+      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestión de usuarios</h1>
 
       <div className="mb-4 flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-text-2">Verificacion</label>
+          <label className="text-xs font-medium text-text-2">Verificación</label>
           <select
             value={estadoVerificacion ?? ''}
             onChange={(e) => setFilter('verificacion', e.target.value || null)}

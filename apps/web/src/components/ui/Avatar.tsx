@@ -37,7 +37,7 @@ export default function Avatar({ src, nombre, size = 'md', className = '' }: Ava
 
   return (
     <div
-      className={`${sizeClass} flex items-center justify-center rounded-full bg-accent font-semibold text-white ring-2 ring-surface ${className}`}
+      className={`${sizeClass} flex items-center justify-center rounded-full bg-accent font-semibold text-on-accent ring-2 ring-surface ${className}`}
     >
       {getInitials(nombre)}
     </div>

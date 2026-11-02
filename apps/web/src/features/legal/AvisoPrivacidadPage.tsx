@@ -5,7 +5,7 @@ export default function AvisoPrivacidadPage() {
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="mb-2 font-display text-2xl font-bold text-text-1">Aviso de Privacidad</h1>
       <p className="mb-8 rounded-md border border-warning/30 bg-warning/5 px-4 py-2 text-sm text-warning">
-        Borrador tecnico — requiere revision legal antes de su publicacion definitiva.
+        Borrador técnico — requiere revisión legal antes de su publicación definitiva.
       </p>
 
       <div className="space-y-6 text-sm leading-relaxed text-text-2">
@@ -22,9 +22,9 @@ export default function AvisoPrivacidadPage() {
           <h2 className="mb-2 text-lg font-semibold text-text-1">2. Datos recabados</h2>
           <ul className="list-inside list-disc space-y-1">
             <li>Nombre completo</li>
-            <li>Correo electronico</li>
-            <li>Fotografia de perfil (opcional)</li>
-            <li>Documento de identidad (para verificacion)</li>
+            <li>Correo electrónico</li>
+            <li>Fotografía de perfil (opcional)</li>
+            <li>Documento de identidad (para verificación)</li>
             <li>Zona o colonia (opcional)</li>
             <li>Habilidades y descripciones de ofertas publicadas</li>
           </ul>
@@ -38,7 +38,7 @@ export default function AvisoPrivacidadPage() {
             <li>Verificar su identidad.</li>
             <li>Facilitar el intercambio de servicios entre usuarios.</li>
             <li>Enviar notificaciones relacionadas con la plataforma.</li>
-            <li>Generar estadisticas anonimas de uso.</li>
+            <li>Generar estadísticas anónimas de uso.</li>
           </ul>
         </section>
 

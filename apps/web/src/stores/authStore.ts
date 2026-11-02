@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  updateProfile,
   type User as FirebaseUser,
 } from 'firebase/auth';
 import { auth, googleProvider } from '@/lib/firebase';
@@ -90,11 +91,23 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  register: async (email, password, _nombre) => {
+  register: async (email, password, nombre) => {
     set({ loading: true, error: null });
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      // onAuthStateChanged se encarga del sync
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      // onAuthStateChanged se encarga del sync, pero el ID token recién emitido no
+      // trae el nombre: la API aprovisionaría al usuario con el prefijo del correo.
+      // Se guarda el nombre en Firebase y en la API, y luego se refresca el usuario.
+      const limpio = nombre.trim();
+      if (limpio !== '') {
+        await updateProfile(cred.user, { displayName: limpio }).catch(() => {});
+        try {
+          await api.patch('/me', { nombre: limpio });
+          await get().refreshUser();
+        } catch {
+          // El nombre se puede corregir después desde el perfil.
+        }
+      }
     } catch (e: any) {
       set({ loading: false, error: firebaseErrorMsg(e.code) });
     }

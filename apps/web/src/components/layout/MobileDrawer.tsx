@@ -37,8 +37,8 @@ const adminNavAll: NavItem[] = [
   { to: '/admin/ofertas',        label: 'Ofertas',        icon: Package,     roles: ['moderador'] },
   { to: '/admin/usuarios',       label: 'Usuarios',       icon: Users,       roles: ['moderador'] },
   { to: '/admin/tickets',        label: 'Tickets',        icon: Ticket,      roles: ['moderador', 'soporte'] },
-  { to: '/admin/metricas',       label: 'Metricas',       icon: BarChart3,   roles: ['moderador', 'analista'] },
-  { to: '/admin/categorias',     label: 'Categorias',     icon: FolderOpen,  roles: ['editor_categorias'] },
+  { to: '/admin/metricas',       label: 'Métricas',       icon: BarChart3,   roles: ['moderador', 'analista'] },
+  { to: '/admin/categorias',     label: 'Categorías',     icon: FolderOpen,  roles: ['editor_categorias'] },
   { to: '/admin/moderadores',    label: 'Moderadores',    icon: UserCog,     roles: ['super_admin'] },
 ];
 
@@ -105,7 +105,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Participa Juárez" className="h-9 w-auto shrink-0" />
+            <img src="/logo.png" alt="Participa Juárez" className="brand-logo h-9 w-auto shrink-0" />
             <div>
               <p className="text-sm font-bold text-text-1">Banco de Tiempo</p>
               <p className="text-[10px] text-text-3">Plan Juarez</p>

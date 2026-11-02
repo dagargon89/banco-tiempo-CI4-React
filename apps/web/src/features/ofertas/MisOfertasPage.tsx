@@ -29,7 +29,7 @@ export default function MisOfertasPage() {
   const vinculacionesActivas = activasVincData?.data ?? [];
 
   const handleEstado = (id: number, estado: string) => {
-    if (estado === 'eliminada' && !confirm('Esta accion no se puede deshacer. Continuar?')) return;
+    if (estado === 'eliminada' && !confirm('Esta acción no se puede deshacer. ¿Continuar?')) return;
     cambiarEstado.mutate(
       { id, estado },
       {
@@ -127,7 +127,7 @@ export default function MisOfertasPage() {
           <div className="mt-3">
             <EmptyState
               title="Sin solicitudes pendientes"
-              subtitle="Cuando alguien muestre interes en tus ofertas, aparecera aqui."
+              subtitle="Cuando alguien muestre interés en tus ofertas, aparecerá aquí."
             />
           </div>
         </div>

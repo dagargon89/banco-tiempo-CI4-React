@@ -38,7 +38,7 @@ export default function AccionesVinculacion({ vinculacion, userId }: AccionesVin
     });
 
   const handleCancelar = () => {
-    if (!confirm('Cancelar esta vinculacion?')) return;
+    if (!confirm('¿Cancelar esta vinculación?')) return;
     cancelar.mutate(vinculacion.id, {
       onSuccess: () => toast.info('Vinculación cancelada'),
       onError: (err) => toastError(err, 'Error al cancelar.'),
@@ -76,7 +76,7 @@ export default function AccionesVinculacion({ vinculacion, userId }: AccionesVin
       {/* Ambos: confirmar en aceptada */}
       {(esBuscador || esOferente) && vinculacion.estado === 'aceptada' && !yaConfirmo && (
         <Button variant="lime" onClick={handleConfirmar} disabled={isPending}>
-          Confirmar prestacion
+          Confirmar prestación
         </Button>
       )}
     </div>

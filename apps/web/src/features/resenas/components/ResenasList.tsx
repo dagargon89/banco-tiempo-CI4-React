@@ -30,8 +30,8 @@ export default function ResenasList({ userId }: Props) {
     return (
       <EmptyState
         icon={<Star className="h-8 w-8" />}
-        title="Sin resenas aun"
-        subtitle="Las resenas apareceran despues de completar actividades"
+        title="Sin reseñas aún"
+        subtitle="Las reseñas aparecerán después de completar actividades"
       />
     );
   }

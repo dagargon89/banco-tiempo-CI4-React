@@ -15,7 +15,7 @@ export default function MessageBubble({ message, isOwn }: Props) {
       <div
         className={`max-w-[75%] rounded-2xl px-4 py-2.5 ${
           isOwn
-            ? 'rounded-br-sm bg-accent text-white'
+            ? 'rounded-br-sm bg-accent text-on-accent'
             : 'rounded-bl-sm border border-border bg-surface text-text-1'
         }`}
       >
@@ -23,7 +23,7 @@ export default function MessageBubble({ message, isOwn }: Props) {
           <p className="mb-0.5 text-xs font-semibold text-accent">{message.sender_name}</p>
         )}
         <p className="text-sm whitespace-pre-wrap break-words">{message.text}</p>
-        <p className={`mt-1 text-[10px] ${isOwn ? 'text-white/60' : 'text-text-3'}`}>{time}</p>
+        <p className={`mt-1 text-[10px] ${isOwn ? 'text-on-accent/70' : 'text-text-3'}`}>{time}</p>
       </div>
     </div>
   );

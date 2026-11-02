@@ -29,7 +29,7 @@ export default function Navbar() {
               <span className="hidden text-sm text-text-2 sm:inline">{user.nombre}</span>
             </Link>
             <Button variant="subtle" onClick={logout}>
-              Cerrar sesion
+              Cerrar sesión
             </Button>
           </div>
         )}

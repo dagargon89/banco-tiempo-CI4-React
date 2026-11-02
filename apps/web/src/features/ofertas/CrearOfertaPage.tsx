@@ -12,8 +12,8 @@ import { toast, toastError } from '@/lib/toast';
 import type { OfertaFormData, Modalidad, TipoCapacidad } from '@/lib/types';
 
 const steps = [
-  { label: 'Descripcion', title: '¿Que ofreces?' },
-  { label: 'Detalles', title: '¿Como lo ofreces?' },
+  { label: 'Descripción', title: '¿Qué ofreces?' },
+  { label: 'Detalles', title: '¿Cómo lo ofreces?' },
   { label: 'Publicar', title: 'Revisa y publica' },
 ];
 
@@ -70,8 +70,8 @@ export default function CrearOfertaPage() {
 
   const previewCard = {
     id: 0,
-    titulo: titulo || 'Titulo de la oferta',
-    descripcion_breve: descripcionBreve || 'Descripcion breve de lo que ofreces',
+    titulo: titulo || 'Título de la oferta',
+    descripcion_breve: descripcionBreve || 'Descripción breve de lo que ofreces',
     modalidad,
     zona: zona || null,
     categoria_id: categoriaId,
@@ -91,7 +91,7 @@ export default function CrearOfertaPage() {
           {steps.map((s, i) => (
             <div key={s.label} className="flex items-center gap-2">
               <div className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
-                i < step ? 'bg-accent text-white' : i === step ? 'bg-accent text-white' : 'bg-surface-2 text-text-3'
+                i < step ? 'bg-accent text-on-accent' : i === step ? 'bg-accent text-on-accent' : 'bg-surface-2 text-text-3'
               }`}>
                 {i < step ? <Check className="h-4 w-4" /> : i + 1}
               </div>
@@ -109,17 +109,17 @@ export default function CrearOfertaPage() {
         {/* Step 1: Description */}
         {step === 0 && (
           <div className="space-y-5">
-            <Input label="Titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={140} required />
+            <Input label="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={140} required />
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-text-1">Categoria</label>
+              <label className="text-sm font-medium text-text-1">Categoría</label>
               <select
                 value={categoriaId}
                 onChange={(e) => setCategoriaId(Number(e.target.value))}
                 className="h-10 rounded-lg border border-border bg-surface px-3 text-sm text-text-1 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
                 required
               >
-                <option value={0} disabled>Selecciona una categoria</option>
+                <option value={0} disabled>Selecciona una categoría</option>
                 {categorias?.map((cat) => (
                   <option key={cat.id} value={cat.id}>{cat.nombre}</option>
                 ))}
@@ -127,7 +127,7 @@ export default function CrearOfertaPage() {
             </div>
 
             <Textarea
-              label="Descripcion breve (20-200 caracteres)"
+              label="Descripción breve (20-200 caracteres)"
               value={descripcionBreve}
               onChange={(e) => setDescripcionBreve(e.target.value)}
               maxChars={200}
@@ -136,7 +136,7 @@ export default function CrearOfertaPage() {
             />
 
             <Textarea
-              label="Descripcion completa (opcional)"
+              label="Descripción completa (opcional)"
               value={descripcionCompleta}
               onChange={(e) => setDescripcionCompleta(e.target.value)}
               maxChars={5000}
@@ -227,7 +227,7 @@ export default function CrearOfertaPage() {
         {/* Step 3: Preview & Publish */}
         {step === 2 && (
           <div className="space-y-5">
-            <p className="text-sm text-text-2">Asi se vera tu oferta en la pagina de exploracion:</p>
+            <p className="text-sm text-text-2">Así se verá tu oferta en la página de exploración:</p>
             <div className="mx-auto max-w-xs">
               <OfertaCardComponent oferta={previewCard} categorias={categorias} />
             </div>
@@ -235,8 +235,8 @@ export default function CrearOfertaPage() {
             <div className="rounded-lg border border-border bg-surface-2 p-4">
               <h3 className="mb-2 text-sm font-semibold text-text-1">Resumen</h3>
               <dl className="space-y-1 text-sm">
-                <div className="flex justify-between"><dt className="text-text-3">Titulo</dt><dd className="text-text-1">{titulo}</dd></div>
-                <div className="flex justify-between"><dt className="text-text-3">Categoria</dt><dd className="text-text-1">{categorias?.find((c) => c.id === categoriaId)?.nombre ?? '-'}</dd></div>
+                <div className="flex justify-between"><dt className="text-text-3">Título</dt><dd className="text-text-1">{titulo}</dd></div>
+                <div className="flex justify-between"><dt className="text-text-3">Categoría</dt><dd className="text-text-1">{categorias?.find((c) => c.id === categoriaId)?.nombre ?? '-'}</dd></div>
                 <div className="flex justify-between"><dt className="text-text-3">Modalidad</dt><dd className="text-text-1 capitalize">{modalidad}</dd></div>
                 {zona && <div className="flex justify-between"><dt className="text-text-3">Zona</dt><dd className="text-text-1">{zona}</dd></div>}
                 <div className="flex justify-between"><dt className="text-text-3">Capacidad</dt><dd className="text-text-1 capitalize">{tipoCapacidad}{tipoCapacidad === 'grupal' && capacidadMaxima ? ` (max ${capacidadMaxima})` : ''}</dd></div>
@@ -256,7 +256,7 @@ export default function CrearOfertaPage() {
             onClick={() => setStep((s) => s - 1)}
             disabled={step === 0}
           >
-            Atras
+            Atrás
           </Button>
 
           {step < steps.length - 1 ? (

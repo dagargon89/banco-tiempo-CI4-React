@@ -23,7 +23,7 @@ export default function PanelConfirmacion({ vinculacion }: PanelConfirmacionProp
 
   return (
     <div className="rounded-xl border border-border bg-surface p-4">
-      <h3 className="mb-3 text-sm font-semibold text-text-1">Confirmacion de prestacion</h3>
+      <h3 className="mb-3 text-sm font-semibold text-text-1">Confirmación de prestación</h3>
       <div className="space-y-2">
         {items.map(({ label, confirmed }) => (
           <div key={label} className="flex items-center gap-2">
@@ -38,7 +38,7 @@ export default function PanelConfirmacion({ vinculacion }: PanelConfirmacionProp
       </div>
       {vinculacion.estado === 'aceptada' && (
         <p className="mt-3 text-xs text-text-3">
-          Ambas partes deben confirmar para completar la vinculacion.
+          Ambas partes deben confirmar para completar la vinculación.
         </p>
       )}
     </div>

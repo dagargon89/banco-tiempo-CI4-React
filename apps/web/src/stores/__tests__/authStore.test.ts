@@ -8,6 +8,7 @@ vi.mock('firebase/auth', () => ({
   signOut: vi.fn().mockResolvedValue(undefined),
   onAuthStateChanged: vi.fn(() => vi.fn()),
   GoogleAuthProvider: vi.fn(),
+  updateProfile: vi.fn().mockResolvedValue(undefined),
 }));
 
 vi.mock('@/lib/firebase', () => ({
@@ -19,9 +20,12 @@ vi.mock('@/lib/api', () => ({
   api: {
     post: vi.fn(),
     get: vi.fn(),
+    patch: vi.fn().mockResolvedValue({ data: {} }),
   },
 }));
 
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { api } from '@/lib/api';
 import { useAuthStore } from '../authStore';
 
 describe('authStore', () => {
@@ -80,5 +84,17 @@ describe('authStore', () => {
 
     expect(useAuthStore.getState().user).toBeNull();
     expect(useAuthStore.getState().firebaseUser).toBeNull();
+  });
+
+  it('register guarda el nombre en Firebase y en la API', async () => {
+    const fbUser = { uid: 'u1' };
+    vi.mocked(createUserWithEmailAndPassword).mockResolvedValueOnce({ user: fbUser } as any);
+    vi.mocked(api.get).mockResolvedValueOnce({ data: { data: { nombre: 'Ana López' } } } as any);
+
+    await useAuthStore.getState().register('ana@correo.mx', 'secreto123', '  Ana López ');
+
+    expect(updateProfile).toHaveBeenCalledWith(fbUser, { displayName: 'Ana López' });
+    expect(api.patch).toHaveBeenCalledWith('/me', { nombre: 'Ana López' });
+    expect(useAuthStore.getState().user).toEqual({ nombre: 'Ana López' });
   });
 });

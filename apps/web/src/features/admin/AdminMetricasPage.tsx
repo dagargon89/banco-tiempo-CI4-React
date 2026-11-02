@@ -32,7 +32,7 @@ export default function AdminMetricasPage() {
   if (isLoading || !metricas) {
     return (
       <>
-        <h1 className="mb-6 font-display text-xl font-bold text-text-1">Dashboard de metricas</h1>
+        <h1 className="mb-6 font-display text-xl font-bold text-text-1">Dashboard de métricas</h1>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />)}
         </div>
@@ -68,7 +68,7 @@ export default function AdminMetricasPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Dashboard de metricas</h1>
+      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Dashboard de métricas</h1>
 
       {/* Top stats */}
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -82,7 +82,7 @@ export default function AdminMetricasPage() {
       <div className="grid gap-4 md:grid-cols-2">
         {/* Ofertas por categoria */}
         <div className="rounded-xl border border-border bg-surface p-5">
-          <h3 className="mb-4 text-sm font-semibold text-text-1">Ofertas por categoria</h3>
+          <h3 className="mb-4 text-sm font-semibold text-text-1">Ofertas por categoría</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={ofertasPorCategoria} layout="vertical" margin={{ left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
@@ -142,7 +142,7 @@ export default function AdminMetricasPage() {
 
         {/* Tasa de aceptacion */}
         <div className="rounded-xl border border-border bg-surface p-5">
-          <h3 className="mb-4 text-sm font-semibold text-text-1">Tasa de aceptacion por categoria (%)</h3>
+          <h3 className="mb-4 text-sm font-semibold text-text-1">Tasa de aceptación por categoría (%)</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={tasaAceptacion}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
@@ -156,7 +156,7 @@ export default function AdminMetricasPage() {
 
         {/* Tiempo de resolucion */}
         <div className="rounded-xl border border-border bg-surface p-5">
-          <h3 className="mb-3 text-sm font-semibold text-text-1">Tiempo de resolucion</h3>
+          <h3 className="mb-3 text-sm font-semibold text-text-1">Tiempo de resolución</h3>
           <p className="text-3xl font-bold text-text-1">{metricas.reportes.horas_promedio_resolucion}h</p>
           <p className="text-xs text-text-3">Promedio de reportes resueltos</p>
         </div>

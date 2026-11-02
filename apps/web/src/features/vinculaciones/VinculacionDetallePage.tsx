@@ -28,7 +28,7 @@ export default function VinculacionDetallePage() {
   }
 
   if (!vinculacion) {
-    return <p className="text-center text-text-2">Vinculacion no encontrada.</p>;
+    return <p className="text-center text-text-2">Vinculación no encontrada.</p>;
   }
 
   const isInactivo = (v: unknown): boolean => v === true || v === 1 || v === '1';
