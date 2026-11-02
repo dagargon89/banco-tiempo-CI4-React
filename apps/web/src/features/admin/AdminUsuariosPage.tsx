@@ -18,6 +18,19 @@ const verificacionBadge: Record<EstadoVerificacion, 'success' | 'warning' | 'err
   no_verificado: 'neutral',
 };
 
+const verificacionLabel: Record<EstadoVerificacion, string> = {
+  verificado: 'Verificado',
+  pendiente: 'Pendiente',
+  rechazado: 'Rechazado',
+  no_verificado: 'Sin verificar',
+};
+
+const cuentaLabel: Record<EstadoCuenta, string> = {
+  activa: 'Activa',
+  suspendida: 'Suspendida',
+  baja: 'Baja',
+};
+
 const cuentaBadge: Record<EstadoCuenta, 'success' | 'error' | 'neutral'> = {
   activa: 'success',
   suspendida: 'error',
@@ -60,15 +73,22 @@ export default function AdminUsuariosPage() {
 
   const columns: Column<AdminUsuario>[] = [
     { key: 'id', header: 'ID', hideOnMobile: true, render: (u) => <span className="text-text-3">{u.id}</span> },
-    { key: 'nombre', header: 'Nombre', render: (u) => <span className="font-medium text-text-1">{u.nombre}</span> },
+    {
+      key: 'nombre', header: 'Nombre',
+      render: (u) => (
+        <button type="button" onClick={() => setSelectedUserId(u.id)} className="text-left font-medium text-text-1 hover:text-accent hover:underline">
+          {u.nombre}
+        </button>
+      ),
+    },
     { key: 'email', header: 'Email', render: (u) => <span className="max-w-[200px] truncate text-text-2">{u.email}</span> },
     {
       key: 'verificacion', header: 'Verificación', mobileLabel: 'Verif.',
-      render: (u) => <Badge variant={verificacionBadge[u.estado_verificacion] ?? 'neutral'}>{u.estado_verificacion}</Badge>,
+      render: (u) => <Badge variant={verificacionBadge[u.estado_verificacion] ?? 'neutral'}>{verificacionLabel[u.estado_verificacion] ?? u.estado_verificacion}</Badge>,
     },
     {
       key: 'cuenta', header: 'Cuenta',
-      render: (u) => (u.deleted_at ? <Badge variant="error">Baja</Badge> : <Badge variant={cuentaBadge[u.estado_cuenta] ?? 'neutral'}>{u.estado_cuenta}</Badge>),
+      render: (u) => (u.deleted_at ? <Badge variant="error">Baja</Badge> : <Badge variant={cuentaBadge[u.estado_cuenta] ?? 'neutral'}>{cuentaLabel[u.estado_cuenta] ?? u.estado_cuenta}</Badge>),
     },
     {
       key: 'acciones', header: 'Acciones',
@@ -76,18 +96,28 @@ export default function AdminUsuariosPage() {
         <div className="flex gap-1">
           <button
             onClick={() => setSelectedUserId(u.id)}
-            aria-label="Ver detalle"
-            className="rounded p-1.5 text-text-3 hover:bg-surface-2 hover:text-accent"
+            aria-label={`Ver detalle de ${u.nombre}`}
+            className="rounded-md p-1.5 text-text-2 hover:bg-surface-2 hover:text-accent"
           >
             <Eye className="h-4 w-4" />
           </button>
           {!u.deleted_at && u.estado_cuenta === 'activa' && (
-            <Button variant="danger" onClick={() => handleCambiarEstado(u.id, 'suspendida', 'suspender')} disabled={cambiarEstado.isPending}>
+            <Button
+              variant="danger-subtle"
+              className="px-2.5 py-1.5"
+              onClick={() => handleCambiarEstado(u.id, 'suspendida', 'suspender')}
+              disabled={cambiarEstado.isPending}
+            >
               Suspender
             </Button>
           )}
           {!u.deleted_at && u.estado_cuenta === 'suspendida' && (
-            <Button variant="primary" onClick={() => handleCambiarEstado(u.id, 'activa', 'reactivar')} disabled={cambiarEstado.isPending}>
+            <Button
+              variant="secondary"
+              className="px-2.5 py-1.5"
+              onClick={() => handleCambiarEstado(u.id, 'activa', 'reactivar')}
+              disabled={cambiarEstado.isPending}
+            >
               Reactivar
             </Button>
           )}
@@ -98,7 +128,7 @@ export default function AdminUsuariosPage() {
 
   return (
     <>
-      <h1 className="mb-6 font-display text-xl font-bold text-text-1">Gestión de usuarios</h1>
+      <h1 className="mb-6 font-display text-2xl font-bold text-text-1">Usuarios</h1>
 
       <div className="mb-4 flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">
@@ -112,7 +142,7 @@ export default function AdminUsuariosPage() {
             <option value="verificado">Verificado</option>
             <option value="pendiente">Pendiente</option>
             <option value="rechazado">Rechazado</option>
-            <option value="no_verificado">No verificado</option>
+            <option value="no_verificado">Sin verificar</option>
           </select>
         </div>
 
@@ -139,8 +169,8 @@ export default function AdminUsuariosPage() {
           Incluir cuentas dadas de baja
         </label>
 
-        <div className="w-48">
-          <Input placeholder="Buscar..." value={q} onChange={(e) => setFilter('q', e.target.value || null)} />
+        <div className="w-64">
+          <Input placeholder="Buscar por nombre o correo" aria-label="Buscar usuarios" value={q} onChange={(e) => setFilter('q', e.target.value || null)} />
         </div>
       </div>
 

@@ -57,7 +57,7 @@ describe('AdminMetricasPage', () => {
       isLoading: false,
     });
     renderPage();
-    expect(screen.getByText('Dashboard de métricas')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Métricas' })).toBeInTheDocument();
     expect(screen.getByText('100')).toBeInTheDocument();
     expect(screen.getByText('42')).toBeInTheDocument();
   });

@@ -9,6 +9,7 @@ import Paginacion from '@/features/ofertas/components/Paginacion';
 import TicketEstadoBadge from '@/features/admin/components/TicketEstadoBadge';
 import { useMisTickets } from './hooks/useTickets';
 import type { Ticket } from '@/lib/types';
+import { etiqueta, TIPO_TICKET } from '@/lib/etiquetas';
 
 export default function MisTicketsPage() {
   const [page, setPage] = useState(1);
@@ -40,6 +41,7 @@ export default function MisTicketsPage() {
           icon={<LifeBuoy className="h-10 w-10" />}
           title="No tienes tickets"
           subtitle="Crea un ticket si necesitas reportar algo o hacer una sugerencia."
+          action={{ label: 'Crear ticket', to: '/tickets/crear' }}
         />
       ) : (
         <>
@@ -48,7 +50,7 @@ export default function MisTicketsPage() {
               <div key={t.id} className="rounded-xl border border-border bg-surface p-5">
                 <div className="mb-2 flex items-center gap-3">
                   <span className="font-mono text-xs text-text-3">{t.folio}</span>
-                  <Badge variant={t.tipo === 'reporte' ? 'error' : 'info'}>{t.tipo}</Badge>
+                  <Badge variant={t.tipo === 'reporte' ? 'error' : 'info'}>{etiqueta(TIPO_TICKET, t.tipo)}</Badge>
                   <TicketEstadoBadge estado={t.estado} />
                 </div>
                 <p className="mb-2 line-clamp-2 text-sm text-text-1">{t.descripcion}</p>

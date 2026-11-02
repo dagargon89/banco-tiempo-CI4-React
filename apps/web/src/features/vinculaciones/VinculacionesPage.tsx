@@ -103,6 +103,7 @@ export default function VinculacionesPage() {
           <EmptyState
             title="No hay vinculaciones"
             subtitle="Explora ofertas y marca interés para comenzar."
+            action={{ label: 'Explorar ofertas', to: '/inicio' }}
           />
         </div>
       ) : (

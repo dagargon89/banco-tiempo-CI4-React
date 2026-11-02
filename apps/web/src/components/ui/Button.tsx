@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-type Variant = 'primary' | 'secondary' | 'subtle' | 'danger' | 'lime';
+type Variant = 'primary' | 'secondary' | 'subtle' | 'danger' | 'danger-subtle' | 'lime';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
@@ -22,6 +22,8 @@ const variants: Record<Variant, string> = {
   secondary: 'bg-surface border border-border text-text-1 hover:bg-surface-2',
   subtle: 'bg-transparent text-text-2 hover:bg-surface-2',
   danger: 'bg-error text-on-error hover:opacity-90',
+  // Destructiva pero discreta: para tablas y paneles donde se repite en cada fila.
+  'danger-subtle': 'bg-transparent text-error hover:bg-error/10',
   // Reservado: el lima significa tiempo. No usar para acciones genéricas.
   lime: 'bg-lime text-lime-ink hover:opacity-90',
 };

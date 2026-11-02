@@ -11,6 +11,7 @@ import { useAdminTickets, useAsignarTicket } from './hooks/useAdminTickets';
 import { toast, toastError } from '@/lib/toast';
 import { useUrlFilters } from '@/lib/urlFilters';
 import type { Ticket } from '@/lib/types';
+import { etiqueta, TIPO_TICKET } from '@/lib/etiquetas';
 
 export default function AdminTicketsPage() {
   const { searchParams, setFilter, setPage } = useUrlFilters();
@@ -32,7 +33,7 @@ export default function AdminTicketsPage() {
     { key: 'folio', header: 'Folio', render: (t) => <span className="font-mono text-xs text-text-1">{t.folio}</span> },
     {
       key: 'tipo', header: 'Tipo',
-      render: (t) => <Badge variant={t.tipo === 'reporte' ? 'error' : 'info'}>{t.tipo}</Badge>,
+      render: (t) => <Badge variant={t.tipo === 'reporte' ? 'error' : 'info'}>{etiqueta(TIPO_TICKET, t.tipo)}</Badge>,
     },
     { key: 'estado', header: 'Estado', render: (t) => <TicketEstadoBadge estado={t.estado} /> },
     { key: 'creador', header: 'Creador', hideOnMobile: true, render: (t) => <span className="text-text-2">{t.creador_nombre ?? `#${t.creador_id}`}</span> },

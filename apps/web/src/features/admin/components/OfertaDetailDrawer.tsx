@@ -2,6 +2,7 @@ import DetailDrawer from '@/components/ui/DetailDrawer';
 import Badge from '@/components/ui/Badge';
 import UserName from '@/components/ui/UserName';
 import { useOfertaDetalleAdmin } from '../hooks/useOfertaDetalleAdmin';
+import { etiqueta, ESTADO_OFERTA, MODALIDAD } from '@/lib/etiquetas';
 
 interface Props {
   ofertaId: number | null;
@@ -24,8 +25,8 @@ export default function OfertaDetailDrawer({ ofertaId, open, onClose }: Props) {
           </div>
 
           <div className="flex flex-wrap gap-1.5">
-            <Badge variant={oferta.estado === 'activa' ? 'success' : oferta.estado === 'pausada' ? 'warning' : 'neutral'}>{oferta.estado}</Badge>
-            <Badge variant="info">{oferta.modalidad}</Badge>
+            <Badge variant={oferta.estado === 'activa' ? 'success' : oferta.estado === 'pausada' ? 'warning' : 'neutral'}>{etiqueta(ESTADO_OFERTA, oferta.estado)}</Badge>
+            <Badge variant="info">{etiqueta(MODALIDAD, oferta.modalidad)}</Badge>
             {Number(oferta.pausada_por_admin) === 1 && oferta.oferente_inactivo && (
               <Badge variant="error">Pausada por baja del oferente</Badge>
             )}

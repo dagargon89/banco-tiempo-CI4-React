@@ -1,366 +1,75 @@
-import { useEffect, useRef } from 'react';
+import { useDeferredValue, useState, type FormEvent } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import {
-  Sparkles, Search, MessageCircle, Award, MapPin, Clock, Heart, Check,
-  Palette, Scissors, Music, Activity, Languages, Cpu, ChefHat,
-  Sparkle as Drama, Camera,
-} from 'lucide-react';
-import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Flip } from 'gsap/Flip';
+import { Search, X } from 'lucide-react';
 import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { useExplorarOfertas } from '@/features/ofertas/hooks/useOfertas';
+import OfertaCardComponent from '@/features/ofertas/components/OfertaCardComponent';
+import { OfertaCardSkeleton } from '@/components/ui/Skeleton';
 import { useAuthStore } from '@/stores/authStore';
 import { getCategoryConfig } from '@/lib/categoryConfig';
-import type { Categoria } from '@/lib/types';
 import ThemeToggle from '@/components/ui/ThemeToggle';
-
-gsap.registerPlugin(SplitText, ScrollTrigger, Flip);
-
-// Cards demo del hero (estáticas, sirven para mostrar de qué va el sistema)
-const demoCards = [
-  {
-    categoria: 'Cocina',
-    catSlug: 'cocina',
-    modalidad: 'Presencial',
-    titulo: 'Repostería tradicional mexicana',
-    nombre: 'Guadalupe Mendoza',
-  },
-  {
-    categoria: 'Tecnología',
-    catSlug: 'tecnologia',
-    modalidad: 'Virtual',
-    titulo: 'Introducción a la programación con Python',
-    nombre: 'José Luis',
-  },
-  {
-    categoria: 'Idiomas',
-    catSlug: 'idiomas',
-    modalidad: 'Virtual',
-    titulo: 'Inglés conversacional intermedio',
-    nombre: 'Andrés Felipe',
-  },
-] as const;
 
 const pasos = [
   {
-    icon: Search,
-    titulo: 'Descubre',
-    desc: 'Explora habilidades que tu comunidad ofrece: arte, cocina, idiomas, tecnología y más.',
-    bullets: ['Búsqueda por categoría', 'Filtro por zona', 'Presencial o virtual'],
-    tiempo: '5 min',
+    titulo: 'Busca lo que quieres aprender',
+    desc: 'Vecinas y vecinos de Ciudad Juárez publican lo que saben hacer: cocina, idiomas, música, tecnología y más.',
   },
   {
-    icon: MessageCircle,
-    titulo: 'Conecta',
-    desc: 'Marca «Me interesa» y, al ser aceptado, se abre un chat directo con quien enseña.',
-    bullets: ['Chat seguro 1 a 1', 'Sin pago, sin app extra', 'Notificaciones por correo'],
-    tiempo: '1 día',
+    titulo: 'Pide la oferta y acuerden por mensaje',
+    desc: 'Marca «Me interesa». Cuando la persona acepta, se abre un chat para acordar día, hora y lugar.',
   },
   {
-    icon: Award,
-    titulo: 'Aprende y reseña',
-    desc: 'Vive la actividad, gana insignias y deja una reseña mutua que fortalece la red.',
-    bullets: ['Insignias por participar', 'Reseña recíproca', 'Tu reputación crece'],
-    tiempo: '60–90 min',
+    titulo: 'Devuelve el tiempo enseñando',
+    desc: 'Cada hora que recibes la devuelves compartiendo algo que sabes. Al terminar, se dejan una reseña.',
   },
-] as const;
-
-// Iconos fallback por slug si la categoría no tiene config (orden de la imagen demo)
-const fallbackCatIcons: Record<string, typeof Palette> = {
-  arte: Palette,
-  manualidades: Scissors,
-  musica: Music,
-  deportes: Activity,
-  idiomas: Languages,
-  tecnologia: Cpu,
-  cocina: ChefHat,
-  danza: Drama,
-  fotografia: Camera,
-};
-
-function CategoryCard({ cat }: { cat: Categoria }) {
-  const cfg = getCategoryConfig(cat.slug);
-  const Icon = fallbackCatIcons[cat.slug] ?? cfg.icon;
-  return (
-    <article className="cat-card flex w-[78vw] max-w-[22rem] flex-shrink-0 snap-center flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-md sm:w-[20rem] md:w-[22rem]">
-      <div className={`flex aspect-[4/3] items-center justify-center ${cfg.bg}`} aria-hidden>
-        <div className={`flex h-20 w-20 items-center justify-center rounded-2xl ${cfg.accent}`}>
-          <Icon className="h-10 w-10" />
-        </div>
-      </div>
-      <div className="p-5">
-        <p className="truncate text-base font-semibold text-text-1">{cat.nombre}</p>
-      </div>
-    </article>
-  );
-}
-
-function HorizontalCategories({ categorias }: { categorias: Categoria[] }) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const stripRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const strip = stripRef.current;
-    if (!wrapper || !strip) return;
-
-    const mm = gsap.matchMedia();
-
-    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-      const getLength = () => Math.max(0, strip.scrollWidth - wrapper.clientWidth);
-
-      gsap.to(strip, {
-        x: () => `-${getLength()}px`,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: wrapper,
-          pin: true,
-          scrub: 0.5,
-          start: 'center center',
-          end: () => `+=${getLength()}`,
-          invalidateOnRefresh: true,
-        },
-      });
-    });
-
-    return () => mm.revert();
-  }, [categorias.length]);
-
-  return (
-    <div
-      ref={wrapperRef}
-      className="cat-gallery-wrapper relative -mx-4 overflow-x-auto md:mx-0 md:h-[80vh] md:overflow-hidden"
-    >
-      <div
-        ref={stripRef}
-        className="cat-gallery-strip flex flex-nowrap items-center gap-6 px-4 pb-2 md:h-full md:pb-0 md:[will-change:transform]"
-        style={{ scrollSnapType: 'x mandatory' }}
-      >
-        {categorias.map((cat) => (
-          <CategoryCard key={cat.id} cat={cat} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function FakeAvatar({ name }: { name: string }) {
-  const initials = name.split(' ').slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-  return (
-    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent text-[10px] font-semibold text-on-accent ring-2 ring-surface">
-      {initials}
-    </div>
-  );
-}
-
-function DemoOfertaCard({ card }: { card: typeof demoCards[number] }) {
-  const cfg = getCategoryConfig(card.catSlug);
-  const Icon = fallbackCatIcons[card.catSlug] ?? cfg.icon;
-
-  const cardRef = useRef<HTMLDivElement>(null);
-  const outerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const cardEl = cardRef.current;
-    const outerEl = outerRef.current;
-    const innerEl = innerRef.current;
-    if (!cardEl || !outerEl || !innerEl) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const outerRX = gsap.quickTo(outerEl, 'rotationX', { ease: 'power3', duration: 0.5 });
-    const outerRY = gsap.quickTo(outerEl, 'rotationY', { ease: 'power3', duration: 0.5 });
-    const innerX = gsap.quickTo(innerEl, 'x', { ease: 'power3', duration: 0.5 });
-    const innerY = gsap.quickTo(innerEl, 'y', { ease: 'power3', duration: 0.5 });
-
-    const handleMove = (e: PointerEvent) => {
-      const rect = cardEl.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width;
-      const py = (e.clientY - rect.top) / rect.height;
-      outerRX(gsap.utils.interpolate(15, -15, py));
-      outerRY(gsap.utils.interpolate(-15, 15, px));
-      innerX(gsap.utils.interpolate(-30, 30, px));
-      innerY(gsap.utils.interpolate(-30, 30, py));
-    };
-
-    const handleLeave = () => {
-      outerRX(0);
-      outerRY(0);
-      innerX(0);
-      innerY(0);
-    };
-
-    cardEl.addEventListener('pointermove', handleMove);
-    cardEl.addEventListener('pointerleave', handleLeave);
-
-    return () => {
-      cardEl.removeEventListener('pointermove', handleMove);
-      cardEl.removeEventListener('pointerleave', handleLeave);
-      gsap.killTweensOf([outerEl, innerEl]);
-    };
-  }, []);
-
-  return (
-    <div ref={cardRef} style={{ perspective: '650px' }}>
-      <div
-        ref={outerRef}
-        className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm"
-        style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
-      >
-        <div ref={innerRef} style={{ willChange: 'transform' }}>
-          <div className={`flex items-center justify-center ${cfg.bg} py-14`}>
-            <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${cfg.accent}`}>
-              <Icon className="h-7 w-7" />
-            </div>
-          </div>
-          <div className="flex flex-col gap-2 p-4">
-            <div className="flex flex-wrap gap-1.5">
-              <span className={`inline-flex items-center rounded-pill border border-border px-2 py-0.5 text-[10px] font-medium ${cfg.accent}`}>
-                {card.categoria}
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-pill border border-info/20 bg-info/10 px-2 py-0.5 text-[10px] font-medium text-info">
-                <MapPin className="h-2.5 w-2.5" />
-                {card.modalidad}
-              </span>
-            </div>
-            <h3 className="text-sm font-semibold text-text-1">{card.titulo}</h3>
-            <div className="mt-3 flex items-center gap-2 border-t border-border pt-3">
-              <FakeAvatar name={card.nombre} />
-              <span className="text-xs text-text-2">{card.nombre}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+];
 
 export default function WelcomePage() {
   const { user, initialized, loading } = useAuthStore();
-  const { data: categorias, isLoading: catsLoading } = useCategorias();
-  // Cifras reales del catálogo público. Sin dato real, no se muestra nada.
-  const { data: ofertasPublicas } = useExplorarOfertas({ per_page: 1 });
-  const totalOfertas = ofertasPublicas?.meta.total ?? 0;
-  const totalCategorias = (categorias ?? []).filter((c) => c.activa).length;
-  const formato = new Intl.NumberFormat('es-MX');
+  const { data: categorias } = useCategorias();
+  const categoriasActivas = (categorias ?? []).filter((c) => c.activa);
 
-  const heroTitleRef = useRef<HTMLHeadingElement>(null);
-  const pasoCardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const travelerRef = useRef<HTMLDivElement>(null);
+  const [texto, setTexto] = useState('');
+  const [categoriaId, setCategoriaId] = useState<number | null>(null);
+  const q = useDeferredValue(texto.trim());
 
-  // Flip + ScrollTrigger: viajero por las tarjetas de "Cómo funciona"
-  useEffect(() => {
-    const traveler = travelerRef.current;
-    if (!traveler) return;
-
-    const mm = gsap.matchMedia();
-
-    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-      const cards = pasoCardsRef.current.filter(Boolean) as HTMLDivElement[];
-      if (cards.length < 2) return;
-
-      let tl: gsap.core.Timeline | null = null;
-
-      const build = () => {
-        if (tl) {
-          tl.scrollTrigger?.kill();
-          tl.kill();
-        }
-
-        Flip.fit(traveler, cards[0]);
-        gsap.set(traveler, { opacity: 1 });
-
-        tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: cards[0],
-            endTrigger: cards[cards.length - 1],
-            start: 'top center',
-            end: 'bottom center',
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        cards.slice(1).forEach((card, idx) => {
-          const tw = Flip.fit(traveler, card, { duration: 1, ease: 'none' });
-          if (tw) tl!.add(tw as gsap.core.Tween, idx === 0 ? 0 : '+=0.5');
-        });
-
-        ScrollTrigger.refresh();
-      };
-
-      build();
-
-      // Reconstruir cuando las imágenes terminen de cargar (los cards crecen)
-      const images = cards.flatMap((c) => Array.from(c.querySelectorAll('img')));
-      const pending = images.filter((img) => !img.complete);
-      if (pending.length > 0) {
-        let remaining = pending.length;
-        const onDone = () => {
-          remaining--;
-          if (remaining === 0) build();
-        };
-        pending.forEach((img) => {
-          img.addEventListener('load', onDone, { once: true });
-          img.addEventListener('error', onDone, { once: true });
-        });
-      }
-    });
-
-    return () => mm.revert();
-  }, []);
-
-  useEffect(() => {
-    const h1 = heroTitleRef.current;
-    if (!h1) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      h1.style.opacity = '1';
-      return;
-    }
-
-    let split: SplitText | null = null;
-    let cancelled = false;
-
-    document.fonts.ready.then(() => {
-      if (cancelled || !heroTitleRef.current) return;
-      heroTitleRef.current.style.opacity = '1';
-      split = SplitText.create(heroTitleRef.current, { type: 'words', wordsClass: 'word' });
-      gsap.from(split.words, {
-        y: -100,
-        opacity: 0,
-        rotation: 'random(-80, 80)',
-        stagger: 0.1,
-        duration: 1,
-        ease: 'back',
-      });
-    });
-
-    return () => {
-      cancelled = true;
-      if (split) split.revert();
-    };
-  }, []);
+  const { data: resultados, isLoading } = useExplorarOfertas({
+    q: q || undefined,
+    categoria_id: categoriaId ?? undefined,
+    per_page: 6,
+  });
+  const ofertas = resultados?.data ?? [];
+  const total = resultados?.meta.total ?? 0;
+  const filtrando = Boolean(q) || categoriaId !== null;
+  const categoriaActiva = categoriasActivas.find((c) => Number(c.id) === categoriaId);
 
   // Si ya está autenticado, mandarlo al home autenticado
   if (!loading && initialized && user) {
     return <Navigate to="/inicio" replace />;
   }
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    document.getElementById('ofertas')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const limpiar = () => {
+    setTexto('');
+    setCategoriaId(null);
+  };
+
   return (
     <div className="min-h-screen bg-bg">
-      {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-border bg-surface/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Participa Juárez" className="brand-logo h-9 w-auto" />
-            <span className="font-display text-base font-bold text-text-1">
-              Banco de Tiempo
-            </span>
+      <header className="sticky top-0 z-30 border-b border-border bg-surface/90 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+          <Link to="/" className="flex min-w-0 items-center gap-3">
+            <img src="/logo.png" alt="Participa Juárez" className="brand-logo h-9 w-auto shrink-0" />
+            <span className="truncate font-display text-base font-bold text-text-1">Banco de Tiempo</span>
           </Link>
-          <nav className="flex items-center gap-2 sm:gap-3">
-            <ThemeToggle hideSystem />
+          <nav className="flex shrink-0 items-center gap-1 sm:gap-2">
+            <div className="hidden sm:block">
+              <ThemeToggle hideSystem />
+            </div>
             <Link
               to="/login"
               className="rounded-lg px-3 py-2 text-sm font-medium text-text-2 transition-colors hover:bg-surface-2 hover:text-text-1"
@@ -369,7 +78,7 @@ export default function WelcomePage() {
             </Link>
             <Link
               to="/registro"
-              className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-hover sm:px-4"
+              className="hidden rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-hover sm:inline-flex"
             >
               Crear cuenta
             </Link>
@@ -377,237 +86,172 @@ export default function WelcomePage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
-        {/* Hero */}
-        <section className="grid items-center gap-10 lg:grid-cols-2">
-          {/* Left side */}
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-lime-ink dark:text-lime">
-              <Sparkles className="h-3.5 w-3.5" />
-              Plan Juárez · Voluntariado de habilidades
-            </div>
+      <main>
+        {/* Hero: la búsqueda es la primera acción */}
+        <section className="mx-auto max-w-6xl px-4 pb-10 pt-12 sm:px-6 sm:pt-20">
+          <p className="text-sm font-medium text-accent">Banco de Tiempo de Plan Juárez</p>
+          <h1 className="mt-3 max-w-3xl font-display text-4xl font-bold leading-[1.05] text-text-1 sm:text-6xl">
+            Enseña una hora, aprende una hora.
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg text-text-2">
+            Aquí nadie paga con dinero. Compartes lo que sabes con tus vecinos y, a cambio, aprendes lo que te
+            hace falta. La única moneda es el tiempo.
+          </p>
 
-            <h1
-              ref={heroTitleRef}
-              className="mt-5 font-display text-4xl font-bold leading-tight text-text-1 sm:text-5xl lg:text-6xl"
-              style={{ opacity: 0 }}
-            >
-              Intercambia lo que sabes,
-              <br />
-              <span className="text-accent">aprende</span> lo que quieres
-            </h1>
-
-            <p className="mt-5 text-base text-text-2 sm:text-lg">
-              <strong className="text-text-1">Banco de Tiempo</strong> conecta a
-              quienes enseñan con quienes quieren aprender en Ciudad Juárez. La
-              única moneda es el tiempo compartido.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                to="/registro"
-                className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-on-accent shadow-sm transition-colors hover:bg-accent-hover"
-              >
-                <Search className="h-4 w-4" />
-                Quiero aprender algo
-              </Link>
-              <Link
-                to="/registro"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-5 py-3 text-sm font-semibold text-text-1 transition-colors hover:bg-surface-2"
-              >
-                <span className="text-lg leading-none">+</span>
-                Quiero enseñar algo
-              </Link>
-            </div>
-
-            {totalOfertas > 0 && (
-              <div className="mt-10 flex gap-10">
-                <div>
-                  <p className="font-display text-2xl font-bold text-text-1 sm:text-3xl">{formato.format(totalOfertas)}</p>
-                  <p className="text-xs text-text-3">{totalOfertas === 1 ? 'habilidad publicada' : 'habilidades publicadas'}</p>
-                </div>
-                {totalCategorias > 0 && (
-                  <div>
-                    <p className="font-display text-2xl font-bold text-text-1 sm:text-3xl">{formato.format(totalCategorias)}</p>
-                    <p className="text-xs text-text-3">{totalCategorias === 1 ? 'categoría' : 'categorías'}</p>
-                  </div>
-                )}
+          <form onSubmit={onSubmit} role="search" className="mt-8 max-w-2xl">
+            <label htmlFor="buscar" className="mb-2 block font-display text-lg font-semibold text-text-1">
+              ¿Qué quieres aprender?
+            </label>
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-3" aria-hidden />
+                <input
+                  id="buscar"
+                  type="search"
+                  value={texto}
+                  onChange={(e) => setTexto(e.target.value)}
+                  placeholder="Guitarra, inglés, cocina…"
+                  className="h-14 w-full rounded-xl border border-border-strong bg-surface pl-12 pr-4 text-base text-text-1 placeholder:text-text-3 focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/15"
+                />
               </div>
+              <button
+                type="submit"
+                className="h-14 rounded-xl bg-accent px-6 text-base font-semibold text-on-accent transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                Buscar
+              </button>
+            </div>
+          </form>
+
+          {categoriasActivas.length > 0 && (
+            <div className="mt-5 flex max-w-3xl flex-wrap gap-2" aria-label="Filtrar por categoría">
+              {categoriasActivas.map((cat) => {
+                const cfg = getCategoryConfig(cat.slug);
+                const Icon = cfg.icon;
+                const activa = categoriaId === Number(cat.id);
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    aria-pressed={activa}
+                    onClick={() => setCategoriaId(activa ? null : Number(cat.id))}
+                    className={`inline-flex items-center gap-1.5 rounded-pill border px-3 py-1.5 text-sm transition-colors ${
+                      activa
+                        ? 'border-accent bg-accent text-on-accent'
+                        : 'border-border bg-surface text-text-1 hover:border-border-strong'
+                    }`}
+                  >
+                    <Icon className={`h-4 w-4 ${activa ? '' : cfg.ink}`} aria-hidden />
+                    {cat.nombre}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </section>
+
+        {/* Ofertas reales */}
+        <section id="ofertas" className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-16 sm:px-6">
+          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-display text-2xl font-bold text-text-1">
+              {filtrando
+                ? `${total === 1 ? '1 oferta' : `${total} ofertas`}${categoriaActiva ? ` en ${categoriaActiva.nombre}` : ''}${q ? ` para «${q}»` : ''}`
+                : 'Publicadas hace poco'}
+            </h2>
+            {filtrando && (
+              <button type="button" onClick={limpiar} className="inline-flex items-center gap-1 text-sm text-accent hover:underline">
+                <X className="h-4 w-4" aria-hidden /> Quitar filtros
+              </button>
             )}
           </div>
 
-          {/* Right side — stacked cards */}
-          <div className="relative mx-auto h-[560px] w-full max-w-md sm:h-[620px] lg:h-[640px] lg:max-w-none">
-            {/* Arriba — Cocina */}
-            <div className="absolute right-0 top-0 w-[58%] rotate-[2deg] drop-shadow-xl">
-              <DemoOfertaCard card={demoCards[0]} />
+          {isLoading ? (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 3 }).map((_, i) => <OfertaCardSkeleton key={i} />)}
             </div>
-            {/* Centro al frente — Tecnología */}
-            <div className="absolute left-0 top-[22%] z-10 w-[58%] -rotate-[3deg] drop-shadow-xl">
-              <DemoOfertaCard card={demoCards[1]} />
+          ) : ofertas.length === 0 ? (
+            <div className="rounded-xl border border-dashed border-border-strong bg-surface p-8 text-center">
+              <p className="font-display text-lg font-semibold text-text-1">
+                {filtrando ? 'Todavía nadie ofrece eso' : 'Todavía no hay ofertas publicadas'}
+              </p>
+              <p className="mx-auto mt-2 max-w-md text-text-2">
+                Si tú sabes hacerlo, puedes ser la primera persona en ofrecerlo.
+              </p>
+              <Link
+                to="/registro"
+                className="mt-5 inline-flex rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-on-accent hover:bg-accent-hover"
+              >
+                Crear cuenta y ofrecer algo
+              </Link>
             </div>
-            {/* Abajo — Idiomas */}
-            <div className="absolute bottom-0 right-0 w-[58%] rotate-[3deg] drop-shadow-xl">
-              <DemoOfertaCard card={demoCards[2]} />
-            </div>
-          </div>
-        </section>
-
-        {/* Categorías */}
-        <section className="mt-20 sm:mt-28">
-          <h2 className="font-display text-2xl font-bold text-text-1 sm:text-3xl">
-            Explora por categoría
-          </h2>
-          <p className="mt-1 text-sm text-text-2 sm:text-base">
-            Áreas de conocimiento que vecinos comparten cada semana.
-          </p>
-
-          <div className="mt-8">
-            {catsLoading ? (
-              <div className="flex gap-6 overflow-hidden">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="aspect-[4/3] w-[78vw] max-w-[22rem] flex-shrink-0 animate-pulse rounded-2xl border border-border bg-surface-2 sm:w-[20rem] md:w-[22rem]"
-                  />
+          ) : (
+            <>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {ofertas.map((oferta) => (
+                  <OfertaCardComponent key={oferta.id} oferta={oferta} categorias={categorias} href="/registro" />
                 ))}
               </div>
-            ) : (
-              <HorizontalCategories
-                categorias={(categorias ?? []).filter((c) => c.activa)}
-              />
-            )}
-          </div>
+              <p className="mt-4 text-sm text-text-2">
+                Para pedir una oferta necesitas una cuenta verificada.{' '}
+                <Link to="/registro" className="font-medium text-accent hover:underline">Crea la tuya</Link>
+                {total > ofertas.length && <> y mira las {total} ofertas.</>}
+              </p>
+            </>
+          )}
         </section>
 
-        {/* Cómo funciona */}
-        <section className="mt-20 sm:mt-28">
-          <div className="text-center">
-            <p className="font-semibold uppercase tracking-wider text-accent text-xs">
-              Cómo funciona
-            </p>
-            <h2 className="mt-2 font-display text-2xl font-bold text-text-1 sm:text-3xl lg:text-4xl">
-              Tres pasos para empezar a intercambiar
-            </h2>
-          </div>
-
-          <div className="relative mt-10 flex flex-col gap-4 md:block md:h-[120vh] md:gap-0">
-            {/* Chips flotantes con micro-datos — solo md+ */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute hidden items-center gap-2 rounded-pill border border-border bg-surface/90 px-3 py-1.5 text-xs font-semibold text-text-2 shadow-md backdrop-blur md:left-[44%] md:top-[8%] md:flex"
-            >
-              <Clock className="h-3.5 w-3.5 text-accent" />
-              60 min promedio
-            </div>
-            <div
-              aria-hidden
-              className="pointer-events-none absolute hidden items-center gap-2 rounded-pill border border-border bg-surface/90 px-3 py-1.5 text-xs font-semibold text-text-2 shadow-md backdrop-blur md:right-[34%] md:top-[36%] md:flex"
-            >
-              <Heart className="h-3.5 w-3.5 text-error" />
-              Sin pago, solo tiempo
-            </div>
-            <div
-              aria-hidden
-              className="pointer-events-none absolute hidden items-center gap-2 rounded-pill border border-border bg-surface/90 px-3 py-1.5 text-xs font-semibold text-text-2 shadow-md backdrop-blur md:left-[42%] md:top-[58%] md:flex"
-            >
-              <MapPin className="h-3.5 w-3.5 text-info" />
-              Hecho en Juárez
-            </div>
-
-            {/* Cards de pasos */}
-            {pasos.map((paso, i) => {
-              const Icon = paso.icon;
-              const positions = [
-                'md:absolute md:top-[2%] md:right-[6%]',
-                'md:absolute md:top-[38%] md:left-[6%]',
-                'md:absolute md:bottom-[3%] md:right-[10%]',
-              ];
-              return (
-                <div
-                  key={paso.titulo}
-                  ref={(el) => {
-                    pasoCardsRef.current[i] = el;
-                  }}
-                  className={`relative z-10 flex flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-md md:w-[380px] ${positions[i]}`}
-                >
-                  <div className="p-5">
-                    <div className="flex items-start justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <span className="inline-flex items-center gap-1 rounded-pill bg-surface-2 px-2.5 py-1 text-[11px] font-semibold text-text-2">
-                          <Clock className="h-3 w-3 text-accent" />
-                          {paso.tiempo}
-                        </span>
-                        <span className="font-display text-3xl font-bold text-border-strong">
-                          0{i + 1}
-                        </span>
-                      </div>
-                    </div>
-                    <h3 className="mt-4 text-lg font-bold text-text-1">{paso.titulo}</h3>
-                    <p className="mt-1.5 text-sm text-text-2">{paso.desc}</p>
-
-                    <ul className="mt-4 space-y-1.5 border-t border-border pt-3">
-                      {paso.bullets.map((b) => (
-                        <li key={b} className="flex items-start gap-2 text-xs text-text-2">
-                          <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-success" />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
+        {/* Cómo funciona: sí es una secuencia, por eso va numerada */}
+        <section className="border-y border-border bg-surface">
+          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+            <h2 className="font-display text-2xl font-bold text-text-1 sm:text-3xl">Cómo funciona</h2>
+            <ol className="mt-8 grid gap-8 md:grid-cols-3">
+              {pasos.map((paso, i) => (
+                <li key={paso.titulo} className="flex gap-4 md:flex-col md:gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-accent font-display text-lg font-bold text-accent">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-lg font-semibold text-text-1">{paso.titulo}</h3>
+                    <p className="mt-1 text-text-2">{paso.desc}</p>
                   </div>
-                </div>
-              );
-            })}
-
-            {/* Traveler (Flip target) */}
-            <div
-              ref={travelerRef}
-              aria-hidden
-              className="pointer-events-none absolute left-0 top-0 z-20 rounded-2xl opacity-0"
-              style={{
-                outline: '3px solid var(--accent)',
-                outlineOffset: '4px',
-                boxShadow: '0 16px 40px -8px rgba(83,21,90,.45)',
-              }}
-            />
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
-        {/* CTA final */}
-        <section className="mt-20 rounded-2xl p-8 text-center sm:mt-28 sm:p-12" style={{ background: 'var(--brand-gradient)' }}>
-          <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">
-            ¿Listo para empezar a intercambiar?
-          </h2>
-          <p className="mt-3 text-sm text-white/85 sm:text-base">
-            Únete a la red de vecinos que comparten su tiempo en Ciudad Juárez.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/registro"
-              className="inline-flex items-center gap-2 rounded-lg bg-lime px-5 py-3 text-sm font-bold text-lime-ink transition-opacity hover:opacity-90"
-            >
-              Crear cuenta gratis
-            </Link>
-            <Link
-              to="/login"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20"
-            >
-              Ya tengo cuenta
-            </Link>
+        {/* Ofrecer: la otra mitad del intercambio */}
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="rounded-2xl bg-night px-6 py-10 text-[#F3E9F5] sm:px-10">
+            <h2 className="max-w-2xl font-display text-2xl font-bold sm:text-3xl">
+              ¿Sabes hacer algo que a otros les sirva?
+            </h2>
+            <p className="mt-3 max-w-2xl text-[#D9C8DD]">
+              Arreglar una bicicleta, hacer pan, usar Excel, tejer. Lo que sabes vale horas aquí.
+              Publícalo y otras personas te devolverán ese tiempo con lo que ellas saben.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                to="/registro"
+                className="inline-flex rounded-lg bg-[#E7C9EB] px-5 py-3 text-sm font-semibold text-night transition-colors hover:bg-[#F1DCF3]"
+              >
+                Crear cuenta y ofrecer algo
+              </Link>
+              <Link
+                to="/login"
+                className="inline-flex rounded-lg border border-[#F3E9F5]/30 px-5 py-3 text-sm font-semibold transition-colors hover:bg-white/10"
+              >
+                Ya tengo cuenta
+              </Link>
+            </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="mt-10 border-t border-border bg-surface">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-text-3 sm:flex-row sm:px-6 lg:px-8">
+      <footer className="border-t border-border bg-surface">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-text-2 sm:flex-row sm:px-6">
           <p>© {new Date().getFullYear()} Plan Juárez · Banco de Tiempo</p>
-          <Link to="/privacidad" className="hover:text-accent">
-            Aviso de privacidad
-          </Link>
+          <Link to="/privacidad" className="hover:text-accent">Aviso de privacidad</Link>
         </div>
       </footer>
     </div>

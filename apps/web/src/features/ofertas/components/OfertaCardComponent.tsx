@@ -8,6 +8,8 @@ import { MapPin, Star } from 'lucide-react';
 interface Props {
   oferta: OfertaCard;
   categorias?: Categoria[];
+  /** Destino del enlace. Por defecto, el detalle de la oferta. */
+  href?: string;
 }
 
 const MODALIDAD: Record<string, string> = { presencial: 'Presencial', virtual: 'Virtual' };
@@ -16,7 +18,7 @@ const MODALIDAD: Record<string, string> = { presencial: 'Presencial', virtual: '
  * Boleto de tiempo: el cuerpo describe la oferta y el talón lima dice cuánto
  * tiempo cuesta. Es el único elemento de la interfaz que usa el lima de fondo.
  */
-export default function OfertaCardComponent({ oferta, categorias }: Props) {
+export default function OfertaCardComponent({ oferta, categorias, href }: Props) {
   const catConfig = getCategoryConfigById(oferta.categoria_id, categorias);
   const Icon = catConfig.icon;
   const catNombre = categorias?.find((c) => Number(c.id) === Number(oferta.categoria_id))?.nombre;
@@ -25,7 +27,7 @@ export default function OfertaCardComponent({ oferta, categorias }: Props) {
 
   return (
     <Link
-      to={`/ofertas/${oferta.id}`}
+      to={href ?? `/ofertas/${oferta.id}`}
       className="group flex overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       <div className="flex min-w-0 flex-1 flex-col p-4">

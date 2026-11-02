@@ -26,9 +26,9 @@ function getBreadcrumb(pathname: string) {
   if (pathname.startsWith('/admin/moderadores')) return { section: 'Administración', page: 'Moderadores' };
   if (pathname === '/tickets/crear') return { section: 'Soporte', page: 'Crear ticket' };
   if (pathname === '/mis-tickets') return { section: 'Soporte', page: 'Mis tickets' };
-  if (pathname === '/mis-ofertas') return { section: 'Oferente', page: 'Panel del oferente' };
-  if (pathname === '/ofertas/nueva') return { section: 'Oferente', page: 'Publicar habilidad' };
-  if (/^\/ofertas\/\d+\/editar$/.test(pathname)) return { section: 'Oferente', page: 'Editar oferta' };
+  if (pathname === '/mis-ofertas') return { section: 'Enseñar', page: 'Mis ofertas' };
+  if (pathname === '/ofertas/nueva') return { section: 'Enseñar', page: 'Nueva oferta' };
+  if (/^\/ofertas\/\d+\/editar$/.test(pathname)) return { section: 'Enseñar', page: 'Editar oferta' };
   if (/^\/ofertas\/\d+$/.test(pathname)) return { section: 'Explorar', page: 'Detalle de oferta' };
   if (/^\/vinculaciones\/\d+$/.test(pathname)) return { section: 'Vinculaciones', page: 'Detalle de vinculación' };
   if (pathname === '/vinculaciones') return { section: 'Mi actividad', page: 'Vinculaciones' };
@@ -99,11 +99,15 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
           <button
             onClick={onMenuToggle}
             className="rounded-lg p-1.5 text-text-2 hover:bg-surface-2 lg:hidden"
-            aria-label="Abrir menu"
+            aria-label="Abrir menú"
           >
             <Menu className="h-5 w-5" />
           </button>
         )}
+        <Link to="/inicio" className="flex items-center gap-2 sm:hidden" aria-label="Banco de Tiempo, ir a explorar">
+          <img src="/logo.png" alt="" className="brand-logo h-8 w-auto" />
+          <span className="font-display text-sm font-bold text-text-1">Banco de Tiempo</span>
+        </Link>
         <nav aria-label="Ubicación" className="hidden items-center gap-1.5 text-sm sm:flex">
           <span className="text-text-3">{breadcrumb.section}</span>
           <ChevronRight className="h-3.5 w-3.5 text-text-3" aria-hidden="true" />
@@ -127,7 +131,7 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
             }`}
           >
             <Search className="h-3.5 w-3.5" aria-hidden="true" />
-            Buscador
+            Aprender
           </Link>
           )}
           {isVerified && (
@@ -140,7 +144,7 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
             }`}
           >
             <Plus className="h-3.5 w-3.5" aria-hidden="true" />
-            Oferente
+            Enseñar
           </Link>
           )}
           {esAdmin && (

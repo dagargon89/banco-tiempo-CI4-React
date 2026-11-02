@@ -95,7 +95,7 @@ export default function VerificacionReviewPanel({ docs, userId, userName, userEm
 
       {/* Profile data for cross-validation */}
       <div className="mt-3 rounded-sm border border-border bg-surface-2 px-4 py-3">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-3">Datos del perfil</p>
+        <p className="mb-2 text-sm font-medium text-text-1">Datos del perfil</p>
         <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
           <div>
             <span className="text-text-3">Nacimiento: </span>

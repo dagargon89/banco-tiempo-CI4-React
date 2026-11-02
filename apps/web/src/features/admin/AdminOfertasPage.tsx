@@ -10,6 +10,7 @@ import { useCategorias } from '@/features/ofertas/hooks/useCategorias';
 import { toast, toastError } from '@/lib/toast';
 import { useUrlFilters } from '@/lib/urlFilters';
 import OfertaDetailDrawer from './components/OfertaDetailDrawer';
+import { etiqueta, ESTADO_OFERTA } from '@/lib/etiquetas';
 
 interface AdminOferta {
   id: number;
@@ -53,7 +54,7 @@ export default function AdminOfertasPage() {
       key: 'estado', header: 'Estado',
       render: (o) => (
         <div className="flex flex-wrap gap-1">
-          <Badge variant={estadoBadge(o.estado)}>{o.estado}</Badge>
+          <Badge variant={estadoBadge(o.estado)}>{etiqueta(ESTADO_OFERTA, o.estado)}</Badge>
           {Boolean((o as { pausada_por_admin?: number }).pausada_por_admin) && <Badge variant="error">Por baja</Badge>}
         </div>
       ),

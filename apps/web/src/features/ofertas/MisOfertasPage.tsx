@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { LayoutGrid, Bell, Link2, CheckCircle, Pencil, Pause, Trash2, Zap } from 'lucide-react';
+import { CheckCircle, Pencil, Pause, Trash2, Zap } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import EmptyState from '@/components/ui/EmptyState';
@@ -45,11 +45,12 @@ export default function MisOfertasPage() {
 
   const ofertasActivas = ofertas?.filter((o) => o.estado === 'activa') ?? [];
 
+  // Sin colores por cifra: el color no aporta significado aquí. Solo las
+  // solicitudes nuevas se destacan, porque piden una acción.
   const stats = [
-    { icon: LayoutGrid, label: 'Ofertas publicadas', value: ofertasActivas.length, color: 'bg-accent-soft text-accent' },
-    { icon: Bell, label: 'Solicitudes nuevas', value: solicitudes.length, color: 'bg-[var(--tint-amber)] text-[var(--tint-amber-ink)]' },
-    { icon: Link2, label: 'Vinculaciones activas', value: vinculacionesActivas.length, color: 'bg-[var(--tint-blue)] text-[var(--tint-blue-ink)]' },
-    { icon: CheckCircle, label: 'Actividades completadas', value: 0, color: 'bg-[var(--tint-emerald)] text-[var(--tint-emerald-ink)]' },
+    { label: 'Ofertas publicadas', value: ofertasActivas.length, destacar: false },
+    { label: 'Solicitudes nuevas', value: solicitudes.length, destacar: solicitudes.length > 0 },
+    { label: 'Vinculaciones activas', value: vinculacionesActivas.length, destacar: false },
   ];
 
   return (
@@ -57,30 +58,25 @@ export default function MisOfertasPage() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="font-display text-2xl font-bold text-text-1">Panel del oferente</h1>
+          <h1 className="font-display text-2xl font-bold text-text-1">Mis ofertas</h1>
           <p className="mt-1 text-sm text-text-2">
-            Hola {user?.nombre?.split(' ')[0]}, administra tus habilidades y solicitudes.
+            Hola {user?.nombre?.split(' ')[0]}. Aquí ves lo que ofreces y quién te lo pidió.
           </p>
         </div>
         <Link to="/ofertas/nueva">
-          <Button>+ Publicar habilidad</Button>
+          <Button>Nueva oferta</Button>
         </Link>
       </div>
 
       {/* Stats */}
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mt-6 grid grid-cols-3 divide-x divide-border rounded-xl border border-border bg-surface">
         {stats.map((s) => (
-          <div key={s.label} className="flex items-center gap-4 rounded-xl border border-border bg-surface p-5">
-            <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${s.color}`}>
-              <s.icon className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-text-1">{s.value}</p>
-              <p className="text-xs text-text-3">{s.label}</p>
-            </div>
+          <div key={s.label} className="px-4 py-4 sm:px-5">
+            <dt className="text-sm text-text-2">{s.label}</dt>
+            <dd className={`mt-1 font-display text-2xl font-bold ${s.destacar ? 'text-accent' : 'text-text-1'}`}>{s.value}</dd>
           </div>
         ))}
-      </div>
+      </dl>
 
       {/* Acciones pendientes — bloque urgente */}
       {solicitudes.length > 0 && (
@@ -187,6 +183,7 @@ export default function MisOfertasPage() {
             <EmptyState
               title="No tienes habilidades publicadas"
               subtitle="Publica tu primera oferta para empezar a intercambiar tiempo."
+              action={{ label: 'Publicar una oferta', to: '/ofertas/nueva' }}
             />
           </div>
         ) : (

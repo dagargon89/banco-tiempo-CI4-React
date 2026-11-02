@@ -64,10 +64,10 @@ function getContext(pathname: string, isVerified: boolean): Context {
 }
 
 const contextLabels: Record<Context, string> = {
-  buscador: 'BUSCADOR',
-  oferente: 'OFERENTE',
-  admin: 'ADMINISTRADOR',
-  pendiente: 'VERIFICACIÓN PENDIENTE',
+  buscador: 'Aprender',
+  oferente: 'Enseñar',
+  admin: 'Administración',
+  pendiente: 'Verificación pendiente',
 };
 
 const linkBase = 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40';
@@ -100,7 +100,7 @@ export default function Sidebar() {
       </div>
 
       {/* Section label */}
-      <p className="px-5 pb-2 pt-6 text-[10px] font-semibold uppercase tracking-widest text-text-3" aria-hidden="true">
+      <p className="px-5 pb-2 pt-6 text-xs font-medium text-text-2" aria-hidden="true">
         {contextLabels[context]}
       </p>
 

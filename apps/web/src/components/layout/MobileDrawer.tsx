@@ -79,13 +79,13 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
 
   const sections = isVerified
     ? [
-        { label: 'BUSCADOR', items: buscadorNav },
-        { label: 'OFERENTE', items: oferenteNav },
-        ...(isAdmin ? [{ label: 'ADMINISTRADOR', items: filterByRoles(adminNavAll, userRoles) }] : []),
+        { label: 'Aprender', items: buscadorNav },
+        { label: 'Enseñar', items: oferenteNav },
+        ...(isAdmin ? [{ label: 'Administración', items: filterByRoles(adminNavAll, userRoles) }] : []),
       ]
     : [
-        { label: 'VERIFICACIÓN PENDIENTE', items: pendienteNav },
-        ...(isAdmin ? [{ label: 'ADMINISTRADOR', items: filterByRoles(adminNavAll, userRoles) }] : []),
+        { label: 'Verificación pendiente', items: pendienteNav },
+        ...(isAdmin ? [{ label: 'Administración', items: filterByRoles(adminNavAll, userRoles) }] : []),
       ];
 
   return (
@@ -100,7 +100,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
       {/* Drawer */}
       <aside
         className={`fixed left-0 top-0 z-50 flex h-full w-72 flex-col bg-surface shadow-lg transition-transform duration-200 ${open ? 'translate-x-0' : '-translate-x-full'}`}
-        aria-label="Navegacion movil"
+        aria-label="Navegación móvil"
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
@@ -111,7 +111,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
               <p className="text-[10px] text-text-3">Plan Juarez</p>
             </div>
           </div>
-          <button onClick={onClose} className="rounded-lg p-1.5 text-text-3 hover:bg-surface-2 hover:text-text-1" aria-label="Cerrar menu">
+          <button onClick={onClose} className="rounded-lg p-1.5 text-text-3 hover:bg-surface-2 hover:text-text-1" aria-label="Cerrar menú">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -120,7 +120,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
         <nav className="flex-1 overflow-y-auto px-3 py-4">
           {sections.map(({ label, items }) => (
             <div key={label} className="mb-4">
-              <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-widest text-text-3">{label}</p>
+              <p className="mb-2 px-3 text-xs font-medium text-text-2">{label}</p>
               <div className="flex flex-col gap-0.5">
                 {items.map(({ to, label: itemLabel, icon: Icon, end }) => (
                   <NavLink

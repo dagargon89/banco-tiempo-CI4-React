@@ -222,7 +222,7 @@ export default function UsuarioDetailDrawer({ userId, open, onClose }: Props) {
 
               {esSuperAdmin && !enBaja && user.estado_cuenta === 'activa' && (
                 <div className="rounded-lg border border-border bg-surface-2 p-3">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-text-3">Gestionar roles</p>
+                  <p className="mb-2 text-sm font-medium text-text-1">Gestionar roles</p>
                   <ul className="divide-y divide-border">
                     {ROLES_DISPONIBLES.map(({ value, label, descripcion }) => {
                       const tiene = userRoles.includes(value);

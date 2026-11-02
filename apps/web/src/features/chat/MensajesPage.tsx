@@ -46,6 +46,7 @@ export default function MensajesPage() {
           icon={<MessageCircle className="h-10 w-10" />}
           title="Sin conversaciones"
           subtitle="Las conversaciones aparecen cuando una vinculación es aceptada"
+          action={{ label: 'Explorar ofertas', to: '/inicio' }}
         />
       ) : (
         <div className="space-y-3">

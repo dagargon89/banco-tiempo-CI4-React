@@ -4,11 +4,13 @@
 | Campo | Valor |
 |---|---|
 | Documento | 08 — Identidad Visual y Sistema de Diseño |
-| Versión | 3.0 (marca Participa Juárez: morado + lima) |
-| Fecha | 3 de junio de 2026 |
+| Versión | 3.1 (el tiempo como moneda: boleto de tiempo) |
+| Fecha | 2 de noviembre de 2026 (v3.0: 3 de junio de 2026) |
 | Origen | Logo "Participa Juárez" + prototipo aprobado `banco-de-tiempo-demo.single.html` |
 | Dirección | SaaS moderno, limpio y profesional, con la identidad de Participa Juárez |
 | Depende de | 01 — SRS |
+
+> **v3.1 — El tiempo como moneda.** El lima deja de ser un realce genérico y pasa a significar **tiempo**: solo lo llevan las horas, las sesiones y el saldo. La tarjeta de oferta se convierte en un **boleto de tiempo** con talón lima. El fondo pasa a papel lavanda, la tipografía a Atkinson Hyperlegible Next con Bricolage Grotesque, la escala de radios se corrige y las categorías usan una familia propia de tonos apagados. La fuente de verdad de los valores es `apps/web/src/styles/tokens.css`; donde este documento y ese archivo difieran, manda el archivo.
 
 > **v3.0 — Cambio de identidad.** La paleta de marca pasa a la de **Participa Juárez**: **morado `#53155a`** y **verde lima `#dbec57`** como colores primordiales. Los acentos, semánticos, categorías y avatares del prototipo (que eran esmeralda + índigo) se **rearmonizan** alrededor de estos dos colores manteniendo la estructura, las formas y las microinteracciones del prototipo aprobado. Toda combinación de color de este documento fue **verificada contra WCAG 2.1 AA** (ver §10).
 
@@ -44,14 +46,14 @@ Se conservan los neutros fríos del prototipo, con un matiz cálido-morado muy s
 
 | Token | Hex | Uso |
 |---|---|---|
-| `--bg` | `#F8FAFC` | Fondo general de la app |
+| `--bg` | `#F6F2F7` | Fondo general de la app: papel lavanda (v3.1; antes `#F8FAFC`) |
 | `--surface` | `#FFFFFF` | Tarjetas, paneles, modales |
 | `--surface-2` | `#F4F1F6` | Superficie secundaria, fondos sutiles, hover de filas (tinte morado muy leve) |
 | `--border` | `#E6E1EA` | Bordes de tarjetas, inputs, divisores (neutro con matiz morado) |
 | `--border-strong` | `#CBC2D1` | Bordes en foco/hover, separadores marcados |
 | `--text-1` | `#1E1421` | Texto principal y títulos (casi negro con base morada) |
 | `--text-2` | `#6B5B6E` | Texto secundario, descripciones, metadatos |
-| `--text-3` | `#9A8FA0` | Texto terciario, placeholders, deshabilitado |
+| `--text-3` | `#736579` | Texto terciario, placeholders (v3.1: ≥ 4.5:1 sobre `--bg`) |
 
 ### 2.2 Color de marca / acento
 
@@ -79,6 +81,8 @@ Mantienen su significado universal (verde = éxito, ámbar = advertencia, rojo =
 | `--info` | `#0E7490` | `#E0F2FE` | Informativo, neutral-activo |
 
 ### 2.4 Regla de oro del lima
+
+**v3.1:** el lima significa **tiempo**. Lo llevan el talón del boleto, el total de horas en el detalle de oferta y el resumen de duración al publicar. No se usa en botones, píldoras decorativas ni encabezados. Las reglas de contraste siguientes siguen vigentes.
 
 El lima `#dbec57` es un color **claro de alto brillo**: el texto blanco sobre él es ilegible (contraste 1.3, falla AA). Por tanto:
 
@@ -163,8 +167,8 @@ Estrella activa **lima `#dbec57`** sobre superficies oscuras, o **ámbar `#D9A30
 
 | Rol | Familia | Notas |
 |---|---|---|
-| UI y texto | **Inter** | Familia principal de toda la interfaz. `'Inter', system-ui, -apple-system, sans-serif` |
-| Display / acento | **Sora** | Para títulos grandes y piezas de marca puntuales (uso moderado) |
+| UI y texto | **Atkinson Hyperlegible Next** | Diseñada para baja visión; pensada para un público diverso que incluye adultos mayores (v3.1; antes Inter) |
+| Display / acento | **Bricolage Grotesque** | Títulos y cifras. Su textura de hecho a mano conecta con lo comunitario (v3.1; antes Sora) |
 | Mono | `ui-monospace` | Folios, código, datos técnicos |
 
 ### 3.1 Escala tipográfica
@@ -181,7 +185,7 @@ Estrella activa **lima `#dbec57`** sobre superficies oscuras, o **ámbar `#D9A30
 
 **Pesos disponibles:** 400, 500, 600, 700, 800. El 800 se reserva para display y números destacados de métricas.
 
-**Reglas:** títulos en `--text-1`; cuerpo secundario en `--text-2`; interlineado cómodo (1.4–1.6 en cuerpo); evitar mayúsculas sostenidas salvo en etiquetas pequeñas (`letter-spacing` ligero).
+**Reglas:** títulos en `--text-1`; cuerpo secundario en `--text-2`; interlineado cómodo (1.4–1.6 en cuerpo); no usar mayúsculas sostenidas: las etiquetas van en tipo oración (v3.1). No resaltar una sola palabra del titular con otro color.
 
 ---
 
@@ -191,8 +195,12 @@ Estrella activa **lima `#dbec57`** sobre superficies oscuras, o **ámbar `#D9A30
 
 | Elemento | Radio |
 |---|---|
-| Inputs, botones, chips pequeños | 6–8px |
-| Tarjetas, paneles, modales | 12–14px |
+| Chips e inputs pequeños (`rounded-sm`/`rounded-md`) | 6–8px |
+| Botones (`rounded-lg`) | 10px |
+| Tarjetas, paneles, modales (`rounded-xl`) | 14px |
+| Bloques grandes (`rounded-2xl`) | 20px |
+
+El radio crece con el tamaño del elemento. En v3.0 `rounded-lg` (14px) superaba a `rounded-xl` (12px) y las tarjetas grandes quedaban menos redondeadas que las pequeñas.
 | Píldoras / badges de estado | 999px |
 | Avatares | círculo (`border-radius: 50%`) |
 
@@ -225,14 +233,16 @@ Borde estándar `1px solid var(--border)`. En foco de inputs: borde `--accent` +
 | Primario | `--accent` (`#53155a`) → hover `--accent-hover` | blanco | CTA principal ("Me interesa", "Aceptar", "Quiero aprender") |
 | Secundario | `--surface`, borde `--border` | `--text-1` | Acciones alternas ("Quiero enseñar") |
 | Sutil / fantasma | transparente, hover `--surface-2` | `--text-2` | Acciones terciarias, iconográficas |
-| Realce (lima) | `--lime` (`#dbec57`) | `--lime-ink` (`#3A0F40`) | Acción puntual de máxima atención; **texto morado oscuro, jamás blanco**. Uso escaso |
-| Peligro | `--error` | blanco | Rechazar, eliminar |
+| Peligro | `--error` | blanco | Confirmaciones destructivas en diálogos |
+| Peligro discreto | transparente, hover `--error` al 10% | `--error` | Acciones destructivas que se repiten por fila (tablas del admin) |
 
-Altura ~40px, padding horizontal 16px, radio 8px, peso 600, transición 150ms.
+Altura ~40px (grande ~52px), padding horizontal 16px, radio 10px, peso 600, transición 150ms, foco con contorno de 2px. **v3.1:** ya no existe botón lima; el lima es solo para tiempo.
 
-### 5.2 Tarjeta de oferta
+### 5.2 Tarjeta de oferta: boleto de tiempo (v3.1)
 
-Contenedor `--surface`, radio 12–14px, `--shadow-sm`, hover eleva a `--shadow-md` con leve `translateY(-2px)`. Composición: avatar del oferente (círculo con color estable de `AV_COLORS`), nombre + calificación, chip de categoría con su color, título (H3), descripción breve (`--text-2`, máx. ~150 car.), fila de metadatos con badges de modalidad, zona y capacidad.
+La tarjeta tiene dos partes. El **cuerpo**, sobre `--surface`, muestra el ícono y nombre de la categoría con su modalidad, el título en Bricolage, la descripción breve, el oferente y la zona. El **talón**, de 96px de ancho y fondo lima, muestra las horas totales en grande ("4 h", "2¼ h") y el desglose ("4 sesiones de 1 h"); se separa con una línea punteada y dos muescas. Sin duración registrada, el talón dice "Tiempo por acordar". La duración sale de `duracion_sesion_min` y `num_sesiones`, ambos opcionales.
+
+**Versión anterior (v3.0):** contenedor `--surface`, radio 12–14px, `--shadow-sm`, hover eleva a `--shadow-md` con leve `translateY(-2px)`. Composición: avatar del oferente (círculo con color estable de `AV_COLORS`), nombre + calificación, chip de categoría con su color, título (H3), descripción breve (`--text-2`, máx. ~150 car.), fila de metadatos con badges de modalidad, zona y capacidad.
 
 ### 5.3 Badge / chip de estado
 

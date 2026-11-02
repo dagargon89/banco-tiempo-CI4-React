@@ -7,6 +7,7 @@ import TicketEstadoBadge from './TicketEstadoBadge';
 import { useTicketDetalleAdmin } from '../hooks/useTicketDetalleAdmin';
 import { useCambiarEstadoTicket } from '../hooks/useAdminTickets';
 import { toast, toastError } from '@/lib/toast';
+import { etiqueta, TIPO_TICKET } from '@/lib/etiquetas';
 
 interface Props {
   ticketId: number | null;
@@ -77,7 +78,7 @@ export default function TicketDetailDrawer({ ticketId, open, onClose }: Props) {
         <div className="space-y-4">
           <div className="flex flex-wrap gap-1.5">
             <TicketEstadoBadge estado={ticket.estado as 'abierto' | 'en_proceso' | 'resuelto' | 'cerrado'} />
-            <Badge variant={ticket.tipo === 'reporte' ? 'error' : 'info'}>{ticket.tipo}</Badge>
+            <Badge variant={ticket.tipo === 'reporte' ? 'error' : 'info'}>{etiqueta(TIPO_TICKET, ticket.tipo)}</Badge>
           </div>
 
           <div>

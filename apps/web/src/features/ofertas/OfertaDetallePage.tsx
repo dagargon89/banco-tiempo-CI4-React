@@ -237,8 +237,7 @@ export default function OfertaDetallePage() {
               )}
               {oferta.estado !== 'eliminada' && (
                 <Button
-                  variant="subtle"
-                  className="text-error"
+                  variant="danger-subtle"
                   onClick={() => handleCambiarEstado('eliminada')}
                   disabled={cambiarEstado.isPending}
                 >

@@ -257,7 +257,7 @@ export default function ProfileEditPage() {
           {/* Grupo A — matchmaking */}
           <Section title="Tu intercambio" subtitle="Ayuda a otras personas a encontrarte.">
             <FullRow>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Modalidades preferidas</label>
+              <label className="mb-1.5 block text-sm font-medium text-text-1">Modalidades preferidas</label>
               <div className="flex flex-wrap gap-2">
                 {MODALIDADES.map(({ value, label }) => (
                   <Chip key={value} value={value} active={(form.modalidades_preferidas ?? []).includes(value)} onClick={() => set('modalidades_preferidas', toggleInArray(form.modalidades_preferidas, value))}>
@@ -268,12 +268,12 @@ export default function ProfileEditPage() {
             </FullRow>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Habilidades que enseño</label>
+              <label className="mb-1.5 block text-sm font-medium text-text-1">Habilidades que enseño</label>
               <TagInput tags={form.habilidades_enseno ?? []} onChange={(t) => set('habilidades_enseno', t)} placeholder='Ej: "guitarra acústica"' />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Lo que quiero aprender</label>
+              <label className="mb-1.5 block text-sm font-medium text-text-1">Lo que quiero aprender</label>
               <TagInput tags={form.quiere_aprender ?? []} onChange={(t) => set('quiere_aprender', t)} placeholder='Ej: "francés básico"' />
             </div>
           </Section>
@@ -281,7 +281,7 @@ export default function ProfileEditPage() {
           {/* Grupo B — disponibilidad */}
           <Section title="Disponibilidad" subtitle="Solo a nivel general, nunca tu agenda.">
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Franjas horarias</label>
+              <label className="mb-1.5 block text-sm font-medium text-text-1">Franjas horarias</label>
               <div className="flex flex-wrap gap-2">
                 {FRANJAS.map(({ value, label }) => (
                   <Chip key={value} value={value} active={(form.franjas_horarias ?? []).includes(value)} onClick={() => set('franjas_horarias', toggleInArray(form.franjas_horarias, value))}>
@@ -307,7 +307,7 @@ export default function ProfileEditPage() {
             </div>
 
             <FullRow>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Días disponibles</label>
+              <label className="mb-1.5 block text-sm font-medium text-text-1">Días disponibles</label>
               <div className="flex flex-wrap gap-1.5">
                 {DIAS.map(({ value, label }) => {
                   const active = (form.dias_disponibles ?? []).includes(value);
@@ -349,12 +349,12 @@ export default function ProfileEditPage() {
             </div>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Idiomas que hablo</label>
+              <label className="mb-1.5 block text-sm font-medium text-text-1">Idiomas que hablo</label>
               <TagInput tags={form.idiomas ?? []} onChange={(t) => set('idiomas', t)} suggestions={IDIOMAS_SUGERIDOS} placeholder="Añade un idioma" />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-text-3">Causas que me importan</label>
+              <label className="mb-1.5 block text-sm font-medium text-text-1">Causas que me importan</label>
               <TagInput tags={form.causas ?? []} onChange={(t) => set('causas', t)} suggestions={CAUSAS_SUGERIDAS} placeholder="Añade una causa" />
             </div>
           </Section>

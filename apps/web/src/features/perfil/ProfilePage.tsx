@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import {
-  MapPin, Calendar, User2, Pencil, LayoutGrid, Star, Clock, Phone,
+  MapPin, Calendar, User2, Pencil, Star, Clock, Phone,
   GraduationCap, BookOpen, Video, Heart, Languages, Briefcase, Home, MessageSquare,
 } from 'lucide-react';
 import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
-import StatCard from '@/components/ui/StatCard';
 import EmptyState from '@/components/ui/EmptyState';
 import Button from '@/components/ui/Button';
 import { ProfileHeaderSkeleton } from '@/components/ui/Skeleton';
@@ -21,6 +20,7 @@ import { getCategoryConfigById } from '@/lib/categoryConfig';
 import type {
   AniosEnJuarez, ContactoPreferido, DiaSemana, FranjaHoraria, Frecuencia, ModalidadPreferida,
 } from '@/lib/types';
+import { etiqueta, MODALIDAD } from '@/lib/etiquetas';
 
 const LABEL_MODALIDAD: Record<ModalidadPreferida, string> = {
   presencial: 'Presencial', virtual: 'Virtual', hibrido: 'Híbrido',
@@ -142,6 +142,14 @@ export default function ProfilePage() {
   const idiomas = user.idiomas ?? [];
   const causas = user.causas ?? [];
 
+  const cifras = [
+    ...(resenasStats?.promedio ? [{ label: 'Calificación', value: calificacionPromedio }] : []),
+    ...(completadas.length > 0 ? [{ label: 'Actividades', value: String(completadas.length) }] : []),
+    ...(totalResenas > 0 ? [{ label: 'Reseñas', value: String(totalResenas) }] : []),
+    ...(ofertasActivas.length > 0 ? [{ label: 'Ofertas publicadas', value: String(ofertasActivas.length) }] : []),
+  ];
+  const tieneCifras = cifras.length > 0;
+
   const tieneIntercambio = habilidadesEnseno.length > 0 || quiereAprender.length > 0 || modalidades.length > 0;
   const tieneDisponibilidad = franjas.length > 0 || (user.dias_disponibles && user.dias_disponibles.length > 0) || !!user.frecuencia;
   const tieneSobreTi = idiomas.length > 0 || causas.length > 0 || !!user.anios_en_juarez || !!user.ocupacion_general || !!user.pronombres;
@@ -149,16 +157,14 @@ export default function ProfilePage() {
   return (
     <>
       {/* Profile Header Card */}
-      <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
-        <div className="h-32" style={{ background: 'var(--brand-gradient)' }} />
-
-        <div className="relative px-6 pb-6">
-          <div className="-mt-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div className="flex items-end gap-4">
+      <div className="rounded-xl border border-border bg-surface">
+        <div className="px-6 py-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex items-center gap-4">
               <Avatar src={user.foto_perfil} nombre={user.nombre} size="xl" />
               <div className="mb-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-xl font-bold text-text-1">{user.nombre}</h1>
+                  <h1 className="font-display text-2xl font-bold text-text-1">{user.nombre}</h1>
                   {user.pronombres && (
                     <span className="rounded-pill bg-surface-2 px-2 py-0.5 text-[11px] font-medium text-text-2">
                       {user.pronombres}
@@ -214,12 +220,20 @@ export default function ProfilePage() {
 
           {user.bio && <p className="mt-4 text-sm text-text-2">{user.bio}</p>}
 
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <StatCard label="Calificación" value={calificacionPromedio} accent />
-            <StatCard label="Actividades" value={completadas.length} />
-            <StatCard label="Reseñas" value={totalResenas} />
-            <StatCard label="Ofertas" value={ofertasActivas.length} />
-          </div>
+          {tieneCifras ? (
+            <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-4">
+              {cifras.map((c) => (
+                <div key={c.label}>
+                  <dt className="text-sm text-text-2">{c.label}</dt>
+                  <dd className="font-display text-2xl font-bold text-text-1">{c.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : (
+            <p className="mt-6 border-t border-border pt-4 text-sm text-text-2">
+              Cuando completes tu primer intercambio, aquí verás tus actividades, reseñas y calificación.
+            </p>
+          )}
         </div>
       </div>
 
@@ -255,19 +269,19 @@ export default function ProfilePage() {
               <div className="space-y-3">
                 {franjas.length > 0 && (
                   <div>
-                    <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-text-3">Franjas</p>
+                    <p className="mb-1.5 text-sm font-medium text-text-2">Franjas</p>
                     <ChipList items={franjas} tone="neutral" />
                   </div>
                 )}
                 {user.dias_disponibles && user.dias_disponibles.length > 0 && (
                   <div>
-                    <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-text-3">Días</p>
+                    <p className="mb-1.5 text-sm font-medium text-text-2">Días</p>
                     <DayPills dias={user.dias_disponibles} />
                   </div>
                 )}
                 {user.frecuencia && (
                   <div>
-                    <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-text-3">Frecuencia</p>
+                    <p className="mb-1.5 text-sm font-medium text-text-2">Frecuencia</p>
                     <p className="text-sm font-medium text-text-1">{LABEL_FRECUENCIA[user.frecuencia]}</p>
                   </div>
                 )}
@@ -279,7 +293,7 @@ export default function ProfilePage() {
               <div className="space-y-3">
                 {idiomas.length > 0 && (
                   <div>
-                    <p className="mb-1.5 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-text-3">
+                    <p className="mb-1.5 flex items-center gap-1 text-sm font-medium text-text-2">
                       <Languages className="h-3 w-3" /> Idiomas
                     </p>
                     <ChipList items={idiomas} tone="neutral" />
@@ -287,7 +301,7 @@ export default function ProfilePage() {
                 )}
                 {causas.length > 0 && (
                   <div>
-                    <p className="mb-1.5 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-text-3">
+                    <p className="mb-1.5 flex items-center gap-1 text-sm font-medium text-text-2">
                       <Heart className="h-3 w-3" /> Causas que me importan
                     </p>
                     <ChipList items={causas} tone="info" />
@@ -302,20 +316,13 @@ export default function ProfilePage() {
       <div className="mt-6 grid gap-6 lg:grid-cols-5">
         <div className="space-y-6 lg:col-span-2">
           <div>
-            <h3 className="mb-3 text-sm font-semibold text-text-1">Insignias</h3>
-            <EmptyState
-              icon={<LayoutGrid className="h-8 w-8" />}
-              title="Sin insignias aún"
-              subtitle="Participa en la comunidad para ganar insignias"
-            />
-          </div>
-          <div>
-            <h3 className="mb-3 text-sm font-semibold text-text-1">Ofertas activas</h3>
+            <h2 className="mb-3 font-display text-lg font-semibold text-text-1">Ofertas activas</h2>
             {ofertasActivas.length === 0 ? (
               <EmptyState
                 icon={<Star className="h-8 w-8" />}
-                title="Sin ofertas publicadas"
-                subtitle="Crea una oferta para que la comunidad la vea"
+                title="Todavía no ofreces nada"
+                subtitle="Publica algo que sepas hacer. Cada hora que enseñes la puedes usar para aprender."
+                action={{ label: 'Publicar una oferta', to: '/ofertas/nueva' }}
               />
             ) : (
               <div className="space-y-2">
@@ -333,9 +340,9 @@ export default function ProfilePage() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-medium text-text-1">{oferta.titulo}</p>
-                        <p className="text-xs text-text-3">{oferta.modalidad}</p>
+                        <p className="text-xs text-text-2">{etiqueta(MODALIDAD, oferta.modalidad)}</p>
                       </div>
-                      <Badge variant="success">Activa</Badge>
+                      <Badge variant="success">Publicada</Badge>
                     </Link>
                   );
                 })}
@@ -345,15 +352,16 @@ export default function ProfilePage() {
         </div>
         <div className="space-y-6 lg:col-span-3">
           <div>
-            <h3 className="mb-3 text-sm font-semibold text-text-1">Historial de actividades</h3>
+            <h2 className="mb-3 font-display text-lg font-semibold text-text-1">Historial de actividades</h2>
             <EmptyState
               icon={<Clock className="h-8 w-8" />}
-              title="Sin actividad reciente"
-              subtitle="Tu historial aparecerá aquí cuando participes"
+              title="Aún no tienes intercambios"
+              subtitle="Busca algo que quieras aprender y marca «Me interesa»."
+              action={{ label: 'Explorar ofertas', to: '/inicio' }}
             />
           </div>
           <div>
-            <h3 className="mb-3 text-sm font-semibold text-text-1">Reseñas recibidas</h3>
+            <h2 className="mb-3 font-display text-lg font-semibold text-text-1">Reseñas recibidas</h2>
             {user && <ResenasList userId={user.id} />}
           </div>
         </div>
